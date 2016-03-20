@@ -17,6 +17,7 @@
           <element id="library" level="project" name="com.google.appengine:appengine-api-1.0-sdk:1.9.34" />
           <element id="library" level="project" name="jstl:jstl:1.2" />
           <element id="library" level="project" name="ant:ant-apache-log4j:1.6.5" />
+          <element id="library" level="project" name="com.googlecode.objectify:objectify:5.1.9" />
         </element>
       </element>
     </root>

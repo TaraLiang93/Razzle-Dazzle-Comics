@@ -6,7 +6,7 @@ Razzle Dazzle Comics
 ## Contributors ##
   * Tara Liang
   * Daniel Rodrigues
-  * Jason Fontaine
+  * Jason FontaineK
   * James Huang
   
   

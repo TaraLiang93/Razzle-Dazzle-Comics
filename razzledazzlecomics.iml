@@ -47,5 +47,6 @@
     <orderEntry type="library" name="com.google.appengine:appengine-api-1.0-sdk:1.9.34" level="project" />
     <orderEntry type="library" name="jstl:jstl:1.2" level="project" />
     <orderEntry type="library" name="ant:ant-apache-log4j:1.6.5" level="project" />
+    <orderEntry type="library" name="com.googlecode.objectify:objectify:5.1.9" level="project" />
   </component>
 </module>
