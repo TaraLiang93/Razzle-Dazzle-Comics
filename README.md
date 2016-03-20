@@ -8,3 +8,6 @@ Razzle Dazzle Comics
   * Daniel Rodrigues
   * Jason Fontaine
   * James Huang
+  
+  
+  Check us out [here](http://razzledazzlecomics.appspot.com/) to start your collaborative experience today
