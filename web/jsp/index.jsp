@@ -11,6 +11,7 @@
     <title>$Title$</title>
   </head>
   <body>
-  <a href="/test">Click me</a>
+  <p>Index.JSP</p>
+  <a href="/">Click me</a>
   </body>
 </html>
