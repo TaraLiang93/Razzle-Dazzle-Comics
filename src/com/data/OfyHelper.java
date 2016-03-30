@@ -18,10 +18,10 @@ import javax.servlet.ServletContextListener;
  **/
 public class OfyHelper implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
-        // This will be invoked as part of a warmup request, or the first user request if no warmup
+        // This will be invoked as part of a warmup request, or the first User request if no warmup
         // request.
         //
-        ObjectifyService.register(user.class);
+        ObjectifyService.register(UserData.class);
     }
 
     public void contextDestroyed(ServletContextEvent event) {
