@@ -9,6 +9,10 @@
 <html>
 <head>
     <title>Title</title>
+    <jsp:include page="navbar.jsp">
+        <jsp:param name="title" value="Testing"/>
+        <jsp:param name="css" value="/StyleSheet/navbar.css"/>
+    </jsp:include>
 </head>
 <body>
     Hello World!
