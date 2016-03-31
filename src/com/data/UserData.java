@@ -10,14 +10,14 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 @Entity
-public class user implements java.io.Serializable {
+public class UserData implements java.io.Serializable {
 
     @Id
     String email;
     @Index
     int score;
 
-    public user() {
+    public UserData() {
     }
 
     public int getScore() {

@@ -1,6 +1,6 @@
 package com.rdc;
 
-import com.data.user;
+import com.data.UserData;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -32,22 +32,22 @@ public class Test {
 
        // if (currentUser != null) {
          //   String userName = currentUser.getEmail();
-            Result<user> user = ofy().load().key(Key.create(user.class, "hello")); //query to make check if the user is in the db or not
+            Result<UserData> user = ofy().load().key(Key.create(UserData.class, "hello")); //query to make check if the User is in the db or not
 
             if (user.now() == null) {// if not in the db then create it
-                user newUser = new user();//create a new user to with its email and score set to 0 to be save to db later
-                newUser.setEmail("hello");
-                newUser.setScore(0);
-                ofy().save().entity(newUser).now();//save the new user in db
+                UserData newUserData = new UserData();//create a new User to with its email and score set to 0 to be save to db later
+                newUserData.setEmail("hello");
+                newUserData.setScore(0);
+                ofy().save().entity(newUserData).now();//save the new User in db
             }
 
-            //increase the user's score by one
-            Result<user> player = ofy().load().key(Key.create(user.class, "hello"));
-            user userInDB = player.now();
-            userInDB.setScore(userInDB.getScore() + 1);
-            ofy().save().entity(userInDB).now();
+            //increase the User's score by one
+            Result<UserData> player = ofy().load().key(Key.create(UserData.class, "hello"));
+            UserData userDataInDB = player.now();
+            userDataInDB.setScore(userDataInDB.getScore() + 1);
+            ofy().save().entity(userDataInDB).now();
 
-            System.out.println(userInDB.getEmail() + " score: " + userInDB.getScore());
+            System.out.println(userDataInDB.getEmail() + " score: " + userDataInDB.getScore());
         //}
 
         return new ModelAndView("test");
