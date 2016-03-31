@@ -1,4 +1,4 @@
-package com.rdc.write;
+package com.rdc.create;
 
 import org.springframework.stereotype.Controller;
 

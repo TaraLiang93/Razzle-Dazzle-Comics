@@ -41,13 +41,14 @@ public class Test {
                 ofy().save().entity(newUserData).now();//save the new User in db
             }
 
-            //increase the User's score by one
+            /*increase the User's score by one
             Result<UserData> player = ofy().load().key(Key.create(UserData.class, "hello"));
             UserData userDataInDB = player.now();
             userDataInDB.setScore(userDataInDB.getScore() + 1);
             ofy().save().entity(userDataInDB).now();
 
             System.out.println(userDataInDB.getEmail() + " score: " + userDataInDB.getScore());
+            */
         //}
 
         return new ModelAndView("test");
