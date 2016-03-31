@@ -21,6 +21,9 @@
     <canvas id="canvas" style="border-style: solid"></canvas>
     <button id="Clear">Clear</button>
     <button id="Draw">Draw</button>
+    <button id="Select">Select</button>
+    <input id="Drawing-color" type="color" oninput="changeColor()">
+    <input id="Drawing-line-width" type="number">
 
     Hello World!
     <a href="/">Click me</a>
