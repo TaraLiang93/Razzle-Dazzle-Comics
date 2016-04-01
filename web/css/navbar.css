@@ -12,11 +12,14 @@
 }
 
 .subheader{
-    
+    text-align: start;
 }
 
+.sublinks{
+    padding-right: 3%;
+}
 
-header *{
+.navbar *{
     color:white;
 }
 

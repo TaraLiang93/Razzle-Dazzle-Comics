@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>${param.title}</title>
@@ -54,7 +55,17 @@
                         <a id="signin" class="accountSettings" href src = "#">Sign In</a>
                     </div>
                 </div>
-
             </nav>
         </div>
+        <c:choose>
+            <c:when test="${status == 'read'}">
+                <c:out value="Hello World!"/>
+            </c:when>
+            <c:when test="${status == 'write'}">
+                <jsp:include page="writeNavbar.jsp"/>
+            </c:when>
+            <c:otherwise>
+                <jsp:include page="readNavbar.jsp"/>
+            </c:otherwise>
+        </c:choose>
     </header>
