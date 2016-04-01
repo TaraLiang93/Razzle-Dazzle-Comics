@@ -42,23 +42,23 @@
 <body>
 
     <header>
-        <div class = "container-fluid">
-            <nav class = "header">
+        <div class = "container-fluid header">
+            <nav class = "navbar">
                 <div >
-                    <div class="pull-left">
+                    <div class="pull-left side">
                         <a href src = "#"><img src= "logo.jpg" height = '50'></a>
                         <a href src = "#">READ COMIC</a>
                         <a href src = "#">CREATE COMIC</a>
                     </div>
-                    <div class="pull-right">
-                        <a id="signin" href src = "#">Sign In</a>
+                    <div class="pull-right navright side">
+                        <a id="signin" class="accountSettings" href src = "#">Sign In</a>
                     </div>
                 </div>
 
             </nav>
         </div>
-        <div class = "container-fluid">
-            <nav class = "read">
+        <div class = "container-fluid subheader">
+            <nav class = "subnav">
                 <div class = "col-xs-2"></div>
                 <div class="col-xs-8">
                     <a href src = "#">Read Comics</a>
