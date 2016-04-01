@@ -32,7 +32,7 @@
                 I'm thinking of putting a jsp include here to grab the scene and might make a jsp include for the page
             </div>
             <div role="tabpanel" class="tab-pane" id="Scene2">
-                Hard Coded
+                added stuff
             </div>
             <div role="tabpanel" class="tab-pane" id="Scene3">
                 all we do is work work work work work
