@@ -1,7 +1,37 @@
 body *{
-    border: 1px solid rebeccapurple;
+    /*border: 1px solid rebeccapurple;*/
 }
 
 .tab-content .tab-pane {
     height: 300px;
+}
+
+.tabDivider {
+    *zoom: 1;
+}
+
+.nav-tabs {
+    float: left;
+}
+
+.nav-tabs li {
+    /*display: block;*/
+    float: none;  
+    border-radius: 6px;
+}
+
+.tab-content {
+    overflow: hidden;
+}
+
+.writeTabs
+{
+    width: 100%;
+    border:1px solid palevioletred;
+    overflow: hidden;
+}
+
+#addScene {
+    text-align: center;
+    font-size: 20px;
 }
