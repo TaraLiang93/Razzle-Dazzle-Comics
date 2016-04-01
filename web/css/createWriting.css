@@ -1,0 +1,7 @@
+body *{
+    border: 1px solid rebeccapurple;
+}
+
+.tab-content .tab-pane {
+    height: 300px;
+}

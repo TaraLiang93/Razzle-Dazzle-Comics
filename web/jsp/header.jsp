@@ -46,7 +46,7 @@
             <nav class = "navbar">
                 <div >
                     <div class="pull-left side">
-                        <a href src = "#"><img src= "logo.jpg" height = '50'></a>
+                        <a href src = "#"><img src= "/logo.jpg" height = '50'></a>
                         <a href src = "#">READ COMIC</a>
                         <a href src = "#">CREATE COMIC</a>
                     </div>
