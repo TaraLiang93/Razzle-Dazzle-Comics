@@ -6,10 +6,6 @@ body *{
     height: 300px;
 }
 
-.tabDivider {
-    *zoom: 1;
-}
-
 .nav-tabs {
     float: left;
 }
@@ -20,8 +16,39 @@ body *{
     border-radius: 6px;
 }
 
+.nav-tabs li > a {
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    background-color: #eee;
+    margin: 10px -1px 10px 10px;
+
+}
+
+.nav-tabs li > a:hover {
+    background-color: #eee;
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+
+}
+
+.nav-tabs li.active > a {
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+
+}
+
+.nav-tabs li > a:hover {
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
 .tab-content {
     overflow: hidden;
+    border: 1px solid black ;
 }
 
 .writeTabs
