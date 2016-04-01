@@ -6,8 +6,7 @@
 
 <h1>I love Batman</h1>
 
-<div class="writeTabs">
-    <div>
+    <div class="writeTabs">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
@@ -24,23 +23,26 @@
             </li>
         </ul>
 
-        <div class="tabDivider"></div>
-
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="Scene1">
-                I'm thinking of putting a jsp include here to grab the scene and might make a jsp include for the page
+                <div class="content">
+                    I'm thinking of putting a jsp include here to grab the scene and might make a jsp include for the page
+                </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="Scene2">
-                added stuff
+                <div class="content">
+                    added stuff
+                </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="Scene3">
-                all we do is work work work work work
+                <div class="content">
+                    all we do is work work work work work
+                </div>
             </div>
 
         </div>
 
     </div>
-</div>
 
 <jsp:include page="footer.jsp"/>
