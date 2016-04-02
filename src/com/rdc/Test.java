@@ -28,7 +28,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 public class Test {
 
 
-    @RequestMapping(value="/", method= RequestMethod.GET)
+    @RequestMapping(value="/test", method= RequestMethod.GET)
     public ModelAndView test(HttpServletRequest req, ModelMap map){
 
 
