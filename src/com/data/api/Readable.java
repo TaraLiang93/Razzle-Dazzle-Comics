@@ -14,6 +14,7 @@ public abstract class Readable<T> {
 
     public Readable(){
         // ofy.load
+//        Hi james
     }
 
     // every readable object will have a filter
