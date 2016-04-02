@@ -50,6 +50,7 @@ public class Doodle {
         this.canvas = canvas;
     }
 */
+
     public String getTitle() {
         return title;
     }
