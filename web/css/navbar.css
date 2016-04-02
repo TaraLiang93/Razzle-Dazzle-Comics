@@ -7,37 +7,21 @@
 
 }
 
-.subnav > div{
-    background-color:#E3256B
+.header{
+    background-color:#E3256B;
 }
 
 .subheader{
-    text-align: start;
+    
 }
 
-.sublinks{
-    padding-right: 3%;
-}
 
-.navbar-text, .sublinks > li > a{
+header *{
     color:white;
-    margin-left:65%;
 }
 
-.navlinks > li > a{
-    font-size: larger;
-    font-weight: bold;
-}
+#signin{
 
-#navtop, .subnav, .header{
-    margin-bottom:0px;
-    padding-bottom:0px;
-
-    padding-top:0px;
-}
-
-#logo{
-    height:25px;
 }
 
 .navright{
@@ -53,11 +37,5 @@
     line-height: 50px;
 }
 
-.navbar-nav >li {
-    color: #ffffff;;
-}
-
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
-    color: #ffffff;
+.side{
 }
