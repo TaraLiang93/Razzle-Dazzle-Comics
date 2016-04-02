@@ -61,7 +61,7 @@
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav sublinks">
+                    <ul class="nav navbar-nav navlinks">
                         <li class="dropdown active">
                             <span class="sr-only">(current)</span>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Read Comics</a>
