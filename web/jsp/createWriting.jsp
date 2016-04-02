@@ -4,7 +4,7 @@
 </jsp:include>
 
 
-<h1>I love Batman</h1>
+<h1>title of document</h1>
 
     <div class="writeTabs">
         <!-- Nav tabs -->
@@ -27,17 +27,41 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="Scene1">
                 <div class="content">
-                    I'm thinking of putting a jsp include here to grab the scene and might make a jsp include for the page
+                    <div class="title">
+                        Miuki has job
+                    </div>
+                    <div class="narritive">
+                        <jsp:include page="Writing.jsp">
+                            <jsp:param name="num" value="1"/>
+                        </jsp:include>
+                    </div>
+                    <textarea disabled class="setting form-control" placeholder="setting">Cold Spring Habor Laboratory</textarea>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="Scene2">
                 <div class="content">
-                    added stuff
+                    <div class="title">
+                        Miuki has job
+                    </div>
+                    <div class="narritive">
+                        <jsp:include page="Writing.jsp">
+                            <jsp:param name="num" value="2"/>
+                        </jsp:include>
+                    </div>
+                    <textarea class="setting" placeholder="setting">Cold Spring Habor Laboratory</textarea>
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="Scene3">
                 <div class="content">
-                    all we do is work work work work work
+                    <div class="title">
+                        Miuki has job
+                    </div>
+                    <div class="narritive">
+                        <jsp:include page="Writing.jsp">
+                            <jsp:param name="num" value="3"/>
+                        </jsp:include>
+                    </div>
+                    <textarea disabled class="setting form-control" placeholder="setting">Cold Spring Habor Laboratory</textarea>
                 </div>
             </div>
 
