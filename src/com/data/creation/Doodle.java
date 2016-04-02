@@ -17,13 +17,13 @@ import java.util.List;
 @Entity
 public class Doodle {
 
-    @Parent
-    Key<UserData> userData;
+//    @Parent
+//    Key<UserData> userData;
 
     @Id
     Long doodleId;
 
-    Canvas canvas;
+//    Canvas canvas;
 
     @Index
     String title;
@@ -42,14 +42,14 @@ public class Doodle {
         this.doodleId = doodleId;
     }
 
-    public Canvas getCanvas() {
+   /* public Canvas getCanvas() {
         return canvas;
     }
 
     public void setCanvas(Canvas canvas) {
         this.canvas = canvas;
     }
-
+*/
     public String getTitle() {
         return title;
     }

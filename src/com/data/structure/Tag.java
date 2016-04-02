@@ -13,8 +13,8 @@ import com.googlecode.objectify.annotation.Parent;
 @Entity
 public class Tag {
 
-    @Parent
-    Key<UserData> userData;
+//    @Parent
+//    Key<UserData> userData;
 
     @Id
     Long tagId;

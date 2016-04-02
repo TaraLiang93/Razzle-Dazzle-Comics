@@ -6,6 +6,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Parent;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -17,12 +18,17 @@ public class Scribble {
 
 //    public static final Logger logger = Logger.getLogger(Scribble.class.getName());
 
-    @Parent
-    Key<UserData> userData;
+//    @Parent
+//    Key<UserData> userData;
 
     @Id
     Long scribbleId;
-    List<Page> pageList;
+    List<Key<Page>> pageList;
+
+
+    public Scribble(){
+        pageList = new ArrayList<Key<Page>>();
+    }
 
     public Long getScribbleId() {
         return scribbleId;
@@ -32,12 +38,11 @@ public class Scribble {
         this.scribbleId = scribbleId;
     }
 
-    public List<Page> getPageList() {
+    public List<Key<Page>> getPageList() {
         return pageList;
     }
 
-    public void setPageList(List<Page> pageList) {
+    public void setPageList(List<Key<Page>> pageList) {
         this.pageList = pageList;
     }
-
 }

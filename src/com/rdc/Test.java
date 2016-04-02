@@ -35,13 +35,11 @@ public class Test {
         UserService userSer = UserServiceFactory.getUserService();
         User currentUser = userSer.getCurrentUser();
         UserData data = new UserData();
-        data.setNickName("James");
+        data.setPreferredEmail("James@mail.com");
         ofy().save().entity(data).now();
 
         UserData user = ofy().load().type(UserData.class).filter("nickName", "James").first().now();
         System.out.println("Found User : " + user);
-
-//        Query<UserData> all = ofy().load().type(UserData.class);
 
 
 //        Query<UserData> q = ofy().load().type(UserData.class).filter("nickName >", "123456789");

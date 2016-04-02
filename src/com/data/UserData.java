@@ -12,11 +12,11 @@ import com.data.structure.Flow;
 import com.data.structure.Series;
 import com.data.structure.Tag;
 import com.google.appengine.api.datastore.Blob;
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.Serialize;
+import com.googlecode.objectify.Key;
+import com.googlecode.objectify.Ref;
+import com.googlecode.objectify.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,26 +25,43 @@ public class UserData implements java.io.Serializable {
     @Id
     Long userid;
 
-    @Index˚
+    @Index
     String userName;
+
     @Index
     String preferredEmail;
+
     @Index
-    Flow flowId;
+    @Load
+    Ref<Flow> flowId;
 
     @Serialize
     Blob userImage; // blob type for userImage can't be indexed
 
     String nickName;
+
     String location;
     String description;
-    List<Series> seriesList;
-    List<Scribble> scribbleList;
-    List<Tag> tagList;
-    List<Bookmark> bookmarkList;
-    List<Doodle> doodleList;
+
+    List<Key<Series>> seriesList;
+    List<Key<Scribble>> scribbleList;
+    List<Key<Tag>> tagList;
+    List<Key<Bookmark>> bookmarkList;
+    List<Key<Doodle>> doodleList;
 
     public UserData() {
+
+        seriesList = new ArrayList<Key<Series>>();
+        scribbleList = new ArrayList<Key<Scribble>>();
+        tagList = new ArrayList<Key<Tag>>();
+        bookmarkList = new ArrayList<Key<Bookmark>>();
+        doodleList = new ArrayList<Key<Doodle>>();
+        userName = "";
+        preferredEmail = "";
+        nickName = "";
+        location = "";
+        description = "";
+
     }
 
     public Long getUserid() {
@@ -72,10 +89,10 @@ public class UserData implements java.io.Serializable {
     }
 
     public Flow getFlowId() {
-        return flowId;
+        return flowId.get();
     }
 
-    public void setFlowId(Flow flowId) {
+    public void setFlowId(Ref<Flow> flowId) {
         this.flowId = flowId;
     }
 
@@ -111,43 +128,43 @@ public class UserData implements java.io.Serializable {
         this.description = description;
     }
 
-    public List<Series> getSeriesList() {
+    public List<Key<Series>> getSeriesList() {
         return seriesList;
     }
 
-    public void setSeriesList(List<Series> seriesList) {
+    public void setSeriesList(List<Key<Series>> seriesList) {
         this.seriesList = seriesList;
     }
 
-    public List<Scribble> getScribbleList() {
+    public List<Key<Scribble>> getScribbleList() {
         return scribbleList;
     }
 
-    public void setScribbleList(List<Scribble> scribbleList) {
+    public void setScribbleList(List<Key<Scribble>> scribbleList) {
         this.scribbleList = scribbleList;
     }
 
-    public List<Tag> getTagList() {
+    public List<Key<Tag>> getTagList() {
         return tagList;
     }
 
-    public void setTagList(List<Tag> tagList) {
+    public void setTagList(List<Key<Tag>> tagList) {
         this.tagList = tagList;
     }
 
-    public List<Bookmark> getBookmarkList() {
+    public List<Key<Bookmark>> getBookmarkList() {
         return bookmarkList;
     }
 
-    public void setBookmarkList(List<Bookmark> bookmarkList) {
+    public void setBookmarkList(List<Key<Bookmark>> bookmarkList) {
         this.bookmarkList = bookmarkList;
     }
 
-    public List<Doodle> getDoodleList() {
+    public List<Key<Doodle>> getDoodleList() {
         return doodleList;
     }
 
-    public void setDoodleList(List<Doodle> doodleList) {
+    public void setDoodleList(List<Key<Doodle>> doodleList) {
         this.doodleList = doodleList;
     }
 
