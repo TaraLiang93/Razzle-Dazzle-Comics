@@ -1,3 +1,4 @@
+<%--To include this file it take a param num that must be passed in so that each one is unique--%>
 <div class="tinyMCE" style="padding: 0;">
     <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
     <style>
