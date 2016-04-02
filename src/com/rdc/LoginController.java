@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.portlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +19,20 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
 
-    @RequestMapping(value ="/login", method= RequestMethod.GET)
-    public String loadHomePage(HttpServletRequest req, ModelMap map){
+    public static final String LOGIN = "/login";
+    public static final String LOGOUT = "/logout";
+
+    @RequestMapping(value="/", method= RequestMethod.GET)
+    public ModelAndView homepage(HttpSession session, ModelMap map){
+
+        session.setAttribute("logInURL",LOGIN);
+
+        return new ModelAndView("homepage");
+    }
+
+
+    @RequestMapping(value =LOGIN, method= RequestMethod.GET)
+    public String login(HttpServletRequest req, ModelMap map){
 
         UserService userService = UserServiceFactory.getUserService();
 
@@ -33,9 +45,12 @@ public class LoginController {
         session.setAttribute("logInURL",req.getHeader("Referer"));
         System.out.println(req.getHeader("Referer"));
 
+//        return new ModelAndView("test");
         return "redirect:" + userService.createLoginURL(req.getHeader("Referer"));
 
     }
+
+
 
 
 }

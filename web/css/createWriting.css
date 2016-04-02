@@ -91,3 +91,8 @@ body *{
 .content .title {
     border-bottom: 2px solid black;
 }
+.content .narritive {
+    padding: 0;
+    /*position: absolute;*/
+    /*width:100%;*/
+}
