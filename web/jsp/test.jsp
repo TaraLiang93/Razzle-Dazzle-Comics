@@ -18,12 +18,17 @@
     <script src="../js/fabric.js"></script>
 </head>
 <body>
-    <canvas id="canvas" style="border-style: solid"></canvas>
+    <canvas id="canvas" style="border-style: solid" height="600px" width=" 600px"></canvas>
     <button id="Clear">Clear</button>
     <button id="Draw">Draw</button>
     <button id="Select">Select</button>
+    <button id="Delete">Delete</button>
+    <button id="Undo">Undo Delete</button>
+    <button id="Redo">Redo Delete</button>
+    <button id="Zoom-in">Zoom In</button>
+    <button id="Zoom-out">Zoom Out</button>
     <input id="Drawing-color" type="color" oninput="changeColor()">
-    <input id="Drawing-line-width" type="number">
+    <input id="Line-width" type="number" oninput="changeLineWidth()">
 
     Hello World!
     <a href="/">Click me</a>
