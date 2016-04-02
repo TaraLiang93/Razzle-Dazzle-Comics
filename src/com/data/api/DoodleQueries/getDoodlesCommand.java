@@ -26,7 +26,7 @@ public class getDoodlesCommand extends Readable {
     @Override
     protected Filter getFilter() {
         //create filter
-        Filter doodleIDFilter = new FilterPredicate("", FilterOperator.EQUAL, "" );
+        Filter doodleIDFilter = new FilterPredicate("", FilterOperator.EQUAL, " " );
         return doodleIDFilter;
     }
 
