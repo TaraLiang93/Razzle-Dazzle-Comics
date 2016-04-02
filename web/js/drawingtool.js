@@ -24,7 +24,6 @@ var canvas;
 $(document).ready(function() {
     Stack = [];
     undoStack = [];
-
     /**
      * Initilize all the drawing tool button avavilable.
      */
@@ -121,6 +120,22 @@ $(document).ready(function() {
         zoom(1);
     });
 
+    $("#Zoom-level").text(Math.round(canvas.getZoom()*100) + "%");
+
+    $("#Image-file").change( function uploadImage(e) {
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var img = new Image();
+            img.src = event.target.result;
+            img.onload = function () {
+                var image = new fabric.Image(img);
+                canvas.add(image);
+            }
+
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    });
+
 
 
 
@@ -133,13 +148,19 @@ $(document).ready(function() {
  * @param num: either 0 == zoom in or 1 == zoom out
  */
 function zoom(num){//0 == zoom in , 1 == zoom out
+    console.log(canvas.getZoom());
     if(num === 0){
         canvas.setZoom(canvas.getZoom()*1.1);
     }
     else{
-        canvas.setZoom(canvas.getZoom()/1.1);
+        if(canvas.getZoom() > 1) {
+            canvas.setZoom(canvas.getZoom() / 1.1);
+        }
+        else{
+            alert("Cannot Zoom anymore.");
+        }
     }
-
+    $("#Zoom-level").text(Math.round(canvas.getZoom()*100) + "%");
 }
 
 function deleteFcn(){

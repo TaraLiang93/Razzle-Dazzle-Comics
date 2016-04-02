@@ -27,8 +27,10 @@
     <button id="Redo">Redo Delete</button>
     <button id="Zoom-in">Zoom In</button>
     <button id="Zoom-out">Zoom Out</button>
+    <p id="Zoom-level"></p>
     <input id="Drawing-color" type="color" oninput="changeColor()">
     <input id="Line-width" type="number" oninput="changeLineWidth()">
+    <input id ="Image-file" type="file" name="pic" accept="image/*">
 
     Hello World!
     <a href="/">Click me</a>
