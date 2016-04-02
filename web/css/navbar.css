@@ -21,6 +21,7 @@
 
 .navbar-text, .sublinks > li > a{
     color:white;
+    margin-left:65%;
 }
 
 .navlinks > li > a{

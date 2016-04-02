@@ -62,21 +62,23 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navlinks">
+
                         <li class="dropdown active">
                             <span class="sr-only">(current)</span>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Read Comics</a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Top 100</a></li>
+                                <li><a href="#">Genres</a></li>
+                                <li><a href="#">Latest Release</a></li>
+                               <c:if test="${true}"><li><a href="#">Bookmarked</a></li></c:if>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create Comics</a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
+                                <li><a href="#">Idea Factory</a></li>
+                                <li><a href="#">Project Admin</a></li>
+                                <li><a href="#">Upload</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -96,13 +98,13 @@
 
         <c:choose>
             <c:when test="${status == 'read'}">
-                <c:out value="Hello World!"/>
+                <jsp:include page="readNavbar.jsp"/>
             </c:when>
             <c:when test="${status == 'write'}">
                 <jsp:include page="writeNavbar.jsp"/>
             </c:when>
             <c:otherwise>
-                <jsp:include page="readNavbar.jsp"/>
+                <c:out value="Hello World!"/>
             </c:otherwise>
         </c:choose>
     </header>
