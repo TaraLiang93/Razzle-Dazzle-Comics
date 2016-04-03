@@ -3,6 +3,6 @@
 </jsp:include>
 
 Just Testing
-<a href="${LogInURL}">Login</a>
+<a href="${logInURL}" style="float: right;">Login</a>
 
 <jsp:include page="footer.jsp"/>

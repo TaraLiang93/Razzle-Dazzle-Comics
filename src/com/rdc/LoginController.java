@@ -31,12 +31,10 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value =LOGIN, method= RequestMethod.GET)
-    public String login(HttpServletRequest req, ModelMap map){
+    @RequestMapping(value=LOGIN, method= RequestMethod.GET)
+    public String login(HttpSession session,HttpServletRequest req, ModelMap map){
 
         UserService userService = UserServiceFactory.getUserService();
-
-        HttpSession session = req.getSession();
 
 
         if(session.getAttribute("logOutURL") != null)//checks to see if the logutUrl has been generated
