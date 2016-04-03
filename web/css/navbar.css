@@ -1,3 +1,7 @@
+img#logo {
+    width:inherit;
+    height:inherit;
+}
 
 .navbar{
     margin-top:5px;
