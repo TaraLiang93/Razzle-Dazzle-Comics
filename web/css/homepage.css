@@ -1,0 +1,39 @@
+
+div.main {
+    overflow: hidden
+}
+
+.signin {
+    float: right;
+    display: block;
+}
+
+.selection {
+    width:100%;
+}
+
+.reading {
+    /*background-color: blue;*/
+    background-image: url("http://pre06.deviantart.net/5b7e/th/pre/i/2013/064/5/f/life_is_about_creating_yourself_by_doloy13-d5x3yd3.jpg");
+}
+.main.reading {
+    height: 600px;
+    width: 50%;
+    display: block;
+    float: right;
+}
+
+.creation {
+    /*background-color: red;*/
+    background-image: url("http://image.shutterstock.com/z/stock-vector-illustration-of-stick-kids-reading-books-from-piles-of-reading-materials-113728435.jpg");
+}
+.main.creation {
+    height: 600px;
+    width: 50%;
+    display: block;
+    float: left;
+}
+
+.RDC {
+    text-align: center;
+}
