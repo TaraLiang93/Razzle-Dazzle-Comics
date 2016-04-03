@@ -4,6 +4,7 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,21 +33,17 @@ public class LoginController {
 
 
     @RequestMapping(value =LOGIN, method= RequestMethod.GET)
-    public String login(HttpServletRequest req, ModelMap map){
+    public String login(@RequestHeader("Referer") String ref, HttpSession session, ModelMap map){
 
         UserService userService = UserServiceFactory.getUserService();
-
-        HttpSession session = req.getSession();
-
 
         if(session.getAttribute("logOutURL") != null)//checks to see if the logutUrl has been generated
             session.removeAttribute("logOutURL");
 
-        session.setAttribute("logInURL",req.getHeader("Referer"));
-        System.out.println(req.getHeader("Referer"));
+        session.setAttribute("logInURL", null);
 
 //        return new ModelAndView("test");
-        return "redirect:" + userService.createLoginURL(req.getHeader("Referer"));
+        return "redirect:" + userService.createLoginURL(ref);
 
     }
 
