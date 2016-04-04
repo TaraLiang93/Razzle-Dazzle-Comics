@@ -1,11 +1,8 @@
 package com.data.structure;
 
-import com.data.UserData;
-import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.Parent;
 
 /**
  * Created by drodrigues on 3/30/16.
@@ -21,6 +18,8 @@ public class Tag {
 
     @Index
     String name;
+
+    public Tag(){}
 
     public Long getTagId() {
         return tagId;
