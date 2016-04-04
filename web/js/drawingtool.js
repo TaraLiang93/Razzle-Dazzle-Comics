@@ -36,6 +36,9 @@ $(document).ready(function() {
 
     lineColor = document.getElementById("Drawing-color").value;
     lineWidth = document.getElementById("Line-width").value;
+    if(lineWidth == ""){
+        lineWidth = 10;
+    }
 
     /**
      * Link existing canvas with fabric and change some of the default values.
@@ -110,6 +113,85 @@ $(document).ready(function() {
         else{
             alert("Cannot redo.");
         }
+    };
+
+    /**
+     * Creating a default shapes such as rectangle, square, triangle, circle and star, polygon.
+     * User can resize the shape and the color is default to the lineColor
+     */
+    Rectangle.onclick = function(){
+        var Rect = new fabric.Rect({
+            width: (canvas.getWidth() /4),
+            height: (canvas.getHeight()/5),
+            left: 25,
+            top: 25,
+            fill: lineColor,
+            borderOpacityWhenMoving: .5,
+            borderColor: "rgb(227, 37, 107)"
+        });
+        canvas.add(Rect);
+        Stack.push(canvas._objects[canvas._objects.length-1]);
+    };
+
+    Square.onclick = function(){
+        var Sqr = new fabric.Rect({
+            width: (canvas.getWidth()/5),
+            height: (canvas.getHeight()/5),
+            right: 25,
+            bottom: 25,
+            fill: lineColor,
+            borderColor: "rgb(227, 37, 107)",
+            borderOpacityWhenMove:.5
+        });
+        canvas.add(Sqr);
+        Stack.push(canvas._objects[canvas._objects.length-1]);
+    };
+
+    Triangle.onclick = function(){
+        var Tri = new fabric.Triangle({
+            width: (canvas.getWidth()/6),
+            height: (canvas.getHeight()/6),
+            right: 25,
+            bottom: 25,
+            fill: lineColor,
+            borderColor: "rgb(227, 37, 107)",
+            borderOpacityWhenMove:.5
+        });
+        canvas.add(Tri);
+        Stack.push(canvas._objects[canvas._objects.length-1]);
+    };
+
+    Circle.onclick = function(){
+        var Cir = new fabric.Circle({
+            radius: (canvas.getWidth()/8),
+            right: 25,
+            bottom: 25,
+            fill: lineColor,
+            borderColor: "rgb(227, 37, 107)",
+            borderOpacityWhenMove:.5
+        });
+        canvas.add(Cir);
+        Stack.push(canvas._objects[canvas._objects.length-1]);
+    };
+
+    Line.onclick = function(){
+        canvas.add(new fabric.Line([canvas.getWidth()/10, canvas.getWidth()/10, 200, 200], {
+            left: 170,
+            top: 150,
+            stroke: lineColor,
+            x1: canvas.getWidth()/10,
+            x2: canvas.getWidth()/10,
+            y1: canvas.getWidth()/10,
+            y2: 2*(canvas.getWidth()/10)
+        }));
+        Stack.push(canvas._objects[canvas._objects.length-1]);
+    };
+
+    Text.onclick = function(){
+        console.log("Text clicked")
+        var textbox = new fabric.IText("Text");
+        canvas.add(textbox);
+        Stack.push(canvas._objects[canvas._objects.length-1]);
     };
 
     $("#Zoom-in").click(function(){//Zoom in on a canvas,  0 = zoom in, 1 = zoom out
