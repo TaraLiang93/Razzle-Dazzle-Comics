@@ -38,6 +38,7 @@ public class UserData implements java.io.Serializable {
     @Serialize
     Blob userImage; // blob type for userImage can't be indexed
 
+    @Index
     String nickName;
 
     String location;
@@ -168,4 +169,15 @@ public class UserData implements java.io.Serializable {
         this.doodleList = doodleList;
     }
 
+    public void addDoodleToList( Key<Doodle> doodle){
+        this.doodleList.add(doodle);
+    }
+
+    public Key<UserData> getKey() {
+        return Key.create(UserData.class, userid);
+    }
+
+    public void addTagToList( Key<Tag> tag ){
+        this.tagList.add(tag);
+    }
 }

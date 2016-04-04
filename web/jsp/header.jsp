@@ -31,7 +31,7 @@
 
     <c:if test="${not empty param.js}">
         <c:forEach items = "${param.js}" var = "file">
-                <script src="${file.js}"></script>
+                <script src="${file}"></script>
         </c:forEach>
     </c:if>
 
@@ -56,7 +56,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img id="logo" src= "logo.jpg"/></a>
+                    <a class="navbar-brand" href="#"><img id="logo" src= "/img/logo.jpg"/></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -76,7 +76,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create Comics</a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Idea Factory</a></li>
+                                <li><a href="/create/ideas">Idea Factory</a></li>
                                 <li><a href="#">Project Admin</a></li>
                                 <li><a href="#">Upload</a></li>
                             </ul>
@@ -93,7 +93,7 @@
                         </li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+            </div><!-- /.queryContainer-fluid -->
         </nav>
 
         <c:choose>
@@ -104,7 +104,15 @@
                 <jsp:include page="writeNavbar.jsp"/>
             </c:when>
             <c:otherwise>
-                <c:out value="Hello World!"/>
+                <c:out value="Error loding the sub navbar!"/>
             </c:otherwise>
         </c:choose>
     </header>
+
+    <c:if test="${not empty param.subtitle}">
+        <div class="subtitle center-block">
+            <div class="page-header">
+                <h1>${param.subtitle}</h1>
+            </div>
+        </div>
+    </c:if>

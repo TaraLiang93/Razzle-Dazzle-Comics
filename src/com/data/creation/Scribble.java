@@ -18,11 +18,12 @@ public class Scribble {
 
 //    public static final Logger logger = Logger.getLogger(Scribble.class.getName());
 
-//    @Parent
+
 //    Key<UserData> userData;
 
     @Id
     Long scribbleId;
+
     List<Key<Page>> pageList;
 
 
@@ -45,4 +46,9 @@ public class Scribble {
     public void setPageList(List<Key<Page>> pageList) {
         this.pageList = pageList;
     }
+
+    public void addPageToList( Key<Page> pageKey){
+        pageList.add(pageKey);
+    }
+
 }

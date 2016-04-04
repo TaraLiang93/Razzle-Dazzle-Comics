@@ -9,6 +9,7 @@ import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Parent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,10 +18,11 @@ import java.util.List;
 @Entity
 public class Doodle {
 
-//    @Parent
+
 //    Key<UserData> userData;
 
     @Id
+    @Index
     Long doodleId;
 
 //    Canvas canvas;
@@ -32,7 +34,13 @@ public class Doodle {
     String description;
 
     @Index
-    List<Tag> tagList;
+    List<Key<Tag>> tagList;
+
+    public Doodle(){
+        title = "";
+        description = "";
+        tagList = new ArrayList<Key<Tag>>();
+    }
 
     public Long getDoodleId() {
         return doodleId;
@@ -67,12 +75,20 @@ public class Doodle {
         this.description = description;
     }
 
-    public List<Tag> getTagList() {
+    public List<Key<Tag>> getTagList() {
         return tagList;
     }
 
-    public void setTagList(List<Tag> tagList) {
+    public void setTagList(List<Key<Tag>> tagList) {
         this.tagList = tagList;
     }
 
+    public  void addTagToList( Key<Tag> tag){
+        this.tagList.add(tag);
+    }
+
+    // get the Key of a Doodle
+    public Key<Doodle> getKey() {
+        return Key.create(Doodle.class, doodleId);
+    }
 }

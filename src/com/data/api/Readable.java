@@ -2,6 +2,7 @@ package com.data.api;
 
 
 import com.google.appengine.api.datastore.Query.Filter;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 
 
@@ -26,17 +27,25 @@ public abstract class Readable<T> {
 
     /**
      *
-     * @return results the Container<T> containing the query
+     * @return results the QueryContainer<T> containing the query
      */
     public Container<T> fetch() {
         Query query = ofy().load().type(getType()).filter(getFilter()); // returns the results as a Query Object
-        Container<T> results = new Container(query); // pass the Query Object into Container for returning later
+        Container<T> results = new QueryContainer(query); // pass the Query Object into QueryContainer for returning later
         return results;
     }
 
-
+    /**
+     *  fetch an entity via key query
+     * @param theId
+     * @return the entity
+     */
     public T fetchById( Long theId){
         return ofy().load().type(getType()).id(theId).now();
     }
 
+
+    public T fetchByKey(Key<T> key){
+        return ofy().load().key(key).now();
+    }
 }
