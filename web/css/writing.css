@@ -95,4 +95,9 @@ body *{
     padding: 0;
     /*position: absolute;*/
     /*width:100%;*/
+    height: 338px;
+}
+
+.tinyMCE {
+    height:inherit;
 }
