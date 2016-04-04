@@ -3,8 +3,8 @@ package com.data.api;
 /**
  * Created by Zhenya on 3/30/16.
  */
-public interface updatable {
+public interface Deleteable {
 
-    public void update();
+    public void delete();
 
 }

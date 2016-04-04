@@ -3,8 +3,8 @@ package com.data.api;
 /**
  * Created by Zhenya on 3/30/16.
  */
-public interface creatable {
+public interface Updateable {
 
-    public void create();
+    public void update();
 
 }
