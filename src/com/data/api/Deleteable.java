@@ -17,6 +17,6 @@ public abstract class Deleteable<T> {
         }
     }
 
-    public abstract void hook(T item);
+    protected abstract void hook(T item);
 
 }

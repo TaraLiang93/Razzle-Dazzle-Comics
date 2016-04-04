@@ -25,7 +25,7 @@ public abstract class Updateable<T> {
             ofy().save().entities(updates).now();
         }
         catch(Throwable t){
-
+            t.printStackTrace();
         }
 
 
