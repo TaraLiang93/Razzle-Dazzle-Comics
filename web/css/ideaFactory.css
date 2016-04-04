@@ -4,6 +4,26 @@
     width:75%;
 }
 
-.doodle{
+.idea{
+    width:70%;
+    height:70%;
+}
 
+.tabHeader{
+    width:50%;
+}
+
+.list-item {
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+    width: 60%;
+    margin:5%;
+    min-height: 50%;
+}
+
+.list-item:hover, .list-item:active {
+    -webkit-box-shadow: 7px 10px 14px 2px rgba(227,37,107,0.64);
+    -moz-box-shadow: 7px 10px 14px 2px rgba(227,37,107,0.64);
+    box-shadow: 7px 10px 14px 2px rgba(227,37,107,0.64);
 }

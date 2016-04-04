@@ -20,20 +20,45 @@
     <div id="wrapper" class="panel panel-default wrapper center-block">
 
         <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#scribble" aria-controls="scribbles" role="tab" data-toggle="tab">Scribbles</a></li>
-            <li role="presentation"><a href="#doodle" aria-controls="doodles" role="tab" data-toggle="tab">Doodles</a></li>
+            <li role="presentation" class="active tabHeader"><a href="#scribble" aria-controls="scribbles" role="tab" data-toggle="tab">Scribbles</a></li>
+            <li role="presentation" class="tabHeader"><a href="#doodle" aria-controls="doodles" role="tab" data-toggle="tab">Doodles</a></li>
         </ul>
 
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="scribbles">
-                ....
+                <div class="row">
+                    <div id="newScribble" class="row-fluid">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail list-item">
+                                    <img class="idea" src="/img/plus_sign.jpg" alt="New Scribble"/>
+                                <div class="caption">
+                                    <h3>Add a New Scribble!</h3>
+                                    <p>A way to free write to save a plot for the future!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <c:forEach var="i" items="${doodles}">
+                        <div class="row-fluid">
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail list-item">
+                                    <img class="idea" src="/img/logo.jpg" alt="Hmmm">
+                                    <div class="caption">
+                                        <h3>${i.title}</h3>
+                                        <p>${i.description}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="doodles">
                 <c:forEach var="i" items="${doodles}">
                     <div class="row-fluid">
                         <div class="col-sm-6 col-md-4">
                             <div class="thumbnail">
-                                <img class="doodle" src="/img/logo.jpg" alt="Hmmm">
+                                <img class="idea" src="/img/logo.jpg" alt="Hmmm">
                                 <div class="caption">
                                     <h3>${i.title}</h3>
                                     <p>${i.description}</p>
