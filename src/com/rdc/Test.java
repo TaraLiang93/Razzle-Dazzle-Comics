@@ -1,18 +1,12 @@
 package com.rdc;
 
 import com.data.UserData;
-
 import com.data.creation.Doodle;
 import com.data.structure.Tag;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.repackaged.com.google.protobuf.Syntax;
-import com.googlecode.objectify.Key;
-import com.googlecode.objectify.LoadResult;
-import com.googlecode.objectify.Result;
 import com.googlecode.objectify.cmd.Query;
-import com.javafx.tools.doclets.formats.html.SourceToHTMLConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.List;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
@@ -46,6 +39,7 @@ public class Test {
         data.setNickName(nickName);
 
         ofy().save().entity(data).now();
+
 
         UserData user = ofy().load().type(UserData.class).filter("nickName", nickName).first().now();
         System.out.println("Found User : " + user);
