@@ -10,6 +10,7 @@ package com.data;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
 import com.data.structure.Tag;
+import com.data.UserData;
 import com.googlecode.objectify.ObjectifyService;
 
 import javax.servlet.ServletContextEvent;

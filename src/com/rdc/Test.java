@@ -2,7 +2,12 @@ package com.rdc;
 
 import com.data.UserData;
 
+import com.data.api.DoodleQueries.GetDoodlesByIDCommand;
+import com.data.api.DoodleQueries.GetDoodlesByTagCommand;
+import com.data.api.DoodleQueries.GetScribblesCommand;
+import com.data.api.Readable;
 import com.data.creation.Doodle;
+import com.data.creation.Scribble;
 import com.data.structure.Tag;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
@@ -66,8 +71,6 @@ public class Test {
         //set james as the parent of catTag
         catTag.setUserData(james.getKey());
 
-        // set james to be the parentKey of the catTag
-        catTag.setUserData(james.getKey());
 
         catTag.setName("Cat");
         ofy().save().entity(catTag).now(); // save Tag
@@ -84,8 +87,9 @@ public class Test {
 
 
 
-        String tagNameParam = "Cat";
-        Query<Tag> tagAncestorQuery = ofy().load().type(Tag.class).ancestor( james.getKey() ).filter("name", tagNameParam);
+        String tagName = "Cat";
+        //ancestor query to find the Key<Tag> with the name "Cat" owned by Userdata james
+        Query<Tag> tagAncestorQuery = ofy().load().type(Tag.class).ancestor( james.getKey() ).filter("name", tagName);
 
         Tag tag = tagAncestorQuery.first().now();
 
@@ -96,6 +100,26 @@ public class Test {
         for( Doodle d: doodleList){
             System.out.println( d.getTitle() );
         }
+
+        Readable<Doodle> getDoodleWithTagTest = new GetDoodlesByTagCommand( tagName, james);
+        Doodle dFetched = getDoodleWithTagTest.fetch().getResult();
+        System.out.println( "I did it " + dFetched.getTitle());
+
+        System.out.println(doodleCat.getDoodleId());
+//        Readable<Doodle> getDoodleWithID = new GetDoodlesByIDCommand(doodleCat.getDoodleId());
+//        Doodle doodleWithID = getDoodleWithID.fetchById(doodleCat.getDoodleId());
+//        System.out.println( "I did it " + doodleWithID.getTitle());
+        Readable<Doodle> getDoodleWithID = new GetDoodlesByIDCommand(doodleCat.getDoodleId());
+        Doodle doodleWithID = getDoodleWithID.fetch().getResult();
+        System.out.println( " Fetch Doodle With ID Test has ID: " + doodleWithID + " and has title " + doodleWithID.getTitle());
+
+
+
+
+//        Readable<Scribble> getUserScribbles = new GetScribblesCommand(james.getKey());
+//        getUserScribbles.fetch().getList();
+
+
 
         return new ModelAndView("test");
 

@@ -27,5 +27,5 @@
                 </form>
             </ul>
         </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+    </div><!-- /.queryContainer-fluid -->
 </nav>

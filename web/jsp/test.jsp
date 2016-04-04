@@ -10,9 +10,9 @@
 <head>
     <title>Title</title>
 
-    <jsp:include page="navbar.jsp">
+    <jsp:include page="header.jsp">
         <jsp:param name="title" value="Testing"/>
-        <jsp:param name="css" value="/StyleSheet/navbar.css"/>
+        <jsp:param name="css" value="/css/navbar.css"/>
     </jsp:include>
     <script src="../js/drawingtool.js"></script>
     <script src="../js/fabric.js"></script>

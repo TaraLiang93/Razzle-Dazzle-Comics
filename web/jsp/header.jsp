@@ -93,7 +93,7 @@
                         </li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
+            </div><!-- /.queryContainer-fluid -->
         </nav>
 
         <c:choose>
