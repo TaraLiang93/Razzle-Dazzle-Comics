@@ -20,6 +20,10 @@ header *{
     color:white;
 }
 
+#logo{
+    height:15%;
+}
+
 #signin{
 
 }
@@ -38,4 +42,8 @@ header *{
 }
 
 .side{
+}
+
+.subtitle{
+    text-align: center;
 }
