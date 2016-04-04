@@ -56,7 +56,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img id="logo" src= "logo.jpg"/></a>
+                    <a class="navbar-brand" href="#"><img id="logo" src= "/logo.jpg"/></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
