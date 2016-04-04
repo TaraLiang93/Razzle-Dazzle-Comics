@@ -1,6 +1,6 @@
 <jsp:include page="header.jsp">
     <jsp:param name="title" value="Create Writing"/>
-    <jsp:param name="css" value="/css/createWriting.css"/>
+    <jsp:param name="css" value="/css/writing.css"/>
 </jsp:include>
 
 

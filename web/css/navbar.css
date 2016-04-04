@@ -1,4 +1,10 @@
-
+img#logo {
+    width:inherit;
+    height:inherit;
+}
+.navbar-brand{
+    padding:0;
+}
 .navbar{
     margin-top:5px;
 }
