@@ -45,3 +45,6 @@ div.main {
     left: 50%;
     transform: translateX(-50%);
 }
+.storySave {
+    float: right;
+}

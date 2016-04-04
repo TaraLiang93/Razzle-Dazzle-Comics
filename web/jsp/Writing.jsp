@@ -6,7 +6,7 @@
             selector: '#mytextarea${param.num}',
             statusbar: false,
             menubar:false,
-            height: "338",
+            height: "285",
             toolbar: 'redo undo styleselect bold italic underline strikethrough alignleft aligncenter alignright bullist numlist outdent indent code',
             toolbar_items_size : 'small',
 

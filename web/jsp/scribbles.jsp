@@ -68,3 +68,17 @@
     </div>
 
 </div>
+
+<div class="description">
+    <form role="form" class="form-horizontal">
+        <div class="form-group">
+            <label for="storyTitle">Title </label>
+            <input id="storyTitle" class="form-control col-sm-2" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="storyDesc">Description</label>
+            <textarea class="col-sm-4" id="storyDesc"  maxlength="100"></textarea>
+        </div>
+        <button type="submit" class="btn btn-default storySave">Save Draft</button>
+    </form>
+</div>
