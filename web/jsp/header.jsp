@@ -104,7 +104,7 @@
                 <jsp:include page="writeNavbar.jsp"/>
             </c:when>
             <c:otherwise>
-                <c:out value="Hello World!"/>
+                <c:out value="Error loding the sub navbar!"/>
             </c:otherwise>
         </c:choose>
     </header>

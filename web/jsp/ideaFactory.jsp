@@ -19,9 +19,9 @@
 
     <div id="wrapper" class="panel panel-default wrapper center-block">
 
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active tabHeader"><a href="#scribble" aria-controls="scribbles" role="tab" data-toggle="tab">Scribbles</a></li>
-            <li role="presentation" class="tabHeader"><a href="#doodle" aria-controls="doodles" role="tab" data-toggle="tab">Doodles</a></li>
+        <ul id="ideaFactory" class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active tabHeader"><a href="#scribbles"  role="tab" data-toggle="tab">Scribbles</a></li>
+            <li role="presentation" class="tabHeader"><a href="#doodles" role="tab" data-toggle="tab">Doodles</a></li>
         </ul>
 
         <div class="tab-content">
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                     </div>
-                    <c:forEach var="i" items="${doodles}">
+                    <c:forEach var="i" items="${scribbles}">
                         <div class="span2">
                             <div class="col-sm-3 col-md-3">
                                 <div id="thing" class="thumbnail list-item scribble">
@@ -54,19 +54,32 @@
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane fade" id="doodles">
-                <c:forEach var="i" items="${doodles}">
-                    <div class="row-fluid">
-                        <div class="col-sm-6 col-md-4">
-                            <div class="thumbnail">
-                                <img class="idea" src="/img/logo.jpg" alt="Hmmm">
+                <div class="row">
+                    <div id="newDoodle" class="span2">
+                        <div class="col-sm-3 col-md-3">
+                            <div class="thumbnail list-item">
+                                <img class="idea" src="/img/plus_sign.jpg" alt="New Doodle"/>
                                 <div class="caption">
-                                    <h3>${i.title}</h3>
-                                    <p>${i.description}</p>
+                                    <h3>Add a New Doodle!</h3>
+                                    <p>A way to free draw!</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </c:forEach>
+                    <c:forEach var="i" items="${doodles}">
+                        <div class="span2">
+                            <div class="col-sm-3 col-md-3">
+                                <div id="thing" class="thumbnail list-item doodle">
+                                    <img class="idea" src="/img/logo.jpg">
+                                    <div class="caption">
+                                        <h3>${i.title}</h3>
+                                        <p>${i.description}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
         </div>
 

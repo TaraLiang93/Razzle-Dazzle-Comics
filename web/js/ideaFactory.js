@@ -5,7 +5,7 @@
 
 $(document).ready(function(){
 
-    $('#wrapper a').click(function (e) {
+    $('#ideaFactory a').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
     });
@@ -14,10 +14,20 @@ $(document).ready(function(){
         window.location.href="/create/scribble/load/new";
     });
 
+    $("#newDoodle").click(function(){
+        window.location.href="/create/doodle/load/new";
+    });
+
     $(".scribble").each(function(){
        $(this).click(function(){
            window.location.href="/create/scribble/load/" + $(this).attr('id');
        });
+    });
+
+    $(".doodle").each(function(){
+        $(this).click(function(){
+            window.location.href="/create/doodle/load/" + $(this).attr('id');
+        });
     });
 
 });
