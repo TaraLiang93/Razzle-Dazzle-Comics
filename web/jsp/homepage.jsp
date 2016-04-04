@@ -3,19 +3,15 @@
     <jsp:param name="css" value="/css/homepage.css"/>
 </jsp:include>
 
-<div class="container">
-    <a class="signin" href="${logInURL}">SIGN IN</a>
-</div>
-
-<h1 class="RDC">RDC <br>Read Design Collaborate</h1>
-
 <div class="selection">
-    <div class="main creation">
-        create
-    </div>
+    <h1 class="RDC">RDC <br>Read Design Collaborate</h1>
 
     <div class="main reading">
-        read
+        <a class="btn btn-sm btn-default">READ COMICS</a>
+    </div>
+
+    <div class="main creation">
+        <a class="btn btn-sm btn-default">CREATE CONTENT</a>
     </div>
 </div>
 

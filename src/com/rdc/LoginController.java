@@ -26,7 +26,7 @@ public class LoginController {
     @RequestMapping(value="/", method= RequestMethod.GET)
     public ModelAndView homepage(HttpSession session, ModelMap map){
 
-        session.setAttribute("logInURL",LOGIN);
+        session.setAttribute("loginURL",LOGIN);
 
         return new ModelAndView("homepage");
     }
@@ -37,12 +37,11 @@ public class LoginController {
 
         UserService userService = UserServiceFactory.getUserService();
 
-        if(session.getAttribute("logOutURL") != null)//checks to see if the logutUrl has been generated
-            session.removeAttribute("logOutURL");
+        if(session.getAttribute("logoutURL") != null)//checks to see if the logutUrl has been generated
+            session.removeAttribute("logoutURL");
 
-        session.setAttribute("logInURL", null);
+        session.setAttribute("loginURL", null);
 
-//        return new ModelAndView("test");
         return "redirect:" + userService.createLoginURL(ref);
 
     }
