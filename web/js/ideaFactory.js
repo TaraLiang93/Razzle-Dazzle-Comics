@@ -11,8 +11,13 @@ $(document).ready(function(){
     });
 
     $("#newScribble").click(function(){
-        alert("Load damn you!");
         window.location.href="/create/scribble/load/new";
+    });
+
+    $(".scribble").each(function(){
+       $(this).click(function(){
+           window.location.href="/create/scribble/load/" + $(this).attr('id');
+       });
     });
 
 });

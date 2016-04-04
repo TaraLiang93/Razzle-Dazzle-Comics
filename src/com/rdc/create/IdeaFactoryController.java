@@ -20,19 +20,22 @@ import java.util.List;
 public class IdeaFactoryController {
 
     public static final String IDEA_HOME = "/create/ideas";
-    public static final String LOAD_SCRIBBLE = "/create/scribbles/load/{id}";
+    public static final String LOAD_SCRIBBLE = "/create/scribble/load/{id}";
 
     @RequestMapping(value=IDEA_HOME, method= RequestMethod.GET)
     public ModelAndView loadIdeaFactory(HttpSession session, ModelMap map){
 
         Doodle doodle1 = new Doodle();
         doodle1.setTitle("Ayyyy");
+        doodle1.setDescription("Awww Yeahhh");
 
         Doodle doodle2 = new Doodle();
         doodle2.setTitle("Beeeee");
+        doodle2.setDescription("Be Bop Boop");
 
         Doodle doodle3 = new Doodle();
         doodle3.setTitle("Seeee");
+        doodle3.setDescription("See ya next tuesday");
 
         List<Doodle> doodles = new LinkedList<>();
 
@@ -49,6 +52,7 @@ public class IdeaFactoryController {
     @RequestMapping(value=LOAD_SCRIBBLE, method= RequestMethod.GET)
     public ModelAndView loadScribble(@PathVariable String id, HttpSession session, ModelMap map){
 
+        System.out.println("ID : " + id);
         if(id != null && id.equals("new")){
             System.out.println("New!");
         }

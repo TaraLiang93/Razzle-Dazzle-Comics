@@ -27,22 +27,22 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane fade in active" id="scribbles">
                 <div class="row">
-                    <div id="newScribble" class="row-fluid">
-                        <div class="col-sm-6 col-md-4">
+                    <div id="newScribble" class="span2">
+                        <div class="col-sm-3 col-md-3">
                             <div class="thumbnail list-item">
-                                    <img class="idea" src="/img/plus_sign.jpg" alt="New Scribble"/>
+                                <img class="idea" src="/img/plus_sign.jpg" alt="New Scribble"/>
                                 <div class="caption">
                                     <h3>Add a New Scribble!</h3>
-                                    <p>A way to free write to save a plot for the future!</p>
+                                    <p>A way to free write!</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <c:forEach var="i" items="${doodles}">
-                        <div class="row-fluid">
-                            <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail list-item">
-                                    <img class="idea" src="/img/logo.jpg" alt="Hmmm">
+                        <div class="span2">
+                            <div class="col-sm-3 col-md-3">
+                                <div id="thing" class="thumbnail list-item scribble">
+                                    <img class="idea" src="/img/logo.jpg">
                                     <div class="caption">
                                         <h3>${i.title}</h3>
                                         <p>${i.description}</p>
