@@ -1,8 +1,16 @@
 package com.data.structure;
 
+import com.data.UserData;
+import com.data.creation.Doodle;
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.Parent;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by drodrigues on 3/30/16.
@@ -10,8 +18,8 @@ import com.googlecode.objectify.annotation.Index;
 @Entity
 public class Tag {
 
-//    @Parent
-//    Key<UserData> userData;
+    @Parent
+    Key<UserData> userData;
 
     @Id
     Long tagId;
@@ -19,7 +27,12 @@ public class Tag {
     @Index
     String name;
 
-    public Tag(){}
+    List<Key<Doodle>> doodleList;
+
+    public Tag(){
+        name = "";
+        doodleList = new ArrayList<Key<Doodle>>();
+    }
 
     public Long getTagId() {
         return tagId;
@@ -37,4 +50,27 @@ public class Tag {
         this.name = name;
     }
 
+    public Key<UserData> getUserData() {
+        return userData;
+    }
+
+    public void setUserData(Key<UserData> userData) {
+        this.userData = userData;
+    }
+
+    public List<Key<Doodle>> getDoodleList() {
+        return doodleList;
+    }
+
+    public void setDoodleList(List<Key<Doodle>> doodleList) {
+        this.doodleList = doodleList;
+    }
+
+    public void addDoodleToDoodleList( Key<Doodle> doodleToAdd){
+        this.doodleList.add(doodleToAdd);
+    }
+
+    public Key<Tag> getKey() {
+        return Key.create(Tag.class, tagId);
+    }
 }
