@@ -1,10 +1,22 @@
 package com.data.api;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 /**
  * Created by Zhenya on 3/30/16.
  */
-public interface Deleteable {
+public abstract class Deleteable<T> {
 
-    public void delete();
+    public void delete(Readable<T> query){
+        Container<T> result = query.fetch();
+
+        for(T elem : result.getList()){
+            System.out.println("Deleting Element : " + elem);
+            hook(elem); //See if the user needs to do anything before we delete it
+            ofy().delete().entity(elem);
+        }
+    }
+
+    public abstract void hook(T item);
 
 }
