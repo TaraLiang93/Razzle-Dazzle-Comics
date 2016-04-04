@@ -2,6 +2,7 @@ package com.data.api.DoodleQueries;
 
 import com.data.UserData;
 import com.data.api.Container;
+import com.data.api.MapContainer;
 import com.data.api.Readable;
 import com.data.api.ResultContainer;
 import com.data.creation.Scribble;
@@ -17,7 +18,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 /**
  * Created by Zhenya on 4/4/16.
  */
-public class GetScribblesCommand{
+public class GetScribblesCommand extends Readable{
 
     Key<UserData> userDataKey;
 
@@ -25,26 +26,27 @@ public class GetScribblesCommand{
         this.userDataKey = userDataKey;
     }
 
-//    @Override
-//    protected Filter getFilter() {
-//        return null;
-//    }
-//
-//    @Override
-//    protected Class getType() {
-//        return Scribble.class;
-//    }
+    @Override
+    protected Filter getFilter() {
+        return null;
+    }
 
-//    /**
-//     *  fetch returns a
-//     * @return
-//     */
-//    @Override
-//    public Container fetch(){
-//        UserData userData = ofy().load().key(userDataKey).now();
-//        List<Key<Scribble>> scribbleList = userData.getScribbleList();
-//        Map<Key<Scribble>, Scribble> ths = ofy().load().keys(scribbleList);
-////
-////        ResultContainer<Scribble> scribbleResultContainer = new ResultContainer<Scribble>(ths);
-//    }
+    @Override
+    protected Class getType() {
+        return Scribble.class;
+    }
+
+    /**
+     *  fetch returns a
+     * @return
+     */
+    @Override
+    public Container fetch(){
+        UserData userData = ofy().load().key(userDataKey).now();
+        List<Key<Scribble>> scribbleList = userData.getScribbleList();
+        Map<Key<Scribble>, Scribble> ths = ofy().load().keys(scribbleList);
+        MapContainer<Scribble> scribbleResultContainer = new MapContainer<>(ths);
+        return scribbleResultContainer;
+    }
+
 }
