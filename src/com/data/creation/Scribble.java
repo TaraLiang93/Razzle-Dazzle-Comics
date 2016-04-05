@@ -1,14 +1,11 @@
 package com.data.creation;
 
-import com.data.UserData;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Parent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Created by drodrigues on 3/30/16.
@@ -45,6 +42,16 @@ public class Scribble {
 
     public void setPageList(List<Key<Page>> pageList) {
         this.pageList = pageList;
+    }
+
+    public List<Page> getPages(){
+        List<Page> pages = new ArrayList<>();
+
+        pages.add(new Page());
+        pages.add(new Page());
+        pages.add(new Page());
+
+        return pages;
     }
 
     public void addPageToList( Key<Page> pageKey){

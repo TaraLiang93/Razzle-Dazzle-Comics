@@ -1,6 +1,7 @@
 package com.rdc.create;
 
 import com.data.creation.Doodle;
+import com.data.creation.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,9 +60,11 @@ public class IdeaFactoryController {
         }
         else{
             System.out.println("Old!");
+            map.put("page", new Page());
         }
 
-        return new ModelAndView("homepage");
+
+        return new ModelAndView("scribbles");
     }
 
     @RequestMapping(value=LOAD_DOODLE, method= RequestMethod.GET)
