@@ -4,10 +4,11 @@
 
 $(document).ready(function() {
 
+    $("[data-toggle='popover']").click(function() {
+        $(this).popover();
+        //$("[data-toggle='popover']").addClass('on');
 
-    $('#Draw').popover();
-    $("#Draw").blur(function() {
-        $(this).popover('hide');
     });
+
 
 });

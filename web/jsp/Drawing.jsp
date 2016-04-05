@@ -78,8 +78,7 @@
     <div class="btn-group">
         <a class="btn btn-default" id="Zoom-level"></a>
         <a class="btn btn-default" data-toggle="popover" data-title="Upload file"
-           data-content="<input id ='Image-file'
-           class='btn-default fa fa-picture-o' type='file' name='pic' accept='image/*'/>"
+           data-content="<input id ='Image-file' type='file' name='pic' accept='image/*'/>"
            data-html="true">
             <i class="fa fa-picture-o"></i>
         </a>

@@ -15,7 +15,20 @@
     border-radius: 4px;
     width:150px;
     padding: 12px;
+    height:600px;
 }
 .toolbar a {
     display: block;
+}
+
+.toolbar .btn-group .btn {
+    float: left;
+    width: 50%;
+}
+
+.btn-group {
+    display: block;
+}
+.toolbar .input.btn-default {
+    height: 75px;
 }
