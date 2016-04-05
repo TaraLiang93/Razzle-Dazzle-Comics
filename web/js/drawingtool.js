@@ -51,7 +51,9 @@ $(document).ready(function() {
     //resizeCanvas(500,500);
 
     canvas.on("mouse:up", function(){
-        Stack.push(canvas._objects[canvas._objects.length-1])
+        if(canvas.isDrawingMode === true) {
+            Stack.push(canvas._objects[canvas._objects.length - 1]);
+        }
     });
 
     clearButton.onclick = function(){//if the clear button is click all the objects on the canvas is deleted by calling fcn clear.
@@ -120,6 +122,7 @@ $(document).ready(function() {
      * User can resize the shape and the color is default to the lineColor
      */
     Rectangle.onclick = function(){
+        canvas.isDrawingMode = false;
         var Rect = new fabric.Rect({
             width: (canvas.getWidth() /4),
             height: (canvas.getHeight()/5),
@@ -134,6 +137,7 @@ $(document).ready(function() {
     };
 
     Square.onclick = function(){
+        canvas.isDrawingMode = false;
         var Sqr = new fabric.Rect({
             width: (canvas.getWidth()/5),
             height: (canvas.getHeight()/5),
@@ -148,6 +152,7 @@ $(document).ready(function() {
     };
 
     Triangle.onclick = function(){
+        canvas.isDrawingMode = false;
         var Tri = new fabric.Triangle({
             width: (canvas.getWidth()/6),
             height: (canvas.getHeight()/6),
@@ -162,6 +167,7 @@ $(document).ready(function() {
     };
 
     Circle.onclick = function(){
+        canvas.isDrawingMode = false;
         var Cir = new fabric.Circle({
             radius: (canvas.getWidth()/8),
             right: 25,
@@ -175,6 +181,7 @@ $(document).ready(function() {
     };
 
     Line.onclick = function(){
+        canvas.isDrawingMode = false;
         canvas.add(new fabric.Line([canvas.getWidth()/10, canvas.getWidth()/10, 200, 200], {
             left: 170,
             top: 150,
@@ -188,6 +195,7 @@ $(document).ready(function() {
     };
 
     Text.onclick = function(){
+        canvas.isDrawingMode = false;
         console.log("Text clicked")
         var textbox = new fabric.IText("Text");
         canvas.add(textbox);
@@ -195,16 +203,20 @@ $(document).ready(function() {
     };
 
     $("#Zoom-in").click(function(){//Zoom in on a canvas,  0 = zoom in, 1 = zoom out
-       zoom(0);
+        canvas.isDrawingMode = false;
+        zoom(0);
     });
 
     $("#Zoom-out").click(function(){
+        canvas.isDrawingMode = false;
         zoom(1);
     });
 
     $("#Zoom-level").text(Math.round(canvas.getZoom()*100) + "%");
 
     $("#Image-file").change( function uploadImage(e) {
+        canvas.isDrawingMode = false;
+        canvas.isDrawingMode = false;
         var reader = new FileReader();
         reader.onload = function (event) {
             var img = new Image();
@@ -229,7 +241,7 @@ function zoom(num){//0 == zoom in , 1 == zoom out
         canvas.setZoom(canvas.getZoom()*1.1);
     }
     else{
-        if(canvas.getZoom() > 1) {
+        if(canvas.getZoom() > 0.60) {
             canvas.setZoom(canvas.getZoom() / 1.1);
         }
         else{
