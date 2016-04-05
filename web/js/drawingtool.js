@@ -127,7 +127,7 @@ $(document).ready(function() {
     Rectangle.onclick = function(){
         var Rect = new fabric.Rect({
             width: (canvas.getWidth() /4),
-            height: (canvas.getHeight()/5),
+            height: (canvas.getHeight()/6),
             left: 25,
             top: 25,
             fill: lineColor,

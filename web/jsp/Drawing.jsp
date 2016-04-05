@@ -7,47 +7,48 @@
 <script src="/js/fabric.js"></script>
 
 <div class="toolbar">
-<a class="btn btn-default" id="Clear">
-    <i class="fa fa-mouse-pointer"></i>
-</a>
+    <a class="btn btn-default" id="Clear">
+        <i class="fa fa-trash"></i>
+    </a>
     <a class="btn btn-default" id="Draw">
         <i class="fa fa-pencil"></i>
     </a>
     <a class="btn btn-default" id="Select">
-
+        <i class="fa fa-mouse-pointer"></i>
     </a>
     <a class="btn btn-default" id="Delete">
-
+        Del
     </a>
     <a class="btn btn-default" id="Undo">
-
+        <i class="fa fa-undo"></i>
     </a>
     <a class="btn btn-default" id="Redo">
-
+        <i class="fa fa-repeat"></i>
     </a>
     <a class="btn btn-default" id ="Rectangle">
-
+        <i class="fa fa-square"></i>
+        <i class="fa fa-square"></i>
     </a>
     <a class="btn btn-default" id ="Square">
-
+        <i class="fa fa-square-o"></i>
     </a>
     <a class="btn btn-default" id ="Triangle">
-
+        <i class="fa fa-caret-up"></i>
     </a>
     <a class="btn btn-default" id ="Circle">
-
+        <i class="fa fa-circle-thin"></i>
     </a>
     <a class="btn btn-default" id ="Line">
-
+        /
     </a>
     <a class="btn btn-default" id ="Text">
-
+        <i class="fa fa-font"></i>
     </a>
     <a class="btn btn-default" id="Zoom-in">
-
+        <i class="fa fa-search-plus"></i>
     </a>
     <a class="btn btn-default" id="Zoom-out">
-
+        <i class="fa fa-search-minus"></i>
     </a>
     <a class="btn btn-default" id="Zoom-level">
 
