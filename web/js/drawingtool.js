@@ -35,8 +35,9 @@ $(document).ready(function() {
     redoButton = document.getElementById("Redo");
 
     lineColor = document.getElementById("Drawing-color").value;
-    lineWidth = document.getElementById("Line-width").value;
-    if(lineWidth == ""){
+    lineWidth = $("#Line-width").text();
+    //document.getElementById("Line-width").value;
+    if(!lineWidth && lineWidth == ""){
         lineWidth = 10;
     }
 

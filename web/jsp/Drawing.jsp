@@ -5,12 +5,16 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <script src="/js/drawingtool.js"></script>
 <script src="/js/fabric.js"></script>
+<script src="/js/drawing.js"></script>
+
 
 <div class="toolbar">
     <a class="btn btn-default" id="Clear">
         <i class="fa fa-trash"></i>
     </a>
-    <a class="btn btn-default" id="Draw">
+    <a class="btn btn-default" id="Draw" data-toggle="popover" data-title="Draw Size"
+       data-content="<input id='Line-width'  type='number' value='10' oninput='changeLineWidth()'>"
+       data-html="true">
         <i class="fa fa-pencil"></i>
     </a>
     <a class="btn btn-default" id="Select">
@@ -51,15 +55,15 @@
         <i class="fa fa-search-minus"></i>
     </a>
     <a class="btn btn-default" id="Zoom-level">
-
     </a>
-    <input class="input" id="Drawing-color" type="color" oninput="changeColor()">
-    <input id="Line-width"  type="number" oninput="changeLineWidth()">
 
-    <span>
-        Input Image:
+        <input class="input form-control btn-default" id="Drawing-color" type="color" oninput="changeColor()">
+    <%--<input id='Line-width"  type='number' value='10' oninput='changeLineWidth()'>--%>
+
+    <div>
+        more like a button
         <input id ="Image-file" type="file" name="pic" accept="image/*"/>
-    </span>
+    </div>
 </div>
 
 <div class="canvasContainer">
