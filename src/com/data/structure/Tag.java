@@ -27,11 +27,9 @@ public class Tag {
     @Index
     String name;
 
-    List<Key<Doodle>> doodleList;
 
     public Tag(){
         name = "";
-        doodleList = new ArrayList<Key<Doodle>>();
     }
 
     public Long getTagId() {
@@ -58,19 +56,10 @@ public class Tag {
         this.userData = userData;
     }
 
-    public List<Key<Doodle>> getDoodleList() {
-        return doodleList;
-    }
-
-    public void setDoodleList(List<Key<Doodle>> doodleList) {
-        this.doodleList = doodleList;
-    }
-
-    public void addDoodleToDoodleList( Key<Doodle> doodleToAdd){
-        this.doodleList.add(doodleToAdd);
-    }
 
     public Key<Tag> getKey() {
         return Key.create(Tag.class, tagId);
     }
+
+
 }
