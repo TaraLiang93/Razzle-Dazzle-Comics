@@ -1,11 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
-<script src="/js/writing.js"/>
+
 <div class="writeTabs">
 
     <!-- nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-    <c:forEach items = "${param.items}" var = "scene" varStatus="i" begin="1">
+    <c:forEach items = "${page.scenes}" var = "scene" varStatus="i" begin="1">
         <li role="presentation" class="${i.index eq 1 ? "active" : ""}">
             <a href="#Scene${i.index}" aria-controls="Scene${i.index}" role="tab" data-toggle="tab">Scene ${i.index}</a>
         </li>
@@ -18,8 +17,7 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
-
-        <c:forEach items = "${param.items}" var = "scene" varStatus="i" begin="1">
+        <c:forEach items = "${page.scenes}" var = "scene" varStatus="i" begin="1">
             <div role="tabpanel" class="tab-pane active" id="Scene${i.index}">
                 <div class="content">
                     <div class="title">
@@ -27,10 +25,9 @@
                     </div>
                     <div class="narritive">
                         <textarea id="writingArea${i.index}" class="tinyMCE">
-                            ${scene.dialogue}
-                            <%--<c:forEach items="${scene.dialogue}" var="dialog">
+                             <c:forEach items="${scene.dialogue}" var="dialog">
                                 <c:out value="${dialog.dialogue}"/>
-                            </c:forEach>--%>
+                            </c:forEach>
                         </textarea>
                     </div>
                     <textarea disabled class="setting form-control" placeholder="setting">${scene}</textarea>
