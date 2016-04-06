@@ -35,8 +35,9 @@ $(document).ready(function() {
     redoButton = document.getElementById("Redo");
 
     lineColor = document.getElementById("Drawing-color").value;
-    lineWidth = document.getElementById("Line-width").value;
-    if(lineWidth == ""){
+    lineWidth = $("#Line-width").text();
+    //document.getElementById("Line-width").value;
+    if(!lineWidth && lineWidth == ""){
         lineWidth = 10;
     }
 
@@ -48,7 +49,26 @@ $(document).ready(function() {
     canvas.selectionBorderColor = ("rgb(227, 37, 107)"); //change selection border to our theme color
     canvas.selectionColor = " rgba(255,255,255,0)";// change selection color to transparent white
     canvas.renderOnAddRemove = true; //make sure all the change to the canvas is render instantly.
-    //resizeCanvas(500,500);
+    //var newHeight = $(window).height()-$("body").height();
+    //var newWidth = $(window).width();
+        //-$(".toolbar").width();
+    canvas.setWidth(600);
+    canvas.setHeight(600);
+    //canvas.resizeCanvas(600,600);
+    canvas.renderAll();
+
+    //$(window).resize(function(){
+    //
+    //    var newHeight = $(window).height()-$("body").height();
+    //    var newWidth = $(window).width()-$(".toolbar").width()-50;
+    //    console.log(newHeight + " " + newWidth);
+    //
+    //    canvas.setHeight(newHeight);
+    //    canvas.setWidth(newWidth);
+    //    //canvas.calcOffset();
+    //    canvas.renderAll();
+    //});
+
 
     canvas.on("mouse:up", function(){
         Stack.push(canvas._objects[canvas._objects.length-1])
@@ -122,7 +142,7 @@ $(document).ready(function() {
     Rectangle.onclick = function(){
         var Rect = new fabric.Rect({
             width: (canvas.getWidth() /4),
-            height: (canvas.getHeight()/5),
+            height: (canvas.getHeight()/6),
             left: 25,
             top: 25,
             fill: lineColor,
@@ -217,6 +237,7 @@ $(document).ready(function() {
         }
         reader.readAsDataURL(e.target.files[0]);
     });
+
 });
 
 /**

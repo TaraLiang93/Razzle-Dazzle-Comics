@@ -83,6 +83,23 @@ public class IdeaFactoryController {
         return new ModelAndView("homepage");
     }
 
+    @RequestMapping(value="/create/dooddle/new", method= RequestMethod.GET)
+    public ModelAndView newDoodle(HttpSession session,ModelMap map){
+
+        return new ModelAndView("doodles");
+    }
+
+    @RequestMapping(value="/create/dooddle/save", method= RequestMethod.POST)
+    public String saveDoodle(HttpServletRequest req, HttpSession session, ModelMap map){
+
+        if(req != null)
+        {
+            System.out.println("Data came here");
+        }
+
+        return "OK";
+    }
+
     @RequestMapping(value=SAVE_SCRIBBLE, method=RequestMethod.POST)
     public ModelAndView saveScribble(HttpServletRequest req, ModelMap map){
 

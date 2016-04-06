@@ -1,6 +1,7 @@
 <jsp:include page="header.jsp">
     <jsp:param name="title" value="Razzle Dazzle Comics"/>
     <jsp:param name="css" value="/css/homepage.css"/>
+    <jsp:param name="js" value="/js/homepage.js"/>
 </jsp:include>
 
 <div class="selection">
@@ -13,6 +14,7 @@
     <div class="main creation">
         <a class="btn btn-sm btn-default">CREATE CONTENT</a>
     </div>
+
 </div>
 
 <jsp:include page="footer.jsp"/>

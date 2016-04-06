@@ -1,0 +1,34 @@
+.canvasContainer  canvas#canvas {
+    border-style: solid;
+    border-radius: 4px;
+    /*height: 600px;*/
+    /*width: 600px;*/
+}
+
+.canvasContainer {
+    float: left;
+}
+
+.toolbar {
+    float: left;
+    border:2px solid black;
+    border-radius: 4px;
+    width: 150px;
+    padding: 12px;
+    height:100%;
+}
+.toolbar a {
+    display: block;
+}
+
+.toolbar .btn-group .btn {
+    float: left;
+    width: 50%;
+}
+
+.btn-group {
+    display: block;
+}
+.toolbar .input.btn-default {
+    height: 75px;
+}
