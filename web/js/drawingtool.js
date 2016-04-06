@@ -77,8 +77,17 @@ $(document).ready(function() {
 
     $("#Line-width").change(function(){
         changeLineWidth();
-        s
+        if(canvas._activeObject != null){
+            if(canvas._activeObject.type == "i-text"){
+                setTextStyle(canvas._activeObject, 'fontSize', lineWidth);
+            }
+            setTextStyle(canvas._activeObject, 'strokeWidth', lineWidth);
+        }
     })
+
+    $("#Bold").click(function(){
+        setTextStyle(canvas._activeObject, 'fontWeight', 'bold');
+    });
 
     /**
      * End of Listener
