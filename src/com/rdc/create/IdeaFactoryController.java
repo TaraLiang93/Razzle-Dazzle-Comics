@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,8 +23,9 @@ public class IdeaFactoryController {
     public static final String IDEA_HOME = "/create/ideas";
     public static final String LOAD_SCRIBBLE = "/create/scribble/load/{id}";
     public static final String LOAD_DOODLE = "/create/doodle/load/{id}";
+    public static final String SAVE_SCRIBBLE ="/create/scribble/save";
 
-    @RequestMapping(value=IDEA_HOME, method= RequestMethod.GET)
+    @RequestMapping(value=IDEA_HOME, method= {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView loadIdeaFactory(HttpSession session, ModelMap map){
 
         Doodle doodle1 = new Doodle();
@@ -80,5 +82,15 @@ public class IdeaFactoryController {
 
         return new ModelAndView("homepage");
     }
+
+    @RequestMapping(value=SAVE_SCRIBBLE, method=RequestMethod.POST)
+    public ModelAndView saveScribble(HttpServletRequest req, ModelMap map){
+
+        System.out.println("Made It!");
+
+        return new ModelAndView("forward:" + IDEA_HOME);
+    }
+
+
 
 }
