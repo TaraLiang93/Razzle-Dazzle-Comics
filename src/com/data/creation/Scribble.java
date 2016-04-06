@@ -1,8 +1,14 @@
 package com.data.creation;
 
+import com.data.UserData;
+import com.data.api.DoodleQueries.GetEntityListFromKeyListCommand;
+import com.data.api.Readable;
+import com.data.structure.Tag;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.Parent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +27,29 @@ public class Scribble {
     @Id
     Long scribbleId;
 
+    @Index
+    String title;
+
+    @Index
+    String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     List<Key<Page>> pageList;
 
 
     public Scribble(){
+        pageList = new ArrayList<Key<Page>>();
+    }
+
+    public Scribble(String title){
+        this.title = title;
         pageList = new ArrayList<Key<Page>>();
     }
 
@@ -56,6 +81,24 @@ public class Scribble {
 
     public void addPageToList( Key<Page> pageKey){
         pageList.add(pageKey);
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Key<Scribble> getKey() {
+        return Key.create(Scribble.class, scribbleId);
+    }
+
+    public List<Page> getPages(){
+        Readable<Page> getPagesFromTagsKeysAbstracted = new GetEntityListFromKeyListCommand<>(getPageList());
+        List<Page> pageList = getPagesFromTagsKeysAbstracted.fetch().getList();
+        return pageList;
     }
 
 }

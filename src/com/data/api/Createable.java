@@ -8,10 +8,13 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 public abstract class Createable<T>{
 
     protected abstract T getEntity();
-    public void createEntity(DataItem<T> data){
+
+    public T createEntity(FillDataCommand<T> data){
         T entity = getEntity();
         data.fillEntity(entity);
         ofy().save().entity(entity).now();
+
+        return entity;
 }
 
 

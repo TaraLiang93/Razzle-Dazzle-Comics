@@ -5,6 +5,8 @@ package com.data;
  * Created by tara on 2/14/16.
  */
 
+import com.data.api.DoodleQueries.GetEntityListFromKeyListCommand;
+import com.data.api.Readable;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
 import com.data.structure.Bookmark;
@@ -31,9 +33,10 @@ public class UserData implements java.io.Serializable {
     @Index
     String preferredEmail;
 
-    @Index
-    @Load
-    Ref<Flow> flowId;
+//    @Index
+//    @Load
+//    Ref<Flow> flowId;
+
 
     @Serialize
     Blob userImage; // blob type for userImage can't be indexed
@@ -44,6 +47,7 @@ public class UserData implements java.io.Serializable {
     String location;
     String description;
 
+    List<Key<Flow>> flowList;
     List<Key<Series>> seriesList;
     List<Key<Scribble>> scribbleList;
     List<Key<Tag>> tagList;
@@ -89,12 +93,12 @@ public class UserData implements java.io.Serializable {
         this.preferredEmail = preferredEmail;
     }
 
-    public Flow getFlowId() {
-        return flowId.get();
+    public List<Key<Flow>> getFlowList() {
+        return flowList;
     }
 
-    public void setFlowId(Ref<Flow> flowId) {
-        this.flowId = flowId;
+    public void setFlowList(List<Key<Flow>> flowList) {
+        this.flowList = flowList;
     }
 
     public Blob getUserImage() {
@@ -179,5 +183,39 @@ public class UserData implements java.io.Serializable {
 
     public void addTagToList( Key<Tag> tag ){
         this.tagList.add(tag);
+    }
+
+    public List<Scribble> getScribbles(){
+
+        Readable<Scribble> getScribblesFromScribbleKeysAbstracted = new GetEntityListFromKeyListCommand<>(getScribbleList());
+        List<Scribble> scribbleList = getScribblesFromScribbleKeysAbstracted.fetch().getList();
+        System.out.println("Gotten scribbles");
+        return scribbleList;
+    }
+
+    public List<Doodle> getDoodles(){
+        Readable<Doodle> getDoodlesFromDoodleKeysAbtracted = new GetEntityListFromKeyListCommand<>(getDoodleList());
+        List<Doodle> doodleList = getDoodlesFromDoodleKeysAbtracted.fetch().getList();
+        return doodleList;
+    }
+
+    public List<Tag> getTags(){
+        Readable<Tag> getTagsFromTagsKeysAbstracted = new GetEntityListFromKeyListCommand<>(getTagList());
+        List<Tag> tagList = getTagsFromTagsKeysAbstracted.fetch().getList();
+        return tagList;
+    }
+
+    public List<Flow> getFlows(){
+        Readable<Flow> getFlowsFromFlowKeysAbstracted = new GetEntityListFromKeyListCommand<>(getFlowList());
+        List<Flow> flowList = getFlowsFromFlowKeysAbstracted.fetch().getList();
+        return flowList;
+    }
+
+    public void addScribbleToList( Key<Scribble> scribble ){
+        this.scribbleList.add(scribble);
+    }
+
+    public void addFlowToList( Key<Flow> flow ) {
+        this.flowList.add(flow);
     }
 }

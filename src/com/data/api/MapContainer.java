@@ -2,6 +2,7 @@ package com.data.api;
 
 import com.googlecode.objectify.Key;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -10,27 +11,29 @@ import java.util.Map;
  */
 public class MapContainer <T> implements Container<T>{
 
-    List<T> listOfEntities;
+    Map<Key<T>,T> map;
     public MapContainer (Map<Key<T>, T> map){
-
-        for (Map.Entry<Key<T>, T> entity : map.entrySet()){
-            listOfEntities.add( entity.getValue() ); //get value is of the type T
-        }
+        this.map = map;
     }
 
     @Override
     public List<T> getList() {
+        /**
+         * exeception will be thrown when the map is accessed it there are errors
+         */
+        List<T> listOfEntities = new ArrayList<>();
+        for (Map.Entry<Key<T>, T> entity : this.map.entrySet()){
+            listOfEntities.add( entity.getValue() ); //get value is of the type T
+        }
         return listOfEntities;
     }
 
     @Override
     public T getResult() {
-        if( listOfEntities != null){
-            return listOfEntities.get(0);
-        }
-        else{
-            //perhaps throw exception?
-            return null;
-        }
+        /**
+         * gets the first entity that the iterator will return
+         */
+        Map.Entry<Key<T>, T> entity = this.map.entrySet().iterator().next();
+        return entity.getValue();
     }
 }
