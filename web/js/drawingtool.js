@@ -5,7 +5,7 @@
 /**
  * All the buttons in drawing tool
   */
-var clearButton, drawButton, selectButton, deleteButton, redoButton, undoButton, ZoomInButton, ZoomOutButton;
+var clearButton, drawButton, selectButton, deleteButton, redoButton, undoButton ;
 
 /**
  * All the colors and tool size used in drawing tool
@@ -18,7 +18,6 @@ var lineColor, lineWidth;
 var Stack, undoStack;
 
 var canvas;
-//var drawButton = $("Draw");
 
 
 $(document).ready(function() {
@@ -70,9 +69,49 @@ $(document).ready(function() {
     //});
 
 
+    /**********************************************************************************************************************
+     * Listeners
+     */
     canvas.on("mouse:up", function(){
-        Stack.push(canvas._objects[canvas._objects.length-1])
+        if(canvas.isDrawingMode === true) {
+            Stack.push(canvas._objects[canvas._objects.length - 1]);
+        }
     });
+
+
+    $(document).keyup(function(e){
+        if((e.keyCode === 46) || (e.keyCode === 8)) { //if the user press delete or backspace
+            if(canvas._activeObject.type != "i-text") {
+                deleteFcn();
+            }
+        }
+    });
+
+    $("#Drawing-color").change(function(){
+        changeColor();
+        if(canvas._activeObject != null){
+            setTextStyle(canvas._activeObject,'fill',lineColor);
+        }
+
+    });
+
+    $("#Line-width").change(function(){
+        changeLineWidth();
+        if(canvas._activeObject != null){
+            if(canvas._activeObject.type == "i-text"){
+                setTextStyle(canvas._activeObject, 'fontSize', lineWidth);
+            }
+            setTextStyle(canvas._activeObject, 'strokeWidth', lineWidth);
+        }
+    })
+
+    $("#Bold").click(function(){
+        setTextStyle(canvas._activeObject, 'fontWeight', 'bold');
+    });
+
+    /**
+     * End of Listener
+     **********************************************************************************************************************/
 
     clearButton.onclick = function(){//if the clear button is click all the objects on the canvas is deleted by calling fcn clear.
         console.log("Clear Canvas: Clear clicked");
@@ -92,11 +131,6 @@ $(document).ready(function() {
         canvas.isDrawingMode = false;
     };
 
-    $(document).keyup(function(e){
-        if((e.keyCode === 46) || (e.keyCode === 8)) { //if the user press delete or backspace
-            deleteFcn();
-        }
-    });
 
     deleteButton.onclick = function(){
         deleteFcn();
@@ -135,11 +169,12 @@ $(document).ready(function() {
         }
     };
 
-    /**
+    /*********************************************************************************************************************
      * Creating a default shapes such as rectangle, square, triangle, circle and star, polygon.
      * User can resize the shape and the color is default to the lineColor
      */
     Rectangle.onclick = function(){
+        canvas.isDrawingMode = false;
         var Rect = new fabric.Rect({
             width: (canvas.getWidth() /4),
             height: (canvas.getHeight()/6),
@@ -154,6 +189,7 @@ $(document).ready(function() {
     };
 
     Square.onclick = function(){
+        canvas.isDrawingMode = false;
         var Sqr = new fabric.Rect({
             width: (canvas.getWidth()/5),
             height: (canvas.getHeight()/5),
@@ -168,6 +204,7 @@ $(document).ready(function() {
     };
 
     Triangle.onclick = function(){
+        canvas.isDrawingMode = false;
         var Tri = new fabric.Triangle({
             width: (canvas.getWidth()/6),
             height: (canvas.getHeight()/6),
@@ -182,6 +219,7 @@ $(document).ready(function() {
     };
 
     Circle.onclick = function(){
+        canvas.isDrawingMode = false;
         var Cir = new fabric.Circle({
             radius: (canvas.getWidth()/8),
             right: 25,
@@ -195,6 +233,7 @@ $(document).ready(function() {
     };
 
     Line.onclick = function(){
+        canvas.isDrawingMode = false;
         canvas.add(new fabric.Line([canvas.getWidth()/10, canvas.getWidth()/10, 200, 200], {
             left: 170,
             top: 150,
@@ -206,25 +245,39 @@ $(document).ready(function() {
         }));
         Stack.push(canvas._objects[canvas._objects.length-1]);
     };
+    /**
+     *  End of shapes
+     *************************************************************************************************************************/
 
-    Text.onclick = function(){
+    $("#Text").click(function(){
+        canvas.isDrawingMode = false;
         console.log("Text clicked")
         var textbox = new fabric.IText("Text");
+        textbox.fill = lineColor;
         canvas.add(textbox);
         Stack.push(canvas._objects[canvas._objects.length-1]);
-    };
+    });
 
     $("#Zoom-in").click(function(){//Zoom in on a canvas,  0 = zoom in, 1 = zoom out
-       zoom(0);
+        canvas.isDrawingMode = false;
+        zoom(0);
     });
 
     $("#Zoom-out").click(function(){
+        canvas.isDrawingMode = false;
         zoom(1);
+    });
+
+    $("#Fill").click(function(){
+        canvas._activeObject.fill = lineColor;
+        canvas.renderAll();
     });
 
     $("#Zoom-level").text(Math.round(canvas.getZoom()*100) + "%");
 
     $("#Image-file").change( function uploadImage(e) {
+        canvas.isDrawingMode = false;
+        canvas.isDrawingMode = false;
         var reader = new FileReader();
         reader.onload = function (event) {
             var img = new Image();
@@ -250,7 +303,7 @@ function zoom(num){//0 == zoom in , 1 == zoom out
         canvas.setZoom(canvas.getZoom()*1.1);
     }
     else{
-        if(canvas.getZoom() > 1) {
+        if(canvas.getZoom() > 0.60) {
             canvas.setZoom(canvas.getZoom() / 1.1);
         }
         else{
@@ -326,6 +379,18 @@ function resizeCanvas(width, height) {
  */
 function Clear(){
     canvas.clear();
+}
+
+function setTextStyle(obj, style, value){
+    if(obj.isEditing && obj.setSelectionStyles){
+        var sty = {};
+        sty[style] = value;
+        obj.setSelectionStyles(sty).setCoords();
+    }
+    else{
+        obj[style] = value;
+    }
+    canvas.renderAll();
 }
 
 
