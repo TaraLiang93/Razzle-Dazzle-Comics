@@ -5,7 +5,7 @@
 /**
  * All the buttons in drawing tool
   */
-var clearButton, drawButton, selectButton, deleteButton, redoButton, undoButton, ZoomInButton, ZoomOutButton;
+var clearButton, drawButton, selectButton, deleteButton, redoButton, undoButton ;
 
 /**
  * All the colors and tool size used in drawing tool
@@ -18,7 +18,6 @@ var lineColor, lineWidth;
 var Stack, undoStack;
 
 var canvas;
-//var drawButton = $("Draw");
 
 
 $(document).ready(function() {
@@ -50,11 +49,40 @@ $(document).ready(function() {
     canvas.renderOnAddRemove = true; //make sure all the change to the canvas is render instantly.
     //resizeCanvas(500,500);
 
+    /**********************************************************************************************************************
+     * Listeners
+     */
     canvas.on("mouse:up", function(){
         if(canvas.isDrawingMode === true) {
             Stack.push(canvas._objects[canvas._objects.length - 1]);
         }
     });
+
+
+    $(document).keyup(function(e){
+        if((e.keyCode === 46) || (e.keyCode === 8)) { //if the user press delete or backspace
+            if(canvas._activeObject.type != "i-text") {
+                deleteFcn();
+            }
+        }
+    });
+
+    $("#Drawing-color").change(function(){
+        changeColor();
+        if(canvas._activeObject != null){
+            setTextStyle(canvas._activeObject,'fill',lineColor);
+        }
+
+    });
+
+    $("#Line-width").change(function(){
+        changeLineWidth();
+        s
+    })
+
+    /**
+     * End of Listener
+     **********************************************************************************************************************/
 
     clearButton.onclick = function(){//if the clear button is click all the objects on the canvas is deleted by calling fcn clear.
         console.log("Clear Canvas: Clear clicked");
@@ -74,11 +102,6 @@ $(document).ready(function() {
         canvas.isDrawingMode = false;
     };
 
-    $(document).keyup(function(e){
-        if((e.keyCode === 46) || (e.keyCode === 8)) { //if the user press delete or backspace
-            deleteFcn();
-        }
-    });
 
     deleteButton.onclick = function(){
         deleteFcn();
@@ -117,7 +140,7 @@ $(document).ready(function() {
         }
     };
 
-    /**
+    /*********************************************************************************************************************
      * Creating a default shapes such as rectangle, square, triangle, circle and star, polygon.
      * User can resize the shape and the color is default to the lineColor
      */
@@ -193,14 +216,18 @@ $(document).ready(function() {
         }));
         Stack.push(canvas._objects[canvas._objects.length-1]);
     };
+    /**
+     *  End of shapes
+     *************************************************************************************************************************/
 
-    Text.onclick = function(){
+    $("#Text").click(function(){
         canvas.isDrawingMode = false;
         console.log("Text clicked")
         var textbox = new fabric.IText("Text");
+        textbox.fill = lineColor;
         canvas.add(textbox);
         Stack.push(canvas._objects[canvas._objects.length-1]);
-    };
+    });
 
     $("#Zoom-in").click(function(){//Zoom in on a canvas,  0 = zoom in, 1 = zoom out
         canvas.isDrawingMode = false;
@@ -210,6 +237,11 @@ $(document).ready(function() {
     $("#Zoom-out").click(function(){
         canvas.isDrawingMode = false;
         zoom(1);
+    });
+
+    $("#Fill").click(function(){
+        canvas._activeObject.fill = lineColor;
+        canvas.renderAll();
     });
 
     $("#Zoom-level").text(Math.round(canvas.getZoom()*100) + "%");
@@ -317,6 +349,18 @@ function resizeCanvas(width, height) {
  */
 function Clear(){
     canvas.clear();
+}
+
+function setTextStyle(obj, style, value){
+    if(obj.isEditing && obj.setSelectionStyles){
+        var sty = {};
+        sty[style] = value;
+        obj.setSelectionStyles(sty).setCoords();
+    }
+    else{
+        obj[style] = value;
+    }
+    canvas.renderAll();
 }
 
 

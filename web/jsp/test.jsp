@@ -34,14 +34,15 @@
     <button id = "Text">Text</button>
     <button id="Zoom-in">Zoom In</button>
     <button id="Zoom-out">Zoom Out</button>
+    <button id="Fill">Fill</button>
     <p id="Zoom-level"></p>
-    <input id="Drawing-color" type="color" oninput="changeColor()">
-    <input id="Line-width" type="number" oninput="changeLineWidth()">
+    <input id="Drawing-color" type="color">
+    <input id="Line-width" type="number">
 
     <p> Input Image:<input id ="Image-file" type="file" name="pic" accept="image/*">
     </p>
 
-    Hello World!
+    oninput = changeColor()"
     <a href="/">Click me</a>
 </body>
 </html>
