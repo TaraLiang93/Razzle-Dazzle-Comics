@@ -1,6 +1,8 @@
 package com.data.structure;
 
 import com.data.UserData;
+import com.data.api.DoodleQueries.GetEntityFromKeyCommand;
+import com.data.api.Readable;
 import com.data.creation.Doodle;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
@@ -32,6 +34,15 @@ public class Tag {
         name = "";
     }
 
+    public Tag(String name){
+        this.name = name;
+    }
+
+    public Tag(String name, Key<UserData> userData){
+        this.name = name;
+        this.userData = userData;
+    }
+
     public Long getTagId() {
         return tagId;
     }
@@ -48,8 +59,9 @@ public class Tag {
         this.name = name;
     }
 
-    public Key<UserData> getUserData() {
-        return userData;
+    public UserData getUserData() {
+        Readable<UserData> getUserDataFromKey = new GetEntityFromKeyCommand(this.userData);
+        return getUserDataFromKey.fetch().getResult();
     }
 
     public void setUserData(Key<UserData> userData) {

@@ -7,6 +7,7 @@ package com.data;
 //import com.googlecode.objectify.Objectify;
 //import com.googlecode.objectify.ObjectifyFactory;
 
+import com.data.creation.Canvas;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
 import com.data.structure.Tag;
@@ -29,6 +30,7 @@ public class OfyHelper implements ServletContextListener {
         ObjectifyService.register(Scribble.class);
         ObjectifyService.register(Doodle.class);
         ObjectifyService.register(Tag.class);
+        ObjectifyService.register(Canvas.class);
 
     }
 
