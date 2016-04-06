@@ -22,7 +22,7 @@
     </div>
 
     <div class="btn-group">
-        <a class="btn btn-default" id="Select">
+        <a class="btn btn-default active" id="Select">
             <i class="fa fa-mouse-pointer"></i>
         </a>
         <a class="btn btn-default" id="Delete">

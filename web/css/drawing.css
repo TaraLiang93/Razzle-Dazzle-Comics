@@ -13,9 +13,9 @@
     float: left;
     border:1px solid black;
     border-radius: 4px;
-    width:150px;
+    width:20%;
     padding: 12px;
-    height:600px;
+    height:100%;
 }
 .toolbar a {
     display: block;

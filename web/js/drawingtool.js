@@ -49,11 +49,25 @@ $(document).ready(function() {
     canvas.selectionBorderColor = ("rgb(227, 37, 107)"); //change selection border to our theme color
     canvas.selectionColor = " rgba(255,255,255,0)";// change selection color to transparent white
     canvas.renderOnAddRemove = true; //make sure all the change to the canvas is render instantly.
-    canvas.setWidth(600);
-    canvas.setHeight(600);
+    var newHeight = $(window).height();
+    var newWidth = $(window).width();
+        //-$(".toolbar").width();
+    canvas.setWidth(newHeight);
+    canvas.setHeight(newWidth);
     //canvas.resizeCanvas(600,600);
     canvas.renderAll();
 
+    $(window).resize(function(){
+
+        var newHeight = $(window).height();
+        var newWidth = $(window).width()-$(".toolbar").width()-50;
+        console.log(newHeight + " " + newWidth);
+
+        canvas.setHeight(newHeight);
+        canvas.setWidth(newWidth);
+        //canvas.calcOffset();
+        canvas.renderAll();
+    });
 
 
     canvas.on("mouse:up", function(){

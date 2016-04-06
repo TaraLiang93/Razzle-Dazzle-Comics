@@ -10,5 +10,19 @@ $(document).ready(function() {
 
     });
 
+    //$(window).resize(function() {
+    //
+    //    var canvas = $("#canvas").get(0);
+    //
+    //    var newHeight = $(window).height();
+    //    var newWidth = $(window).width()-$(".toolbar").width()-20;
+    //    console.log(newHeight + " " + newWidth);
+    //
+    //    canvas.height =(newHeight);
+    //    canvas.width = (newWidth);
+    //    //canvas.calcOffset();
+    //    canvas.renderAll();
+    //});
+
 
 });
