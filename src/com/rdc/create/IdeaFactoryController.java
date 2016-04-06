@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.LinkedList;
 import java.util.List;
@@ -76,6 +77,23 @@ public class IdeaFactoryController {
         }
 
         return new ModelAndView("homepage");
+    }
+
+    @RequestMapping(value="/create/dooddle/new", method= RequestMethod.GET)
+    public ModelAndView newDoodle(HttpSession session,ModelMap map){
+
+        return new ModelAndView("doodles");
+    }
+
+    @RequestMapping(value="/create/dooddle/save", method= RequestMethod.POST)
+    public String saveDoodle(HttpServletRequest req, HttpSession session, ModelMap map){
+
+        if(req != null)
+        {
+            System.out.println("Data came here");
+        }
+
+        return "OK";
     }
 
 }
