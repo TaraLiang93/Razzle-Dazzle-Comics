@@ -1,14 +1,11 @@
 package com.data.creation;
 
-import com.data.UserData;
 import com.data.api.DoodleQueries.GetEntityListFromKeyListCommand;
 import com.data.api.Readable;
-import com.data.structure.Tag;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.Parent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +92,7 @@ public class Scribble {
         return Key.create(Scribble.class, scribbleId);
     }
 
-    public List<Page> getPages(){
+    public List<Page> getPages2(){
         Readable<Page> getPagesFromTagsKeysAbstracted = new GetEntityListFromKeyListCommand<>(getPageList());
         List<Page> pageList = getPagesFromTagsKeysAbstracted.fetch().getList();
         return pageList;

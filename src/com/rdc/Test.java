@@ -1,17 +1,13 @@
 package com.rdc;
 
 import com.data.UserData;
-
 import com.data.api.DoodleQueries.GetDoodlesByIDCommand;
 import com.data.api.DoodleQueries.GetDoodlesByTagCommand;
 import com.data.api.Readable;
 import com.data.api.createables.ScribbleCreater;
 import com.data.api.createables.TagCreater;
-import com.data.api.createables.UserDataCreater;
-import com.data.api.dataItems.NoWork;
 import com.data.api.dataItems.ScribbleCommandFill;
 import com.data.api.dataItems.TagCommandFill;
-import com.data.api.dataItems.UserDataCommandFill;
 import com.data.creation.Doodle;
 import com.data.creation.Page;
 import com.data.creation.Scribble;
@@ -28,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-
 import java.util.ArrayList;
 import java.util.List;
 
