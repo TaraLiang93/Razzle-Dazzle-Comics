@@ -54,6 +54,7 @@ $(document).ready(function() {
     canvas.setWidth(600);
     canvas.setHeight(600);
     //canvas.resizeCanvas(600,600);
+
     canvas.renderAll();
 
     //$(window).resize(function(){
