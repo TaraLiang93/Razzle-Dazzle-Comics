@@ -10,7 +10,7 @@ var clearButton, drawButton, selectButton, deleteButton, redoButton, undoButton 
 /**
  * All the colors and tool size used in drawing tool
  */
-var lineColor, lineWidth;
+var lineColor, lineWidth, fontName;
 
 /**
  * the stack that store all the deleted object
@@ -23,6 +23,7 @@ var canvas;
 $(document).ready(function() {
     Stack = [];
     undoStack = [];
+    fontName = "Times New Roman";
     /**
      * Initilize all the drawing tool button avavilable.
      */
@@ -54,7 +55,6 @@ $(document).ready(function() {
     canvas.setWidth(600);
     canvas.setHeight(600);
     //canvas.resizeCanvas(600,600);
-
     canvas.renderAll();
 
     //$(window).resize(function(){
@@ -108,6 +108,31 @@ $(document).ready(function() {
 
     $("#Bold").click(function(){
         setTextStyle(canvas._activeObject, 'fontWeight', 'bold');
+    });
+
+    $("#Italic").click(function(){
+       setTextStyle(canvas._activeObject, 'fontStyle', 'italic');
+    });
+
+    $("#Underline").click(function(){
+       setTextStyle(canvas._activeObject, 'textDecoration', 'underline');
+    });
+
+    $("#Linethrough").click(function(){
+       setTextStyle(canvas._activeObject,'textDecoration', 'line-through');
+    });
+
+    $("#Overline").click(function(){
+       setTextStyle(canvas._activeObject, 'textDecoration', 'overline');
+    });
+
+    $("#Font-option").change(function(){
+        console.log("Font is now "+this.value);
+        fontName = this.value;
+        $("#CurrentFont").html(this.value + ' <span class="caret"></span>');
+        if(canvas._activeObject != null) {
+            setTextStyle(canvas._activeObject, 'fontFamily', fontName);
+        }
     });
 
     /**
@@ -254,6 +279,7 @@ $(document).ready(function() {
         canvas.isDrawingMode = false;
         console.log("Text clicked")
         var textbox = new fabric.IText("Text");
+        setTextStyle(textbox, 'fontFamily', fontName);
         textbox.fill = lineColor;
         canvas.add(textbox);
         Stack.push(canvas._objects[canvas._objects.length-1]);
@@ -278,7 +304,6 @@ $(document).ready(function() {
 
     $("#Image-file").change( function uploadImage(e) {
         canvas.isDrawingMode = false;
-        canvas.isDrawingMode = false;
         var reader = new FileReader();
         reader.onload = function (event) {
             var img = new Image();
@@ -292,6 +317,20 @@ $(document).ready(function() {
         reader.readAsDataURL(e.target.files[0]);
     });
 
+    $("#Bg-Image").change(function BgImage(e) {
+        $("#Submit").prop('disabled',false);
+        var reader = new FileReader();
+        reader.onload = function (event) {
+            var img = new Image();
+            img.src = event.target.result;
+            img.onload = function () {
+                canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+
+            }
+
+        }
+        reader.readAsDataURL(e.target.files[0]);
+    });
 });
 
 /**
