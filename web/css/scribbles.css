@@ -1,15 +1,17 @@
 
 .description{
     border: 2px solid black;
-    position: absolute;
-    width: inherit;
-    height: auto;
     padding : 2px;
     border-radius: 4px;
 }
 
+.description > div{
+    padding:5px;
+}
+
 #textForm{
     width:80%;
+    height:inherit;
 }
 
 #buttons{
@@ -19,6 +21,16 @@
 
 .holder{
     vertical-align: middle;
-    position:absolute;
+    position:relative;
     min-height:100%;
+}
+
+.pageList{
+    border: 2px solid black;
+    position:absolute;
+    right:0;
+    min-height:65%;
+    min-width:12%;
+    height:inherit;
+
 }

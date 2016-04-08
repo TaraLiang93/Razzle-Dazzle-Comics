@@ -41,13 +41,20 @@ public class Scribble {
     List<Key<Page>> pageList;
 
 
+    List<Page> pages;
+
     public Scribble(){
-        pageList = new ArrayList<Key<Page>>();
+        this("");
     }
 
     public Scribble(String title){
         this.title = title;
         pageList = new ArrayList<Key<Page>>();
+        pages = new ArrayList<>();
+
+        pages.add(new Page());
+        pages.add(new Page());
+
     }
 
     public Long getScribbleId() {
@@ -67,11 +74,7 @@ public class Scribble {
     }
 
     public List<Page> getPages(){
-        List<Page> pages = new ArrayList<>();
 
-        pages.add(new Page());
-        pages.add(new Page());
-        pages.add(new Page());
 
         return pages;
     }
@@ -98,4 +101,14 @@ public class Scribble {
         return pageList;
     }
 
+
+    @Override
+    public String toString() {
+        return "Scribble{" +
+                "scribbleId=" + scribbleId +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", pages=\n" + pages +
+                "\n}";
+    }
 }

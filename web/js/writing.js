@@ -24,4 +24,20 @@ $(document).ready(function(){
             editor_selector: "tinyMCE"
         });
     });
+
+    $(".tab-pane").each(function(){
+        if(! $(this).hasClass('active')){
+            $(this).hide();
+        }
+    });
+
+    $('.page-tab').each(function(){
+
+        $(this).click(function(){
+            $('.page-pane:visible').hide();
+            var id = $(this).children('a:first').attr('href');
+            $(id).show();
+        });
+    });
+
 });

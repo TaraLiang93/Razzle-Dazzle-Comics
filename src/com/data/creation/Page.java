@@ -46,9 +46,14 @@ public class Page {
 
     private Key<UserData> createdBy;
 
+    private List<Scene> scenes;
+
 
     public Page(){
 
+        scenes = new ArrayList<>();
+        scenes.add(new Scene("This is a fun setting!"));
+        scenes.add(new Scene("This is a boring setting :("));
     }
 
     public Long getId() {
@@ -148,12 +153,7 @@ public class Page {
     }
 
     public List<Scene> getScenes(){
-        List<Scene> list = new ArrayList<>();
-        list.add(new Scene("This is a fun setting!"));
-        list.add(new Scene("This is a boring setting :("));
-        list.add(new Scene("This is an awesome setting!"));
-        list.add(new Scene("This scene invovles tara being bae."));
-        return list;
+        return scenes;
     }
 
     public List<Key<Comment>> getCommentList() {
@@ -170,5 +170,19 @@ public class Page {
 
     public void setCreatedBy(Key<UserData> createdBy) {
         this.createdBy = createdBy;
+    }
+
+    @Override
+    public String toString() {
+        return "Page{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", summary='" + summary + '\'' +
+                ", createDate=" + createDate +
+                ", drawnDate=" + drawnDate +
+                ", completeDate=" + completeDate +
+                ", numRevisions=" + numRevisions +
+                ", \nscenes=" + scenes +
+                "\n}\n\n";
     }
 }

@@ -24,12 +24,21 @@ public class Scene {
 
     private List<Key<Dialogue>> dialogueList;
 
+    private List<Dialogue> dialogue;
+
     static int count = 0;
 
     public Scene(String setting){
         this.setting = setting;
         this.index = count++;
+
+        dialogue = new ArrayList<>();
+
+        dialogue.add(new Dialogue("HElllo World!"));
+        dialogue.add(new Dialogue("Awwww yeahh"));
+        dialogue.add(new Dialogue("Bitch you guessed it"));
     }
+
 
     public Long getId() {
         return id;
@@ -68,16 +77,22 @@ public class Scene {
     }
 
     public List<Dialogue> getDialogue(){
-        List<Dialogue> newList = new ArrayList<>();
 
-        newList.add(new Dialogue("HElllo World!"));
-        newList.add(new Dialogue("Awwww yeahh"));
-        newList.add(new Dialogue("Bitch you guessed it"));
-
-        return newList;
+        return dialogue;
     }
 
     public void setDialogueList(List<Key<Dialogue>> dialogueList) {
         this.dialogueList = dialogueList;
+    }
+
+
+    @Override
+    public String toString() {
+        return "\nScene{" +
+                "id=" + id +
+                ", index=" + index +
+                ", setting='" + setting + '\'' +
+                ", \ndialogue=" + dialogue +
+                "\n}\n";
     }
 }

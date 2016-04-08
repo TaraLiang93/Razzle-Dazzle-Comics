@@ -1,28 +1,15 @@
-package com.data.creation;
-
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
+package com.model;
 
 /**
- * Created by drodrigues on 3/30/16.
+ * Created by drodrigues on 4/8/16.
  */
-@Entity
-public class Dialogue {
+public class DialogueModel {
 
-
-    @Id
     private Long id;
 
     private String dialogue;
 
     private int index;
-
-    static int count = 0;
-
-    public Dialogue(String dialogue){
-        this.dialogue =dialogue;
-        this.index = count++;
-    }
 
     public Long getId() {
         return id;
@@ -50,7 +37,7 @@ public class Dialogue {
 
     @Override
     public String toString() {
-        return "Dialogue{" +
+        return "DialogueModel{" +
                 "id=" + id +
                 ", dialogue='" + dialogue + '\'' +
                 ", index=" + index +

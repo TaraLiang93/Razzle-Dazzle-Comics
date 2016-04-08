@@ -1,9 +1,11 @@
 package com.rdc.create;
 
 import com.data.creation.Doodle;
-import com.data.creation.Page;
+import com.data.creation.Scribble;
+import com.model.ScribbleModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +26,7 @@ public class IdeaFactoryController {
     public static final String LOAD_SCRIBBLE = "/create/scribble/load/{id}";
     public static final String LOAD_DOODLE = "/create/doodle/load/{id}";
     public static final String SAVE_SCRIBBLE ="/create/scribble/save";
+    public static final String SAVE_DOODLE ="/create/doodle/save";
 
     @RequestMapping(value=IDEA_HOME, method= {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView loadIdeaFactory(HttpSession session, ModelMap map){
@@ -62,11 +65,19 @@ public class IdeaFactoryController {
         }
         else{
             System.out.println("Old!");
-            map.put("page", new Page());
+            map.put("scribble", new Scribble("This is a title, Yay"));
         }
 
 
-        return new ModelAndView("scribbles");
+        return new ModelAndView("scribbles", "scribbleModel", new ScribbleModel());
+    }
+
+    @RequestMapping(value=SAVE_SCRIBBLE, method=RequestMethod.POST)
+    public ModelAndView saveScribble(@ModelAttribute("scribbleModel") ScribbleModel model, HttpServletRequest req){
+
+        System.out.println("Made It! -->" + model);
+
+        return new ModelAndView("forward:" + IDEA_HOME);
     }
 
     @RequestMapping(value=LOAD_DOODLE, method= RequestMethod.GET)
@@ -83,29 +94,38 @@ public class IdeaFactoryController {
         return new ModelAndView("homepage");
     }
 
-    @RequestMapping(value="/create/dooddle/new", method= RequestMethod.GET)
-    public ModelAndView newDoodle(HttpSession session,ModelMap map){
-
-        return new ModelAndView("doodles");
-    }
-
-    @RequestMapping(value="/create/dooddle/save", method= RequestMethod.POST)
-    public String saveDoodle(HttpServletRequest req, HttpSession session, ModelMap map){
+    @RequestMapping(value=SAVE_DOODLE, method= RequestMethod.POST)
+    public ModelAndView saveDoodle(HttpServletRequest req, HttpSession session, ModelMap map){
 
         if(req != null)
         {
             System.out.println("Data came here");
         }
 
-        return "OK";
+        return new ModelAndView("forward:" + IDEA_HOME);
     }
 
-    @RequestMapping(value=SAVE_SCRIBBLE, method=RequestMethod.POST)
-    public ModelAndView saveScribble(HttpServletRequest req, ModelMap map){
+    @RequestMapping(value="/test/scribble", method= RequestMethod.GET)
+    public ModelAndView testScribble(HttpSession session, ModelMap map){
 
-        System.out.println("Made It!");
+        ScribbleModel model = new ScribbleModel();
+        model.setTitle("Damnn Right!");
+        System.out.println(model);
 
-        return new ModelAndView("forward:" + IDEA_HOME);
+        Scribble scrib = new Scribble();
+        System.out.println("Before--->" + scrib);
+        map.put("scribble", scrib);
+
+        return new ModelAndView("testScribble", "scribbleModel", model);
+    }
+
+    @RequestMapping(value="/test/scribble/save", method= RequestMethod.POST)
+    public ModelAndView saveTestScribble(@ModelAttribute("scribbleModel") ScribbleModel model, HttpSession session, ModelMap map){
+
+        System.out.println("After! -->" + model);
+
+
+        return new ModelAndView("homepage");
     }
 
 
