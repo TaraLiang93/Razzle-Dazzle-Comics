@@ -9,20 +9,22 @@ import com.data.structure.Tag;
 public class TagCommandFill implements FillDataCommand<Tag> {
     String name;
 
-    /**
-     * Constructor for to the command to fill in a Tag with a name parameter
-     * @param name this is the name of the Tag which is a property that needs to be set
-     */
-    public TagCommandFill(String name){
-        this.name = name;
-    }
+
 
     /**
      * constructor that takes in no tag nem will do nothing
      */
     public TagCommandFill(){
         //If tag command fill is not constructed with a name parameter then we don't change the name
-        name = "";
+       this("");
+    }
+
+    /**
+     * Constructor for to the command to fill in a Tag with a name parameter
+     * @param name this is the name of the Tag which is a property that needs to be set
+     */
+    public TagCommandFill(String name){
+        this.name = name;
     }
 
     /**

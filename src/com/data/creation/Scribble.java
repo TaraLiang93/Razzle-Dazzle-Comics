@@ -30,6 +30,8 @@ public class Scribble {
     @Index
     String description;
 
+    List<Key<Page>> pageList;
+
     public String getDescription() {
         return description;
     }
@@ -38,7 +40,6 @@ public class Scribble {
         this.description = description;
     }
 
-    List<Key<Page>> pageList;
 
 
     public Scribble(){

@@ -171,4 +171,8 @@ public class Page {
     public void setCreatedBy(Key<UserData> createdBy) {
         this.createdBy = createdBy;
     }
+
+    public Key<Page> getKey() {
+        return Key.create(Page.class, this.id);
+    }
 }
