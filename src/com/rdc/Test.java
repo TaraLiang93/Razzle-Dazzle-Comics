@@ -1,13 +1,27 @@
 package com.rdc;
 
 import com.data.UserData;
-import com.data.api.DoodleQueries.GetDoodlesByIDCommand;
-import com.data.api.DoodleQueries.GetDoodlesByTagCommand;
+import com.data.api.Createable;
+import com.data.api.DoodleQueries.*;
 import com.data.api.Readable;
+import com.data.api.Updateable;
+import com.data.api.createables.DoodleCreater;
 import com.data.api.createables.ScribbleCreater;
 import com.data.api.createables.TagCreater;
+import com.data.api.createables.UserDataCreater;
+import com.data.api.dataItems.DoodleCommandFill;
 import com.data.api.dataItems.ScribbleCommandFill;
 import com.data.api.dataItems.TagCommandFill;
+import com.data.api.dataItems.UserDataCommandFill;
+import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
+import com.data.api.updatables.DoodleUpdater;
+import com.data.api.updatables.ScribbleUpdater;
+import com.data.api.updatables.UserDataUpdater;
+import com.data.api.updateTasks.UpdateDoodleTask;
+import com.data.api.updateTasks.UpdateScribbleTask;
+import com.data.api.updateTasks.UpdateUserDataTask;
+import com.data.creation.Canvas;
 import com.data.creation.Doodle;
 import com.data.creation.Page;
 import com.data.creation.Scribble;
@@ -24,8 +38,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
@@ -208,17 +226,266 @@ public class Test {
     }
 
 
-//    @RequestMapping(value="/test3", method= RequestMethod.GET)
-//    public ModelAndView test3(HttpServletRequest req, ModelMap map){
-//        /**
-//         * testing using the creater objects
-//         */
-//
-//        UserDataCreater userDataCreater = new UserDataCreater(); // fill userDataCreater with initial data
-//        System.out.println( userDataCreater.createEntity(new UserDataCommandFill()) );
-//
-////        map.put();
-//        return new ModelAndView("test3");
-//    }
+    @RequestMapping(value="/test3", method= RequestMethod.GET)
+    public ModelAndView test3(HttpServletRequest req, ModelMap map){
+        /**
+         * testing using the creater objects
+         */
 
+        //created userdata
+        UserDataCreater userDataCreater = new UserDataCreater("jamezTez@gmail.com", "jamezTezNickName", "jamezTezID"); // fill userDataCreater with initial data
+        UserData james =  userDataCreater.createEntity(new UserDataCommandFill());
+
+        //create canvas
+        Canvas canvas = new Canvas();
+        ofy().save().entity(canvas).now();
+
+        //created Doodle
+        DoodleCreater doodleCreater = new DoodleCreater("I am DoodleCreater created");
+        Doodle createdDoodle = doodleCreater.createEntity(new DoodleCommandFill(canvas.getKey()));
+
+
+        //create Page
+        Page page = new Page();
+        page.setTitle("I am Page YAY!");
+        ofy().save().entity(page).now();
+        List<Key<Page>> pageList = new ArrayList<>();
+        pageList.add(page.getKey());
+
+        //createScribble
+        ScribbleCreater scribbleCreater = new ScribbleCreater("I am ScribbleCreater created");
+        Scribble createdScribble =  scribbleCreater.createEntity(new ScribbleCommandFill(pageList));
+
+        james.addDoodleToList(createdDoodle.getKey());
+        james.addScribbleToList(createdScribble.getKey());
+        ofy().save().entity(james).now();
+
+        /**
+         * testing using readable objects
+         */
+
+        //get doodle by passing in the long id of the doodle
+        Readable<Doodle> getDoodleReadable = new GetDoodlesByIDCommand(createdDoodle.getDoodleId());
+        System.out.println( "Readable to fetch Doodle has title: " + getDoodleReadable.fetch().getResult().getTitle() );
+
+        //get Scribble by passing in the long id of the scribble
+        Readable<Scribble> getScribbleReadable = new GetScribblesByIDCommand(createdScribble.getScribbleId());
+        System.out.println( "Readable to fetch Scribble has title " + getScribbleReadable.fetch().getResult().getTitle());
+
+        Readable<UserData> getUserdataReadable = new GetEntityFromKeyCommand<>(james.getKey());
+        UserData theUser = getUserdataReadable.fetch().getResult();
+
+        //In this example there is only one scribble and Doodle so we just made sure we can retrieve the scribble and doodle
+        // in actual implementation we would iterate throught the List<Scribble> and List<Doodle>
+        System.out.println( "Readable to fetch UserData has Scribble with title: " + theUser.getScribbles().get(0).getTitle() +
+                " and Doodle with title: " + theUser.getDoodles().get(0).getTitle());
+
+
+        /**
+         * Test updating using Updatable
+         */
+
+
+        //update Doodle
+        Updateable<Doodle> updateDoodle = new DoodleUpdater();
+                //front end will have the id of the doodle to get
+        Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(createdDoodle.getDoodleId());
+        Doodle theDoodle = getDoodle.fetch().getResult();
+        String updatedDoodleTitle = "I updated Doodle title yo";
+
+        // update Doodle entity
+        try {
+            updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(updatedDoodleTitle,
+                    theDoodle.getDescription(), "CanvasJSON")
+            );
+        }
+        catch ( FetchException| UpdateException ex){
+            ex.printStackTrace();
+        }
+
+        //update Scribble
+
+        Updateable<Scribble> updateScribble = new ScribbleUpdater();
+                // frontend will have the scribble id of the scribble to get
+        Readable<Scribble> getScribble = new GetScribblesByIDCommand(createdScribble.getScribbleId());
+        Scribble theScribble = getScribble.fetch().getResult();
+        String updatedScribbleTitle = "I updated Scribble title yo";
+
+        //update scribble
+        try {
+            updateScribble.updateEntity(getScribble,
+                    new UpdateScribbleTask(updatedScribbleTitle,
+                            theScribble.getDescription(),
+                            theScribble.getPageList())
+            );
+        }
+        catch ( FetchException| UpdateException ex){
+            ex.printStackTrace();
+        }
+
+//        //Update the UserData
+//        Updateable<UserData> updateUserData = new UserDataUpdater();
+//        Readable<UserData> getUserDataWithReadableTest = new GetEntityFromKeyCommand<>(james.getKey());
+//        updateUserData.updateEntity( new UpdateUserDataTask( ) );
+
+
+        /**
+         * Using Readable<T> testif Updatable actually changed the values
+         */
+
+        //get doodle by passing in the long id of the doodle
+        Readable<Doodle> getDoodleReadable2 = new GetDoodlesByIDCommand(createdDoodle.getDoodleId());
+        System.out.println( "Updated Doodle has title: " + getDoodleReadable.fetch().getResult().getTitle() );
+
+        //get Scribble by passing in the long id of the scribble
+        Readable<Scribble> getScribbleReadable2 = new GetScribblesByIDCommand(createdScribble.getScribbleId());
+        System.out.println( "Updated Scribble has title " + getScribbleReadable.fetch().getResult().getTitle());
+
+        Readable<UserData> getUserdataReadable2 = new GetEntityFromKeyCommand<>(james.getKey());
+        UserData theUser2 = getUserdataReadable.fetch().getResult();
+
+        //In this example there is only one scribble and Doodle so we just made sure we can retrieve the scribble and doodle
+        // in actual implementation we would iterate throught the List<Scribble> and List<Doodle>
+        System.out.println( "Updated UserData has Scribble with title: " + theUser2.getScribbles().get(0).getTitle() +
+                " and Doodle with title: " + theUser2.getDoodles().get(0).getTitle());
+
+
+        System.out.println("testing fetch doodle by key");
+        Readable<Doodle> getDoodleByKey = new GetDoodleByKeyCommand(createdDoodle.getKey());
+        System.out.println( " Doodle fetched by key has title: " + getDoodleByKey.fetch().getResult().getTitle() );
+
+
+        /**
+         * Test user data creatable
+         */
+
+        //user userService to login
+
+        UserService userService = UserServiceFactory.getUserService();
+        String thisURL = req.getRequestURI();
+        userService.createLoginURL(thisURL);
+        User user = userService.getCurrentUser();
+
+
+        //
+        Createable<UserData> userDataCreateable = new UserDataCreater(user);
+        UserData userData = userDataCreateable.createEntity(new UserDataCommandFill());
+        System.out.println(" the nickname: " + userData.getNickName() + " the UserId: "  +
+                        userData.getUserid() + " the UserName: " + userData.getUserName());
+
+
+        map.put("user", james);
+        return new ModelAndView("test3");
+    }
+
+
+    @RequestMapping(value="/test4", method= RequestMethod.GET)
+    public ModelAndView loginScreen(HttpSession session, ModelMap map) {
+
+        /**
+         * Testing if Userdata can be filled in from google's User object
+         */
+        UserService userService = UserServiceFactory.getUserService();
+        User user = userService.getCurrentUser();
+        if (user != null) {
+            //return new ModelAndView("redirect:"+LOGIN_SUCCESS);
+        }
+
+        if (session.getAttribute("loginURL") == null) {
+            session.setAttribute("logoutURL", userService.createLoginURL("/test3"));
+        }
+//        session.removeAttribute(USER);
+//        session.removeAttribute(IS_AUTH);
+        Createable<UserData> userDataCreateable = new UserDataCreater(user);
+        UserData userData = userDataCreateable.createEntity(new UserDataCommandFill());
+        System.out.println(" the nickname: " + userData.getNickName() + " the UserId: " +
+                userData.getUserid() + " the UserName: " + userData.getUserName());
+
+
+        /**
+         * Test updating userDataUpdater
+         */
+        Updateable<UserData> userDataUpdater = new UserDataUpdater();
+        Readable<UserData> getUserDataReadable = new GetEntityFromKeyCommand<>(userData.getKey());
+
+        String newLocation = "I'm located at location";
+        String newDescription = "New description describes me newly ";
+
+        // Updating user location and Description
+        try {
+            userDataUpdater.updateEntity(getUserDataReadable,
+                    new UpdateUserDataTask(getUserDataReadable.fetch().getResult().getNickName(),
+                            newLocation, newDescription)
+            );
+        } catch (FetchException | UpdateException ex) {
+            ex.printStackTrace();
+        }
+
+        System.out.println("UserData has nickname: " + userData.getNickName() + " and location: "
+                + userData.getLocation() + " and description: " + userData.getDescription());
+
+        //Updating user Doodle
+        Updateable<UserData> userDataUpdater2 = new UserDataUpdater();
+
+//        String canvasJSONString = "canvas JSOn String";
+        Canvas canvas = new Canvas();
+        ofy().save().entity(canvas).now();
+
+        Createable<Doodle> anotherDoodleCreater = new DoodleCreater();
+        Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleCommandFill(canvas.getKey()));
+
+        Updateable<Doodle> doodleUpdater = new DoodleUpdater();
+        Readable<Doodle> getDoodle = new GetEntityFromKeyCommand<>(anotherDoodle.getKey());
+
+        try {
+            doodleUpdater.updateEntity(getDoodle,
+                    new UpdateDoodleTask("updated doodle title",
+                            "describing doodle", "The new canvas JASON JSON")
+            );
+        } catch (FetchException | UpdateException ex) {
+            ex.printStackTrace();
+        }
+
+
+
+        Readable<UserData> userDataReadable = new GetEntityFromKeyCommand<>(userData.getKey());
+
+        try{
+            userDataUpdater2.updateEntity(userDataReadable, new UpdateUserDataTask(anotherDoodle));
+        }
+        catch( FetchException| UpdateException ex){
+            ex.printStackTrace();
+
+        }
+
+        for( Doodle d : userData.getDoodles()){
+            System.out.println( "Doodle title is: " + d.getTitle() + " and description is: " + d.getDescription());
+        }
+
+        //Updating user scribble
+
+        Createable<Scribble> scribbleCreateable = new ScribbleCreater(" Scribble Title bro ", " Scribble description bro ");
+
+        List<Key<Page>> pageList = new ArrayList<>();
+
+        Scribble scribble = scribbleCreateable.createEntity(new ScribbleCommandFill(pageList));
+
+
+        Updateable<UserData> userDataUpdater3 = new UserDataUpdater();
+        Readable<UserData> getUserData3 = new GetEntityFromKeyCommand<>( userData.getKey());
+        try {
+            userDataUpdater3.updateEntity(getUserData3, new UpdateUserDataTask(scribble));
+        }
+        catch( FetchException| UpdateException ex){
+            ex.printStackTrace();
+
+        }
+
+        for(Scribble scrib : userData.getScribbles()){
+            System.out.println( "Scribble Title is: " + scrib.getTitle() + " and description is: " + scrib.getDescription());
+        }
+
+        return new ModelAndView("test3");
+
+    }
 }
