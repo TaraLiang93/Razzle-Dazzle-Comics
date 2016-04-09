@@ -84,7 +84,6 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <%--<c:set var="nickname" value="${sessionScope.globals.currentUser.nickname}" />--%>
                             <a href="${loginURL ne null ? loginURL : "#"}" class="dropdown-toggle" data-toggle="${loginURL eq null ? "dropdown" : "" }" role="button" aria-haspopup="true" aria-expanded="false">${loginURL eq null ? sessionScope.nickname : "Sign In" }<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Profile</a></li>

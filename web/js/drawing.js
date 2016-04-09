@@ -10,6 +10,12 @@ $(document).ready(function() {
 
     });
 
+    $("#Image-file").change(function() {
+
+        $(this).attr("value", $(this).attr("value"));
+
+    });
+
     //$(window).resize(function() {
     //
     //    var canvas = $("#canvas").get(0);

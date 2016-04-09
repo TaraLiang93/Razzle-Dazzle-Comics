@@ -74,10 +74,14 @@
     </div>
     <div class="btn-group">
         <a class="btn btn-default" id="Zoom-level"></a>
-        <a class="btn btn-default" data-toggle="popover" data-title="Upload file"
-           data-content="<input id ='Image-file' type='file' name='pic' accept='image/*'/>"
-           data-html="true">
+        <%--<a class="btn btn-default" data-toggle="popover" data-title="Upload file"--%>
+           <%--data-content="  "--%>
+           <%--data-html="true">--%>
+            <%----%>
+        <%--</a>--%>
+        <a class="imageUpload btn btn-default">
             <i class="fa fa-picture-o"></i>
+            <input id ='Image-file' type='file' name='pic' accept='image/*'/>
         </a>
     </div>
 

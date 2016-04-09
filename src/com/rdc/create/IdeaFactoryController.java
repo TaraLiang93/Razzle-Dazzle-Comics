@@ -89,7 +89,7 @@ public class IdeaFactoryController {
         return new ModelAndView("doodles");
     }
 
-    @RequestMapping(value="/create/dooddle/save", method= RequestMethod.POST)
+    @RequestMapping(value="/create/doodle/save", method= RequestMethod.POST)
     public String saveDoodle(HttpServletRequest req, HttpSession session, ModelMap map){
 
         if(req != null)
