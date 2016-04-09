@@ -2,12 +2,11 @@
     border: 2px solid black;
     border-radius: 4px;
     width:600px;
-    margin:0 auto;
+    /*margin:0 auto;*/
     height:150px;
 }
 
 .drawingPage {
-    position: relative;
     height:600px;
     margin:6px;
 }

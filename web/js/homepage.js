@@ -5,6 +5,6 @@
 $(document).ready(function() {
     //alert("hi Jason");
 
-    $(".selection").css("height",$(window).height()-$("body").height());
+    $("body").height( $(window).height()-$("body").height() );
 
 });
