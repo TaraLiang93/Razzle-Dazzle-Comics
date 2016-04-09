@@ -298,6 +298,7 @@ $(document).ready(function() {
     $("#Fill").click(function(){
         canvas._activeObject.fill = lineColor;
         canvas.renderAll();
+        Stack.push(canvas._activeObject);
     });
 
     $("#Zoom-level").text(Math.round(canvas.getZoom()*100) + "%");
@@ -317,19 +318,29 @@ $(document).ready(function() {
         reader.readAsDataURL(e.target.files[0]);
     });
 
-    $("#Bg-Image").change(function BgImage(e) {
-        $("#Submit").prop('disabled',false);
-        var reader = new FileReader();
-        reader.onload = function (event) {
-            var img = new Image();
-            img.src = event.target.result;
-            img.onload = function () {
-                canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
+    $("#Bg-popover").on('shown.bs.popover', function() {//change background image
+        $("#Bg-Image").change(function BgImage(e) {
+            console.log("Background image: "+event.target.result);
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var img = new Image();
+                img.src = event.target.result;
+                img.onload = function () {
+                    var image = new fabric.Image(img);
+                    canvas.setBackgroundImage(image, canvas.renderAll.bind(canvas),
+                    {
+                        backgroundImageStretch: true
+                    });
+                }
 
             }
-
-        }
-        reader.readAsDataURL(e.target.files[0]);
+            reader.readAsDataURL(e.target.files[0]);
+        });
+        $("#Bg-Color").change(function BgColor(e){
+            console.log("Background color: "+$("#Bg-Color").attr('value'));
+            canvas.setBackgroundColor($("#Bg-Color").attr("value"));
+            canvas.renderAll();
+        });
     });
 });
 

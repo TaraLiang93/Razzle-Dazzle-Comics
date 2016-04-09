@@ -81,6 +81,14 @@
         </a>
     </div>
 
+    <a class="btn btn-default" data-toggle="popover" data-title="Background:"
+       data-content="<input id ='Bg-Image' type='file' name='pic' accept='image/*'/>
+            <button class='btn btn-default btn-sm pull-right' id='Bg-Submit'>Submit</button>
+            <input class='input form-control btn-default' id='Bg-Color' type='color'/>"
+       data-html="true" id="Bg-popover">Background
+    </a>
+
+
         <input class="input form-control btn-default" id="Drawing-color" type="color" oninput="changeColor()">
     <%--<input id='Line-width"  type='number' value='10' oninput='changeLineWidth()'>--%>
 

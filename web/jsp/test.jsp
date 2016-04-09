@@ -53,9 +53,9 @@
 
     <a class="btn btn-default" data-toggle="popover" data-title="Background:"
        data-content="<input id ='Bg-Image' type='file' name='pic' accept='image/*'/>
-            <button class='btn btn-default btn-sm disabled pull-right' id='Bg-Submit'>Submit</button>
+            <button class='btn btn-default btn-sm pull-right' id='Bg-Submit'>Submit</button>
             <input class='input form-control btn-default' id='Bg-Color' type='color'/>"
-       data-html="true">Background
+       data-html="true" id="Bg-popover">Background
     </a>
 
 
