@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -83,27 +84,28 @@ public class IdeaFactoryController {
         return new ModelAndView("homepage");
     }
 
-    @RequestMapping(value="/create/dooddle/new", method= RequestMethod.GET)
+    @RequestMapping(value="/create/doodle/new", method= RequestMethod.GET)
     public ModelAndView newDoodle(HttpSession session,ModelMap map){
 
         return new ModelAndView("doodles");
     }
 
     @RequestMapping(value="/create/doodle/save", method= RequestMethod.POST)
-    public String saveDoodle(HttpServletRequest req, HttpSession session, ModelMap map){
+    public ModelAndView saveDoodle(@RequestParam String canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription,HttpServletRequest req, HttpSession session,ModelMap map){
 
-        if(req != null)
-        {
-            System.out.println("Data came here");
-        }
+        System.out.println("saving a doodle made easy");
+        System.out.println(canvasImage);
+        System.out.println(doodleTitle);
+        System.out.println(doodleDescription);
 
-        return "OK";
+        return new ModelAndView("forward:" + IDEA_HOME);
     }
 
     @RequestMapping(value=SAVE_SCRIBBLE, method=RequestMethod.POST)
     public ModelAndView saveScribble(HttpServletRequest req, ModelMap map){
 
         System.out.println("Made It!");
+
 
         return new ModelAndView("forward:" + IDEA_HOME);
     }

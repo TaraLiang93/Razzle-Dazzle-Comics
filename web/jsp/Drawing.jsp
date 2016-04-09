@@ -1,10 +1,3 @@
-<link rel="stylesheet" type="text/css" href="/css/drawing.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<script src="/js/drawingtool.js"></script>
-<script src="/js/fabric.js"></script>
-<script src="/js/drawing.js"></script>
-
-
 <div class="toolbar">
 
     <div class="btn-group">
