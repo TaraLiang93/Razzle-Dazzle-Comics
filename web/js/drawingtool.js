@@ -335,11 +335,13 @@ $(document).ready(function() {
 
             }
             reader.readAsDataURL(e.target.files[0]);
+            $("#Bg-popover").popover('hide');
         });
         $("#Bg-Color").change(function BgColor(e){
             console.log("Background color: "+$("#Bg-Color").attr('value'));
             canvas.setBackgroundColor($("#Bg-Color").attr("value"));
             canvas.renderAll();
+            $("#Bg-popover").popover('hide');
         });
     });
 });
