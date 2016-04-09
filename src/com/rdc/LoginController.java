@@ -52,13 +52,13 @@ public class LoginController {
     }
 
     @RequestMapping(value ="/setUser", method= RequestMethod.GET)
-    public ModelAndView setUserName(@RequestParam String ref,HttpSession session)
+    public String setUserName(@RequestParam String ref,HttpSession session)
     {
         String nickname = UserServiceFactory.getUserService().getCurrentUser().getNickname();
 
         session.setAttribute("nickname",nickname);
 
-        return new ModelAndView("homepage");
+        return "redirect:"+ ref;
     }
 
     @RequestMapping(value =LOGOUT, method= RequestMethod.GET)

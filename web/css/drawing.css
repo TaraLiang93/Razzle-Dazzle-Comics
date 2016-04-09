@@ -34,7 +34,7 @@
 }
 
 .imageUpload {
-    position: relative;
+    /*position: relative;*/
     overflow: hidden;
 }
 #Image-file {

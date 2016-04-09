@@ -5,14 +5,7 @@ $(document).ready(function() {
 
 
     $("#saveDoodle").click(function(){
-        //console.log("about to save doodle");
-        //var canvas = document.getElementById("canvas");
-        //canvas = fabric.Canvas('canvas');
-        //canvas.clear();
 
-        //console.log();
-        //console.log(canvas);
-        //
         $("#jsonCanvas").text(JSON.stringify(canvas));
         $.post("/create/doodle/save", {"canvasImage" : JSON.stringify(canvas), "doodleTitle" : $("#doodleTitle").attr("value"), "doodleDescription": $("#doodleDescription").attr("value") })
             .done(function() {
