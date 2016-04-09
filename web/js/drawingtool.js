@@ -10,7 +10,7 @@ var clearButton, drawButton, selectButton, deleteButton, redoButton, undoButton 
 /**
  * All the colors and tool size used in drawing tool
  */
-var lineColor, lineWidth;
+var lineColor, lineWidth, fontName;
 
 /**
  * the stack that store all the deleted object
@@ -23,6 +23,7 @@ var canvas;
 $(document).ready(function() {
     Stack = [];
     undoStack = [];
+    fontName = "Times New Roman";
     /**
      * Initilize all the drawing tool button avavilable.
      */
@@ -107,6 +108,31 @@ $(document).ready(function() {
 
     $("#Bold").click(function(){
         setTextStyle(canvas._activeObject, 'fontWeight', 'bold');
+    });
+
+    $("#Italic").click(function(){
+       setTextStyle(canvas._activeObject, 'fontStyle', 'italic');
+    });
+
+    $("#Underline").click(function(){
+       setTextStyle(canvas._activeObject, 'textDecoration', 'underline');
+    });
+
+    $("#Linethrough").click(function(){
+       setTextStyle(canvas._activeObject,'textDecoration', 'line-through');
+    });
+
+    $("#Overline").click(function(){
+       setTextStyle(canvas._activeObject, 'textDecoration', 'overline');
+    });
+
+    $("#Font-option").change(function(){
+        console.log("Font is now "+this.value);
+        fontName = this.value;
+        $("#CurrentFont").html(this.value + ' <span class="caret"></span>');
+        if(canvas._activeObject != null) {
+            setTextStyle(canvas._activeObject, 'fontFamily', fontName);
+        }
     });
 
     /**
@@ -253,6 +279,7 @@ $(document).ready(function() {
         canvas.isDrawingMode = false;
         console.log("Text clicked")
         var textbox = new fabric.IText("Text");
+        setTextStyle(textbox, 'fontFamily', fontName);
         textbox.fill = lineColor;
         canvas.add(textbox);
         Stack.push(canvas._objects[canvas._objects.length-1]);
@@ -271,12 +298,12 @@ $(document).ready(function() {
     $("#Fill").click(function(){
         canvas._activeObject.fill = lineColor;
         canvas.renderAll();
+        Stack.push(canvas._activeObject);
     });
 
     $("#Zoom-level").text(Math.round(canvas.getZoom()*100) + "%");
 
     $("#Image-file").change( function uploadImage(e) {
-        canvas.isDrawingMode = false;
         canvas.isDrawingMode = false;
         var reader = new FileReader();
         reader.onload = function (event) {
@@ -291,6 +318,32 @@ $(document).ready(function() {
         reader.readAsDataURL(e.target.files[0]);
     });
 
+    $("#Bg-popover").on('shown.bs.popover', function() {//change background image
+        $("#Bg-Image").change(function BgImage(e) {
+            console.log("Background image: "+event.target.result);
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var img = new Image();
+                img.src = event.target.result;
+                img.onload = function () {
+                    var image = new fabric.Image(img);
+                    canvas.setBackgroundImage(image, canvas.renderAll.bind(canvas),
+                    {
+                        backgroundImageStretch: true
+                    });
+                }
+
+            }
+            reader.readAsDataURL(e.target.files[0]);
+            $("#Bg-popover").popover('hide');
+        });
+        $("#Bg-Color").change(function BgColor(e){
+            console.log("Background color: "+$("#Bg-Color").attr('value'));
+            canvas.setBackgroundColor($("#Bg-Color").attr("value"));
+            canvas.renderAll();
+            $("#Bg-popover").popover('hide');
+        });
+    });
 });
 
 /**

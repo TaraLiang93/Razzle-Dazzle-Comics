@@ -5,6 +5,7 @@
 
     <script src="/js/drawingtool.js"></script>
     <script src="/js/fabric.js"></script>
+    <script src="/js/drawing.js"></script>
 
 
     <canvas id="canvas" style="border-style: solid" height="600px" width=" 600px"></canvas>
@@ -24,7 +25,39 @@
     <button id = "Text">Text</button>
     <button id="Zoom-in">Zoom In</button>
     <button id="Zoom-out">Zoom Out</button>
+
+<p>JASON DOES NOT HAVE THE FOLLOWING</p>
     <button id="Fill">Fill</button>
+
+    <div class = "container">
+        <div class="dropdown" >
+            <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" id="CurrentFont">Times New Roman
+                <span class="caret"></span></button>
+            <select class="dropdown-menu" id="Font-option" multiple="multiple">
+                <option >Arial</option>
+                <option >Helvetica</option>
+                <option>Gadget</option>
+                <option>Comic Sans MS</option>
+                <option>Courier</option>
+                <option>Georgia</option>
+                <option>Impact</option>
+                <option>Lucida Console</option>
+                <option>Tahoma</option>
+                <option>Geneva</option>
+                <option>Verdana</option>
+                <option>Times New Roman</option>
+
+            </select>
+        </div>
+    </div>
+
+    <a class="btn btn-default" data-toggle="popover" data-title="Background:"
+       data-content="<input id ='Bg-Image' type='file' name='pic' accept='image/*'/>
+            <button class='btn btn-default btn-sm pull-right' id='Bg-Submit'>Submit</button>
+            <input class='input form-control btn-default' id='Bg-Color' type='color'/>"
+       data-html="true" id="Bg-popover">Background
+    </a>
+
 
 
     <button id = "Bold">Bold</button>
@@ -41,6 +74,4 @@
     <p> Input Image:<input id ="Image-file" type="file" name="pic" accept="image/*">
     </p>
 
-    oninput = changeColor()"
-    <a href="/">Click me</a>
 <jsp:include page="footer.jsp" />
