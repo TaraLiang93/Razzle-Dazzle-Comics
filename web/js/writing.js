@@ -25,7 +25,7 @@ $(document).ready(function(){
         });
     });
 
-    $(".tab-pane").each(function(){
+    $(".page-pane").each(function(){
         if(! $(this).hasClass('active')){
             $(this).hide();
         }

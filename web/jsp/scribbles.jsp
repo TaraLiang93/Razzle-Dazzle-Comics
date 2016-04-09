@@ -51,7 +51,6 @@
                 </div>
                 <div id="buttons" class="col-sm-2 center-block">
                     <button type="submit" class="btn btn-primary storySave center-block">Save Draft</button>
-
                 </div>
         </div>
     </form:form>

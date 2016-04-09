@@ -30,10 +30,8 @@
                                 Miuki has job
                             </div>
                             <div class="narritive">
-                                <textarea id="Page${pageIndex.index}writingArea${i.index}" class="tinyMCE">
-                                     <c:forEach items="${scene.dialogue}" var="dialog">
-                                        <c:out value="${dialog.dialogue}"/>
-                                    </c:forEach>
+                                <textarea id="Page${pageIndex.index}writingArea${i.index}" name="pages[${pageIndex.index}].scenes[${i.index}].tinyMCEText" class="tinyMCE">
+                                        ${scene.tinyMCEText}
                                 </textarea>
                             </div>
 
