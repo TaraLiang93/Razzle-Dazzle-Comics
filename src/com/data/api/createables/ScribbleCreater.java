@@ -42,10 +42,10 @@ public class ScribbleCreater extends Createable<Scribble> {
         // else if there was no title passed in create default Scribble
 
         Scribble scribble = new Scribble();
-        if( this.title.equals("")){
+        if( !this.title.equals("")){
             scribble.setTitle(this.title);
         }
-        if( this.description.equals("")){
+        if( !this.description.equals("")){
             scribble.setDescription(this.description);
         }
         return  scribble;

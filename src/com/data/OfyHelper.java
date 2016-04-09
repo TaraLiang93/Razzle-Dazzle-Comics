@@ -9,6 +9,7 @@ package com.data;
 
 import com.data.creation.Canvas;
 import com.data.creation.Doodle;
+import com.data.creation.Page;
 import com.data.creation.Scribble;
 import com.data.structure.Tag;
 import com.data.UserData;
@@ -31,6 +32,7 @@ public class OfyHelper implements ServletContextListener {
         ObjectifyService.register(Doodle.class);
         ObjectifyService.register(Tag.class);
         ObjectifyService.register(Canvas.class);
+        ObjectifyService.register(Page.class);
 
     }
 

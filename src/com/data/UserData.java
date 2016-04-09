@@ -25,13 +25,11 @@ import java.util.List;
 public class UserData implements java.io.Serializable {
 
     @Id
-    Long userid;
+    String userid;
 
     @Index
-    String userName;
+    String userName; // username is the email in googles User object
 
-    @Index
-    String preferredEmail;
 
 //    @Index
 //    @Load
@@ -62,18 +60,17 @@ public class UserData implements java.io.Serializable {
         bookmarkList = new ArrayList<Key<Bookmark>>();
         doodleList = new ArrayList<Key<Doodle>>();
         userName = "";
-        preferredEmail = "";
         nickName = "";
         location = "";
         description = "";
 
     }
 
-    public Long getUserid() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setUserid(Long userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 
@@ -83,14 +80,6 @@ public class UserData implements java.io.Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getPreferredEmail() {
-        return preferredEmail;
-    }
-
-    public void setPreferredEmail(String preferredEmail) {
-        this.preferredEmail = preferredEmail;
     }
 
     public List<Key<Flow>> getFlowList() {

@@ -9,6 +9,7 @@ import com.data.structure.Flow;
 import com.data.structure.Series;
 import com.data.structure.Tag;
 import com.google.appengine.api.datastore.Blob;
+import com.google.appengine.api.users.User;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 
@@ -19,63 +20,30 @@ import java.util.List;
  */
 public class UserDataCreater extends Createable<UserData>{
     String username;
-    String preferredEmail;
     String nickName;
-    String location;
-    String description;
+    String UserDataId;
 
-    /**
-     * Default constructor with no parameters
-     */
-    public UserDataCreater(){
-        this("");
+    public UserDataCreater(User user){
+        this.username = user.getEmail();
+        this.nickName = user.getNickname();
+        this.UserDataId = user.getUserId();
     }
 
-    public UserDataCreater(String username){
-        this(username, "");
-    }
-
-    public UserDataCreater(String username, String preferredEmail){
-        this(username, preferredEmail, "");
-    }
-
-    public UserDataCreater(String username, String preferredEmail, String nickName){
-        this(username, preferredEmail, nickName, "");
-    }
-
-    public UserDataCreater(String username, String preferredEmail, String nickName, String location){
-        this(username, preferredEmail, nickName, location, "");
-    }
-
-    public UserDataCreater(String username, String preferredEmail, String nickName, String location, String description){
+    public UserDataCreater(String username, String nickName, String UserDataId){
         this.username = username;
-        this.preferredEmail = preferredEmail;
         this.nickName = nickName;
-        this.location = location;
-        this.description = description;
+        this.UserDataId = UserDataId;
     }
+
 
 
     @Override
     protected UserData getEntity() {
         UserData userData = new UserData();
         // if username was provided as a parameter then set it
-        if( !(this.username.equals("")) ){
-            userData.setUserName(this.username);
-        }
-        if( !(this.preferredEmail.equals("")) ){
-            userData.setPreferredEmail(this.preferredEmail);
-        }
-        if( !(this.nickName.equals("")) ){
-            userData.setNickName(this.nickName);
-        }
-        if( !(this.location.equals("")) ){
-            userData.setLocation(this.location);
-        }
-        if( !(this.description.equals("")) ){
-            userData.setDescription(this.description);
-        }
-
+        userData.setUserName(this.username);
+        userData.setNickName(this.nickName);
+        userData.setUserid(this.UserDataId);
         return userData;
     }
 

@@ -37,7 +37,6 @@ public class GetDoodlesByIDCommand extends Readable{
 
 
     @Override
-    @Deprecated
     public Container fetch(){
 //        Query doodleById = ofy().load().type(getType()).filter(getFilter());
 //        QueryContainer<GetDoodlesByIDCommand> commandContainer = new QueryContainer(doodleById);
