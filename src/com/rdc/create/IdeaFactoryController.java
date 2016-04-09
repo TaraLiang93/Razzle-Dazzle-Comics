@@ -68,7 +68,6 @@ public class IdeaFactoryController {
             map.put("scribble", new Scribble("This is a title, Yay"));
         }
 
-
         return new ModelAndView("scribbles", "scribbleModel", new ScribbleModel());
     }
 

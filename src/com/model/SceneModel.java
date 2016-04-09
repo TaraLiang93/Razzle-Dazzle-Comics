@@ -21,6 +21,8 @@ public class SceneModel {
 
     private List<DialogueModel> dialogue;
 
+    private String tinyMCEText;
+
     public Long getId() {
         return id;
     }
@@ -61,6 +63,15 @@ public class SceneModel {
         this.dialogue = dialogue;
     }
 
+
+    public String getTinyMCEText() {
+        return tinyMCEText;
+    }
+
+    public void setTinyMCEText(String tinyMCEText) {
+        this.tinyMCEText = tinyMCEText;
+    }
+
     @Override
     public String toString() {
         return "\nSceneModel{" +
@@ -68,6 +79,7 @@ public class SceneModel {
                 ", index=" + index +
                 ", setting='" + setting + '\'' +
                 ", \ndialogue=" + dialogue +
+                ", tinyMCEText='" + tinyMCEText + "\'" +
                 "\n}\n";
     }
 

@@ -3,6 +3,22 @@
  */
 
 
+function initTinyMCE(selector){
+
+    tinymce.init({
+        selector: selector,
+        statusbar: false,
+        menubar:false,
+        height: "500px",
+        width: "100%",
+        toolbar: 'redo undo styleselect bold italic underline strikethrough alignleft aligncenter alignright bullist numlist outdent indent code',
+        toolbar_items_size : 'small',
+        theme_advanced_resizing: true,
+        theme_advanced_resizing_use_cookie : false,
+        editor_selector: "tinyMCE"
+    });
+}
+
 $(document).ready(function(){
 
     $('#tabHeader a').click(function (e) {
@@ -11,21 +27,10 @@ $(document).ready(function(){
     });
 
     $(".tinyMCE").each(function(){
-        tinymce.init({
-            selector: '#' + $(this).attr('id'),
-            statusbar: false,
-            menubar:false,
-            height: "500px",
-            width: "100%",
-            toolbar: 'redo undo styleselect bold italic underline strikethrough alignleft aligncenter alignright bullist numlist outdent indent code',
-            toolbar_items_size : 'small',
-            theme_advanced_resizing: true,
-            theme_advanced_resizing_use_cookie : false,
-            editor_selector: "tinyMCE"
-        });
+        initTinyMCE('#' + $(this).attr('id'));
     });
 
-    $(".tab-pane").each(function(){
+    $(".page-pane").each(function(){
         if(! $(this).hasClass('active')){
             $(this).hide();
         }
@@ -40,4 +45,45 @@ $(document).ready(function(){
         });
     });
 
+    $('#addScene').click(function(){
+        var page = $('#currPage').val();
+        var scene =$('#nextScene').val();
+        var sceneInt = parseInt(scene, 10) + 1;
+        var nextID = "Page"+page+"Scene"+scene;
+
+        var panelText= "<div role=\"tabpanel\" class=\"tab-pane fade fade in active \" id=\""+nextID+"\"><div class=\"content\">                  \
+        <div class=\"narritive\"><textarea id=\"Page"+page+"writingArea"+scene+"\" name=\"pages["+page+"].scenes["+scene+"].tinyMCEText\" class=\"tinyMCE\"> \
+            </textarea></div></div><label for=\"setting"+nextID+"\">Setting:</label>                                                         \
+        <textarea id=\"setting"+nextID+"\" disabled class=\"setting form-control\" placeholder=\"\"></textarea></div>"
+
+        $('#scene-list').append(panelText);
+
+
+        initTinyMCE("#Page"+page+"writingArea"+scene);
+
+        var headerText ="<li role=\"presentation\" class=\"active\">\
+            <a href=\"#"+nextID+"\" aria-controls=\""+nextID+"\" role=\"tab\" data-toggle=\"tab\">\
+            Scene "+sceneInt+"</a></li>";
+
+        $('#tabHeader li:last').prev().after(headerText);
+
+        $('#nextScene').val(sceneInt);
+
+        $('#tabHeader .sceneTab a').each(function(){
+            if($(this).hasClass('active')){
+                $(this).tab('hide');
+            }
+
+            if($(this).attr('href') === '#'+nextID){
+                $(this).tab('show');
+                $(this).click();
+            }
+        });
+
+
+
+    });
+
 });
+
+

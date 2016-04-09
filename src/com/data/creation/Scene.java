@@ -20,6 +20,8 @@ public class Scene {
 
     private String setting;
 
+    private String tinyMCEText;
+
     private Key<Canvas> canvasElement;
 
     private List<Key<Dialogue>> dialogueList;
@@ -37,6 +39,10 @@ public class Scene {
         dialogue.add(new Dialogue("HElllo World!"));
         dialogue.add(new Dialogue("Awwww yeahh"));
         dialogue.add(new Dialogue("Bitch you guessed it"));
+
+        this.tinyMCEText = "<p>Hello World! Awww Yeah! Bitch you guessed it</p>\n" +
+                "<p>&nbsp;</p>\n" +
+                "<p><strong>Working like a champ</strong></p>";
     }
 
 
@@ -85,6 +91,13 @@ public class Scene {
         this.dialogueList = dialogueList;
     }
 
+    public String getTinyMCEText() {
+        return tinyMCEText;
+    }
+
+    public void setTinyMCEText(String tinyMCEText) {
+        this.tinyMCEText = tinyMCEText;
+    }
 
     @Override
     public String toString() {
@@ -92,6 +105,7 @@ public class Scene {
                 "id=" + id +
                 ", index=" + index +
                 ", setting='" + setting + '\'' +
+                ", tinyMCEText='" + tinyMCEText +
                 ", \ndialogue=" + dialogue +
                 "\n}\n";
     }

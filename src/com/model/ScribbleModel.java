@@ -51,6 +51,7 @@ public class ScribbleModel {
         this.pages = pages;
     }
 
+
     @Override
     public String toString() {
         return "ScribbleModel{" +
