@@ -114,7 +114,13 @@ public class Doodle {
         Readable<Tag> getTagsFromTagsKeysAbstracted = new GetEntityListFromKeyListCommand<>(getTagList());
         List<Tag> tagList = getTagsFromTagsKeysAbstracted.fetch().getList();
         return tagList;
-
     }
+
+    // set the canvas object internally given a JSONString
+    public void setCanvasJSON(JSONString canvas){
+        Canvas canvas1 = new Canvas(canvas);
+        this.canvas = canvas1.getKey();
+    }
+
 
 }

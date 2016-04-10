@@ -172,19 +172,18 @@ public class Page {
         this.createdBy = createdBy;
     }
 
-    @Override
-    public String toString() {
-        return "Page{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", summary='" + summary + '\'' +
-                ", createDate=" + createDate +
-                ", drawnDate=" + drawnDate +
-                ", completeDate=" + completeDate +
-                ", numRevisions=" + numRevisions +
-                ", \nscenes=" + scenes +
-                "\n}\n\n";
-    }
+//    @Override
+//    public String toString() {
+//        return "Page{" +
+//                "id=" + id +
+//                ", title='" + title + '\'' +
+//                ", summary='" + summary + '\'' +
+//                ", createDate=" + createDate +
+//                ", drawnDate=" + drawnDate +
+//                ", completeDate=" + completeDate +
+//                ", numRevisions=" + numRevisions +
+//                "\n}\n\n";
+//    }
 
     public Key<Page> getKey() {
         return Key.create(Page.class, this.id);

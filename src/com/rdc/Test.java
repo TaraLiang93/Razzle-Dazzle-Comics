@@ -29,6 +29,7 @@ import com.data.structure.Tag;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.appengine.labs.repackaged.org.json.JSONString;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 import org.springframework.stereotype.Controller;
@@ -236,13 +237,15 @@ public class Test {
         UserDataCreater userDataCreater = new UserDataCreater("jamezTez@gmail.com", "jamezTezNickName", "jamezTezID"); // fill userDataCreater with initial data
         UserData james =  userDataCreater.createEntity(new UserDataCommandFill());
 
-        //create canvas
-        Canvas canvas = new Canvas();
-        ofy().save().entity(canvas).now();
+//        //create canvas
+//        Canvas canvas = new Canvas();
+//        ofy().save().entity(canvas).now();
+        JSONString canvasJSON = null;
+
 
         //created Doodle
         DoodleCreater doodleCreater = new DoodleCreater("I am DoodleCreater created");
-        Doodle createdDoodle = doodleCreater.createEntity(new DoodleCommandFill(canvas.getKey()));
+        Doodle createdDoodle = doodleCreater.createEntity(new DoodleCommandFill(canvasJSON));
 
 
         //create Page
@@ -295,8 +298,9 @@ public class Test {
 
         // update Doodle entity
         try {
+            JSONString canvas = null;
             updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(updatedDoodleTitle,
-                    theDoodle.getDescription(), "CanvasJSON")
+                    theDoodle.getDescription(), canvas)
             );
         }
         catch ( FetchException| UpdateException ex){
@@ -428,19 +432,22 @@ public class Test {
         Updateable<UserData> userDataUpdater2 = new UserDataUpdater();
 
 //        String canvasJSONString = "canvas JSOn String";
-        Canvas canvas = new Canvas();
-        ofy().save().entity(canvas).now();
+//        Canvas canvas = new Canvas();
+//        ofy().save().entity(canvas).now();
 
-        Createable<Doodle> anotherDoodleCreater = new DoodleCreater();
-        Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleCommandFill(canvas.getKey()));
+        JSONString canvasJSON = null; // on front end it wouldn't be null SHOWJASON
+
+        Createable<Doodle> anotherDoodleCreater = new DoodleCreater("title", "description");
+        Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleCommandFill(canvasJSON));
 
         Updateable<Doodle> doodleUpdater = new DoodleUpdater();
         Readable<Doodle> getDoodle = new GetEntityFromKeyCommand<>(anotherDoodle.getKey());
 
         try {
+            JSONString canvas = null;
             doodleUpdater.updateEntity(getDoodle,
                     new UpdateDoodleTask("updated doodle title",
-                            "describing doodle", "The new canvas JASON JSON")
+                            "describing doodle", canvas)
             );
         } catch (FetchException | UpdateException ex) {
             ex.printStackTrace();

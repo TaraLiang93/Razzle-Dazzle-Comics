@@ -72,13 +72,13 @@ public class IdeaFactoryController {
         return new ModelAndView("scribbles", "scribbleModel", new ScribbleModel());
     }
 
-    @RequestMapping(value=SAVE_SCRIBBLE, method=RequestMethod.POST)
-    public ModelAndView saveScribble(@ModelAttribute("scribbleModel") ScribbleModel model, HttpServletRequest req){
-
-        System.out.println("Made It! -->" + model);
-
-        return new ModelAndView("forward:" + IDEA_HOME);
-    }
+//    @RequestMapping(value=SAVE_SCRIBBLE, method=RequestMethod.POST)
+//    public ModelAndView saveScribble(@ModelAttribute("scribbleModel") ScribbleModel model, HttpServletRequest req){
+//
+//        System.out.println("Made It! -->" + model);
+//
+//        return new ModelAndView("forward:" + IDEA_HOME);
+//    }
 
     @RequestMapping(value=LOAD_DOODLE, method= RequestMethod.GET)
     public ModelAndView loadDoodle(@PathVariable String id, HttpSession session, ModelMap map){
