@@ -1,7 +1,11 @@
 package com.rdc.create;
 
+import com.data.api.Createable;
+import com.data.api.createables.DoodleCreater;
+import com.data.api.dataItems.DoodleCommandFill;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
+import com.google.appengine.labs.repackaged.org.json.JSONString;
 import com.model.ScribbleModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -101,12 +105,24 @@ public class IdeaFactoryController {
     }
 
     @RequestMapping(value="/create/doodle/save", method= RequestMethod.POST)
-    public ModelAndView saveDoodle(@RequestParam String canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription,HttpServletRequest req, HttpSession session,ModelMap map){
+    public ModelAndView saveDoodle(@RequestParam final String canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription, HttpServletRequest req, HttpSession session, ModelMap map){
 
         System.out.println("saving a doodle made easy");
         System.out.println(canvasImage);
         System.out.println(doodleTitle);
         System.out.println(doodleDescription);
+
+//        JSONString canvasJSON = new JSONString() {
+//            @Override
+//            public String toJSONString() {
+//                return canvasImage;
+//            }
+//        };
+
+
+
+        Createable<Doodle> anotherDoodleCreater = new DoodleCreater(doodleTitle, doodleDescription);
+//        Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleCommandFill(canvasJSON));
 
         return new ModelAndView("forward:" + IDEA_HOME);
     }
