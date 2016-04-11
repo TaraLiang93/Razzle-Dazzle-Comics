@@ -1,7 +1,7 @@
 package com.data.creation;
 
-import com.data.api.DoodleQueries.GetEntityFromKeyCommand;
-import com.data.api.DoodleQueries.GetEntityListFromKeyListCommand;
+import com.data.api.DoodleQueries.internal.GetEntityFromKeyCommand;
+import com.data.api.DoodleQueries.internal.GetEntityListFromKeyListCommand;
 import com.data.structure.Flow;
 import com.data.structure.TeamMember;
 import com.google.appengine.api.datastore.Blob;

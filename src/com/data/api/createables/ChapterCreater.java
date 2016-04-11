@@ -30,6 +30,11 @@ public class ChapterCreater extends Createable<Chapter> {
         this.description = description;
         this.flow = flow;
         this.chapterCover = chapterCover;
+
+        // Image service factory makeImageFromFileName
+        // blob takes byte array
+        // use image service
+        //
     }
 
     @Override

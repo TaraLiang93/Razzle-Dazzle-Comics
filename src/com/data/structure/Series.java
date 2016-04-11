@@ -1,13 +1,12 @@
 package com.data.structure;
 
-import com.data.api.DoodleQueries.GetEntityListFromKeyListCommand;
+import com.data.api.DoodleQueries.internal.GetEntityListFromKeyListCommand;
 import com.data.api.Readable;
 import com.data.creation.Chapter;
 import com.google.appengine.api.datastore.Blob;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Serialize;
 
 import java.util.List;
 
@@ -106,4 +105,6 @@ public class Series {
         List<Genre> genreList = getGenreFromGenreKeysAbstracted.fetch().getList();
         return genreList;
     }
+
+
 }

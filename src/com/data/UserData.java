@@ -5,7 +5,7 @@ package com.data;
  * Created by tara on 2/14/16.
  */
 
-import com.data.api.DoodleQueries.GetEntityListFromKeyListCommand;
+import com.data.api.DoodleQueries.internal.GetEntityListFromKeyListCommand;
 import com.data.api.Readable;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
@@ -15,7 +15,6 @@ import com.data.structure.Series;
 import com.data.structure.Tag;
 import com.google.appengine.api.datastore.Blob;
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.*;
 
 import java.util.ArrayList;

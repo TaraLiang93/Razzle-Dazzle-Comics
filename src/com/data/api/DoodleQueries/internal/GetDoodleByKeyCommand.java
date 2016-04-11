@@ -1,4 +1,4 @@
-package com.data.api.DoodleQueries;
+package com.data.api.DoodleQueries.internal;
 
 import com.data.api.Container;
 import com.data.api.Readable;

@@ -27,6 +27,7 @@ public class UserDataCreater extends Createable<UserData>{
         this.username = user.getEmail();
         this.nickName = user.getNickname();
         this.UserDataId = user.getUserId();
+        //PUSH
     }
 
     public UserDataCreater(String username, String nickName, String UserDataId){

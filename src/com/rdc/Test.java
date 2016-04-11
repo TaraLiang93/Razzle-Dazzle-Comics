@@ -2,7 +2,11 @@ package com.rdc;
 
 import com.data.UserData;
 import com.data.api.Createable;
-import com.data.api.DoodleQueries.*;
+import com.data.api.DoodleQueries.external.GetDoodlesByIDCommand;
+import com.data.api.DoodleQueries.external.GetDoodlesByTagCommand;
+import com.data.api.DoodleQueries.external.GetScribblesByIDCommand;
+import com.data.api.DoodleQueries.internal.GetDoodleByKeyCommand;
+import com.data.api.DoodleQueries.internal.GetEntityFromKeyCommand;
 import com.data.api.Readable;
 import com.data.api.Updateable;
 import com.data.api.createables.DoodleCreater;
@@ -21,7 +25,6 @@ import com.data.api.updatables.UserDataUpdater;
 import com.data.api.updateTasks.UpdateDoodleTask;
 import com.data.api.updateTasks.UpdateScribbleTask;
 import com.data.api.updateTasks.UpdateUserDataTask;
-import com.data.creation.Canvas;
 import com.data.creation.Doodle;
 import com.data.creation.Page;
 import com.data.creation.Scribble;
@@ -39,12 +42,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 

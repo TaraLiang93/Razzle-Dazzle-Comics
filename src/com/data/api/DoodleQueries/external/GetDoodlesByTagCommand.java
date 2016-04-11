@@ -1,4 +1,4 @@
-package com.data.api.DoodleQueries;
+package com.data.api.DoodleQueries.external;
 
 /**
  * Created by Zhenya on 4/1/16.
