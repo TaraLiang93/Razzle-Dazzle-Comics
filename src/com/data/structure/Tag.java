@@ -1,8 +1,8 @@
 package com.data.structure;
 
 import com.data.UserData;
-import com.data.api.DoodleQueries.internal.GetEntityFromKeyCommand;
-import com.data.api.Readable;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;

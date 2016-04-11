@@ -1,6 +1,6 @@
 package com.data.api.createables;
 
-import com.data.api.Createable;
+import com.data.api.interfaces.Createable;
 import com.data.creation.Scribble;
 
 /**
@@ -37,7 +37,7 @@ public class ScribbleCreater extends Createable<Scribble> {
      * @return
      */
     @Override
-    protected Scribble getEntity() {
+    protected Scribble getEntity() { //TODO : throw exceptions
         // if there is a title then create Scribble with the title
         // else if there was no title passed in create default Scribble
 

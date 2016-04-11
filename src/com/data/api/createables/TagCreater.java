@@ -1,7 +1,7 @@
 package com.data.api.createables;
 
 import com.data.UserData;
-import com.data.api.Createable;
+import com.data.api.interfaces.Createable;
 import com.data.structure.Tag;
 import com.googlecode.objectify.Key;
 

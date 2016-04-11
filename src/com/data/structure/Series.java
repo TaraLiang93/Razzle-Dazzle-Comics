@@ -1,7 +1,7 @@
 package com.data.structure;
 
-import com.data.api.DoodleQueries.internal.GetEntityListFromKeyListCommand;
-import com.data.api.Readable;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
 import com.data.creation.Chapter;
 import com.google.appengine.api.datastore.Blob;
 import com.googlecode.objectify.Key;

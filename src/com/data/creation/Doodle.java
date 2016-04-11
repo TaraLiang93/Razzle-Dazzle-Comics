@@ -1,15 +1,14 @@
 package com.data.creation;
 
-import com.data.api.DoodleQueries.internal.GetEntityFromKeyCommand;
-import com.data.api.DoodleQueries.internal.GetEntityListFromKeyListCommand;
-import com.data.api.Readable;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.internal.GetEntityFromKeyCommand;
+import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
 import com.data.structure.Tag;
 import com.google.appengine.labs.repackaged.org.json.JSONString;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-
 
 import java.util.ArrayList;
 import java.util.List;

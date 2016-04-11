@@ -1,14 +1,14 @@
 package com.data.creation;
 
-import com.data.api.DoodleQueries.internal.GetEntityFromKeyCommand;
-import com.data.api.DoodleQueries.internal.GetEntityListFromKeyListCommand;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.internal.GetEntityFromKeyCommand;
+import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
 import com.data.structure.Flow;
 import com.data.structure.TeamMember;
 import com.google.appengine.api.datastore.Blob;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
-import com.data.api.Readable;
 
 import java.util.Date;
 import java.util.List;

@@ -1,13 +1,8 @@
 package com.data.api.createables;
 
-import com.data.api.Createable;
-import com.data.creation.Canvas;
+import com.data.api.interfaces.Createable;
 import com.data.creation.Doodle;
-import com.data.structure.Tag;
 import com.google.appengine.labs.repackaged.org.json.JSONString;
-import com.googlecode.objectify.Key;
-
-import java.util.List;
 
 /**
  * Created by Zhenya on 4/5/16.
@@ -49,7 +44,7 @@ public class DoodleCreater extends Createable<Doodle> {
 
 
     @Override
-    protected Doodle getEntity() {
+    protected Doodle getEntity() { //TODO : throw exceptions, do validation
         Doodle doodle = new Doodle();
 
         // if title was passed in as parameter then set the title
