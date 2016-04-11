@@ -1,6 +1,6 @@
 package com.data.api.updatables;
 
-import com.data.api.Updateable;
+import com.data.api.interfaces.Updateable;
 import com.data.creation.Chapter;
 
 /**

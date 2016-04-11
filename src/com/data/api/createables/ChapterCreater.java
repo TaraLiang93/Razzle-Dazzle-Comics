@@ -1,10 +1,9 @@
 package com.data.api.createables;
 
-import com.data.api.Createable;
+import com.data.api.interfaces.Createable;
 import com.data.creation.Chapter;
 import com.data.structure.Flow;
 import com.google.appengine.api.datastore.Blob;
-import com.googlecode.objectify.annotation.Id;
 
 /**
  * Created by Zhenya on 4/9/16.
@@ -14,8 +13,8 @@ public class ChapterCreater extends Createable<Chapter> {
     String title;
     String chapterString;
     String description;
-    Flow flow;
-    Blob chapterCover;
+    Flow flow; //TODO : Remove flow, put into Fill Command
+    Blob chapterCover; // TODO : Remove from here, load from Fill command
 
     public ChapterCreater(String title, String chapterString, Flow flow){
         this(title, chapterString, null, flow);
@@ -29,7 +28,7 @@ public class ChapterCreater extends Createable<Chapter> {
         this.chapterString = chapterString;
         this.description = description;
         this.flow = flow;
-        this.chapterCover = chapterCover;
+        this.chapterCover = chapterCover; //TODO : If chapter cover is null, load default chapter image in fill command
 
         // Image service factory makeImageFromFileName
         // blob takes byte array
@@ -38,7 +37,7 @@ public class ChapterCreater extends Createable<Chapter> {
     }
 
     @Override
-    protected Chapter getEntity() {
+    protected Chapter getEntity() { // TODO : throw exceptions, do validation
 
         Chapter chapter = new Chapter();
 
