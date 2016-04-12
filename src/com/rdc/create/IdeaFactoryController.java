@@ -1,5 +1,12 @@
 package com.rdc.create;
 
+import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
+import com.data.api.interfaces.Readable;
+import com.data.api.interfaces.Updateable;
+import com.data.api.queries.external.GetDoodlesByIDCommand;
+import com.data.api.updatables.DoodleUpdater;
+import com.data.api.updatables.updateTasks.UpdateDoodleTask;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
 import com.google.appengine.labs.repackaged.org.json.JSONString;
@@ -98,12 +105,31 @@ public class IdeaFactoryController {
     }
 
     @RequestMapping(value="/create/doodle/save", method= RequestMethod.POST)
-    public ModelAndView saveDoodle(@RequestParam String canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription, HttpServletRequest req, HttpSession session, ModelMap map){
+    public ModelAndView saveDoodle(@RequestParam JSONString canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription, HttpServletRequest req, HttpSession session, ModelMap map){
 
         System.out.println("saving a doodle made easy");
         System.out.println(canvasImage);
         System.out.println(doodleTitle);
         System.out.println(doodleDescription);
+
+        String dId = req.getParameter("doodleId");
+        if(dId != null)
+        {
+            Long doodleId = Long.parseLong(dId);
+            Updateable<Doodle> updateDoodle = new DoodleUpdater();
+            Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(doodleId);
+            try {
+                Doodle theDoodle = getDoodle.fetch().getResult();
+                updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(doodleTitle, doodleDescription, canvasImage) );
+            } catch (FetchException | UpdateException  e) {
+                e.printStackTrace();
+            }
+
+        }
+        else
+        {
+
+        }
 
         return new ModelAndView("forward:" + IDEA_HOME);
     }

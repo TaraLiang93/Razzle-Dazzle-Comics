@@ -5,6 +5,7 @@ import com.data.UserData;
 import com.data.api.createables.UserDataCreater;
 import com.data.api.createables.fillCommands.UserDataFillCommand;
 import com.data.api.exceptions.CreateException;
+import com.data.api.interfaces.Createable;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import org.springframework.stereotype.Controller;
@@ -64,18 +65,17 @@ public class LoginController {
     {
         UserService userService = UserServiceFactory.getUserService();
 
-        UserDataCreater userDataCreater = new UserDataCreater(userService.getCurrentUser());
-        UserData user = null;
+        Createable<UserData> userDataCreateable = new UserDataCreater(userService.getCurrentUser());
         try {
-
-            user = userDataCreater.createEntity(new UserDataFillCommand());
-
+            UserData userData = userDataCreateable.createEntity(new UserDataFillCommand());
+            session.setAttribute("user",userData);
         } catch (CreateException e) {
-
             e.printStackTrace();
         }
 
-        session.setAttribute("user",user);
+
+
+
 
         return "redirect:"+ ref;
     }

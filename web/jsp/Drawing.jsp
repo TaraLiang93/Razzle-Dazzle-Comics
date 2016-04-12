@@ -84,6 +84,6 @@
 
 </div>
 
-<div class="canvasContainer">
-    <canvas id="canvas"></canvas>
+<div id="canvasContainer" style ="height:600px; width:600px;    overflow: auto;">
+    <canvas id="canvas" style="border-style: solid" height="600px" width=" 600px"></canvas>
 </div>
