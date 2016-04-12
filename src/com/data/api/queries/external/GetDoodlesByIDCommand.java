@@ -28,6 +28,11 @@ public class GetDoodlesByIDCommand extends Readable{
         this.id = id;
     }
 
+    public GetDoodlesByIDCommand(String strID){
+        this.id = Long.parseLong(strID);
+    }
+
+
     @Override
     protected Filter getFilter() throws FetchException{
         if( this.id != null) {

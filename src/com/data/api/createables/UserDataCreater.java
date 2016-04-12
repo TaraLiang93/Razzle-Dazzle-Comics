@@ -35,6 +35,7 @@ public class UserDataCreater extends Createable<UserData>{
         if( user == null ){
             throw new CreateException("UserDataCreater user is null");
         }
+
         // if username was provided as a parameter then set it
         if( this.username != null && !(this.username.equals("")) ) {
             userData.setUserName(this.username);

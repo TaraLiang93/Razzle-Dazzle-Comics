@@ -13,6 +13,7 @@ public class ChapterCreater extends Createable<Chapter> {
     String chapterString;
     String description;
 
+
     public ChapterCreater(String title, String chapterString){
         this(title, chapterString, null);
     }
