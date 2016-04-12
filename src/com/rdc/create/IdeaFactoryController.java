@@ -116,7 +116,7 @@ public class IdeaFactoryController {
 
 
 
-        Createable<Doodle> anotherDoodleCreater = new DoodleCreater(doodleTitle, doodleDescription);
+//        Createable<Doodle> anotherDoodleCreater = new DoodleCreater(doodleTitle, doodleDescription);
 //        Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleCommandFill(canvasJSON));
 
         return new ModelAndView("forward:" + IDEA_HOME);

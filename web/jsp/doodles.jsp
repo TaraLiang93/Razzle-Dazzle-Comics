@@ -29,8 +29,8 @@
 
         </div>
         <div class="doodleButtons btn-group-vertical">
-            <a href="#new" class="btn btn-lg btn-warning" data-toggle="modal" data-target="#newDoodleModal">New</a>
-            <button  class="btn btn-lg btn-primary saveDoodle">Save</button>
+            <a href="#new" class="btn btn-lg btn-warning" data-toggle="modal" >New</a>
+            <a  class="btn btn-lg btn-primary saveDoodle">Save</a>
         </div>
     </div>
 </div>
