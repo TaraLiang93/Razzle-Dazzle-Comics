@@ -13,22 +13,22 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 public abstract class Updateable<T> {
 
     public void updateEntity(Readable<T> r, UpdateTask<T> task) throws FetchException, UpdateException {
+
         Container<T> list = r.fetch();
 
         if(list == null) throw new FetchException();
-
+        //updates is the list of entities to update
         List<T> updates = task.update(list);
 
         if(updates == null || updates.isEmpty()) throw new UpdateException();
 
         try{
+            // save all the entities to update
             ofy().save().entities(updates).now();
         }
         catch(Throwable t){
             t.printStackTrace();
         }
-
-
 
     }
 

@@ -1,5 +1,6 @@
 package com.data.creation;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
@@ -14,5 +15,9 @@ public class Canvas {
 
     public Canvas(){
 
+    }
+
+    public Key<Canvas> getKey() {
+        return Key.create(Canvas.class, canvasId);
     }
 }

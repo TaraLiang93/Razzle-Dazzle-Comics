@@ -1,10 +1,3 @@
-<link rel="stylesheet" type="text/css" href="/css/drawing.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<script src="/js/drawingtool.js"></script>
-<script src="/js/fabric.js"></script>
-<script src="/js/drawing.js"></script>
-
-
 <div class="toolbar">
 
     <div class="btn-group">
@@ -74,25 +67,19 @@
     </div>
     <div class="btn-group">
         <a class="btn btn-default" id="Zoom-level"></a>
-        <a class="btn btn-default" data-toggle="popover" data-title="Upload file"
-           data-content="<input id ='Image-file' type='file' name='pic' accept='image/*'/> "
-           data-html="true">
+        <%--<a class="btn btn-default" data-toggle="popover" data-title="Upload file"--%>
+           <%--data-content="  "--%>
+           <%--data-html="true">--%>
+            <%----%>
+        <%--</a>--%>
+        <a class="imageUpload btn btn-default">
             <i class="fa fa-picture-o"></i>
+            <input id ='Image-file' type='file' name='pic' accept='image/*'/>
         </a>
     </div>
 
-    <a class="btn btn-default" data-toggle="popover" data-title="Background:"
-       data-content="<input id ='Bg-Image' type='file' name='pic' accept='image/*'/>
-            <button class='btn btn-default btn-sm pull-right' id='Bg-Submit'>Submit</button>
-            <input class='input form-control btn-default' id='Bg-Color' type='color'/>"
-       data-html="true" id="Bg-popover">Background
-    </a>
-
-
         <input class="input form-control btn-default" id="Drawing-color" type="color" oninput="changeColor()">
     <%--<input id='Line-width"  type='number' value='10' oninput='changeLineWidth()'>--%>
-
-
 
 
 </div>
