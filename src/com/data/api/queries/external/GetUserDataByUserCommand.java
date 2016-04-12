@@ -25,7 +25,7 @@ public class GetUserDataByUserCommand extends Readable<UserData> {
         Filter filter = new FilterPredicate("userid",
                 FilterOperator.EQUAL,
                 this.user.getUserId());
-        return null;
+        return filter;
     }
 
     @Override
