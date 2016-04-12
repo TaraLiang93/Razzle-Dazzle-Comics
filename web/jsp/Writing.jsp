@@ -13,11 +13,11 @@
             <ul id="tabHeader" class="nav nav-tabs" role="tablist">
             <c:forEach items = "${page.scenes}" var = "scene" varStatus="i">
                 <li role="presentation" class="sceneTab ${i.index eq 0 ? "active" : ""}">
-                    <a href="#Page${pageIndex.index}Scene${i.index}" aria-controls="Page${pageIndex.index}Scene${i.index}" role="tab" data-toggle="tab">Scene ${i.index + 1}</a>
+                    <a id="tabPage${pageIndex.index}Scene${i.index}" href="#Page${pageIndex.index}Scene${i.index}" aria-controls="Page${pageIndex.index}Scene${i.index}" role="tab" data-toggle="tab">Scene ${i.index + 1}</a>
                 </li>
             </c:forEach>
-                <li role="presentation">
-                    <a id="addScene" href="#plus" aria-controls="plus" role="tab" data-toggle="tab"> + </a>
+                <li>
+                    <a id="addScene" href="#plus" class="add-contact"> + </a>
                 </li>
             </ul>
 
@@ -26,7 +26,7 @@
             <div id="scene-list" class="tab-content">
                 <c:set var="sceneCount" value="0"/>
                 <c:forEach items = "${page.scenes}" var = "scene" varStatus="i">
-                    <div role="tabpanel" class="scene-tabs tab-pane fade fade in ${i.index eq 0 ? 'active' : none} " id="Page${pageIndex.index}Scene${i.index}">
+                    <div role="tabpanel" class="scene-tabs tab-pane fade in ${i.index eq 0 ? 'active' : none} " id="Page${pageIndex.index}Scene${i.index}">
                         <div class="content">
                             <div class="narritive">
                                 <textarea id="Page${pageIndex.index}writingArea${i.index}" name="pages[${pageIndex.index}].scenes[${i.index}].tinyMCEText" class="tinyMCE">
