@@ -1,8 +1,7 @@
 package com.data.api.updatables;
 
 import com.data.UserData;
-import com.data.api.Updateable;
-import com.google.appengine.api.users.User;
+import com.data.api.interfaces.Updateable;
 
 /**
  * Created by Zhenya on 4/8/16.

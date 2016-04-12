@@ -1,17 +1,14 @@
 package com.data.structure;
 
 import com.data.UserData;
-import com.data.api.DoodleQueries.GetEntityFromKeyCommand;
-import com.data.api.Readable;
-import com.data.creation.Doodle;
+import com.data.api.exceptions.FetchException;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Parent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -59,7 +56,7 @@ public class Tag {
         this.name = name;
     }
 
-    public UserData getUserData() {
+    public UserData getUserData() throws FetchException{
         Readable<UserData> getUserDataFromKey = new GetEntityFromKeyCommand(this.userData);
         return getUserDataFromKey.fetch().getResult();
     }

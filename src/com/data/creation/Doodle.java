@@ -1,17 +1,15 @@
 package com.data.creation;
 
-import com.data.UserData;
-import com.data.api.DoodleQueries.GetEntityFromKeyCommand;
-import com.data.api.DoodleQueries.GetEntityListFromKeyListCommand;
-import com.data.api.Readable;
+import com.data.api.exceptions.FetchException;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.internal.GetEntityFromKeyCommand;
+import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
 import com.data.structure.Tag;
 import com.google.appengine.labs.repackaged.org.json.JSONString;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.Parent;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +42,7 @@ public class Doodle {
         title = "";
         description = "";
         tagList = new ArrayList<Key<Tag>>();
-        //TODO:create a new canvas
-//        Canvas canvas = new Canvas();
-//        canvas = canvas.getKey();
+
     }
 
     public Long getDoodleId() {
@@ -71,7 +67,14 @@ public class Doodle {
      */
    public Canvas getCanvas() {
        Readable<Canvas> getCanvasFromKey = new GetEntityFromKeyCommand<>(canvas); // canvas is the canvas key
-       Canvas retrievedCanvas = getCanvasFromKey.fetch().getResult();
+       Canvas retrievedCanvas = null;
+       try {
+           retrievedCanvas = getCanvasFromKey.fetch().getResult();
+       }
+       catch (FetchException ex){
+           System.out.println("Null canvas");
+           ex.printStackTrace();
+       }
        return retrievedCanvas;
    }
 
@@ -112,9 +115,21 @@ public class Doodle {
     public List<Tag> getTags(){
 
         Readable<Tag> getTagsFromTagsKeysAbstracted = new GetEntityListFromKeyListCommand<>(getTagList());
-        List<Tag> tagList = getTagsFromTagsKeysAbstracted.fetch().getList();
+        List<Tag> tagList = null;
+        try {
+            tagList = getTagsFromTagsKeysAbstracted.fetch().getList();
+        }
+        catch (FetchException ex){
+            tagList = new ArrayList<>();
+        }
         return tagList;
-
     }
+
+    // set the canvas object internally given a JSONString
+    public void setCanvasJSON(JSONString canvas){
+        Canvas canvas1 = new Canvas(canvas);
+        this.canvas = canvas1.getKey();
+    }
+
 
 }

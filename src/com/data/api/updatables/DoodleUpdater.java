@@ -1,12 +1,7 @@
 package com.data.api.updatables;
 
-import com.data.api.Updateable;
-import com.data.creation.Canvas;
+import com.data.api.interfaces.Updateable;
 import com.data.creation.Doodle;
-import com.data.structure.Tag;
-import com.googlecode.objectify.Key;
-
-import java.util.List;
 
 /**
  * Created by Zhenya on 4/8/16.
