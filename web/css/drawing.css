@@ -1,12 +1,13 @@
 .canvasContainer  canvas#canvas {
     border-style: solid;
     border-radius: 4px;
-    /*height: 600px;*/
-    /*width: 600px;*/
 }
 
 .canvasContainer {
     float: left;
+    height: 600px;
+    width: 600px;
+    overflow: auto;
 }
 
 .toolbar {

@@ -7,8 +7,11 @@
     <script src="/js/fabric.js"></script>
     <script src="/js/drawing.js"></script>
 
+    <div id="canvasContainer" style ="height:600px; width:600px;    overflow: auto;">
+        <canvas id="canvas" style="border-style: solid" height="600px" width=" 600px"></canvas>
+    </div>
 
-    <canvas id="canvas" style="border-style: solid" height="600px" width=" 600px"></canvas>
+
     <button id="Clear">Clear</button>
     <button id="Draw">Draw</button>
     <button id="Select">Select</button>
@@ -27,6 +30,9 @@
     <button id="Zoom-out">Zoom Out</button>
 
 <p>JASON DOES NOT HAVE THE FOLLOWING</p>
+
+
+    <button id ="Eraser">Eraser</button>
     <button id="Fill">Fill</button>
 
     <div class = "container">
@@ -47,6 +53,23 @@
                 <option>Verdana</option>
                 <option>Times New Roman</option>
 
+            </select>
+        </div>
+    </div>
+
+    <div class = "container">
+        <div class="dropdown" >
+            <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" id="CurrentBrush">Pencil
+                <span class="caret"></span></button>
+            <select class="dropdown-menu" id="Brush-Option" multiple="multiple">
+                <option>Pencil</option>
+                <option >Circle</option>
+                <option >Spray</option>
+                <option>Horizontal Line</option>
+                <option>Vertical Line</option>
+                <option>Pattern</option>
+                <option>Diamond</option>
+                <option>Square</option>
             </select>
         </div>
     </div>

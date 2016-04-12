@@ -10,7 +10,7 @@ var clearButton, drawButton, selectButton, deleteButton, redoButton, undoButton 
 /**
  * All the colors and tool size used in drawing tool
  */
-var lineColor, lineWidth, fontName;
+var lineColor, lineWidth, fontName, drawTool;
 
 /**
  * the stack that store all the deleted object
@@ -18,12 +18,17 @@ var lineColor, lineWidth, fontName;
 var Stack, undoStack;
 
 var canvas;
+var origWidth;
+var origHeight;
+var eraserOn;
 
 
 $(document).ready(function() {
     Stack = [];
     undoStack = [];
     fontName = "Times New Roman";
+    eraserOn = false;
+    drawTool = 'pencil';
     /**
      * Initilize all the drawing tool button avavilable.
      */
@@ -57,23 +62,33 @@ $(document).ready(function() {
     //canvas.resizeCanvas(600,600);
     canvas.renderAll();
 
-    //$(window).resize(function(){
-    //
-    //    var newHeight = $(window).height()-$("body").height();
-    //    var newWidth = $(window).width()-$(".toolbar").width()-50;
-    //    console.log(newHeight + " " + newWidth);
-    //
-    //    canvas.setHeight(newHeight);
-    //    canvas.setWidth(newWidth);
-    //    //canvas.calcOffset();
-    //    canvas.renderAll();
-    //});
+    origHeight = canvas.getHeight();
+    origWidth = canvas.getWidth();
+
+
 
 
     /**********************************************************************************************************************
      * Listeners
      */
-    canvas.on("mouse:up", function(){
+
+    /*
+     This is for scrolling within the canvas. Only functional when the user is zoomed in inside of canvas
+     */
+    fabric.util.addListener(document.getElementById('canvasContainer'), 'scroll', function () {
+        console.log('scrolling');
+        canvas.calcOffset();
+    });
+
+    canvas.on('path:created', function(e){// all the newly created path
+        if(eraserOn === true){
+            //e.path.lockMovementX = true;
+            e.path.selectable = false;
+            console.log("Eraser is on and it works")
+        }
+    });
+
+    canvas.on("mouse:up", function(){//push everything done on canvas into stack
         if(canvas.isDrawingMode === true) {
             Stack.push(canvas._objects[canvas._objects.length - 1]);
         }
@@ -93,7 +108,6 @@ $(document).ready(function() {
         if(canvas._activeObject != null){
             setTextStyle(canvas._activeObject,'fill',lineColor);
         }
-
     });
 
     $("#Line-width").change(function(){
@@ -135,10 +149,6 @@ $(document).ready(function() {
         }
     });
 
-    /**
-     * End of Listener
-     **********************************************************************************************************************/
-
     clearButton.onclick = function(){//if the clear button is click all the objects on the canvas is deleted by calling fcn clear.
         console.log("Clear Canvas: Clear clicked");
         Clear();
@@ -150,19 +160,23 @@ $(document).ready(function() {
         canvas.freeDrawingBrush.color = lineColor;
         canvas.freeDrawingBrush.width = lineWidth;
         canvas.isDrawingMode = true;
+        eraserOn = false;
     };
 
     selectButton.onclick = function(){//allow the user to select drawed obj
         console.log("Selection: drawing mode is off");
         canvas.isDrawingMode = false;
+        eraserOn = false;
     };
 
 
     deleteButton.onclick = function(){
         deleteFcn();
+        eraserOn = false;
     };
 
     undoButton.onclick = function() {
+        eraserOn = false;
         if (Stack.length != 0) {
             var undoObj = Stack.pop();
             if(canvas._objects.indexOf(undoObj) === -1){
@@ -180,6 +194,7 @@ $(document).ready(function() {
     };
 
     redoButton.onclick = function(){
+        eraserOn = false;
         if(undoStack.length != 0 ){
             var redoObj = undoStack.pop();
             if(canvas._objects.indexOf(redoObj) === -1) {
@@ -200,6 +215,7 @@ $(document).ready(function() {
      * User can resize the shape and the color is default to the lineColor
      */
     Rectangle.onclick = function(){
+        eraserOn = false;
         canvas.isDrawingMode = false;
         var Rect = new fabric.Rect({
             width: (canvas.getWidth() /4),
@@ -215,6 +231,7 @@ $(document).ready(function() {
     };
 
     Square.onclick = function(){
+        eraserOn = false;
         canvas.isDrawingMode = false;
         var Sqr = new fabric.Rect({
             width: (canvas.getWidth()/5),
@@ -230,6 +247,7 @@ $(document).ready(function() {
     };
 
     Triangle.onclick = function(){
+        eraserOn = false;
         canvas.isDrawingMode = false;
         var Tri = new fabric.Triangle({
             width: (canvas.getWidth()/6),
@@ -245,6 +263,7 @@ $(document).ready(function() {
     };
 
     Circle.onclick = function(){
+        eraserOn = false;
         canvas.isDrawingMode = false;
         var Cir = new fabric.Circle({
             radius: (canvas.getWidth()/8),
@@ -259,6 +278,7 @@ $(document).ready(function() {
     };
 
     Line.onclick = function(){
+        eraserOn = false;
         canvas.isDrawingMode = false;
         canvas.add(new fabric.Line([canvas.getWidth()/10, canvas.getWidth()/10, 200, 200], {
             left: 170,
@@ -276,6 +296,7 @@ $(document).ready(function() {
      *************************************************************************************************************************/
 
     $("#Text").click(function(){
+        eraserOn = false;
         canvas.isDrawingMode = false;
         console.log("Text clicked")
         var textbox = new fabric.IText("Text");
@@ -287,24 +308,27 @@ $(document).ready(function() {
 
     $("#Zoom-in").click(function(){//Zoom in on a canvas,  0 = zoom in, 1 = zoom out
         canvas.isDrawingMode = false;
+        eraserOn = false;
         zoom(0);
     });
 
     $("#Zoom-out").click(function(){
         canvas.isDrawingMode = false;
+        eraserOn = false;
         zoom(1);
     });
 
     $("#Fill").click(function(){
+        eraserOn = false;
+        canvas.isDrawingMode = false;
         canvas._activeObject.fill = lineColor;
         canvas.renderAll();
         Stack.push(canvas._activeObject);
     });
 
-    $("#Zoom-level").text(Math.round(canvas.getZoom()*100) + "%");
-
     $("#Image-file").change( function uploadImage(e) {
         canvas.isDrawingMode = false;
+        eraserOn = false;
         var reader = new FileReader();
         reader.onload = function (event) {
             var img = new Image();
@@ -312,6 +336,7 @@ $(document).ready(function() {
             img.onload = function () {
                 var image = new fabric.Image(img);
                 canvas.add(image);
+                Stack.push(image);
             }
 
         }
@@ -328,9 +353,9 @@ $(document).ready(function() {
                 img.onload = function () {
                     var image = new fabric.Image(img);
                     canvas.setBackgroundImage(image, canvas.renderAll.bind(canvas),
-                    {
-                        backgroundImageStretch: true
-                    });
+                        {
+                            backgroundImageStretch: true
+                        });
                 }
 
             }
@@ -344,28 +369,134 @@ $(document).ready(function() {
             $("#Bg-popover").popover('hide');
         });
     });
+
+    $("#Eraser").click(function(){
+        eraserOn = true;
+        console.log("currently using eraser");
+        canvas.freeDrawingBrush.color = '#FFFFFF';
+        canvas.freeDrawingBrush.width = lineWidth;
+        canvas.isDrawingMode = true;
+
+    });
+
+    $("#Brush-Option").change(function(){
+        console.log("Current Brush: "+this.value);
+        $("#CurrentBrush").html(this.value + ' <span class="caret"></span>');
+        if(this.value === 'Horizontal Line'){
+            var hortBrush = new fabric.PatternBrush(canvas);
+            hortBrush.getPatternSrc = function(){
+                var patternCanvas = fabric.document.createElement('canvas');
+                patternCanvas.width = patternCanvas.height = 10;
+                var ctx = patternCanvas.getContext('2d');
+
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 5;
+                ctx.beginPath();
+                ctx.moveTo(5, 0);
+                ctx.lineTo(5, 10);
+                ctx.closePath();
+                ctx.stroke();
+
+                return patternCanvas;
+            }
+            canvas.freeDrawingBrush = hortBrush;
+        }
+        else if(this.value === 'Vertical Line'){
+            var vertBrush = new fabric.PatternBrush(canvas);
+            vertBrush.getPatternSrc = function(){
+                var pattCanvas = fabric.document.createElement('canvas');
+                pattCanvas.width = pattCanvas.height = 10;
+                var ctx = pattCanvas.getContext('2d');
+                ctx.strokeStyle = lineColor;
+                ctx.lineWidth = lineWidth/4;
+                ctx.beginPath();
+                ctx.moveTo(0,5);
+                ctx.lineTo(10, 5);
+                ctx.closePath();
+                ctx.stroke();
+                return pattCanvas;
+            }
+            canvas.freeDrawingBrush = vertBrush;
+        }
+        else if(this.value === 'Diamond'){
+            var diaBrush = new fabric.PatternBrush(canvas);
+            diaBrush.getPatternSrc = function(){
+                var sqWidth = 10, sqDist = 5;
+                var patternCanvas = fabric.document.createElement('canvas');
+                var rect = new fabric.Rect({
+                    width: sqWidth,
+                    height: sqWidth,
+                    angle: 45,
+                    fill: lineColor
+                });
+
+                var canvasWidth = rect.getBoundingRectWidth();
+                patternCanvas.width = patternCanvas.height = canvasWidth + sqDist;
+                rect.set({left: canvasWidth/2, top: canvasWidth/2});
+                var ctx = patternCanvas.getContext('2d');
+                rect.render(ctx);
+                return patternCanvas;
+            };
+            canvas.freeDrawingBrush = diaBrush;
+
+        }
+        else if(this.value === 'Square'){
+            var squareBrush = new fabric.PatternBrush(canvas);
+            squareBrush.getPatternSrc = function(){
+                var sqWidth = 10, sqDist = 2;
+                var patternCanvas = fabric.document.createElement('canvas');
+                patternCanvas.width = patternCanvas.height = sqDist+sqWidth;
+                var ctx = patternCanvas.getContext('2d');
+                ctx.fillStyle = lineColor;
+                ctx.fillRect(0,0,sqWidth,sqWidth);
+
+                return patternCanvas;
+            };
+            canvas.freeDrawingBrush = squareBrush;
+        }
+        else{//used build in brush such as pencil, circle and spray
+            canvas.freeDrawingBrush = new fabric[this.value + 'Brush'](canvas);
+        }
+        canvas.freeDrawingBrush.width = lineWidth;
+        canvas.freeDrawingBrush.color = lineColor;
+    });
+
+
+
+    /**
+     * End of Listener
+     **********************************************************************************************************************/
+
+
+    $("#Zoom-level").text(Math.round(canvas.getZoom()*100) + "%");
+
+
 });
 
 /**
  * Zoom in or out of a canvas
  * @param num: either 0 == zoom in or 1 == zoom out
  */
-function zoom(num){//0 == zoom in , 1 == zoom out
+function zoom(num) {//0 == zoom in , 1 == zoom out
     console.log(canvas.getZoom());
-    if(num === 0){
-        canvas.setZoom(canvas.getZoom()*1.1);
+    if (num === 0) {
+        canvas.setZoom(canvas.getZoom() * 1.1);
+        canvas.setWidth(canvas.getZoom() * origWidth);
+        canvas.setHeight(canvas.getZoom() * origHeight);
     }
-    else{
-        if(canvas.getZoom() > 0.60) {
+    else {
+        if (canvas.getZoom() > 1) {
             canvas.setZoom(canvas.getZoom() / 1.1);
+            canvas.setWidth(canvas.getZoom() * origWidth);
+            canvas.setHeight(canvas.getZoom() * origHeight);
         }
         else{
-            alert("Cannot Zoom anymore.");
-        }
+                alert("Cannot Zoom anymore.");
+            }
     }
-    $("#Zoom-level").text(Math.round(canvas.getZoom()*100) + "%");
+    $("#Zoom-level").text(Math.round(canvas.getZoom() * 100) + "%");
+    console.log("New width: " + canvas.getWidth() + " New Height: " + canvas.getHeight());
 }
-
 function deleteFcn(){
         var currentObj = canvas.getActiveObject();//Get the object the user selected
         var currentGrp = canvas.getActiveGroup();//Get the obj. group the user selected
@@ -445,6 +576,7 @@ function setTextStyle(obj, style, value){
     }
     canvas.renderAll();
 }
+
 
 
 
