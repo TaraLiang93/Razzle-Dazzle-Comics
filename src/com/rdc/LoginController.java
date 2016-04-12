@@ -33,7 +33,7 @@ public class LoginController {
     @RequestMapping(value="/", method= RequestMethod.GET)
     public ModelAndView homepage(HttpSession session, ModelMap map){
 
-        if(session.getAttribute("user") == null && session.getAttribute("loginURL") == null)
+        if(session.getAttribute("userData") == null && session.getAttribute("loginURL") == null)
             session.setAttribute("loginURL",LOGIN);
 
         Globals globals = (Globals) session.getAttribute("globals");
@@ -68,7 +68,7 @@ public class LoginController {
         Createable<UserData> userDataCreateable = new UserDataCreater(userService.getCurrentUser());
         try {
             UserData userData = userDataCreateable.createEntity(new UserDataFillCommand());
-            session.setAttribute("user",userData);
+            session.setAttribute("userData",userData);
         } catch (CreateException e) {
             e.printStackTrace();
         }
@@ -88,7 +88,7 @@ public class LoginController {
         if(session.getAttribute("logoutURL") != null)
             session.removeAttribute("logoutURL");
 
-        session.removeAttribute("user");
+        session.removeAttribute("userData");
 
 
         return "redirect:" + userService.createLogoutURL("/");
