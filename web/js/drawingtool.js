@@ -373,9 +373,10 @@ $(document).ready(function() {
     $("#Eraser").click(function(){
         eraserOn = true;
         console.log("currently using eraser");
+        canvas.isDrawingMode = true;
+        canvas.freeDrawingBrush = new fabric['PencilBrush'](canvas);
         canvas.freeDrawingBrush.color = '#FFFFFF';
         canvas.freeDrawingBrush.width = lineWidth;
-        canvas.isDrawingMode = true;
 
     });
 

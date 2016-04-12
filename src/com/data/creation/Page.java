@@ -182,7 +182,7 @@ public class Page {
                 ", drawnDate=" + drawnDate +
                 ", completeDate=" + completeDate +
                 ", numRevisions=" + numRevisions +
-                ", \nscenes=" + scenes +
+         //       ", \nscenes=" + scenes +
                 "\n}\n\n";
     }
 
