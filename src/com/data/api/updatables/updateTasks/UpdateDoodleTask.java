@@ -1,5 +1,7 @@
 package com.data.api.updatables.updateTasks;
 
+import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.UpdateTask;
 import com.data.creation.Doodle;
@@ -15,7 +17,6 @@ public class UpdateDoodleTask implements UpdateTask<Doodle> {
     String title;
     String description;
     JSONString canvasJSON;
-//    List<Key<Tag>> taglist;
 
     public UpdateDoodleTask(String title, String description, JSONString canvasJSON){
         this.title = title;
@@ -26,8 +27,14 @@ public class UpdateDoodleTask implements UpdateTask<Doodle> {
 
 
     @Override
-    public List<Doodle> update(Container<Doodle> entity) {
+    public List<Doodle> update(Container<Doodle> entity) throws UpdateException, FetchException{
         Doodle doodleToUpdate = entity.getResult();
+
+
+        if( doodleToUpdate == null){
+            throw new UpdateException("UpdateDoodleTask doodleToUpdate null");
+        }
+
         doodleToUpdate.setTitle(this.title);
         doodleToUpdate.setDescription(this.description);
         doodleToUpdate.setCanvasJSON(this.canvasJSON);

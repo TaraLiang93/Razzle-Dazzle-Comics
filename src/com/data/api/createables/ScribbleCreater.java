@@ -1,5 +1,6 @@
 package com.data.api.createables;
 
+import com.data.api.exceptions.CreateException;
 import com.data.api.interfaces.Createable;
 import com.data.creation.Scribble;
 
@@ -10,12 +11,7 @@ public class ScribbleCreater extends Createable<Scribble> {
 
     private String title;
     private String description;
-    /**
-     * default constructor
-     */
-    public ScribbleCreater(){
-       this("");
-    }
+
 
     /**
      * Constructor for ScribbleCreater with title if it is known
@@ -23,7 +19,7 @@ public class ScribbleCreater extends Createable<Scribble> {
      * @param title the title of the Scribble to create
      */
     public ScribbleCreater( String title){
-        this(title,"");
+        this(title,null);
     }
 
 
@@ -37,15 +33,20 @@ public class ScribbleCreater extends Createable<Scribble> {
      * @return
      */
     @Override
-    protected Scribble getEntity() { //TODO : throw exceptions
+    protected Scribble getEntity() throws CreateException{ //TODO : throw exceptions
         // if there is a title then create Scribble with the title
         // else if there was no title passed in create default Scribble
 
         Scribble scribble = new Scribble();
-        if( !this.title.equals("")){
+
+        if( !this.title.equals("") && this.title != null){
             scribble.setTitle(this.title);
         }
-        if( !this.description.equals("")){
+        else{
+            throw new CreateException("ScribbleCreater title null or invalid");
+        }
+
+        if( !this.description.equals("") && this.description != null){
             scribble.setDescription(this.description);
         }
         return  scribble;

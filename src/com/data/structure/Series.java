@@ -1,5 +1,6 @@
 package com.data.structure;
 
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
 import com.data.creation.Chapter;
@@ -8,6 +9,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -94,15 +96,27 @@ public class Series {
         return Key.create(Series.class, seriesID);
     }
 
-    public List<Chapter> getChapters(){
+    public List<Chapter> getChapters() {
         Readable<Chapter> getChapterFromChapterKeysAbstracted = new GetEntityListFromKeyListCommand<>(getChapterList());
-        List<Chapter> chapterList = getChapterFromChapterKeysAbstracted.fetch().getList();
+        List<Chapter> chapterList = null;
+        try {
+            chapterList = getChapterFromChapterKeysAbstracted.fetch().getList();
+        }
+        catch (FetchException ex){
+            chapterList = new ArrayList<>();
+        }
         return chapterList;
     }
 
-    public List<Genre> getGenres(){
+    public List<Genre> getGenres() {
         Readable<Genre> getGenreFromGenreKeysAbstracted = new GetEntityListFromKeyListCommand<>(getGenreList());
-        List<Genre> genreList = getGenreFromGenreKeysAbstracted.fetch().getList();
+        List<Genre> genreList = null;
+        try {
+            genreList = getGenreFromGenreKeysAbstracted.fetch().getList();
+        }
+        catch (FetchException ex){
+            genreList = new ArrayList<>();
+        }
         return genreList;
     }
 

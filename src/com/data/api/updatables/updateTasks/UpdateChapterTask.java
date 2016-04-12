@@ -1,5 +1,7 @@
 package com.data.api.updatables.updateTasks;
 
+import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.UpdateTask;
 import com.data.creation.Chapter;
@@ -37,8 +39,18 @@ public class UpdateChapterTask implements UpdateTask<Chapter> {
     }
 
     @Override
-    public List<Chapter> update(Container<Chapter> entity) {
-        Chapter chapter = entity.getResult();
+    public List<Chapter> update(Container<Chapter> entity) throws UpdateException {
+        Chapter chapter = null;
+        try {
+            chapter = entity.getResult();
+        }
+        catch ( FetchException ex){
+            ex.printStackTrace();
+        }
+
+        if(chapter == null){
+            throw new UpdateException("UpdateChapterTask chapter null");
+        }
 
         if( this.publishedPage != null){
             chapter.addPublishPageToPublishPageList(this.publishedPage.getKey());

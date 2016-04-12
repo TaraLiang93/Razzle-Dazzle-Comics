@@ -1,6 +1,7 @@
 package com.data.api.createables;
 
 import com.data.UserData;
+import com.data.api.exceptions.CreateException;
 import com.data.api.interfaces.Createable;
 import com.google.appengine.api.users.User;
 
@@ -12,10 +13,10 @@ public class UserDataCreater extends Createable<UserData>{
     String nickName;
     String UserDataId;
 
+    User user;
+
     public UserDataCreater(User user){ //TODO : Do error Validation
-        this.username = user.getEmail();
-        this.nickName = user.getNickname();
-        this.UserDataId = user.getUserId();
+        this.user = user;
     }
 
     public UserDataCreater(String username, String nickName, String UserDataId){
@@ -27,12 +28,26 @@ public class UserDataCreater extends Createable<UserData>{
 
 
     @Override
-    protected UserData getEntity() { //TODO : Throw exceptions
+    protected UserData getEntity() throws CreateException { //TODO : Throw exceptions
+
         UserData userData = new UserData();
+
+        if( user == null ){
+            throw new CreateException("UserDataCreater user is null");
+        }
         // if username was provided as a parameter then set it
-        userData.setUserName(this.username);
-        userData.setNickName(this.nickName);
-        userData.setUserid(this.UserDataId);
+        if( this.username != null && !(this.username.equals("")) ) {
+            userData.setUserName(this.username);
+        }
+
+        if( this.nickName != null && !(this.nickName.equals("")) ) {
+            userData.setNickName(this.nickName);
+        }
+
+        if( this.UserDataId != null && !(this.UserDataId.equals("")) ) {
+            userData.setUserid(this.UserDataId);
+        }
+
         return userData;
     }
 

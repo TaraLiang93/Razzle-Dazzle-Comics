@@ -1,6 +1,7 @@
 package com.data.api.queries.internal;
 
 import com.data.api.containers.MapContainer;
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
 import com.google.appengine.api.datastore.Query;
@@ -39,9 +40,13 @@ public class GetEntityFromKeyCommand<T> extends Readable<T> {
     }
 
     @Override
-    public Container fetch(){// TODO : do error validation, throw exceptions
+    public Container fetch() throws FetchException{// TODO : do error validation, throw exceptions
         Map<Key<T>, T> mapOfT = ofy().load().keys(entityKey);
+        if(mapOfT == null){
+            throw new FetchException("GetEntityFromKeyCommand mapOfT null");
+        }
         MapContainer<T> TResultContainer = new MapContainer<T>(mapOfT);
+
         return TResultContainer; // TODO : have this one use the getEntityListFromKeyList
     }
 }

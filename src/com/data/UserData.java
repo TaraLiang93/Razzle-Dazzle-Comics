@@ -5,6 +5,7 @@ package com.data;
  * Created by tara on 2/14/16.
  */
 
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
 import com.data.creation.Doodle;
@@ -65,6 +66,11 @@ public class UserData implements java.io.Serializable {
         nickName = "";
         location = "";
         description = "";
+
+        //TODO: Get default flows
+        //TODO: Do a query for default flows
+        List<Key<Flow>> defaultFlowkeys = new ArrayList<Key<Flow>>(); //TODO : Move flow list inside creating UserData
+        this.setFlowList(defaultFlowkeys);
 
     }
 
@@ -179,26 +185,50 @@ public class UserData implements java.io.Serializable {
     public List<Scribble> getScribbles(){
 
         Readable<Scribble> getScribblesFromScribbleKeysAbstracted = new GetEntityListFromKeyListCommand<>(getScribbleList());
-        List<Scribble> scribbleList = getScribblesFromScribbleKeysAbstracted.fetch().getList();
+        List<Scribble> scribbleList = null;
+        try {
+            scribbleList = getScribblesFromScribbleKeysAbstracted.fetch().getList();
+        }
+        catch (FetchException ex){
+            scribbleList = new ArrayList<>();
+        }
         System.out.println("Gotten scribbles");
         return scribbleList;
     }
 
     public List<Doodle> getDoodles(){
         Readable<Doodle> getDoodlesFromDoodleKeysAbtracted = new GetEntityListFromKeyListCommand<>(getDoodleList());
-        List<Doodle> doodleList = getDoodlesFromDoodleKeysAbtracted.fetch().getList();
+        List<Doodle> doodleList = null;
+        try {
+            doodleList = getDoodlesFromDoodleKeysAbtracted.fetch().getList();
+        }
+        catch (FetchException ex){
+            doodleList = new ArrayList<>();
+        }
         return doodleList;
     }
 
     public List<Tag> getTags(){
         Readable<Tag> getTagsFromTagsKeysAbstracted = new GetEntityListFromKeyListCommand<>(getTagList());
-        List<Tag> tagList = getTagsFromTagsKeysAbstracted.fetch().getList();
+        List<Tag> tagList = null;
+        try {
+            tagList = getTagsFromTagsKeysAbstracted.fetch().getList();
+        }
+        catch (FetchException ex){
+            tagList = new ArrayList<>();
+        }
         return tagList;
     }
 
     public List<Flow> getFlows(){
         Readable<Flow> getFlowsFromFlowKeysAbstracted = new GetEntityListFromKeyListCommand<>(getFlowList());
-        List<Flow> flowList = getFlowsFromFlowKeysAbstracted.fetch().getList();
+        List<Flow> flowList = null;
+        try {
+            flowList = getFlowsFromFlowKeysAbstracted.fetch().getList();
+        }
+        catch (FetchException ex){
+            flowList = new ArrayList<>();
+        }
         return flowList;
     }
 

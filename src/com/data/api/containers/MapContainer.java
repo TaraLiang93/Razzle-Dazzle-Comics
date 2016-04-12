@@ -1,5 +1,6 @@
 package com.data.api.containers;
 
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Container;
 import com.googlecode.objectify.Key;
 
@@ -18,7 +19,10 @@ public class MapContainer <T> implements Container<T> {
     }
 
     @Override
-    public List<T> getList() {
+    public List<T> getList() throws FetchException{
+        if(map == null){
+            throw new FetchException("MapContainer map null");
+        }
         /**
          * exeception will be thrown when the map is accessed it there are errors
          */
@@ -30,7 +34,10 @@ public class MapContainer <T> implements Container<T> {
     }
 
     @Override
-    public T getResult() {
+    public T getResult() throws FetchException {
+        if(map == null){
+            throw new FetchException("MapContainer map null");
+        }
         /**
          * gets the first entity that the iterator will return
          */

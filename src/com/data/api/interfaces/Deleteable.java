@@ -1,5 +1,7 @@
 package com.data.api.interfaces;
 
+import com.data.api.exceptions.FetchException;
+
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 /**
@@ -7,7 +9,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
  */
 public abstract class Deleteable<T> {
 
-    public void delete(Readable<T> query){
+    public void delete(Readable<T> query) throws FetchException {
         Container<T> result = query.fetch();
 
         for(T elem : result.getList()){

@@ -1,5 +1,6 @@
 package com.data.creation;
 
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
@@ -10,6 +11,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -133,20 +135,45 @@ public class Chapter {
 
     public List<PublishedPage> getPublishedPages(){
         Readable<PublishedPage> getPublishedPagesFromPublishedPageKeysAbstracted = new GetEntityListFromKeyListCommand<>(getPublishedPageList());
-        List<PublishedPage> publishedPagesList = getPublishedPagesFromPublishedPageKeysAbstracted.fetch().getList();
+        List<PublishedPage> publishedPagesList = null;
+
+        try{
+            publishedPagesList = getPublishedPagesFromPublishedPageKeysAbstracted.fetch().getList();
+
+        }
+        catch(FetchException ex){
+            ex.printStackTrace();
+        }
         return publishedPagesList;
     }
 
     public List<TeamMember> getTeamMembers(){
         Readable<TeamMember> getTeamMembersFromTeamMemberKeysAbstracted = new GetEntityListFromKeyListCommand<>(getTeamMemberList());
-        List<TeamMember> TeamMembersList = getTeamMembersFromTeamMemberKeysAbstracted.fetch().getList();
-        return TeamMembersList;
+        List<TeamMember> teamMembersList;
+        try{
+            teamMembersList = getTeamMembersFromTeamMemberKeysAbstracted.fetch().getList();
+        }
+        catch(FetchException ex){
+            teamMembersList = new ArrayList<>();
+            ex.printStackTrace();
+        }
+
+        return teamMembersList;
     }
 
     public List<Page> getPages(){
         Readable<Page> getPagesFromPageKeysAbstracted = new GetEntityListFromKeyListCommand<>(getPageList());
-        List<Page> pageList = getPagesFromPageKeysAbstracted.fetch().getList();
-        return pageList;
+        List<Page> pageList ;
+        try{
+            pageList = getPagesFromPageKeysAbstracted.fetch().getList();
+
+        }
+        catch(FetchException ex){
+            pageList = new ArrayList<>();
+            ex.printStackTrace();
+        }
+
+    return pageList;
     }
 
     public Key<Chapter> getKey(){
@@ -167,7 +194,16 @@ public class Chapter {
 
     public Flow getFlow(){
         Readable<Flow> getFlowFromFlowKey = new GetEntityFromKeyCommand<>( theFlow );
-        return getFlowFromFlowKey.fetch().getResult();
+
+        Flow flow = null;
+        try{
+            flow = getFlowFromFlowKey.fetch().getResult();
+        }
+        catch(FetchException ex){
+            ex.printStackTrace();
+        }
+
+        return flow;
     }
 
 

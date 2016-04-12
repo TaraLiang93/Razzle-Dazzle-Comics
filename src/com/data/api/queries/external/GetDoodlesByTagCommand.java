@@ -37,10 +37,6 @@ public class GetDoodlesByTagCommand extends Readable {
         this.userDataKey = userData.getKey();
     }
 
-    //TODO:
-    //getDoodles with a specific tag
-    //what is passed in?? The tag name or the tag id?
-    //get a list of doodles from
 
     @Override
     protected Filter getFilter() { // TODO : do error validation, throw exceptions

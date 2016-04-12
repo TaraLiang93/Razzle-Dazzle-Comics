@@ -1,5 +1,7 @@
 package com.data.api.updatables.updateTasks;
 
+import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.UpdateTask;
 import com.data.creation.Page;
@@ -31,8 +33,13 @@ public class UpdateScribbleTask implements UpdateTask<Scribble> {
      *          Scribble Updater can call ofy().save().entities(returnedList)
      */
     @Override
-    public List<Scribble> update(Container<Scribble> entity) {
-        Scribble scribbleToUpdate = entity.getResult();
+    public List<Scribble> update(Container<Scribble> entity) throws UpdateException, FetchException {
+
+        Scribble scribbleToUpdate = null;
+        scribbleToUpdate = entity.getResult();
+        if( scribbleToUpdate == null){
+            throw new UpdateException("UpdateScribbleTask scribbleToUpdate null");
+        }
         scribbleToUpdate.setTitle(this.title);
         scribbleToUpdate.setDescription(this.description);
         scribbleToUpdate.setPageList(this.pageList);

@@ -1,5 +1,7 @@
 package com.data.api.interfaces;
 
+import com.data.api.exceptions.CreateException;
+
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
 /**
@@ -7,10 +9,17 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
  */
 public abstract class Createable<T>{
 
-    protected abstract T getEntity();
+    protected abstract T getEntity() throws CreateException;
 
-    public T createEntity(FillDataCommand<T> data){
-        T entity = getEntity();
+    public T createEntity(FillDataCommand<T> data) throws CreateException{
+        T entity = null;
+        try {
+            entity = getEntity();
+        }
+        catch (CreateException ex){
+            ex.printStackTrace();
+        }
+
         data.fillEntity(entity);
         ofy().save().entity(entity).now();
 

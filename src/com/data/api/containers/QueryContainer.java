@@ -1,5 +1,6 @@
 package com.data.api.containers;
 
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Container;
 import com.googlecode.objectify.cmd.Query;
 
@@ -20,20 +21,32 @@ public class QueryContainer<T> implements Container<T> {
         query = q;
     }
 
-    public List<T> getList(){
+    public List<T> getList() throws  FetchException{
+        if(query == null){
+            throw new FetchException("QueryContainer query null");
+        }
         return query.list();
     }
 
     //
-    public void setResultSize( int size){
+    public void setResultSize( int size) throws FetchException{
+        if(query == null){
+            throw new FetchException("QueryContainer query null");
+        }
         query.limit( size);
     }
 
-    public void setDistinct( boolean distinct){
+    public void setDistinct( boolean distinct) throws FetchException{
+        if(query == null){
+            throw new FetchException("QueryContainer query null");
+        }
         query.distinct( distinct );
     }
 
-    public T getResult(){
+    public T getResult() throws FetchException{
+        if(query == null){
+            throw new FetchException("QueryContainer query null");
+        }
         return query.first().now();
     }
 

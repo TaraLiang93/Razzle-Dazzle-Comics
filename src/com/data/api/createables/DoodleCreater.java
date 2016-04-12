@@ -1,5 +1,6 @@
 package com.data.api.createables;
 
+import com.data.api.exceptions.CreateException;
 import com.data.api.interfaces.Createable;
 import com.data.creation.Doodle;
 import com.google.appengine.labs.repackaged.org.json.JSONString;
@@ -12,19 +13,14 @@ public class DoodleCreater extends Createable<Doodle> {
     String description;
     JSONString canvas;
 
-    /**
-     * Default Constructor when nothing is known
-     */
-    public DoodleCreater(){
-        this("");
-    }
+
 
     /**
      * Constructor for DoodleCreater if title is known
      * @param title the title
      */
     public DoodleCreater(String title){
-        this(title,"");
+        this(title,null);
     }
 
     /**
@@ -44,24 +40,28 @@ public class DoodleCreater extends Createable<Doodle> {
 
 
     @Override
-    protected Doodle getEntity() { //TODO : throw exceptions, do validation
+    protected Doodle getEntity() throws CreateException{ //TODO : throw exceptions, do validation
         Doodle doodle = new Doodle();
 
         // if title was passed in as parameter then set the title
-        if( ! (this.title.equals("")) ){
+        if( !(this.title.equals("")) && this.title != null ){
             doodle.setTitle(title);
+        }
+        else{
+            throw new CreateException();
         }
 
         // if description was passed in as parameter then set the description
-        if( ! (this.description.equals("")) ){
+        if( ! (this.description.equals("")) && this.description != null ){
             doodle.setDescription(this.description);
         }
 
-        if( this.canvas!=null){
+        if( !(this.canvas.equals("")) && this.canvas!=null){
             doodle.setCanvasJSON(this.canvas);
         }
 
         return doodle;
+
     }
 
 

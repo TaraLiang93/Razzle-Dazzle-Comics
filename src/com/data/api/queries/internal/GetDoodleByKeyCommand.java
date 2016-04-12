@@ -1,6 +1,7 @@
 package com.data.api.queries.internal;
 
 import com.data.api.containers.ResultContainer;
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
 import com.data.creation.Doodle;
@@ -37,12 +38,18 @@ public class GetDoodleByKeyCommand extends Readable<Doodle> {
      */
 
     @Override
-    public Container<Doodle> fetch(){ // TODO : do error validation, throw exceptions
+    public Container<Doodle> fetch() throws FetchException{ // TODO : do error validation, throw exceptions
         LoadResult<Doodle> doodleLoadResult = ofy().load().key(doodleKey);
-        ResultContainer<Doodle> doodleResultContainer = new ResultContainer<>(doodleLoadResult);
+
+        if( doodleLoadResult == null){
+            throw new FetchException();
+        }
+
+        ResultContainer<Doodle> doodleResultContainer;
+        doodleResultContainer = new ResultContainer<>(doodleLoadResult);
+
         return doodleResultContainer;
     }
-
 
 
 }

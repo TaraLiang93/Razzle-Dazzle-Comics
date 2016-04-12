@@ -1,6 +1,8 @@
 package com.data.api.updatables.updateTasks;
 
 import com.data.UserData;
+import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.UpdateTask;
 import com.data.creation.Doodle;
@@ -65,9 +67,11 @@ public class UpdateUserDataTask implements UpdateTask<UserData> {
 
 
     @Override
-    public List<UserData> update(Container<UserData> entity) {
+    public List<UserData> update(Container<UserData> entity) throws UpdateException, FetchException {
 
-        UserData userData = entity.getResult();
+        UserData userData;
+        userData = entity.getResult();
+
         if( this.nickName != null){
             userData.setNickName(this.nickName);
         }

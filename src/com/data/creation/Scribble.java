@@ -1,5 +1,6 @@
 package com.data.creation;
 
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
 import com.googlecode.objectify.Key;
@@ -98,7 +99,13 @@ public class Scribble {
 
     public List<Page> getPages2(){
         Readable<Page> getPagesFromTagsKeysAbstracted = new GetEntityListFromKeyListCommand<>(getPageList());
-        List<Page> pageList = getPagesFromTagsKeysAbstracted.fetch().getList();
+        List<Page> pageList = null;
+        try {
+            pageList = getPagesFromTagsKeysAbstracted.fetch().getList();
+        }
+        catch (FetchException ex){
+            pageList = new ArrayList<>();
+        }
         return pageList;
     }
 

@@ -1,6 +1,7 @@
 package com.data.structure;
 
 import com.data.UserData;
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.googlecode.objectify.Key;
@@ -55,7 +56,7 @@ public class Tag {
         this.name = name;
     }
 
-    public UserData getUserData() {
+    public UserData getUserData() throws FetchException{
         Readable<UserData> getUserDataFromKey = new GetEntityFromKeyCommand(this.userData);
         return getUserDataFromKey.fetch().getResult();
     }

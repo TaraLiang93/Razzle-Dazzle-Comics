@@ -1,6 +1,7 @@
 package com.data.api.queries.external;
 
 import com.data.api.containers.ResultContainer;
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
 import com.data.creation.Doodle;
@@ -28,19 +29,23 @@ public class GetDoodlesByIDCommand extends Readable{
     }
 
     @Override
-    protected Filter getFilter() { // TODO : do error validation, throw exceptions
-        filter = new FilterPredicate("doodleId",
-                FilterOperator.EQUAL,
-                this.id);
+    protected Filter getFilter() throws FetchException{
+        if( this.id != null) {
+            filter = new FilterPredicate("doodleId",
+                    FilterOperator.EQUAL,
+                    this.id);
+        }
+        else{
+            throw new FetchException();
+        }
+
         return filter;
+
     }
 
 
     @Override
     public Container fetch(){ // TODO : do error validation, throw exceptions. Check OFY response codes
-//        Query doodleById = ofy().load().type(getType()).filter(getFilter());
-//        QueryContainer<GetDoodlesByIDCommand> commandContainer = new QueryContainer(doodleById);
-//        return  commandContainer;
         LoadResult<Doodle> LoadResultOfID = ofy().load().type(getType()).id(this.id);
         ResultContainer<Doodle> resultContainer = new ResultContainer<Doodle>(LoadResultOfID);
         return resultContainer;

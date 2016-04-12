@@ -1,6 +1,7 @@
 package com.data.api.queries.internal;
 
 import com.data.api.containers.MapContainer;
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
 import com.google.appengine.api.datastore.Query.Filter;
@@ -46,9 +47,13 @@ public class GetEntityListFromKeyListCommand<T> extends Readable<T>{
      * @return MapContainer containingthe map
      */
     @Override
-    public Container fetch(){
+    public Container fetch() throws FetchException{
         Map<Key<T>, T> mapOfT = ofy().load().keys(listOfKeys);
+        if(mapOfT == null){
+            throw new FetchException("GetEntityListFromKeyListCommand mapOfT null");
+        }
         MapContainer<T> TResultContainer = new MapContainer<T>(mapOfT);
+
         return TResultContainer;
     }
 }

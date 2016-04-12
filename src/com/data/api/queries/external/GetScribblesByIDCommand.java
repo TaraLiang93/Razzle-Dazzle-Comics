@@ -1,6 +1,7 @@
 package com.data.api.queries.external;
 
 import com.data.api.containers.ResultContainer;
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
 import com.data.creation.Doodle;
@@ -15,31 +16,38 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
  * Created by Zhenya on 4/5/16.
  */
 public class GetScribblesByIDCommand extends Readable{
-    Long id;
+    Long longID;
     Filter filter;
-
     /**
      * constructor for for the command which gets doodle with an ID
-     * @param id
+     * @param longID
      */
-    public GetScribblesByIDCommand(Long id){
-        this.id = id;
+    public GetScribblesByIDCommand(Long longID){
+        this.longID = longID;
     } //TODO : For all 'ID' input, allow for ID as string
 
+
+    public GetScribblesByIDCommand(String stringID){
+        this.longID = Long.parseLong(stringID);
+    }
+
     @Override
-    protected Filter getFilter() {// TODO : do error validation, throw exceptions
-        filter = new Query.FilterPredicate("doodleId",
-                Query.FilterOperator.EQUAL,
-                this.id);
+    protected Filter getFilter() throws FetchException{// TODO : do error validation, throw exceptions
+        if(longID != null) {
+            filter = new Query.FilterPredicate("doodleId",
+                    Query.FilterOperator.EQUAL,
+                    this.longID);
+        }
+        else {
+            throw new FetchException();
+        }
         return filter;
     }
 
 
     @Override
-    @Deprecated
     public Container fetch(){
-
-        LoadResult<Doodle> LoadResultOfID = ofy().load().type(getType()).id(this.id);
+        LoadResult<Doodle> LoadResultOfID = ofy().load().type(getType()).id(this.longID);
         ResultContainer<Doodle> resultContainer = new ResultContainer<Doodle>(LoadResultOfID);
         return resultContainer;
     }

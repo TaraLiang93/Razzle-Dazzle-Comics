@@ -1,9 +1,8 @@
 package com.data.api.createables;
 
+import com.data.api.exceptions.CreateException;
 import com.data.api.interfaces.Createable;
 import com.data.creation.Chapter;
-import com.data.structure.Flow;
-import com.google.appengine.api.datastore.Blob;
 
 /**
  * Created by Zhenya on 4/9/16.
@@ -13,53 +12,42 @@ public class ChapterCreater extends Createable<Chapter> {
     String title;
     String chapterString;
     String description;
-    Flow flow; //TODO : Remove flow, put into Fill Command
-    Blob chapterCover; // TODO : Remove from here, load from Fill command
 
-    public ChapterCreater(String title, String chapterString, Flow flow){
-        this(title, chapterString, null, flow);
-    }
-    public ChapterCreater(String title, String chapterString, String description, Flow flow){
-        this(title,chapterString,description,flow,null);
+    public ChapterCreater(String title, String chapterString){
+        this(title, chapterString, null);
     }
 
-    public ChapterCreater(String title, String chapterString, String description, Flow flow, Blob chapterCover){
+
+    public ChapterCreater(String title, String chapterString, String description){
         this.title = title;
         this.chapterString = chapterString;
         this.description = description;
-        this.flow = flow;
-        this.chapterCover = chapterCover; //TODO : If chapter cover is null, load default chapter image in fill command
+
 
         // Image service factory makeImageFromFileName
         // blob takes byte array
         // use image service
-        //
     }
 
     @Override
-    protected Chapter getEntity() { // TODO : throw exceptions, do validation
+    protected Chapter getEntity() throws CreateException{ // TODO : throw exceptions, do validation
 
         Chapter chapter = new Chapter();
 
-        if( this.title != null) {
+        if( this.title == null || this.title.equals("") ||
+                this.chapterString == null || this.chapterString.equals("")){
             chapter.setTitle(this.title);
+            chapter.setDescription(this.description);
+        }
+        else{
+            throw new CreateException();
         }
 
-        if( this.chapterString != null) {
-            chapter.setChapterString(this.chapterString);
-        }
-
-        if( this.description != null) {
+        if( this.description != null &&  !(this.description.equals(""))) {
             chapter.setDescription(this.description);
         }
 
-        if( this.flow != null) {
-            chapter.setTheFlow(flow.getKey());
-        }
 
-        if( this.chapterCover != null){
-            chapter.setChapterCover(this.chapterCover);
-        }
 
         return chapter;
 

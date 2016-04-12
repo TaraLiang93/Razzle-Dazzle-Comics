@@ -10,18 +10,18 @@ import java.util.List;
 /**
  * Created by Zhenya on 4/5/16.
  */
-public class ScribbleCommandFill implements FillDataCommand<Scribble>{
+public class ScribbleFillCommand implements FillDataCommand<Scribble>{
     List<Key<Page>> pageList;
 
 
-    public ScribbleCommandFill( List<Key<Page>> pageList){
+    public ScribbleFillCommand(List<Key<Page>> pageList){
         this.pageList = pageList;
     } //TODO: Take Scribble Model
 
 
     /**
      * This method will fill the Scribble entity that is passed in
-     * @param entity the entity that the ScribbleCommandFill will fill
+     * @param entity the entity that the Scribble fill command will fill
      */
     @Override
     public void fillEntity(Scribble entity) {

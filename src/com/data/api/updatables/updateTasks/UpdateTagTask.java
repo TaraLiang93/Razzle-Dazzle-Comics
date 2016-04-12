@@ -1,5 +1,6 @@
 package com.data.api.updatables.updateTasks;
 
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.UpdateTask;
 import com.data.structure.Tag;
@@ -22,7 +23,14 @@ public class UpdateTagTask implements UpdateTask<Tag> {
     public List<Tag> update(Container<Tag> entity) {
         List<Tag> resultSet = new ArrayList<>();
 
-        Tag tag = entity.getResult();
+        Tag tag = null;
+        try {
+            tag = entity.getResult();
+        }
+        catch (FetchException ex){
+            ex.printStackTrace();
+        }
+
         tag.setName(name);
 
         resultSet.add(tag);
