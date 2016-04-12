@@ -3,8 +3,8 @@ package com.rdc;
 import com.data.Globals;
 import com.data.UserData;
 import com.data.api.createables.UserDataCreater;
-import com.data.api.dataItems.UserDataCommandFill;
-import com.google.appengine.api.users.User;
+import com.data.api.createables.fillCommands.UserDataFillCommand;
+import com.data.api.exceptions.CreateException;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import org.springframework.stereotype.Controller;
@@ -32,7 +32,7 @@ public class LoginController {
     @RequestMapping(value="/", method= RequestMethod.GET)
     public ModelAndView homepage(HttpSession session, ModelMap map){
 
-        if(session.getAttribute("nickname") == null && session.getAttribute("loginURL") == null)
+        if(session.getAttribute("user") == null && session.getAttribute("loginURL") == null)
             session.setAttribute("loginURL",LOGIN);
 
         Globals globals = (Globals) session.getAttribute("globals");
@@ -65,9 +65,17 @@ public class LoginController {
         UserService userService = UserServiceFactory.getUserService();
 
         UserDataCreater userDataCreater = new UserDataCreater(userService.getCurrentUser());
-        UserData user =  userDataCreater.createEntity(new UserDataCommandFill());
+        UserData user = null;
+        try {
 
-        session.setAttribute("nickname",user.getNickName());
+            user = userDataCreater.createEntity(new UserDataFillCommand());
+
+        } catch (CreateException e) {
+
+            e.printStackTrace();
+        }
+
+        session.setAttribute("user",user);
 
         return "redirect:"+ ref;
     }
@@ -80,7 +88,7 @@ public class LoginController {
         if(session.getAttribute("logoutURL") != null)
             session.removeAttribute("logoutURL");
 
-        session.removeAttribute("nickname");
+        session.removeAttribute("user");
 
 
         return "redirect:" + userService.createLogoutURL("/");

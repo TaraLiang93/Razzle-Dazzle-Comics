@@ -1,8 +1,5 @@
 package com.rdc.create;
 
-import com.data.api.Createable;
-import com.data.api.createables.DoodleCreater;
-import com.data.api.dataItems.DoodleCommandFill;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
 import com.google.appengine.labs.repackaged.org.json.JSONString;
