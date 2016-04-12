@@ -105,19 +105,14 @@ public class IdeaFactoryController {
     }
 
     @RequestMapping(value="/create/doodle/save", method= RequestMethod.POST)
-    public ModelAndView saveDoodle(@RequestParam final String canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription, HttpServletRequest req, HttpSession session, ModelMap map){
+    public ModelAndView saveDoodle(@RequestParam String canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription, HttpServletRequest req, HttpSession session, ModelMap map){
 
         System.out.println("saving a doodle made easy");
         System.out.println(canvasImage);
         System.out.println(doodleTitle);
         System.out.println(doodleDescription);
 
-//        JSONString canvasJSON = new JSONString() {
-//            @Override
-//            public String toJSONString() {
-//                return canvasImage;
-//            }
-//        };
+
 
 
 

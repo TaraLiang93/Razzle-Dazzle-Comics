@@ -1,5 +1,5 @@
 .canvasContainer  canvas#canvas {
-    border-style: solid;
+    border: 2px solid black;
     border-radius: 4px;
     /*height: 600px;*/
     /*width: 600px;*/
