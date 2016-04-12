@@ -1,7 +1,11 @@
 package com.rdc.create;
 
+import com.data.api.createables.DoodleCreater;
+import com.data.api.createables.fillCommands.DoodleFillCommand;
+import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
+import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetDoodlesByIDCommand;
@@ -105,14 +109,22 @@ public class IdeaFactoryController {
     }
 
     @RequestMapping(value="/create/doodle/save", method= RequestMethod.POST)
-    public ModelAndView saveDoodle(@RequestParam JSONString canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription, HttpServletRequest req, HttpSession session, ModelMap map){
+    public ModelAndView saveDoodle(@RequestParam final String canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription, HttpServletRequest req, HttpSession session, ModelMap map){
 
         System.out.println("saving a doodle made easy");
         System.out.println(canvasImage);
         System.out.println(doodleTitle);
         System.out.println(doodleDescription);
 
+        JSONString canvas = new JSONString() {
+            @Override
+            public String toJSONString() {
+                return canvasImage;
+            }
+        };
+
         String dId = req.getParameter("doodleId");
+        System.out.println(dId);
         if(dId != null)
         {
             Long doodleId = Long.parseLong(dId);
@@ -120,7 +132,7 @@ public class IdeaFactoryController {
             Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(doodleId);
             try {
                 Doodle theDoodle = getDoodle.fetch().getResult();
-                updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(doodleTitle, doodleDescription, canvasImage) );
+                updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(doodleTitle, doodleDescription, canvas) );
             } catch (FetchException | UpdateException  e) {
                 e.printStackTrace();
             }
@@ -128,6 +140,13 @@ public class IdeaFactoryController {
         }
         else
         {
+            Createable<Doodle> anotherDoodleCreater = new DoodleCreater("title", "description");
+            try {
+                Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleFillCommand(canvas));
+                System.out.println("created the doodles");
+            } catch (CreateException e) {
+                e.printStackTrace();
+            }
 
         }
 

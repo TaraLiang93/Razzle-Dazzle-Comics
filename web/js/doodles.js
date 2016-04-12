@@ -20,6 +20,7 @@ $(document).ready(function() {
                 .fail(function () {
                     console.log("it did not go here");
                 });
+        
         //}
 
     });
