@@ -26,8 +26,25 @@ $(document).ready(function(){
         $(this).tab('show');
     });
 
+    $('#modalSave').click(function (e) {
+        e.preventDefault();
+        var what = $('#modalSetting').val(); //Get the text that was written
+        var where = $('#redirectModal').val(); //Get the stored id of the value to update
+        $('#' +where).val(what); //Update the where with the what
+        $('#settingModel').modal('hide');
+    });
+
+
     $(".tinyMCE").each(function(){
         initTinyMCE('#' + $(this).attr('id'));
+    });
+
+    $('.setting').each(function(){
+       $(this).click(function(){
+            $('#redirectModal').val($(this).attr('id'));
+            $('#modalSetting').val($(this).val());
+           $('#settingModel').modal('show');
+       });
     });
 
     $(".page-pane").each(function(){

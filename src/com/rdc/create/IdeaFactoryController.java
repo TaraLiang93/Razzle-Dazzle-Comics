@@ -5,11 +5,7 @@ import com.data.creation.Scribble;
 import com.model.ScribbleModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -77,7 +73,7 @@ public class IdeaFactoryController {
 
         System.out.println("Made It! -->" + model);
 
-        return new ModelAndView("forward:" + IDEA_HOME);
+        return new ModelAndView("redirect:" + IDEA_HOME);
     }
 
     @RequestMapping(value=LOAD_DOODLE, method= RequestMethod.GET)
@@ -107,15 +103,6 @@ public class IdeaFactoryController {
         System.out.println(canvasImage);
         System.out.println(doodleTitle);
         System.out.println(doodleDescription);
-
-        return new ModelAndView("forward:" + IDEA_HOME);
-    }
-
-    @RequestMapping(value=SAVE_SCRIBBLE, method=RequestMethod.POST)
-    public ModelAndView saveScribble(HttpServletRequest req, ModelMap map){
-
-        System.out.println("Made It!");
-
 
         return new ModelAndView("forward:" + IDEA_HOME);
     }
