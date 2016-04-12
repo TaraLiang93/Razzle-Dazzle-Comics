@@ -15,7 +15,8 @@ $(document).ready(function(){
     });
 
     $("#newDoodle").click(function(){
-        window.location.href="/create/doodle/load/new";
+        $(location).attr("href", "/create/doodle/new");
+
     });
 
     $(".scribble").each(function(){

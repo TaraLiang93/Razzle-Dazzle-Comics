@@ -1,14 +1,20 @@
 .doodleInfo {
     border: 2px solid black;
     border-radius: 4px;
-    width:600px;
-    /*margin:0 auto;*/
-    height:150px;
+    width: 600px;
+    height: 150px;
+    position: absolute;
+    top: 612px;
+    left: 53%;
+    transform: translateX(-50%);
+
 }
 
 .drawingPage {
     height:600px;
-    margin:6px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-22%);
 }
 
 .doodleButtons {
@@ -31,3 +37,17 @@
     top: 50%;
     transform: translateY(-50%);
 }
+
+.modal-body {
+    height:250px;
+}
+
+.drawingContainer {
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    margin: 6px;
+
+}
+

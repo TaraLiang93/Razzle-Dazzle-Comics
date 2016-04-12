@@ -9,12 +9,12 @@
 <script src="/js/drawingtool.js"></script>
 <script src="/js/drawing.js"></script>
 
+<div style="position: relative">
     <div class="drawingPage center-block">
         <div class="drawingContainer">
             <jsp:include page="Drawing.jsp"/>
         </div>
     </div>
-    <input type="text" id="jsonCanvas" name="canvasImage" id="canvasImage" style="display: none"/>
 
     <div class="doodleInfo center-block">
         <div class="doodleDesc">
@@ -29,11 +29,11 @@
 
         </div>
         <div class="doodleButtons btn-group-vertical">
-            <a href="#new" class="btn btn-lg btn-warning" data-toggle="modal" data-target="#newDoodleModal">New</a>
-            <button type="submit"  id="saveDoodle"  class="btn btn-lg btn-primary">Save</button>
+            <a href="#new" class="btn btn-lg btn-warning" data-toggle="modal" >New</a>
+            <a  class="btn btn-lg btn-primary saveDoodle">Save</a>
         </div>
     </div>
-
+</div>
 
     <div class="modal fade" tabindex="-1" id="newDoodleModal" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">
@@ -43,10 +43,8 @@
                     <h4 class="modal-title">Do you want to save your work</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="startupButtons">
-                        <a href="#" class="btn btn-primary btn-lg active center close"  role="button">Save</a>
-                        <a href="#" class="btn btn-default  btn-lg center close" data-dismiss="modal" id="cancelDoodle" role="button">cancel</a>
-                    </div>
+                        <a href="#" class="btn btn-primary btn-lg active center saveDoodle"  role="button">Save</a>
+                        <a href="#" class="btn btn-default  btn-lg center " data-dismiss="modal" id="cancelDoodle" role="button">cancel</a>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

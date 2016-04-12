@@ -1,6 +1,10 @@
 package com.rdc;
 
 import com.data.Globals;
+import com.data.UserData;
+import com.data.api.createables.UserDataCreater;
+import com.data.api.dataItems.UserDataCommandFill;
+import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import org.springframework.stereotype.Controller;
@@ -28,10 +32,15 @@ public class LoginController {
     @RequestMapping(value="/", method= RequestMethod.GET)
     public ModelAndView homepage(HttpSession session, ModelMap map){
 
-        if(session.getAttribute("loginURL") == null)
+        if(session.getAttribute("nickname") == null && session.getAttribute("loginURL") == null)
             session.setAttribute("loginURL",LOGIN);
 
         Globals globals = (Globals) session.getAttribute("globals");
+        if(globals == null)
+        {
+            globals = new Globals();
+            session.setAttribute("globals",globals);
+        }
 
         return new ModelAndView("homepage");
     }
@@ -45,7 +54,6 @@ public class LoginController {
             session.setAttribute("loginURL",null);
 
         session.setAttribute("logoutURL", LOGOUT);
-//        session.setAttribute("nickname",userService.getCurrentUser().getNickname());
 
         return "redirect:" + userService.createLoginURL("/setUser"+"?ref=" + ref);
 
@@ -54,9 +62,12 @@ public class LoginController {
     @RequestMapping(value ="/setUser", method= RequestMethod.GET)
     public String setUserName(@RequestParam String ref,HttpSession session)
     {
-        String nickname = UserServiceFactory.getUserService().getCurrentUser().getNickname();
+        UserService userService = UserServiceFactory.getUserService();
 
-        session.setAttribute("nickname",nickname);
+        UserDataCreater userDataCreater = new UserDataCreater(userService.getCurrentUser());
+        UserData user =  userDataCreater.createEntity(new UserDataCommandFill());
+
+        session.setAttribute("nickname",user.getNickName());
 
         return "redirect:"+ ref;
     }
@@ -68,6 +79,8 @@ public class LoginController {
 
         if(session.getAttribute("logoutURL") != null)
             session.removeAttribute("logoutURL");
+
+        session.removeAttribute("nickname");
 
 
         return "redirect:" + userService.createLogoutURL("/");
