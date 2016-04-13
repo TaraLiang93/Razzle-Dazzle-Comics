@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-
+<%--
 <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
@@ -12,7 +12,7 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
+--%>
 <script>
     function formSubmit(){
         $('#chapterModal').modal('hide');
@@ -21,10 +21,6 @@
         $('#chapterForm').submit();
     }
 </script>
-
-<style type="text/css">
-
-</style>
 
 <form id="chapterForm" method="post" action="/create/chapter/new" enctype="multipart/form-data">
     <div id="chapterModal" class="modal fade" tabindex="-1" role="dialog">
