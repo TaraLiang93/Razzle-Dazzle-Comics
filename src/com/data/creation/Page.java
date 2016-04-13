@@ -1,6 +1,9 @@
 package com.data.creation;
 
 import com.data.UserData;
+import com.data.api.exceptions.FetchException;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
 import com.data.structure.FlowTask;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
@@ -207,8 +210,15 @@ public class Page {
     }
 
     public List<Scene> getScenes(){
-        //TODO : Convert to Entity List from Key List
-        return null;
+        Readable<Scene> getPagesFromTagsKeysAbstracted = new GetEntityListFromKeyListCommand<>(getSceneList());
+        List<Scene> scenes = null;
+        try {
+            scenes = getPagesFromTagsKeysAbstracted.fetch().getList();
+        }
+        catch (FetchException ex){
+            scenes = new ArrayList<>();
+        }
+        return scenes;
     }
 
     public List<Key<Comment>> getCommentList() {

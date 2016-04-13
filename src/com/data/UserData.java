@@ -27,7 +27,7 @@ import java.util.List;
 @Entity
 public class UserData implements java.io.Serializable {
 
-    @Id
+    @Id @Index
     String userId;
 
     @Index

@@ -39,14 +39,14 @@ public class ScribbleCreater extends Createable<Scribble> {
 
         Scribble scribble = new Scribble();
 
-        if( !this.title.equals("") && this.title != null){
+        if(this.title != null && !this.title.equals("")){
             scribble.setTitle(this.title);
         }
         else{
             throw new CreateException("ScribbleCreater title null or invalid");
         }
 
-        if( !this.description.equals("") && this.description != null){
+        if( this.description != null && !this.description.equals("")){
             scribble.setDescription(this.description);
         }
         return  scribble;

@@ -7,12 +7,8 @@ package com.data;
 //import com.googlecode.objectify.Objectify;
 //import com.googlecode.objectify.ObjectifyFactory;
 
-import com.data.creation.Canvas;
-import com.data.creation.Doodle;
-import com.data.creation.Page;
-import com.data.creation.Scribble;
+import com.data.creation.*;
 import com.data.structure.Tag;
-import com.data.UserData;
 import com.googlecode.objectify.ObjectifyService;
 
 import javax.servlet.ServletContextEvent;
@@ -33,6 +29,10 @@ public class OfyHelper implements ServletContextListener {
         ObjectifyService.register(Tag.class);
         ObjectifyService.register(Canvas.class);
         ObjectifyService.register(Page.class);
+        ObjectifyService.register(Scene.class);
+        ObjectifyService.register(Dialogue.class);
+        ObjectifyService.register(Chapter.class);
+
 
     }
 

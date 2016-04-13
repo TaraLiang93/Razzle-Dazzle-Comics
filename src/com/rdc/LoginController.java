@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -71,8 +69,8 @@ public class LoginController {
             user = userDataCreater.createEntity(new UserDataFillCommand());
 
         } catch (CreateException e) {
-
             e.printStackTrace();
+            ref = "/"; //Redirect back to login page if failed to create User Data
         }
 
         session.setAttribute("user",user);

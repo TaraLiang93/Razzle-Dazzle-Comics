@@ -16,6 +16,7 @@ import com.data.api.updatables.DoodleUpdater;
 import com.data.api.updatables.ScribbleUpdater;
 import com.data.api.updatables.UserDataUpdater;
 import com.data.api.updatables.updateTasks.UpdateDoodleTask;
+import com.data.api.updatables.updateTasks.UpdateUserAddScribbleTask;
 import com.data.api.updatables.updateTasks.UpdateUserDataTask;
 import com.data.creation.Doodle;
 import com.data.creation.Page;
@@ -531,19 +532,17 @@ public class Test {
 
             SceneModel page1Scene1 =  new SceneModel();
             page1Scene1.setSetting("page1Scene1 setting");
-            page1Scene1.setTinyMCEText("page1Scene1 TinyMCText");
+            page1Scene1.setTinyMCEText("<p>page1Scene1 TinyMCText</p>");
 
             SceneModel page1Scene2 =  new SceneModel();
             page1Scene2.setSetting("page1Scene2 setting");
-            page1Scene2.setTinyMCEText("page1Scene2 TinyMCText");
+            page1Scene2.setTinyMCEText("<p>page1Scene2 TinyMCText</p>");
 
             List<SceneModel> sceneModelListForPage1 = new ArrayList<>();
             sceneModelListForPage1.add(page1Scene1);
             sceneModelListForPage1.add(page1Scene2);
 
             PageModel page1Model = new PageModel();
-//            page1Model.setTitle("page1Title");
-//            page1Model.setSummary("page1Summary");
             page1Model.setScenes(sceneModelListForPage1);
 
             //Make a Page
@@ -556,19 +555,17 @@ public class Test {
 
             SceneModel page2Scene1 =  new SceneModel();
             page2Scene1.setSetting("page2Scene1 setting");
-            page2Scene1.setTinyMCEText("page2Scene1 TinyMCText");
+            page2Scene1.setTinyMCEText("<p>age2Scene1 TinyMCText</p>");
 
             SceneModel page2Scene2 =  new SceneModel();
             page2Scene2.setSetting("page2Scene2 setting");
-            page2Scene2.setTinyMCEText("page2Scene2 TinyMCText");
+            page2Scene2.setTinyMCEText("<p>page2Scene2 TinyMCText</p>");
 
             List<SceneModel> sceneModelListForPage2 = new ArrayList<>();
             sceneModelListForPage2.add(page2Scene1);
             sceneModelListForPage2.add(page2Scene2);
 
             PageModel page2Model = new PageModel();
-//            page2Model.setTitle("page2Title");
-//            page2Model.setSummary("page2Summary");
             page2Model.setScenes(sceneModelListForPage2);
 
             //Make a Page
@@ -584,9 +581,24 @@ public class Test {
 
 
 
-            Createable<Scribble> scribbleCreater = new ScribbleCreater("Scribble Title");
-            scribbleCreater.createEntity(new ScribbleFillCommand(pageList));
+            Createable<Scribble> scribbleCreater = new ScribbleCreater("Scribble Title", "Description");
+            Scribble scribble = scribbleCreater.createEntity(new ScribbleFillCommand(pageList));
 
+            if(scribble !=null){
+                UserService service = UserServiceFactory.getUserService();
+                User user = service.getCurrentUser();
+
+                if(user != null){
+                    try {
+                        new Updateable().updateEntity(new GetUserDataByUserCommand(user), new UpdateUserAddScribbleTask(scribble));
+                        System.out.println("Successful update!");
+                    } catch (FetchException e) {
+                        e.printStackTrace();
+                    } catch (UpdateException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
         catch (CreateException ex){
             ex.printStackTrace();
