@@ -1,5 +1,6 @@
 package com.data.api.updatables.updateTasks;
 
+import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
@@ -36,7 +37,12 @@ public class UpdateDoodleTask implements UpdateTask<Doodle> {
 
         doodleToUpdate.setTitle(this.title);
         doodleToUpdate.setDescription(this.description);
-        doodleToUpdate.setCanvasJSON(this.canvasJSON);
+
+        try {
+            doodleToUpdate.setCanvasJSON(this.canvasJSON);
+        } catch (CreateException e) {
+            e.printStackTrace();
+        }
 
         // add the doodleToUpdate to a Doodle list because the return type expects a list of Doodles
         List<Doodle> doodleList = new ArrayList<>();

@@ -443,16 +443,16 @@ public class Test {
 //        Canvas canvas = new Canvas();
 //        ofy().save().entity(canvas).now();
 
-        String canvasJSON = null; // on front end it wouldn't be null SHOWJASON
+        String canvasJSON = "canvasString"; // on front end it wouldn't be null SHOWJASON
 
         Createable<Doodle> anotherDoodleCreater = new DoodleCreater("title", "description");
         Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleFillCommand(canvasJSON));
 
         Updateable<Doodle> doodleUpdater = new DoodleUpdater();
-        Readable<Doodle> getDoodle = new GetEntityFromKeyCommand<>(anotherDoodle.getKey());
+        Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(anotherDoodle.getDoodleId());
 
         try {
-            String canvas = null;
+            String canvas = "canvasString Updated";
             doodleUpdater.updateEntity(getDoodle,
                     new UpdateDoodleTask("updated doodle title",
                             "describing doodle", canvas)
@@ -460,6 +460,7 @@ public class Test {
         } catch (FetchException | UpdateException ex) {
             ex.printStackTrace();
         }
+            System.out.println("The sample JSOn is" + anotherDoodle.getCanvas().getCanvasImage()  );;
 
 
 

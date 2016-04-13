@@ -1,6 +1,8 @@
 package com.data.api.createables;
 
 import com.data.api.exceptions.CreateException;
+import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Createable;
 import com.data.creation.Doodle;
 
@@ -55,8 +57,14 @@ public class DoodleCreater extends Createable<Doodle> {
             doodle.setDescription(this.description);
         }
 
-        if(  this.canvas!=null ){
-            doodle.setCanvasJSON(this.canvas);
+        if(  this.canvas!=null && !(this.canvas.equals("")) ){
+            try {
+                doodle.setCanvasJSON(this.canvas);
+            } catch (FetchException e) {
+                e.printStackTrace();
+            } catch (UpdateException e) {
+                e.printStackTrace();
+            }
         }
 
         return doodle;
