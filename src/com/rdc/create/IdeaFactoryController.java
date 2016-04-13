@@ -9,10 +9,12 @@ import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetDoodlesByIDCommand;
+import com.data.api.queries.external.GetDoodlesOfUserDataCommand;
 import com.data.api.updatables.DoodleUpdater;
 import com.data.api.updatables.updateTasks.UpdateDoodleTask;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.labs.repackaged.org.json.JSONString;
 import com.model.ScribbleModel;
 import org.springframework.stereotype.Controller;
@@ -54,11 +56,18 @@ public class IdeaFactoryController {
 
         List<Doodle> doodles = new LinkedList<>();
 
+        Readable<Doodle> getUserDoodles = new GetDoodlesOfUserDataCommand(UserServiceFactory.getUserService().getCurrentUser());
+        try {
+            List<Doodle> doodleList = getUserDoodles.fetch().getList();
+            map.put("doodles", doodleList);
+        } catch (FetchException e) {
+            e.printStackTrace();
+        }
+
         doodles.add(doodle1);
         doodles.add(doodle2);
         doodles.add(doodle3);
 
-        map.put("doodles", doodles);
         map.put("scribbles", doodles);
 
         return new ModelAndView("ideaFactory");
