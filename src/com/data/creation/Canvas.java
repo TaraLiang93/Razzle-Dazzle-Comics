@@ -41,4 +41,5 @@ public class Canvas {
     public Key<Canvas> getKey() {
         return Key.create(Canvas.class, canvasId);
     }
+
 }
