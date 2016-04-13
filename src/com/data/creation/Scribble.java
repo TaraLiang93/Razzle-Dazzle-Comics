@@ -17,11 +17,6 @@ import java.util.List;
 @Entity
 public class Scribble {
 
-//    public static final Logger logger = Logger.getLogger(Scribble.class.getName());
-
-
-//    Key<UserData> userData;
-
     @Id
     Long scribbleId;
 
@@ -33,30 +28,23 @@ public class Scribble {
 
     List<Key<Page>> pageList;
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
-
-    List<Page> pages;
 
     public Scribble(){
-        this("");
+        this(null);
     }
 
     public Scribble(String title){
+        this(title, null);
+    }
+
+    public Scribble(String title, String description){
+        this(title, description, new ArrayList<Key<Page>>());
+    }
+
+    public Scribble(String title, String description, List<Key<Page>> pageList) {
         this.title = title;
-        pageList = new ArrayList<Key<Page>>();
-        pages = new ArrayList<>();
-
-        pages.add(new Page());
-        pages.add(new Page());
-
+        this.description = description;
+        this.pageList = pageList;
     }
 
     public Long getScribbleId() {
@@ -65,6 +53,22 @@ public class Scribble {
 
     public void setScribbleId(Long scribbleId) {
         this.scribbleId = scribbleId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<Key<Page>> getPageList() {
@@ -76,7 +80,10 @@ public class Scribble {
     }
 
     public List<Page> getPages(){
+        List<Page> pages = new ArrayList<>();
 
+        pages.add(new Page());
+        pages.add(new Page());
 
         return pages;
     }
@@ -85,17 +92,11 @@ public class Scribble {
         pageList.add(pageKey);
     }
 
-    public String getTitle() {
-        return title;
-    }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     public Key<Scribble> getKey() {
         return Key.create(Scribble.class, scribbleId);
-    }
+    } //TODO : Make sure scribbleID non-null
 
     public List<Page> getPages2(){
         Readable<Page> getPagesFromTagsKeysAbstracted = new GetEntityListFromKeyListCommand<>(getPageList());
@@ -116,7 +117,6 @@ public class Scribble {
                 "scribbleId=" + scribbleId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", pages=\n" + pages +
                 "\n}";
     }
 }

@@ -17,11 +17,17 @@ public class Dialogue {
 
     private int index;
 
-    static int count = 0;
+    public Dialogue(){
+        this(null);
+    }
 
     public Dialogue(String dialogue){
-        this.dialogue =dialogue;
-        this.index = count++;
+        this(dialogue, 0);
+    }
+
+    public Dialogue(String dialogue, int index) {
+        this.dialogue = dialogue;
+        this.index = index;
     }
 
     public Long getId() {

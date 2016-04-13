@@ -8,7 +8,7 @@
     <c:forEach items="${pages}" var="page" varStatus="pageIndex">
 
         <div role="tabpanel" class="page-pane tab-pane fade in ${pageIndex.index eq 0 ? 'active' : none} " id="Page${pageIndex.index + 1}">
-
+            <input type="hidden" name="pages[${pageIndex.index}].id" value="${page.id}"/>
             <!-- nav tabs -->
             <ul id="tabHeader" class="nav nav-tabs" role="tablist">
             <c:forEach items = "${page.scenes}" var = "scene" varStatus="i">
@@ -29,6 +29,7 @@
                     <div role="tabpanel" class="scene-tabs tab-pane fade in ${i.index eq 0 ? 'active' : none} " id="Page${pageIndex.index + 1 + 1}Scene${i.index}">
                         <div class="content">
                             <div class="narritive">
+                                <input type="hidden" name="pages[${pageIndex.index}].scenes[${i.index}].id" value="${scene.id}"/>
                                 <textarea id="Page${pageIndex.index + 1}writingArea${i.index}" name="pages[${pageIndex.index}].scenes[${i.index}].tinyMCEText" class="tinyMCE">
                                         ${scene.tinyMCEText}
                                 </textarea>

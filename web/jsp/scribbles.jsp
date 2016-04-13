@@ -35,6 +35,7 @@
     </div>
     <form:form method="post" action="/create/scribble/save" modelAttribute="scribbleModel">
 
+        <input type="hidden" name="id" value="${scribble.scribbleId}"/>
         <jsp:include page="Writing.jsp"/>
 
         <div class="description writeTabs center-block">

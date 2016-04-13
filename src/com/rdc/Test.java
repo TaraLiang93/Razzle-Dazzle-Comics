@@ -253,7 +253,6 @@ public class Test {
 
         //create Page
         Page page = new Page();
-        page.setTitle("I am Page YAY!");
         ofy().save().entity(page).now();
         List<Key<Page>> pageList = new ArrayList<>();
         pageList.add(page.getKey());

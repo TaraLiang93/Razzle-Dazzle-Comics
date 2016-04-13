@@ -26,23 +26,32 @@ public class Scene {
 
     private List<Key<Dialogue>> dialogueList;
 
-    private List<Dialogue> dialogue;
+    public Scene(){
+        this(0);
+    }
 
-    static int count = 0;
+    public Scene(int index){
+        this(index, null);
+    }
 
-    public Scene(String setting){
+    public Scene(int index, String setting){
+        this(index, setting, null);
+    }
+
+    public Scene(int index, String setting, String tinyMCEText){
+        this(index, setting, tinyMCEText, null);
+    }
+
+    public Scene(int index, String setting, String tinyMCEText, Key<Canvas> canvasElement){
+        this(index, setting, tinyMCEText, canvasElement, new ArrayList<Key<Dialogue>>());
+    }
+
+    public Scene(int index, String setting, String tinyMCEText, Key<Canvas> canvasElement, List<Key<Dialogue>> dialogueList){
+        this.index = index;
         this.setting = setting;
-        this.index = count++;
-
-        dialogue = new ArrayList<>();
-
-        dialogue.add(new Dialogue("HElllo World!"));
-        dialogue.add(new Dialogue("Awwww yeahh"));
-        dialogue.add(new Dialogue("Bitch you guessed it"));
-
-        this.tinyMCEText = "<p>Hello World! Awww Yeah! Bitch you guessed it</p>\n" +
-                "<p>&nbsp;</p>\n" +
-                "<p><strong>Working like a champ</strong></p>";
+        this.tinyMCEText = tinyMCEText;
+        this.canvasElement = canvasElement;
+        this.dialogueList = dialogueList;
     }
 
 
@@ -82,11 +91,6 @@ public class Scene {
         return dialogueList;
     }
 
-    public List<Dialogue> getDialogue(){
-
-        return dialogue;
-    }
-
     public void setDialogueList(List<Key<Dialogue>> dialogueList) {
         this.dialogueList = dialogueList;
     }
@@ -106,7 +110,6 @@ public class Scene {
                 ", index=" + index +
                 ", setting='" + setting + '\'' +
                 ", tinyMCEText='" + tinyMCEText +
-                ", \ndialogue=" + dialogue +
                 "\n}\n";
     }
 }
