@@ -11,6 +11,8 @@ public class SceneModel {
 
     private String tinyMCEText;
 
+    private int index;
+
     public String getSetting() {
         return setting;
     }
@@ -45,4 +47,7 @@ public class SceneModel {
                 "\n}\n";
     }
 
+    public int getIndex() {
+        return index;
+    }
 }

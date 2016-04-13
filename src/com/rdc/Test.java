@@ -236,7 +236,7 @@ public class Test {
 //        //create canvas
 //        Canvas canvas = new Canvas();
 //        ofy().save().entity(canvas).now();
-        JSONString canvasJSON = null;
+        String canvasJSON = null;
 
 
         //created Doodle
@@ -542,8 +542,8 @@ public class Test {
             sceneModelListForPage1.add(page1Scene2);
 
             PageModel page1Model = new PageModel();
-            page1Model.setTitle("page1Title");
-            page1Model.setSummary("page1Summary");
+//            page1Model.setTitle("page1Title");
+//            page1Model.setSummary("page1Summary");
             page1Model.setScenes(sceneModelListForPage1);
 
             //Make a Page
@@ -567,8 +567,8 @@ public class Test {
             sceneModelListForPage2.add(page2Scene2);
 
             PageModel page2Model = new PageModel();
-            page2Model.setTitle("page2Title");
-            page2Model.setSummary("page2Summary");
+//            page2Model.setTitle("page2Title");
+//            page2Model.setSummary("page2Summary");
             page2Model.setScenes(sceneModelListForPage2);
 
             //Make a Page

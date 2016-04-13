@@ -29,11 +29,11 @@ public class PageCreater extends Createable<Page> {
     protected Page getEntity() throws CreateException, FetchException{
 
         Page page = new Page();
-        page.setSummary( pageModel.getSummary());
-        if(pageModel.getLayout() != null) {
-            page.setLayout(pageModel.getLayout().getKey());
-        }
-        page.setNumRevisions(pageModel.getNumRevisions());
+//        page.setSummary( pageModel.getSummary());
+//        if(pageModel.getLayout() != null) {
+//            page.setLayout(pageModel.getLayout().getKey());
+//        }
+//        page.setNumRevisions(pageModel.getNumRevisions());
 
         List<Key<Scene>> sceneList = new ArrayList<>();
         for(SceneModel sceneModel: pageModel.getScenes() ){
