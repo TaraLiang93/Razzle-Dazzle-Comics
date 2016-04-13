@@ -55,13 +55,14 @@ public class IdeaFactoryController {
         doodle3.setDescription("See ya next tuesday");
 
         List<Doodle> doodles = new LinkedList<>();
-
-        Readable<Doodle> getUserDoodles = new GetDoodlesOfUserDataCommand(UserServiceFactory.getUserService().getCurrentUser());
-        try {
-            List<Doodle> doodleList = getUserDoodles.fetch().getList();
-            map.put("doodles", doodleList);
-        } catch (FetchException e) {
-            e.printStackTrace();
+        if(UserServiceFactory.getUserService().getCurrentUser() != null) {
+            Readable<Doodle> getUserDoodles = new GetDoodlesOfUserDataCommand(UserServiceFactory.getUserService().getCurrentUser());
+            try {
+                List<Doodle> doodleList = getUserDoodles.fetch().getList();
+                map.put("doodles", doodleList);
+            } catch (FetchException e) {
+                e.printStackTrace();
+            }
         }
 
         doodles.add(doodle1);

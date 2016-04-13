@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,6 +42,12 @@
         </c:forEach>
     </c:if>
 
+
+    <%--<c:if test="${fn:contains(pageContext.request.requestURL,'/create') }">--%>
+        <%--<c:if test="${userData eq null}">--%>
+            <%--<c:redirect url='/login'/>--%>
+        <%--</c:if>--%>
+    <%--</c:if>--%>
 
 </head>
 <body>
