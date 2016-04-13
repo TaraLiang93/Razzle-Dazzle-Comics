@@ -17,6 +17,7 @@ import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetDoodlesByIDCommand;
 import com.data.api.queries.external.GetDoodlesByTagCommand;
 import com.data.api.queries.external.GetScribblesByIDCommand;
+import com.data.api.queries.external.GetUserDataByIDCommand;
 import com.data.api.queries.internal.GetDoodleByKeyCommand;
 import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.data.api.updatables.DoodleUpdater;
@@ -237,8 +238,8 @@ public class Test {
          */
 
         //created userdata
-        UserDataCreater userDataCreater = new UserDataCreater("jamezTez@gmail.com", "jamezTezNickName", "jamezTezID"); // fill userDataCreater with initial data
-        UserData james =  userDataCreater.createEntity(new UserDataFillCommand());
+//        UserDataCreater userDataCreater = new UserDataCreater("jamezTez@gmail.com", "jamezTezNickName", "jamezTezID"); // fill userDataCreater with initial data
+//        UserData james =  userDataCreater.createEntity(new UserDataFillCommand());
 
 //        //create canvas
 //        Canvas canvas = new Canvas();
@@ -262,9 +263,9 @@ public class Test {
         ScribbleCreater scribbleCreater = new ScribbleCreater("I am ScribbleCreater created");
         Scribble createdScribble =  scribbleCreater.createEntity(new ScribbleFillCommand(pageList));
 
-        james.addDoodleToList(createdDoodle.getKey());
-        james.addScribbleToList(createdScribble.getKey());
-        ofy().save().entity(james).now();
+//        james.addDoodleToList(createdDoodle.getKey());
+//        james.addScribbleToList(createdScribble.getKey());
+//        ofy().save().entity(james).now();
 
         /**
          * testing using readable objects
@@ -278,13 +279,13 @@ public class Test {
         Readable<Scribble> getScribbleReadable = new GetScribblesByIDCommand(createdScribble.getScribbleId());
         System.out.println( "Readable to fetch Scribble has title " + getScribbleReadable.fetch().getResult().getTitle());
 
-        Readable<UserData> getUserdataReadable = new GetEntityFromKeyCommand<>(james.getKey());
-        UserData theUser = getUserdataReadable.fetch().getResult();
+//        Readable<UserData> getUserdataReadable = new GetEntityFromKeyCommand<>(james.getKey());
+//        UserData theUser = getUserdataReadable.fetch().getResult();
 
         //In this example there is only one scribble and Doodle so we just made sure we can retrieve the scribble and doodle
         // in actual implementation we would iterate throught the List<Scribble> and List<Doodle>
-        System.out.println( "Readable to fetch UserData has Scribble with title: " + theUser.getScribbles().get(0).getTitle() +
-                " and Doodle with title: " + theUser.getDoodles().get(0).getTitle());
+//        System.out.println( "Readable to fetch UserData has Scribble with title: " + theUser.getScribbles().get(0).getTitle() +
+//                " and Doodle with title: " + theUser.getDoodles().get(0).getTitle());
 
 
         /**
@@ -348,13 +349,13 @@ public class Test {
         Readable<Scribble> getScribbleReadable2 = new GetScribblesByIDCommand(createdScribble.getScribbleId());
         System.out.println( "Updated Scribble has title " + getScribbleReadable.fetch().getResult().getTitle());
 
-        Readable<UserData> getUserdataReadable2 = new GetEntityFromKeyCommand<>(james.getKey());
-        UserData theUser2 = getUserdataReadable.fetch().getResult();
+//        Readable<UserData> getUserdataReadable2 = new GetEntityFromKeyCommand<>(james.getKey());
+//        UserData theUser2 = getUserdataReadable.fetch().getResult();
 
         //In this example there is only one scribble and Doodle so we just made sure we can retrieve the scribble and doodle
         // in actual implementation we would iterate throught the List<Scribble> and List<Doodle>
-        System.out.println( "Updated UserData has Scribble with title: " + theUser2.getScribbles().get(0).getTitle() +
-                " and Doodle with title: " + theUser2.getDoodles().get(0).getTitle());
+//        System.out.println( "Updated UserData has Scribble with title: " + theUser2.getScribbles().get(0).getTitle() +
+//                " and Doodle with title: " + theUser2.getDoodles().get(0).getTitle());
 
 
         System.out.println("testing fetch doodle by key");
@@ -378,10 +379,10 @@ public class Test {
         Createable<UserData> userDataCreateable = new UserDataCreater(user);
         UserData userData = userDataCreateable.createEntity(new UserDataFillCommand());
         System.out.println(" the nickname: " + userData.getNickName() + " the UserId: "  +
-                        userData.getUserid() + " the UserName: " + userData.getUserName());
+                        userData.getUserId() + " the UserName: " + userData.getUserName());
 
 
-        map.put("user", james);
+//        map.put("user", james);
 
         }
         catch (Exception ex){
@@ -415,14 +416,14 @@ public class Test {
         Createable<UserData> userDataCreateable = new UserDataCreater(user);
         UserData userData = userDataCreateable.createEntity(new UserDataFillCommand());
         System.out.println(" the nickname: " + userData.getNickName() + " the UserId: " +
-                userData.getUserid() + " the UserName: " + userData.getUserName());
+                userData.getUserId() + " the UserName: " + userData.getUserName());
 
 
         /**
          * Test updating userDataUpdater
          */
         Updateable<UserData> userDataUpdater = new UserDataUpdater();
-        Readable<UserData> getUserDataReadable = new GetEntityFromKeyCommand<>(userData.getKey());
+        Readable<UserData> getUserDataReadable = new GetUserDataByIDCommand(userData.getUserId());
 
         String newLocation = "I'm located at location";
         String newDescription = "New description describes me newly ";
@@ -510,4 +511,18 @@ public class Test {
         return new ModelAndView("test3");
 
     }
+
+
+//    @RequestMapping(value="/test5", method= RequestMethod.GET)
+//    public ModelAndView test5(HttpSession session, ModelMap map) {
+//        /**
+//         * testing searching UserData by ID
+//         */
+//
+//        Createable<UserData> userDataCreater =
+//        map.put();
+//
+//        return new ModelAndView("test3");
+//    }
+
 }
