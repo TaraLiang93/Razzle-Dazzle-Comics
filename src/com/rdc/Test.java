@@ -1,29 +1,21 @@
 package com.rdc;
 
 import com.data.UserData;
-import com.data.api.createables.DoodleCreater;
-import com.data.api.createables.ScribbleCreater;
-import com.data.api.createables.TagCreater;
-import com.data.api.createables.UserDataCreater;
-import com.data.api.createables.fillCommands.DoodleFillCommand;
-import com.data.api.createables.fillCommands.ScribbleFillCommand;
-import com.data.api.createables.fillCommands.TagCommandFill;
-import com.data.api.createables.fillCommands.UserDataFillCommand;
+import com.data.api.createables.*;
+import com.data.api.createables.fillCommands.*;
+import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
-import com.data.api.queries.external.GetDoodlesByIDCommand;
-import com.data.api.queries.external.GetDoodlesByTagCommand;
-import com.data.api.queries.external.GetScribblesByIDCommand;
+import com.data.api.queries.external.*;
 import com.data.api.queries.internal.GetDoodleByKeyCommand;
 import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.data.api.updatables.DoodleUpdater;
 import com.data.api.updatables.ScribbleUpdater;
 import com.data.api.updatables.UserDataUpdater;
 import com.data.api.updatables.updateTasks.UpdateDoodleTask;
-import com.data.api.updatables.updateTasks.UpdateScribbleTask;
 import com.data.api.updatables.updateTasks.UpdateUserDataTask;
 import com.data.creation.Doodle;
 import com.data.creation.Page;
@@ -32,9 +24,10 @@ import com.data.structure.Tag;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.labs.repackaged.org.json.JSONString;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
+import com.model.PageModel;
+import com.model.SceneModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -237,8 +230,8 @@ public class Test {
          */
 
         //created userdata
-        UserDataCreater userDataCreater = new UserDataCreater("jamezTez@gmail.com", "jamezTezNickName", "jamezTezID"); // fill userDataCreater with initial data
-        UserData james =  userDataCreater.createEntity(new UserDataFillCommand());
+//        UserDataCreater userDataCreater = new UserDataCreater("jamezTez@gmail.com", "jamezTezNickName", "jamezTezID"); // fill userDataCreater with initial data
+//        UserData james =  userDataCreater.createEntity(new UserDataFillCommand());
 
 //        //create canvas
 //        Canvas canvas = new Canvas();
@@ -261,9 +254,9 @@ public class Test {
         ScribbleCreater scribbleCreater = new ScribbleCreater("I am ScribbleCreater created");
         Scribble createdScribble =  scribbleCreater.createEntity(new ScribbleFillCommand(pageList));
 
-        james.addDoodleToList(createdDoodle.getKey());
-        james.addScribbleToList(createdScribble.getKey());
-        ofy().save().entity(james).now();
+//        james.addDoodleToList(createdDoodle.getKey());
+//        james.addScribbleToList(createdScribble.getKey());
+//        ofy().save().entity(james).now();
 
         /**
          * testing using readable objects
@@ -277,13 +270,13 @@ public class Test {
         Readable<Scribble> getScribbleReadable = new GetScribblesByIDCommand(createdScribble.getScribbleId());
         System.out.println( "Readable to fetch Scribble has title " + getScribbleReadable.fetch().getResult().getTitle());
 
-        Readable<UserData> getUserdataReadable = new GetEntityFromKeyCommand<>(james.getKey());
-        UserData theUser = getUserdataReadable.fetch().getResult();
+//        Readable<UserData> getUserdataReadable = new GetEntityFromKeyCommand<>(james.getKey());
+//        UserData theUser = getUserdataReadable.fetch().getResult();
 
         //In this example there is only one scribble and Doodle so we just made sure we can retrieve the scribble and doodle
         // in actual implementation we would iterate throught the List<Scribble> and List<Doodle>
-        System.out.println( "Readable to fetch UserData has Scribble with title: " + theUser.getScribbles().get(0).getTitle() +
-                " and Doodle with title: " + theUser.getDoodles().get(0).getTitle());
+//        System.out.println( "Readable to fetch UserData has Scribble with title: " + theUser.getScribbles().get(0).getTitle() +
+//                " and Doodle with title: " + theUser.getDoodles().get(0).getTitle());
 
 
         /**
@@ -300,7 +293,7 @@ public class Test {
 
         // update Doodle entity
         try {
-            JSONString canvas = null;
+            String canvas = null;
             updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(updatedDoodleTitle,
                     theDoodle.getDescription(), canvas)
             );
@@ -317,17 +310,17 @@ public class Test {
         Scribble theScribble = getScribble.fetch().getResult();
         String updatedScribbleTitle = "I updated Scribble title yo";
 
-        //update scribble
-        try {
-            updateScribble.updateEntity(getScribble,
-                    new UpdateScribbleTask(updatedScribbleTitle,
-                            theScribble.getDescription(),
-                            theScribble.getPageList())
-            );
-        }
-        catch ( FetchException| UpdateException ex){
-            ex.printStackTrace();
-        }
+//        //update scribble
+//        try {
+//            updateScribble.updateEntity(getScribble,
+//                    new UpdateScribbleTask(updatedScribbleTitle,
+//                            theScribble.getDescription(),
+//                            theScribble.getPageList())
+//            );
+//        }
+//        catch ( FetchException| UpdateException ex){
+//            ex.printStackTrace();
+//        }
 
 //        //Update the UserData
 //        Updateable<UserData> updateUserData = new UserDataUpdater();
@@ -347,13 +340,13 @@ public class Test {
         Readable<Scribble> getScribbleReadable2 = new GetScribblesByIDCommand(createdScribble.getScribbleId());
         System.out.println( "Updated Scribble has title " + getScribbleReadable.fetch().getResult().getTitle());
 
-        Readable<UserData> getUserdataReadable2 = new GetEntityFromKeyCommand<>(james.getKey());
-        UserData theUser2 = getUserdataReadable.fetch().getResult();
+//        Readable<UserData> getUserdataReadable2 = new GetEntityFromKeyCommand<>(james.getKey());
+//        UserData theUser2 = getUserdataReadable.fetch().getResult();
 
         //In this example there is only one scribble and Doodle so we just made sure we can retrieve the scribble and doodle
         // in actual implementation we would iterate throught the List<Scribble> and List<Doodle>
-        System.out.println( "Updated UserData has Scribble with title: " + theUser2.getScribbles().get(0).getTitle() +
-                " and Doodle with title: " + theUser2.getDoodles().get(0).getTitle());
+//        System.out.println( "Updated UserData has Scribble with title: " + theUser2.getScribbles().get(0).getTitle() +
+//                " and Doodle with title: " + theUser2.getDoodles().get(0).getTitle());
 
 
         System.out.println("testing fetch doodle by key");
@@ -377,10 +370,10 @@ public class Test {
         Createable<UserData> userDataCreateable = new UserDataCreater(user);
         UserData userData = userDataCreateable.createEntity(new UserDataFillCommand());
         System.out.println(" the nickname: " + userData.getNickName() + " the UserId: "  +
-                        userData.getUserid() + " the UserName: " + userData.getUserName());
+                        userData.getUserId() + " the UserName: " + userData.getUserName());
 
 
-        map.put("user", james);
+//        map.put("user", james);
 
         }
         catch (Exception ex){
@@ -414,16 +407,16 @@ public class Test {
         Createable<UserData> userDataCreateable = new UserDataCreater(user);
         UserData userData = userDataCreateable.createEntity(new UserDataFillCommand());
         System.out.println(" the nickname: " + userData.getNickName() + " the UserId: " +
-                userData.getUserid() + " the UserName: " + userData.getUserName());
+                userData.getUserId() + " the UserName: " + userData.getUserName());
 
 
         /**
          * Test updating userDataUpdater
          */
         Updateable<UserData> userDataUpdater = new UserDataUpdater();
-        Readable<UserData> getUserDataReadable = new GetEntityFromKeyCommand<>(userData.getKey());
+        Readable<UserData> getUserDataReadable = new GetUserDataByIDCommand(userData.getUserId());
 
-        String newLocation = "I'm located at location";
+        String newLocation = "I'm located at new location";
         String newDescription = "New description describes me newly ";
 
         // Updating user location and Description
@@ -442,16 +435,16 @@ public class Test {
 //        Canvas canvas = new Canvas();
 //        ofy().save().entity(canvas).now();
 
-        JSONString canvasJSON = null; // on front end it wouldn't be null SHOWJASON
+        String canvasJSON = "canvasString"; // on front end it wouldn't be null SHOWJASON
 
         Createable<Doodle> anotherDoodleCreater = new DoodleCreater("title", "description");
         Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleFillCommand(canvasJSON));
 
         Updateable<Doodle> doodleUpdater = new DoodleUpdater();
-        Readable<Doodle> getDoodle = new GetEntityFromKeyCommand<>(anotherDoodle.getKey());
+        Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(anotherDoodle.getDoodleId());
 
         try {
-            JSONString canvas = null;
+            String canvas = "canvasString Updated";
             doodleUpdater.updateEntity(getDoodle,
                     new UpdateDoodleTask("updated doodle title",
                             "describing doodle", canvas)
@@ -459,10 +452,11 @@ public class Test {
         } catch (FetchException | UpdateException ex) {
             ex.printStackTrace();
         }
+            System.out.println("The sample JSOn is" + anotherDoodle.getCanvas().getCanvasImage()  );;
 
 
 
-        Readable<UserData> userDataReadable = new GetEntityFromKeyCommand<>(userData.getKey());
+        Readable<UserData> userDataReadable = new GetUserDataByIDCommand(userData.getUserId());
 
         try{
             userDataUpdater2.updateEntity(userDataReadable, new UpdateUserDataTask(anotherDoodle));
@@ -471,6 +465,20 @@ public class Test {
             ex.printStackTrace();
 
         }
+
+            /**
+             * Loading a Doodle using GetDoodlesOfUserDataCommand
+             */
+
+            Readable<Doodle> getUserDoodles = new GetDoodlesOfUserDataCommand( user );
+            List<Doodle> doodleList = getUserDoodles.fetch().getList();
+            System.out.println("before for loop");
+            for (Doodle d : doodleList){
+                System.out.println(" DoodleID: " + d.getDoodleId() + " title: " + d.getTitle());
+            }
+            System.out.println("after for loop");
+
+
 
         for( Doodle d : userData.getDoodles()){
             System.out.println( "Doodle title is: " + d.getTitle() + " and description is: " + d.getDescription());
@@ -511,6 +519,82 @@ public class Test {
     }
 
 
+    @RequestMapping(value="/testScribbles", method= RequestMethod.GET)
+    public ModelAndView testScribbles(HttpSession session, ModelMap map)  {
+        /**
+         * testing Scribbles
+         */
+        try {
+            /**
+             * Page 1
+             */
+
+            SceneModel page1Scene1 =  new SceneModel();
+            page1Scene1.setSetting("page1Scene1 setting");
+            page1Scene1.setTinyMCEText("page1Scene1 TinyMCText");
+
+            SceneModel page1Scene2 =  new SceneModel();
+            page1Scene2.setSetting("page1Scene2 setting");
+            page1Scene2.setTinyMCEText("page1Scene2 TinyMCText");
+
+            List<SceneModel> sceneModelListForPage1 = new ArrayList<>();
+            sceneModelListForPage1.add(page1Scene1);
+            sceneModelListForPage1.add(page1Scene2);
+
+            PageModel page1Model = new PageModel();
+            page1Model.setTitle("page1Title");
+            page1Model.setSummary("page1Summary");
+            page1Model.setScenes(sceneModelListForPage1);
+
+            //Make a Page
+            Createable<Page> pageCreater1 = new PageCreater(page1Model);
+            Page pageCreated1 = pageCreater1.createEntity(new PageFillCommand());
+
+            /**
+             * Page 2
+             */
+
+            SceneModel page2Scene1 =  new SceneModel();
+            page2Scene1.setSetting("page2Scene1 setting");
+            page2Scene1.setTinyMCEText("page2Scene1 TinyMCText");
+
+            SceneModel page2Scene2 =  new SceneModel();
+            page2Scene2.setSetting("page2Scene2 setting");
+            page2Scene2.setTinyMCEText("page2Scene2 TinyMCText");
+
+            List<SceneModel> sceneModelListForPage2 = new ArrayList<>();
+            sceneModelListForPage2.add(page2Scene1);
+            sceneModelListForPage2.add(page2Scene2);
+
+            PageModel page2Model = new PageModel();
+            page2Model.setTitle("page2Title");
+            page2Model.setSummary("page2Summary");
+            page2Model.setScenes(sceneModelListForPage2);
+
+            //Make a Page
+            Createable<Page> pageCreater2 = new PageCreater(page1Model);
+            Page pageCreated2 = pageCreater2.createEntity(new PageFillCommand());
+
+            /**
+             * pageList of the 2 pages
+             */
+            List<Key<Page>> pageList = new ArrayList<>();
+            pageList.add(pageCreated1.getKey());
+            pageList.add(pageCreated2.getKey());
+
+
+
+            Createable<Scribble> scribbleCreater = new ScribbleCreater("Scribble Title");
+            scribbleCreater.createEntity(new ScribbleFillCommand(pageList));
+
+        }
+        catch (CreateException ex){
+            ex.printStackTrace();
+        }
+        return new ModelAndView("test3");
+    }
+
+
         /*
     @RequestMapping(value="/addScribbles", method= RequestMethod.GET)
     @ResponseBody
@@ -548,6 +632,7 @@ public class Test {
     }
 
 */
+
 
 
 }

@@ -1,9 +1,10 @@
 package com.data.api.createables;
 
 import com.data.api.exceptions.CreateException;
+import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Createable;
 import com.data.creation.Doodle;
-import com.google.appengine.labs.repackaged.org.json.JSONString;
 
 /**
  * Created by Zhenya on 4/5/16.
@@ -11,7 +12,7 @@ import com.google.appengine.labs.repackaged.org.json.JSONString;
 public class DoodleCreater extends Createable<Doodle> {
     String title;
     String description;
-    JSONString canvas;
+    String canvas;
 
 
 
@@ -32,7 +33,7 @@ public class DoodleCreater extends Createable<Doodle> {
         this(title,description,null);
     }
 
-    public DoodleCreater(String title, String description, JSONString canvas){
+    public DoodleCreater(String title, String description, String canvas){
         this.title = title;
         this.description = description;
         this.canvas =canvas;
@@ -44,7 +45,7 @@ public class DoodleCreater extends Createable<Doodle> {
         Doodle doodle = new Doodle();
 
         // if title was passed in as parameter then set the title
-        if( !(this.title.equals("")) && this.title != null ){
+        if( this.title != null && !(this.title.equals("")) ){
             doodle.setTitle(title);
         }
         else{
@@ -52,12 +53,18 @@ public class DoodleCreater extends Createable<Doodle> {
         }
 
         // if description was passed in as parameter then set the description
-        if( ! (this.description.equals("")) && this.description != null ){
+        if( this.description != null && !(this.description.equals(""))  ){
             doodle.setDescription(this.description);
         }
 
-        if( !(this.canvas.equals("")) && this.canvas!=null){
-            doodle.setCanvasJSON(this.canvas);
+        if(  this.canvas!=null && !(this.canvas.equals("")) ){
+            try {
+                doodle.setCanvasJSON(this.canvas);
+            } catch (FetchException e) {
+                e.printStackTrace();
+            } catch (UpdateException e) {
+                e.printStackTrace();
+            }
         }
 
         return doodle;

@@ -112,4 +112,9 @@ public class Scene {
                 ", tinyMCEText='" + tinyMCEText +
                 "\n}\n";
     }
+
+    // get the Key of a Doodle
+    public Key<Scene> getKey() {
+        return Key.create(Scene.class, this.id);
+    }
 }

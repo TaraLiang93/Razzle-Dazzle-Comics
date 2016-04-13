@@ -1,5 +1,6 @@
 package com.data.api.interfaces;
 
+import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
 
@@ -12,7 +13,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
  */
 public class Updateable<T> {
 
-    public void updateEntity(Readable<T> r, UpdateTask<T> task) throws FetchException, UpdateException {
+    public void updateEntity(Readable<T> r, UpdateTask<T> task) throws FetchException, UpdateException, CreateException{
 
         Container<T> list = r.fetch();
 

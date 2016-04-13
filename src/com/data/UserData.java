@@ -28,7 +28,7 @@ import java.util.List;
 public class UserData implements java.io.Serializable {
 
     @Id
-    String userid;
+    String userId;
 
     @Index
     String userName; // username is the email in googles User object
@@ -74,12 +74,12 @@ public class UserData implements java.io.Serializable {
 
     }
 
-    public String getUserid() {
-        return userid;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
+    public void setUserId(String userid) {
+        this.userId = userid;
     }
 
     public String getUserName() {
@@ -175,7 +175,7 @@ public class UserData implements java.io.Serializable {
     }
 
     public Key<UserData> getKey() {
-        return Key.create(UserData.class, userid);
+        return Key.create(UserData.class, userId);
     }
 
     public void addTagToList( Key<Tag> tag ){

@@ -1,11 +1,18 @@
 package com.data.creation;
 
+import com.data.api.createables.CanvasCreater;
+import com.data.api.createables.fillCommands.CanvasFillCommand;
+import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
+import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.Readable;
+import com.data.api.interfaces.Updateable;
 import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
+import com.data.api.updatables.CanvasUpdater;
+import com.data.api.updatables.updateTasks.UpdateCanvasTask;
 import com.data.structure.Tag;
-import com.google.appengine.labs.repackaged.org.json.JSONString;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -143,9 +150,20 @@ public class Doodle {
     }
 
     // set the canvas object internally given a JSONString
-    public void setCanvasJSON(JSONString canvas){
-        Canvas canvas1 = new Canvas(canvas);
-        this.canvas = canvas1.getKey();
+    public void setCanvasJSON(String canvas) throws CreateException, FetchException, UpdateException{
+//        Canvas canvas1 = new Canvas(canvas);
+        // if canvas doesn't exist for this doodle create it
+        if( this.getCanvasKey() == null){
+            Createable<Canvas> canvasCreater = new CanvasCreater(canvas);
+            Canvas canvas1 = canvasCreater.createEntity(new CanvasFillCommand());
+            this.canvas = canvas1.getKey();
+        }
+        else{
+            Updateable<Canvas> updateCanvas = new CanvasUpdater();
+            Readable<Canvas> canvasReader = new  GetEntityFromKeyCommand(this.getCanvasKey());
+            updateCanvas.updateEntity(canvasReader, new UpdateCanvasTask(canvas));
+        }
+
     }
 
 

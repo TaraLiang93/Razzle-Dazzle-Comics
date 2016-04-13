@@ -18,7 +18,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
  */
 public class GetDoodlesByIDCommand extends Readable{
     Long id;
-    Filter filter;
+
 
     /**
      * constructor for for the command which gets doodle with an ID
@@ -28,8 +28,14 @@ public class GetDoodlesByIDCommand extends Readable{
         this.id = id;
     }
 
+    public GetDoodlesByIDCommand(String strID){
+        this.id = Long.parseLong(strID);
+    }
+
+
     @Override
     protected Filter getFilter() throws FetchException{
+        Filter filter;
         if( this.id != null) {
             filter = new FilterPredicate("doodleId",
                     FilterOperator.EQUAL,
@@ -45,7 +51,10 @@ public class GetDoodlesByIDCommand extends Readable{
 
 
     @Override
-    public Container fetch(){ // TODO : do error validation, throw exceptions. Check OFY response codes
+    public Container fetch() throws  FetchException{ // TODO : do error validation, throw exceptions. Check OFY response codes
+        if( this.id == null){
+            throw new FetchException("GetDoodlesByIDCommand doodleId null");
+        }
         LoadResult<Doodle> LoadResultOfID = ofy().load().type(getType()).id(this.id);
         ResultContainer<Doodle> resultContainer = new ResultContainer<Doodle>(LoadResultOfID);
         return resultContainer;
