@@ -20,7 +20,7 @@
                 <h3 class="panel-title">Pages</h3>
             </div>
             <div class="panel-body">
-                <ul class="nav nav-pills nav-stacked">
+                <ul id="pageTabs" class="nav nav-pills nav-stacked">
                     <c:forEach items = "${scribble.pages}" var = "page" varStatus="i">
                         <li role="presentation" class="page-tab ${i.index eq 0 ? "active" : ""}">
                             <a href="#Page${i.index}" aria-controls="Page${i.index}" role="tab" data-toggle="tab">Page ${i.index + 1}</a>

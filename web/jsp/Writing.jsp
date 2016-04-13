@@ -7,13 +7,13 @@
     <c:set var="pageCount" value="0"/>
     <c:forEach items="${pages}" var="page" varStatus="pageIndex">
 
-        <div role="tabpanel" class="page-pane tab-pane fade fade in ${pageIndex.index eq 0 ? 'active' : none} " id="Page${pageIndex.index}">
+        <div role="tabpanel" class="page-pane tab-pane fade in ${pageIndex.index eq 0 ? 'active' : none} " id="Page${pageIndex.index + 1}">
 
             <!-- nav tabs -->
             <ul id="tabHeader" class="nav nav-tabs" role="tablist">
             <c:forEach items = "${page.scenes}" var = "scene" varStatus="i">
                 <li role="presentation" class="sceneTab ${i.index eq 0 ? "active" : ""}">
-                    <a id="tabPage${pageIndex.index}Scene${i.index}" href="#Page${pageIndex.index}Scene${i.index}" aria-controls="Page${pageIndex.index}Scene${i.index}" role="tab" data-toggle="tab">Scene ${i.index + 1}</a>
+                    <a id="tabPage${pageIndex.index + 1}Scene${i.index}" href="#Page${pageIndex.index + 1 }Scene${i.index}" aria-controls="Page${pageIndex.index + 1}Scene${i.index}" role="tab" data-toggle="tab">Scene ${i.index + 1}</a>
                 </li>
             </c:forEach>
                 <li>
@@ -26,17 +26,17 @@
             <div id="scene-list" class="tab-content">
                 <c:set var="sceneCount" value="0"/>
                 <c:forEach items = "${page.scenes}" var = "scene" varStatus="i">
-                    <div role="tabpanel" class="scene-tabs tab-pane fade in ${i.index eq 0 ? 'active' : none} " id="Page${pageIndex.index}Scene${i.index}">
+                    <div role="tabpanel" class="scene-tabs tab-pane fade in ${i.index eq 0 ? 'active' : none} " id="Page${pageIndex.index + 1 + 1}Scene${i.index}">
                         <div class="content">
                             <div class="narritive">
-                                <textarea id="Page${pageIndex.index}writingArea${i.index}" name="pages[${pageIndex.index}].scenes[${i.index}].tinyMCEText" class="tinyMCE">
+                                <textarea id="Page${pageIndex.index + 1}writingArea${i.index}" name="pages[${pageIndex.index}].scenes[${i.index}].tinyMCEText" class="tinyMCE">
                                         ${scene.tinyMCEText}
                                 </textarea>
                             </div>
 
                         </div>
-                        <label for="SettingPage${pageIndex.index}Scene${i.index}">Setting:</label>
-                        <textarea id="SettingPage${pageIndex.index}Scene${i.index}" name="pages[${pageIndex.index}].scenes[${i.index}].setting" readonly="readonly" class="setting form-control">${scene.setting}</textarea>
+                        <label for="SettingPage${pageIndex.index + 1}Scene${i.index}">Setting:</label>
+                        <textarea id="SettingPage${pageIndex.index + 1}Scene${i.index}" name="pages[${pageIndex.index}].scenes[${i.index}].setting" readonly="readonly" class="setting form-control">${scene.setting}</textarea>
                     </div>
                     <c:set var="sceneCount" value="${sceneCount + 1}"/>
                 </c:forEach>

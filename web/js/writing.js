@@ -26,6 +26,11 @@ $(document).ready(function(){
         $(this).tab('show');
     });
 
+    $('#pageTabs').click(function(){
+        $('#currPage').val($(this).text());
+        alert("Changed current page to : " + $(this).text());
+    });
+
     $('#modalSave').click(function (e) {
         e.preventDefault();
         var what = $('#modalSetting').val(); //Get the text that was written
@@ -70,6 +75,8 @@ $(document).ready(function(){
         }
     });
 
+
+
     $('#addPage').click(function(){
 
         $('.pageList .page-tab').each(function(){
@@ -91,6 +98,13 @@ $(document).ready(function(){
         });
 
 
+        var newPane= "<div role=\"tabpanel\" class=\"page-pane tab-pane fade in active\" id=\"Page${pageIndex.index}\">\
+     <ul id=\"tabHeader\" class=\"nav nav-tabs\" role=\"tablist\"> <li role=\"presentation\" class=\"sceneTab active\">\
+     <a id=\"tabPage${pageIndex.index}Scene${i.index}\" href=\"#Page${pageIndex.index}Scene${i.index}\" aria-controls=\"Page${pageIndex.index}Scene${i.index}\" role=\"tab\" data-toggle=\"tab\">Scene 1</a> \
+     </li><li><a id=\"addScene\" href=\"#plus\" class=\"add-contact\"></a></li></ul>  <div id=\"scene-list\" class=\"tab-content\">\
+     <div role=\"tabpanel\" class=\"scene-tabs tab-pane fade in active \" id=\"Page${pageIndex.index}Scene${i.index}\"> <div class=\"content\"><div class=\"narritive\">\
+         <textarea id=\"Page${pageIndex.index}writingArea${i.index}\" name=\"pages[${pageIndex.index}].scenes[${i.index}].tinyMCEText\" class=\"tinyMCE\"></textarea></div></div><label for=\"SettingPage${pageIndex.index}Scene${i.index}\">Setting:</label>\
+          <textarea id=\"SettingPage${pageIndex.index}Scene${i.index}\" name=\"pages[${pageIndex.index}].scenes[${i.index}].setting\" \readonly=\"readonly\" class=\"setting form-control\"></textarea></div></div></div> "
 
 
     });
