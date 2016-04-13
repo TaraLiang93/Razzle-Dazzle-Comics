@@ -20,6 +20,7 @@ import com.data.api.updatables.updateTasks.UpdateUserAddScribbleTask;
 import com.data.api.updatables.updateTasks.UpdateUserDataTask;
 import com.data.creation.Doodle;
 import com.data.creation.Page;
+import com.data.creation.Scene;
 import com.data.creation.Scribble;
 import com.data.structure.Tag;
 import com.google.appengine.api.users.User;
@@ -581,7 +582,7 @@ public class Test {
 
 
 
-            Createable<Scribble> scribbleCreater = new ScribbleCreater("Scribble Title", "Description");
+            Createable<Scribble> scribbleCreater = new ScribbleCreater("Scribble Title", " Scribble Description");
             Scribble scribble = scribbleCreater.createEntity(new ScribbleFillCommand(pageList));
 
             if(scribble !=null){
@@ -590,8 +591,20 @@ public class Test {
 
                 if(user != null){
                     try {
-                        new Updateable().updateEntity(new GetUserDataByUserCommand(user), new UpdateUserAddScribbleTask(scribble));
-                        System.out.println("Successful update!");
+//                        new Updateable().updateEntity(new GetUserDataByUserCommand(user), new UpdateUserAddScribbleTask(scribble));
+                        Readable<UserData> getUserData = new GetUserDataByIDCommand( user.getUserId());
+                        UserData userData = getUserData.fetch().getResult();
+                        //if userData null create first
+                        if( userData == null){
+                            Createable<UserData> userDataCreater = new UserDataCreater(user);
+                            userDataCreater.createEntity( new UserDataFillCommand());
+                        }
+                            //now update the UserData
+                            Updateable<UserData> userDataUpdater = new UserDataUpdater();
+                            Readable<UserData> userDataReadable = new GetUserDataByUserCommand(user);
+                            userDataUpdater.updateEntity(userDataReadable, new UpdateUserAddScribbleTask(scribble));
+                            System.out.println("Successful update!");
+
                     } catch (FetchException e) {
                         e.printStackTrace();
                     } catch (UpdateException e) {
@@ -599,8 +612,28 @@ public class Test {
                     }
                 }
             }
+            UserService service = UserServiceFactory.getUserService();
+            User user = service.getCurrentUser();
+            Readable<UserData> getUserData = new GetUserDataByIDCommand( user.getUserId());
+            UserData userData = getUserData.fetch().getResult();
+            for( Scribble scrib : userData.getScribbles() ){
+
+                System.out.println("Scribble ID: " + scrib.getScribbleId());
+                System.out.println("Scribble Title: " + scrib.getTitle() );
+                System.out.println("Scribble Description: " + scrib.getDescription());
+
+                for( Page page : scrib.getPages()){
+                    System.out.println( "Page ID: " + page.getId() );
+                    for( Scene scene : page.getScenes()){
+                        System.out.println( "Scene Id: " +scene.getId() ) ;
+                        System.out.println( "Scene Setting: " + scene.getSetting() );
+                        System.out.println( "Scene TinyMCEText: " + scene.getTinyMCEText() );
+                    }
+                }
+            }
+
         }
-        catch (CreateException ex){
+        catch (CreateException | FetchException ex){
             ex.printStackTrace();
         }
         return new ModelAndView("test3");

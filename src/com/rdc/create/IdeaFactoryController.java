@@ -15,7 +15,6 @@ import com.data.api.updatables.updateTasks.UpdateDoodleTask;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.labs.repackaged.org.json.JSONString;
 import com.model.ScribbleModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -143,7 +142,7 @@ public class IdeaFactoryController {
             try {
                 Doodle theDoodle = getDoodle.fetch().getResult();
                 updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(doodleTitle, doodleDescription, canvasImage) );
-            } catch (FetchException | UpdateException  e) {
+            } catch (FetchException | UpdateException | CreateException  e) {
                 e.printStackTrace();
             }
 
