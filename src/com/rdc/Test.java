@@ -509,4 +509,45 @@ public class Test {
         return new ModelAndView("test3");
 
     }
+
+
+        /*
+    @RequestMapping(value="/addScribbles", method= RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String> loginScreen(@RequestParam String title,
+                                              @RequestParam String description,
+                                              HttpSession session, ModelMap map) {
+
+        try {
+            Createable<Scribble> newScribble = new ScribbleCreater(title, description);
+            Scribble scribble = newScribble.createEntity(new NoWork<Scribble>());
+
+
+        } catch (CreateException e) {
+            return new ResponseEntity<String>(HttpStatus.BAD_GATEWAY);
+            e.printStackTrace();
+        }
+
+    }
+
+
+    @RequestMapping(value="/addPages", method= RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String> loginScreen(@RequestParam String summary,
+                                              HttpSession session, ModelMap map) {
+        return new ResponseEntity<String>("");
+
+    }
+
+    @RequestMapping(value="/addPages", method= RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<String> loginScreen(@RequestParam String summary,
+                                              HttpSession session, ModelMap map) {
+
+
+    }
+
+*/
+
+
 }
