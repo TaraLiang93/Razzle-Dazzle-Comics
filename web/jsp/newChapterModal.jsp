@@ -13,7 +13,9 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 --%>
+
 <script>
+
     function formSubmit(){
         $('#chapterModal').modal('hide');
         var selected = $('.flowButtons input:radio:checked').val();
@@ -33,7 +35,7 @@
                 <div class="modal-body">
                     <div class="topNewChapter center-stage row" style="width:90%; margin:auto; margin-bottom: 5em; ">
                             <div class="pull-left" style="width:40%;">
-                                <input id="fileUpload" type="file" name="chapterImage" accept="image/*" style="display:none;">
+                                <input id="fileUpload" type="file" name="chapterImage" accept="image/*" style="display:none;" onchange="readURL(this, '#chapterImage')">
                                 <img id="chapterImage" src="/img/profile_default.png" alt="Profile Image"
                                      style="width:80%; height: inherit; border:3px solid black;" onclick="$('#fileUpload').click();"/>
                             </div>
@@ -44,7 +46,7 @@
                                         <input type="text" id="chapterTitle" name="title" size="50"/>
                                     </div>
                                     <div class="col-xs-2">
-                                        <label for="chapterID">ID :</label>
+                                        <label for="chapterID"># :</label>
                                         <input type="text" id="chapterID" name="id" maxlength="5" size="5"/>
                                     </div>
 

@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="/css/customnav.css">
     <link rel="stylesheet" href="/css/customsubnav.css">
     <script src="/js/navbar.js"></script>
+    <script src="/js/globals.js"></script>
 
     <c:if test="${not empty param.js}">
         <c:forEach items = "${param.js}" var = "file">
