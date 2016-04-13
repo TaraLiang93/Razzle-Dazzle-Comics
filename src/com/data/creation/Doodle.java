@@ -39,11 +39,28 @@ public class Doodle {
     List<Key<Tag>> tagList;
 
     public Doodle(){
-        title = "";
-        description = "";
-        tagList = new ArrayList<Key<Tag>>();
-
+        this(null);
     }
+
+    public Doodle(String title) {
+        this(title, null);
+    }
+
+    public Doodle(String title, String description) {
+        this(title, description, new ArrayList<Key<Tag>>());
+    }
+
+    public Doodle(String title, String description, List<Key<Tag>> tagList) {
+        this(title, description, tagList, null);
+    }
+
+    public Doodle(String title, String description, List<Key<Tag>> tagList, Key<Canvas> canvas) {
+        this.tagList = tagList;
+        this.canvas = canvas;
+        this.title = title;
+        this.description = description;
+    }
+
 
     public Long getDoodleId() {
         return doodleId;
