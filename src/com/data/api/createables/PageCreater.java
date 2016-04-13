@@ -36,6 +36,7 @@ public class PageCreater extends Createable<Page> {
 //        page.setNumRevisions(pageModel.getNumRevisions());
 
         List<Key<Scene>> sceneList = new ArrayList<>();
+
         for(SceneModel sceneModel: pageModel.getScenes() ){
             // if doesn't exist, create it
             if( sceneModel.getId() == null || sceneModel.getId().equals("") ){
