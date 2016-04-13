@@ -143,7 +143,7 @@ public class IdeaFactoryController {
             try {
                 Doodle theDoodle = getDoodle.fetch().getResult();
                 updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(doodleTitle, doodleDescription, canvasImage) );
-            } catch (FetchException | UpdateException  e) {
+            } catch (FetchException | UpdateException| CreateException  e) {
                 e.printStackTrace();
             }
 
