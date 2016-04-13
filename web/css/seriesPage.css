@@ -1,0 +1,88 @@
+body {
+    position: relative;
+}
+
+#outer {
+    border-radius: 5px;
+    border: 2px solid;
+    margin: 10px;
+    padding: 10px;
+}
+
+#seriesInfo {
+    display: inline-block;
+    margin: 20px;
+    width: 250px;
+}
+
+#seriesChapter{
+    overflow-y: scroll;
+    height: 600px;
+}
+
+#seriesImg {
+    margin-left: 25px;
+    position: relative;
+}
+
+.btn-link {
+    color: #e3256b;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+#title {
+    /*font-size: 35px;*/
+    margin-top: 15px;
+    text-align: center;
+}
+
+#description {
+    border-radius: 5px;
+    border: 2px solid;
+    font-size: 20px;
+    margin: 10px 0px 10px 25px;
+    padding: 28px 10px 10px 10px;
+    position: relative;
+}
+
+.updateDescr {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.addUnpublish {
+    display: block;
+    font-size: 20px;
+    margin: 0px 0px 10px 25px;
+    width: 200px;
+}
+
+.chapter {
+    border-radius: 5px;
+    border: 2px solid;
+    margin: 20px 0px 0px 20px;
+    overflow: auto;
+    position: relative;
+}
+
+.chapter p {
+    display:inline-flex;
+    font-size: 20px;
+    margin: 10px 50px 0px 0px;
+    /*border-radius: 5px;*/
+    /*border: 2px solid;*/
+}
+
+#chapterImg {
+    margin: 10px;
+}
+
+#chapterTitle {
+    display:inline-flex;
+    /*border-radius: 5px;*/
+    /*border: 2px solid;*/
+    margin: 10px 50px 0px 0px;
+}
