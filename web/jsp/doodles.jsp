@@ -40,15 +40,9 @@
 </div>
 
 <c:if test="${canvasImage ne null}">
-    <div id="loadIntoCanvas" style="display: none">
-        ${canvasImage}
-    </div>
-    <div id="loadTitleIntoCanvas" style="display: none">
-        ${doodleTitle}
-    </div>
-    <div id="loadDescIntoCanvas" style="display: none">
-        ${doodleDescription}
-    </div>
+    <div id="loadIntoCanvas" style="display: none">${canvasImage}</div>
+    <div id="loadTitleIntoCanvas" style="display: none">${doodleTitle}</div>
+    <div id="loadDescIntoCanvas" style="display: none">${doodleDescription}</div>
 </c:if>
 
     <div class="modal fade" tabindex="-1" id="newDoodleModal" role="dialog" data-backdrop="static" data-keyboard="false">

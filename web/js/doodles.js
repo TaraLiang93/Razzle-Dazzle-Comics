@@ -7,10 +7,10 @@ $(document).ready(function() {
 
     if( $("#loadIntoCanvas").length > 0 )
     {
-        $("#doodleTitle").attr("value",$("loadTitleIntoCanvas").text() );
-        $("loadTitleIntoCanvas").remove();
-        $("#doodleDescription").attr("value",$("loadDescIntoCanvas").text() );
-        $("loadDescIntoCanvas").remove();
+        $("#doodleTitle").attr("value",$("#loadTitleIntoCanvas").text() );
+        $("#loadTitleIntoCanvas").remove();
+        $("#doodleDescription").attr("value",$("#loadDescIntoCanvas").text() );
+        $("#loadDescIntoCanvas").remove();
     }
 
     $(".saveDoodle").click(function(){
