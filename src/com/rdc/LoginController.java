@@ -81,6 +81,7 @@ public class LoginController {
             }
         } catch (FetchException | CreateException ex)
         {
+            ref = "/"; //Redirect back to login page if failed to create User Data
             ex.printStackTrace();
         }
 
