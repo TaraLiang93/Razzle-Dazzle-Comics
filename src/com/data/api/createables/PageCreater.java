@@ -30,21 +30,28 @@ public class PageCreater extends Createable<Page> {
 
         Page page = new Page();
         page.setSummary( pageModel.getSummary());
-        page.setLayout( pageModel.getLayout().getKey() );
+        if(pageModel.getLayout() != null) {
+            page.setLayout(pageModel.getLayout().getKey());
+        }
         page.setNumRevisions(pageModel.getNumRevisions());
 
         List<Key<Scene>> sceneList = new ArrayList<>();
         for(SceneModel sceneModel: pageModel.getScenes() ){
-           Readable<Scene> getScene = new GetSceneByIDCommand(sceneModel.getId() );
-            Scene scene = getScene.fetch().getResult();
-            if( scene != null){
-                sceneList.add( scene.getKey() );
-            }
-            else{
+            // if doesn't exist, create it
+            if( sceneModel.getId() == null || sceneModel.getId().equals("") ){
+                // create if
                 Createable<Scene> sceneCreater = new SceneCreater(sceneModel);
                 Scene sceneCreated = sceneCreater.createEntity( new SceneFillCommand());
                 sceneList.add(sceneCreated.getKey());
             }
+            else {
+                Readable<Scene> getScene = new GetSceneByIDCommand(sceneModel.getId());
+                Scene scene = getScene.fetch().getResult();
+                if (scene != null) {
+                    sceneList.add(scene.getKey());
+                }
+            }
+
         }
 
         page.setSceneList( sceneList);

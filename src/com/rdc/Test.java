@@ -1,14 +1,9 @@
 package com.rdc;
 
 import com.data.UserData;
-import com.data.api.createables.DoodleCreater;
-import com.data.api.createables.ScribbleCreater;
-import com.data.api.createables.TagCreater;
-import com.data.api.createables.UserDataCreater;
-import com.data.api.createables.fillCommands.DoodleFillCommand;
-import com.data.api.createables.fillCommands.ScribbleFillCommand;
-import com.data.api.createables.fillCommands.TagCommandFill;
-import com.data.api.createables.fillCommands.UserDataFillCommand;
+import com.data.api.createables.*;
+import com.data.api.createables.fillCommands.*;
+import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Createable;
@@ -31,6 +26,8 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
+import com.model.PageModel;
+import com.model.SceneModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -523,16 +520,79 @@ public class Test {
     }
 
 
-//    @RequestMapping(value="/test5", method= RequestMethod.GET)
-//    public ModelAndView test5(HttpSession session, ModelMap map) {
-//        /**
-//         * testing searching UserData by ID
-//         */
-//
-//        Createable<UserData> userDataCreater =
-//        map.put();
-//
-//        return new ModelAndView("test3");
-//    }
+    @RequestMapping(value="/testScribbles", method= RequestMethod.GET)
+    public ModelAndView testScribbles(HttpSession session, ModelMap map)  {
+        /**
+         * testing Scribbles
+         */
+        try {
+            /**
+             * Page 1
+             */
+
+            SceneModel page1Scene1 =  new SceneModel();
+            page1Scene1.setSetting("page1Scene1 setting");
+            page1Scene1.setTinyMCEText("page1Scene1 TinyMCText");
+
+            SceneModel page1Scene2 =  new SceneModel();
+            page1Scene2.setSetting("page1Scene2 setting");
+            page1Scene2.setTinyMCEText("page1Scene2 TinyMCText");
+
+            List<SceneModel> sceneModelListForPage1 = new ArrayList<>();
+            sceneModelListForPage1.add(page1Scene1);
+            sceneModelListForPage1.add(page1Scene2);
+
+            PageModel page1Model = new PageModel();
+            page1Model.setTitle("page1Title");
+            page1Model.setSummary("page1Summary");
+            page1Model.setScenes(sceneModelListForPage1);
+
+            //Make a Page
+            Createable<Page> pageCreater1 = new PageCreater(page1Model);
+            Page pageCreated1 = pageCreater1.createEntity(new PageFillCommand());
+
+            /**
+             * Page 2
+             */
+
+            SceneModel page2Scene1 =  new SceneModel();
+            page2Scene1.setSetting("page2Scene1 setting");
+            page2Scene1.setTinyMCEText("page2Scene1 TinyMCText");
+
+            SceneModel page2Scene2 =  new SceneModel();
+            page2Scene2.setSetting("page2Scene2 setting");
+            page2Scene2.setTinyMCEText("page2Scene2 TinyMCText");
+
+            List<SceneModel> sceneModelListForPage2 = new ArrayList<>();
+            sceneModelListForPage2.add(page2Scene1);
+            sceneModelListForPage2.add(page2Scene2);
+
+            PageModel page2Model = new PageModel();
+            page2Model.setTitle("page2Title");
+            page2Model.setSummary("page2Summary");
+            page2Model.setScenes(sceneModelListForPage2);
+
+            //Make a Page
+            Createable<Page> pageCreater2 = new PageCreater(page1Model);
+            Page pageCreated2 = pageCreater2.createEntity(new PageFillCommand());
+
+            /**
+             * pageList of the 2 pages
+             */
+            List<Key<Page>> pageList = new ArrayList<>();
+            pageList.add(pageCreated1.getKey());
+            pageList.add(pageCreated2.getKey());
+
+
+
+            Createable<Scribble> scribbleCreater = new ScribbleCreater("Scribble Title");
+            scribbleCreater.createEntity(new ScribbleFillCommand(pageList));
+
+        }
+        catch (CreateException ex){
+            ex.printStackTrace();
+        }
+        return new ModelAndView("test3");
+    }
 
 }

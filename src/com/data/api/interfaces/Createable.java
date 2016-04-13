@@ -19,6 +19,7 @@ public abstract class Createable<T>{
         }
         catch (CreateException | FetchException ex){
             ex.printStackTrace();
+            return null;
         }
 
         data.fillEntity(entity);
