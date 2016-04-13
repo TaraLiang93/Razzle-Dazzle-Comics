@@ -1,0 +1,108 @@
+body {
+    position: relative;
+}
+
+#outer {
+    border-radius: 5px;
+    border: 2px solid;
+    margin: 1% 7.5% 0 7.5%;
+    padding: 10px;
+    width: 85%;
+    height: 85%;
+}
+
+#seriesInfo {
+    display: inline-block;
+    margin: 20px;
+    width: 20%;
+    height: 100%
+}
+
+#seriesChapter{
+    overflow-y: scroll;
+    height: 100%;
+}
+
+#seriesImg {
+    margin: 0% 5% 0% 5%;
+    position: relative;
+}
+
+.btn-link {
+    color: #e3256b;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+#uploadButton{
+    border-radius: 5px;
+    border: 2px solid;
+    border-color: #E5E7E1;
+    padding: 2px;
+}
+
+#title {
+    margin: 5% 5% 0% 5%;
+    text-align: center;
+}
+
+#description {
+    border-radius: 5px;
+    border: 2px solid;
+    font-size: 20px;
+    margin: 5% 5% 0% 5%;
+    padding: 28px 10px 10px 10px;
+    position: relative;
+    overflow-y: scroll;
+    height: 40%;
+}
+
+.updateDescr {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.addUnpublish {
+    display: block;
+    font-size: 20px;
+    margin: 5% 5% 0% 5%;
+}
+
+.chapter {
+    border-radius: 5px;
+    border: 2px solid;
+    margin: 20px 0px 0px 20px;
+    overflow: auto;
+    position: relative;
+}
+
+.chapter p {
+    display:inline-flex;
+    font-size: 20px;
+    margin: 10px 50px 0px 0px;
+    /*border-radius: 5px;*/
+    /*border: 2px solid;*/
+}
+
+#chapterImg {
+    margin: 10px;
+}
+
+#chapterTitle {
+    display:inline-flex;
+    /*border-radius: 5px;*/
+    /*border: 2px solid;*/
+    margin: 10px 50px 0px 0px;
+}
+
+#textboxDescr{
+    width: 500px;
+    height: 250px;
+}
+
+#img{
+    max-height: 100%;
+    max-width: 100%;
+}
