@@ -570,7 +570,7 @@ public class Test {
             page2Model.setScenes(sceneModelListForPage2);
 
             //Make a Page
-            Createable<Page> pageCreater2 = new PageCreater(page1Model);
+            Createable<Page> pageCreater2 = new PageCreater(page2Model);
             Page pageCreated2 = pageCreater2.createEntity(new PageFillCommand());
 
             /**
@@ -623,11 +623,11 @@ public class Test {
                 System.out.println("Scribble Description: " + scrib.getDescription());
 
                 for( Page page : scrib.getPages()){
-                    System.out.println( "Page ID: " + page.getId() );
+                    System.out.println( "-Page ID: " + page.getId() );
                     for( Scene scene : page.getScenes()){
-                        System.out.println( "Scene Id: " +scene.getId() ) ;
-                        System.out.println( "Scene Setting: " + scene.getSetting() );
-                        System.out.println( "Scene TinyMCEText: " + scene.getTinyMCEText() );
+                        System.out.println( "--Scene Id: " +scene.getId() ) ;
+                        System.out.println( "--Scene Setting: " + scene.getSetting() );
+                        System.out.println( "--Scene TinyMCEText: " + scene.getTinyMCEText() );
                     }
                 }
             }
