@@ -14,10 +14,7 @@ import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
-import com.data.api.queries.external.GetDoodlesByIDCommand;
-import com.data.api.queries.external.GetDoodlesByTagCommand;
-import com.data.api.queries.external.GetScribblesByIDCommand;
-import com.data.api.queries.external.GetUserDataByIDCommand;
+import com.data.api.queries.external.*;
 import com.data.api.queries.internal.GetDoodleByKeyCommand;
 import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.data.api.updatables.DoodleUpdater;
@@ -464,7 +461,7 @@ public class Test {
 
 
 
-        Readable<UserData> userDataReadable = new GetEntityFromKeyCommand<>(userData.getKey());
+        Readable<UserData> userDataReadable = new GetUserDataByIDCommand(userData.getUserId());
 
         try{
             userDataUpdater2.updateEntity(userDataReadable, new UpdateUserDataTask(anotherDoodle));
@@ -473,6 +470,20 @@ public class Test {
             ex.printStackTrace();
 
         }
+
+            /**
+             * Loading a Doodle using GetDoodlesOfUserDataCommand
+             */
+
+            Readable<Doodle> getUserDoodles = new GetDoodlesOfUserDataCommand( user );
+            List<Doodle> doodleList = getUserDoodles.fetch().getList();
+            System.out.println("before for loop");
+            for (Doodle d : doodleList){
+                System.out.println(" DoodleID: " + d.getDoodleId() + " title: " + d.getTitle());
+            }
+            System.out.println("after for loop");
+
+
 
         for( Doodle d : userData.getDoodles()){
             System.out.println( "Doodle title is: " + d.getTitle() + " and description is: " + d.getDescription());
