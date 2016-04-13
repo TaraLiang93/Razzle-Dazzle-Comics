@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class PublishController {
 
-    @RequestMapping(value="/", method= RequestMethod.GET)
+    @RequestMapping(value="/publish", method= RequestMethod.POST)
     public ModelAndView  loadPublishPage(HttpServletRequest req, ModelMap map){
         return new ModelAndView("homepage");
     }
