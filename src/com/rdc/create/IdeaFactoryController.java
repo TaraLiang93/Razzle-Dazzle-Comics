@@ -1,6 +1,5 @@
 package com.rdc.create;
 
-import com.data.UserData;
 import com.data.api.createables.DoodleCreater;
 import com.data.api.createables.fillCommands.DoodleFillCommand;
 import com.data.api.exceptions.CreateException;
@@ -11,17 +10,11 @@ import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetDoodlesByIDCommand;
 import com.data.api.queries.external.GetDoodlesOfUserDataCommand;
-import com.data.api.queries.external.GetUserDataByIDCommand;
 import com.data.api.updatables.DoodleUpdater;
-import com.data.api.updatables.UserDataUpdater;
 import com.data.api.updatables.updateTasks.UpdateDoodleTask;
-import com.data.api.updatables.updateTasks.UpdateUserDataAddDoodlesTask;
-import com.data.api.updatables.updateTasks.UpdateUserDataTask;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
-import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.labs.repackaged.org.json.JSONString;
 import com.model.ScribbleModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -109,13 +102,14 @@ public class IdeaFactoryController {
 
         String canvasImage;
 
+        Long newId = new Long("5066549580791808");
+
         try {
-            Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(id);
+            Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(newId);
             Doodle doodle = getDoodle.fetch().getResult();
             map.put("canvasImage",doodle.getCanvas().getCanvasImage());
             map.put("doodleTitle",doodle.getTitle());
             map.put("doodleDescription",doodle.getDescription());
-            map.put("doodleId",doodle.getDoodleId());
         } catch (FetchException e) {
             e.printStackTrace();
         }
@@ -140,35 +134,26 @@ public class IdeaFactoryController {
 
         String dId = req.getParameter("doodleId");
         System.out.println(dId);
-        if(dId != null)// updating the doodle
+        if(dId != null)
         {
             Long doodleId = Long.parseLong(dId);
             Updateable<Doodle> updateDoodle = new DoodleUpdater();
             Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(doodleId);
-            try
-            {
+            try {
                 Doodle theDoodle = getDoodle.fetch().getResult();
                 updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(doodleTitle, doodleDescription, canvasImage) );
-
-            }
-            catch (CreateException | FetchException | UpdateException  e) {
+            } catch (FetchException | UpdateException | CreateException  e) {
                 e.printStackTrace();
             }
 
         }
-        else// creating the doodle
+        else
         {
-            try
-            {
-                Createable<Doodle> anotherDoodleCreater = new DoodleCreater(doodleTitle, doodleDescription);
+            Createable<Doodle> anotherDoodleCreater = new DoodleCreater(doodleTitle, doodleDescription);
+            try {
                 Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleFillCommand(canvasImage));
-
-                Readable<UserData> userDataReadable = new GetUserDataByIDCommand(UserServiceFactory.getUserService().getCurrentUser().getUserId());
-                Updateable<UserData> userDataUpdateable = new UserDataUpdater();
-                userDataUpdateable.updateEntity(userDataReadable, new UpdateUserDataAddDoodlesTask(anotherDoodle.getDoodleId()));
                 System.out.println("created the doodles");
-            }
-            catch (UpdateException | FetchException | CreateException e) {
+            } catch (CreateException e) {
                 e.printStackTrace();
             }
 
