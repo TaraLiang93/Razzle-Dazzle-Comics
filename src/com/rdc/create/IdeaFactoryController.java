@@ -108,7 +108,7 @@ public class IdeaFactoryController {
         return new ModelAndView("doodles");
     }
 
-    @RequestMapping(value="/create/doodle/save", method= RequestMethod.POST)
+        @RequestMapping(value="/create/doodle/save", method= RequestMethod.POST)
     public ModelAndView saveDoodle(@RequestParam final String canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription, HttpServletRequest req, HttpSession session, ModelMap map){
 
         System.out.println("saving a doodle made easy");
@@ -116,12 +116,6 @@ public class IdeaFactoryController {
         System.out.println(doodleTitle);
         System.out.println(doodleDescription);
 
-        JSONString canvas = new JSONString() {
-            @Override
-            public String toJSONString() {
-                return canvasImage;
-            }
-        };
 
         String dId = req.getParameter("doodleId");
         System.out.println(dId);
@@ -132,7 +126,7 @@ public class IdeaFactoryController {
             Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(doodleId);
             try {
                 Doodle theDoodle = getDoodle.fetch().getResult();
-                updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(doodleTitle, doodleDescription, canvas) );
+                updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(doodleTitle, doodleDescription, canvasImage) );
             } catch (FetchException | UpdateException  e) {
                 e.printStackTrace();
             }
@@ -142,7 +136,7 @@ public class IdeaFactoryController {
         {
             Createable<Doodle> anotherDoodleCreater = new DoodleCreater("title", "description");
             try {
-                Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleFillCommand(canvas));
+                Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleFillCommand(canvasImage));
                 System.out.println("created the doodles");
             } catch (CreateException e) {
                 e.printStackTrace();

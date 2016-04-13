@@ -62,7 +62,7 @@ public class UserData implements java.io.Serializable {
         tagList = new ArrayList<Key<Tag>>();
         bookmarkList = new ArrayList<Key<Bookmark>>();
         doodleList = new ArrayList<Key<Doodle>>();
-        userid = "";
+        userId = "";
         userName = "";
         nickName = "";
         location = "";

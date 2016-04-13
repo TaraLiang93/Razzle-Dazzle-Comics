@@ -5,7 +5,12 @@ import com.data.UserData;
 import com.data.api.createables.UserDataCreater;
 import com.data.api.createables.fillCommands.UserDataFillCommand;
 import com.data.api.exceptions.CreateException;
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Createable;
+import com.data.api.interfaces.Readable;
+import com.data.api.interfaces.Updateable;
+import com.data.api.queries.external.GetUserDataByIDCommand;
+import com.data.api.updatables.UserDataUpdater;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import org.springframework.stereotype.Controller;
@@ -64,17 +69,24 @@ public class LoginController {
     public String setUserName(@RequestParam String ref,HttpSession session)
     {
         UserService userService = UserServiceFactory.getUserService();
-
-        Createable<UserData> userDataCreateable = new UserDataCreater(userService.getCurrentUser());
+        UserData userData = null;
         try {
-            UserData userData = userDataCreateable.createEntity(new UserDataFillCommand());
-            session.setAttribute("userData",userData);
-        } catch (CreateException e) {
-            e.printStackTrace();
+
+            Readable<UserData> getUserDataReadable = new GetUserDataByIDCommand(userService.getCurrentUser().getUserId());
+
+
+            if (( userData=getUserDataReadable.fetch().getResult()) == null ) {// if the user doesn't exist
+                Createable<UserData> userDataCreateable = new UserDataCreater(userService.getCurrentUser());
+
+                userData = userDataCreateable.createEntity(new UserDataFillCommand());
+                System.out.println("It created a new User");
+            }
+        } catch (FetchException | CreateException ex)
+        {
+            ex.printStackTrace();
         }
 
-
-
+        session.setAttribute("userData", userData);
 
 
         return "redirect:"+ ref;
