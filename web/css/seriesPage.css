@@ -5,23 +5,26 @@ body {
 #outer {
     border-radius: 5px;
     border: 2px solid;
-    margin: 10px;
+    margin: 1% 7.5% 0 7.5%;
     padding: 10px;
+    width: 85%;
+    height: 85%;
 }
 
 #seriesInfo {
     display: inline-block;
     margin: 20px;
-    width: 250px;
+    width: 20%;
+    height: 100%
 }
 
 #seriesChapter{
     overflow-y: scroll;
-    height: 600px;
+    height: 100%;
 }
 
 #seriesImg {
-    margin-left: 25px;
+    margin: 0% 5% 0% 5%;
     position: relative;
 }
 
@@ -32,9 +35,15 @@ body {
     top: 5px;
 }
 
+#uploadButton{
+    border-radius: 5px;
+    border: 2px solid;
+    border-color: #E5E7E1;
+    padding: 2px;
+}
+
 #title {
-    /*font-size: 35px;*/
-    margin-top: 15px;
+    margin: 5% 5% 0% 5%;
     text-align: center;
 }
 
@@ -42,9 +51,11 @@ body {
     border-radius: 5px;
     border: 2px solid;
     font-size: 20px;
-    margin: 10px 0px 10px 25px;
+    margin: 5% 5% 0% 5%;
     padding: 28px 10px 10px 10px;
     position: relative;
+    overflow-y: scroll;
+    height: 40%;
 }
 
 .updateDescr {
@@ -56,8 +67,7 @@ body {
 .addUnpublish {
     display: block;
     font-size: 20px;
-    margin: 0px 0px 10px 25px;
-    width: 200px;
+    margin: 5% 5% 0% 5%;
 }
 
 .chapter {
@@ -85,4 +95,14 @@ body {
     /*border-radius: 5px;*/
     /*border: 2px solid;*/
     margin: 10px 50px 0px 0px;
+}
+
+#textboxDescr{
+    width: 500px;
+    height: 250px;
+}
+
+#img{
+    max-height: 100%;
+    max-width: 100%;
 }
