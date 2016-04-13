@@ -5,7 +5,6 @@ import com.data.api.interfaces.Readable;
 import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
 import com.data.structure.Tag;
-import com.google.appengine.labs.repackaged.org.json.JSONString;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -126,7 +125,7 @@ public class Doodle {
     }
 
     // set the canvas object internally given a JSONString
-    public void setCanvasJSON(JSONString canvas){
+    public void setCanvasJSON(String canvas){
         Canvas canvas1 = new Canvas(canvas);
         this.canvas = canvas1.getKey();
     }

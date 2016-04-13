@@ -30,7 +30,7 @@ public class GetUserDataByUserCommand extends Readable<UserData> {
 
     @Override
     protected Class<UserData> getType() {
-        return null;
+        return UserData.class;
     }
 
 

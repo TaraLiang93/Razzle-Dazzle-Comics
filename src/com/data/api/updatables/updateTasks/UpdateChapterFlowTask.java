@@ -2,8 +2,11 @@ package com.data.api.updatables.updateTasks;
 
 import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
+import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.UpdateTask;
+import com.data.api.queries.external.GetFlowByIDCommand;
 import com.data.creation.Chapter;
+import com.data.structure.Flow;
 
 import java.util.List;
 
@@ -29,7 +32,8 @@ public class UpdateChapterFlowTask implements UpdateTask<Chapter> {
             throw new UpdateException("UpdateChapterFlowTask flowIdLong is null");
         }
         else{
-            entity.
+            Readable<Flow> loadFlow = new GetFlowByIDCommand(this.flowIdLong);
+//            loadFlow.fetch().getResult();
         }
         return null;
     }

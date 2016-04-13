@@ -18,7 +18,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
  */
 public class GetDoodlesByIDCommand extends Readable{
     Long id;
-    Filter filter;
+
 
     /**
      * constructor for for the command which gets doodle with an ID
@@ -35,8 +35,9 @@ public class GetDoodlesByIDCommand extends Readable{
 
     @Override
     protected Filter getFilter() throws FetchException{
+        Filter filter;
         if( this.id != null) {
-            filter = new FilterPredicate("doodleId",
+            filter = new FilterPredicate("userid",
                     FilterOperator.EQUAL,
                     this.id);
         }

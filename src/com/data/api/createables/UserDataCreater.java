@@ -26,10 +26,10 @@ public class UserDataCreater extends Createable<UserData>{
             throw new CreateException("UserDataCreater user is null");
         }
 
-        userData.setUserid(user.getUserId());
+        userData.setUserId(user.getUserId());
         userData.setNickName(user.getNickname());
         userData.setUserName( user.getEmail());
-        
+
 
         return userData;
     }

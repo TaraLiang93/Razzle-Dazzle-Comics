@@ -46,7 +46,10 @@ public class GetScribblesByIDCommand extends Readable{
 
 
     @Override
-    public Container fetch(){
+    public Container fetch() throws FetchException{
+        if(this.longID == null){
+            throw new FetchException("GetScribblesByID command longId null");
+        }
         LoadResult<Doodle> LoadResultOfID = ofy().load().type(getType()).id(this.longID);
         ResultContainer<Doodle> resultContainer = new ResultContainer<Doodle>(LoadResultOfID);
         return resultContainer;

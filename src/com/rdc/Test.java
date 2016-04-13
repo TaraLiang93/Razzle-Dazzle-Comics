@@ -33,7 +33,6 @@ import com.data.structure.Tag;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.labs.repackaged.org.json.JSONString;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 import org.springframework.stereotype.Controller;
@@ -244,7 +243,7 @@ public class Test {
 //        //create canvas
 //        Canvas canvas = new Canvas();
 //        ofy().save().entity(canvas).now();
-        JSONString canvasJSON = null;
+        String canvasJSON = null;
 
 
         //created Doodle
@@ -302,7 +301,7 @@ public class Test {
 
         // update Doodle entity
         try {
-            JSONString canvas = null;
+            String canvas = null;
             updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(updatedDoodleTitle,
                     theDoodle.getDescription(), canvas)
             );
@@ -425,7 +424,7 @@ public class Test {
         Updateable<UserData> userDataUpdater = new UserDataUpdater();
         Readable<UserData> getUserDataReadable = new GetUserDataByIDCommand(userData.getUserId());
 
-        String newLocation = "I'm located at location";
+        String newLocation = "I'm located at new location";
         String newDescription = "New description describes me newly ";
 
         // Updating user location and Description
@@ -444,7 +443,7 @@ public class Test {
 //        Canvas canvas = new Canvas();
 //        ofy().save().entity(canvas).now();
 
-        JSONString canvasJSON = null; // on front end it wouldn't be null SHOWJASON
+        String canvasJSON = null; // on front end it wouldn't be null SHOWJASON
 
         Createable<Doodle> anotherDoodleCreater = new DoodleCreater("title", "description");
         Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleFillCommand(canvasJSON));
@@ -453,7 +452,7 @@ public class Test {
         Readable<Doodle> getDoodle = new GetEntityFromKeyCommand<>(anotherDoodle.getKey());
 
         try {
-            JSONString canvas = null;
+            String canvas = null;
             doodleUpdater.updateEntity(getDoodle,
                     new UpdateDoodleTask("updated doodle title",
                             "describing doodle", canvas)

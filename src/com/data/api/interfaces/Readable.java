@@ -43,6 +43,10 @@ public abstract class Readable<T> {
             query = ofy().load().type(getType()).filter(filter); // returns the results as a Query Object
             results = new QueryContainer(query); // pass the Query Object into QueryContainer for returning later
         }
+        else{
+            throw new FetchException();
+        }
+
         return results;
     }
 

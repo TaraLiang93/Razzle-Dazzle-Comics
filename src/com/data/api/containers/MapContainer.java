@@ -20,15 +20,20 @@ public class MapContainer <T> implements Container<T> {
 
     @Override
     public List<T> getList() throws FetchException{
-        if(map == null){
-            throw new FetchException("MapContainer map null");
-        }
-        /**
-         * exeception will be thrown when the map is accessed it there are errors
-         */
         List<T> listOfEntities = new ArrayList<>();
-        for (Map.Entry<Key<T>, T> entity : this.map.entrySet()){
-            listOfEntities.add( entity.getValue() ); //get value is of the type T
+        try {
+            if (map == null) {
+                throw new FetchException("MapContainer map null");
+            }
+            /**
+             * exeception will be thrown when the map is accessed it there are errors
+             */
+            for (Map.Entry<Key<T>, T> entity : this.map.entrySet()) {
+                listOfEntities.add(entity.getValue()); //get value is of the type T
+            }
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
         }
         return listOfEntities;
     }
