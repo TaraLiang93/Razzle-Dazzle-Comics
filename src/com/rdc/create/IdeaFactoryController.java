@@ -91,15 +91,21 @@ public class IdeaFactoryController {
     @RequestMapping(value=LOAD_DOODLE, method= RequestMethod.GET)
     public ModelAndView loadDoodle(@PathVariable String id, HttpSession session, ModelMap map){
 
-        System.out.println("ID : " + id);
-        if(id != null && id.equals("new")){
-            System.out.println("New!");
-        }
-        else{
-            System.out.println("Old!");
+        String canvasImage;
+
+        Long newId = new Long("5066549580791808");
+
+        try {
+            Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(newId);
+            Doodle doodle = getDoodle.fetch().getResult();
+            map.put("canvasImage",doodle.getCanvas().getCanvasImage());
+            map.put("doodleTitle",doodle.getTitle());
+            map.put("doodleDescription",doodle.getDescription());
+        } catch (FetchException e) {
+            e.printStackTrace();
         }
 
-        return new ModelAndView("homepage");
+        return new ModelAndView("doodles");
     }
 
     @RequestMapping(value="/create/doodle/new", method= RequestMethod.GET)
@@ -134,7 +140,7 @@ public class IdeaFactoryController {
         }
         else
         {
-            Createable<Doodle> anotherDoodleCreater = new DoodleCreater("title", "description");
+            Createable<Doodle> anotherDoodleCreater = new DoodleCreater(doodleTitle, doodleDescription);
             try {
                 Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleFillCommand(canvasImage));
                 System.out.println("created the doodles");
