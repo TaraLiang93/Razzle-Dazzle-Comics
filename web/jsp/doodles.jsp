@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <jsp:include page="header.jsp">
     <jsp:param name="title" value="Draw Page"/>
     <jsp:param name="css" value="/css/doodles.css"/>
@@ -5,8 +8,9 @@
 </jsp:include>
 <link rel="stylesheet" type="text/css" href="/css/drawing.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<script src="/js/fabric.js"></script>
+
 <script src="/js/drawingtool.js"></script>
+<script src="/js/fabric.js"></script>
 <script src="/js/drawing.js"></script>
 
 <div style="position: relative">
@@ -34,6 +38,12 @@
         </div>
     </div>
 </div>
+
+<c:if test="${canvasImage ne null}">
+    <div id="loadIntoCanvas" style="display: none">${canvasImage}</div>
+    <div id="loadTitleIntoCanvas" style="display: none">${doodleTitle}</div>
+    <div id="loadDescIntoCanvas" style="display: none">${doodleDescription}</div>
+</c:if>
 
     <div class="modal fade" tabindex="-1" id="newDoodleModal" role="dialog" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog">

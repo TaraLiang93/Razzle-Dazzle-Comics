@@ -5,6 +5,12 @@ import com.data.UserData;
 import com.data.api.createables.UserDataCreater;
 import com.data.api.createables.fillCommands.UserDataFillCommand;
 import com.data.api.exceptions.CreateException;
+import com.data.api.exceptions.FetchException;
+import com.data.api.interfaces.Createable;
+import com.data.api.interfaces.Readable;
+import com.data.api.interfaces.Updateable;
+import com.data.api.queries.external.GetUserDataByIDCommand;
+import com.data.api.updatables.UserDataUpdater;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import org.springframework.stereotype.Controller;
@@ -30,7 +36,7 @@ public class LoginController {
     @RequestMapping(value="/", method= RequestMethod.GET)
     public ModelAndView homepage(HttpSession session, ModelMap map){
 
-        if(session.getAttribute("user") == null && session.getAttribute("loginURL") == null)
+        if(session.getAttribute("userData") == null && session.getAttribute("loginURL") == null)
             session.setAttribute("loginURL",LOGIN);
 
         Globals globals = (Globals) session.getAttribute("globals");
@@ -61,19 +67,25 @@ public class LoginController {
     public String setUserName(@RequestParam String ref,HttpSession session)
     {
         UserService userService = UserServiceFactory.getUserService();
-
-        UserDataCreater userDataCreater = new UserDataCreater(userService.getCurrentUser());
-        UserData user = null;
+        UserData userData = null;
         try {
 
-            user = userDataCreater.createEntity(new UserDataFillCommand());
+            Readable<UserData> getUserDataReadable = new GetUserDataByIDCommand(userService.getCurrentUser().getUserId());
 
-        } catch (CreateException e) {
-            e.printStackTrace();
-            ref = "/"; //Redirect back to login page if failed to create User Data
+
+            if (( userData=getUserDataReadable.fetch().getResult()) == null ) {// if the user doesn't exist
+                Createable<UserData> userDataCreateable = new UserDataCreater(userService.getCurrentUser());
+
+                userData = userDataCreateable.createEntity(new UserDataFillCommand());
+                System.out.println("It created a new User");
+            }
+        } catch (FetchException | CreateException ex)
+        {
+            ex.printStackTrace();
         }
 
-        session.setAttribute("user",user);
+        session.setAttribute("userData", userData);
+
 
         return "redirect:"+ ref;
     }
@@ -86,7 +98,7 @@ public class LoginController {
         if(session.getAttribute("logoutURL") != null)
             session.removeAttribute("logoutURL");
 
-        session.removeAttribute("user");
+        session.removeAttribute("userData");
 
 
         return "redirect:" + userService.createLogoutURL("/");

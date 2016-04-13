@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,6 +45,12 @@
         </c:forEach>
     </c:if>
 
+
+    <%--<c:if test="${fn:contains(pageContext.request.requestURL,'/create') }">--%>
+        <%--<c:if test="${userData eq null}">--%>
+            <%--<c:redirect url='/login'/>--%>
+        <%--</c:if>--%>
+    <%--</c:if>--%>
 
 </head>
 <body>
@@ -87,7 +94,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown">
-                            <a href="${loginURL ne null ? loginURL : "#"}" class="dropdown-toggle" data-toggle="${loginURL eq null ? "dropdown" : "" }" role="button" aria-haspopup="true" aria-expanded="false">${loginURL eq null ? nickname : "Sign In" }<span class="caret"></span></a>
+                            <a href="${loginURL ne null ? loginURL : "#"}" class="dropdown-toggle" data-toggle="${loginURL eq null ? "dropdown" : "" }" role="button" aria-haspopup="true" aria-expanded="false">${loginURL eq null ? userData.nickName : "Sign In" }<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Profile</a></li>
                                 <li role="separator" class="divider"></li>

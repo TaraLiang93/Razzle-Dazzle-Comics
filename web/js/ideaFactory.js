@@ -27,7 +27,7 @@ $(document).ready(function(){
 
     $(".doodle").each(function(){
         $(this).click(function(){
-            window.location.href="/create/doodle/load/" + $(this).attr('id');
+            $(location).attr('href',"/create/doodle/load/" + $(this).attr('id') );
         });
     });
 

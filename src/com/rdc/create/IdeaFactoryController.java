@@ -1,7 +1,20 @@
 package com.rdc.create;
 
+import com.data.api.createables.DoodleCreater;
+import com.data.api.createables.fillCommands.DoodleFillCommand;
+import com.data.api.exceptions.CreateException;
+import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
+import com.data.api.interfaces.Createable;
+import com.data.api.interfaces.Readable;
+import com.data.api.interfaces.Updateable;
+import com.data.api.queries.external.GetDoodlesByIDCommand;
+import com.data.api.queries.external.GetDoodlesOfUserDataCommand;
+import com.data.api.updatables.DoodleUpdater;
+import com.data.api.updatables.updateTasks.UpdateDoodleTask;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.labs.repackaged.org.json.JSONString;
 import com.model.ScribbleModel;
 import org.springframework.stereotype.Controller;
@@ -42,12 +55,20 @@ public class IdeaFactoryController {
         doodle3.setDescription("See ya next tuesday");
 
         List<Doodle> doodles = new LinkedList<>();
+        if(UserServiceFactory.getUserService().getCurrentUser() != null) {
+            Readable<Doodle> getUserDoodles = new GetDoodlesOfUserDataCommand(UserServiceFactory.getUserService().getCurrentUser());
+            try {
+                List<Doodle> doodleList = getUserDoodles.fetch().getList();
+                map.put("doodles", doodleList);
+            } catch (FetchException e) {
+                e.printStackTrace();
+            }
+        }
 
         doodles.add(doodle1);
         doodles.add(doodle2);
         doodles.add(doodle3);
 
-        map.put("doodles", doodles);
         map.put("scribbles", doodles);
 
         return new ModelAndView("ideaFactory");
@@ -80,15 +101,21 @@ public class IdeaFactoryController {
     @RequestMapping(value=LOAD_DOODLE, method= RequestMethod.GET)
     public ModelAndView loadDoodle(@PathVariable String id, HttpSession session, ModelMap map){
 
-        System.out.println("ID : " + id);
-        if(id != null && id.equals("new")){
-            System.out.println("New!");
-        }
-        else{
-            System.out.println("Old!");
+        String canvasImage;
+
+        Long newId = new Long("5066549580791808");
+
+        try {
+            Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(newId);
+            Doodle doodle = getDoodle.fetch().getResult();
+            map.put("canvasImage",doodle.getCanvas().getCanvasImage());
+            map.put("doodleTitle",doodle.getTitle());
+            map.put("doodleDescription",doodle.getDescription());
+        } catch (FetchException e) {
+            e.printStackTrace();
         }
 
-        return new ModelAndView("homepage");
+        return new ModelAndView("doodles");
     }
 
     @RequestMapping(value="/create/doodle/new", method= RequestMethod.GET)
@@ -97,13 +124,41 @@ public class IdeaFactoryController {
         return new ModelAndView("doodles");
     }
 
-    @RequestMapping(value="/create/doodle/save", method= RequestMethod.POST)
-    public ModelAndView saveDoodle(@RequestParam String canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription, HttpServletRequest req, HttpSession session, ModelMap map){
+        @RequestMapping(value="/create/doodle/save", method= RequestMethod.POST)
+    public ModelAndView saveDoodle(@RequestParam final String canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription, HttpServletRequest req, HttpSession session, ModelMap map){
 
         System.out.println("saving a doodle made easy");
         System.out.println(canvasImage);
         System.out.println(doodleTitle);
         System.out.println(doodleDescription);
+
+
+        String dId = req.getParameter("doodleId");
+        System.out.println(dId);
+        if(dId != null)
+        {
+            Long doodleId = Long.parseLong(dId);
+            Updateable<Doodle> updateDoodle = new DoodleUpdater();
+            Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(doodleId);
+            try {
+                Doodle theDoodle = getDoodle.fetch().getResult();
+                updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(doodleTitle, doodleDescription, canvasImage) );
+            } catch (FetchException | UpdateException  e) {
+                e.printStackTrace();
+            }
+
+        }
+        else
+        {
+            Createable<Doodle> anotherDoodleCreater = new DoodleCreater(doodleTitle, doodleDescription);
+            try {
+                Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleFillCommand(canvasImage));
+                System.out.println("created the doodles");
+            } catch (CreateException e) {
+                e.printStackTrace();
+            }
+
+        }
 
         return new ModelAndView("forward:" + IDEA_HOME);
     }

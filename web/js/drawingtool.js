@@ -60,10 +60,17 @@ $(document).ready(function() {
     canvas.setWidth(600);
     canvas.setHeight(600);
     //canvas.resizeCanvas(600,600);
-    canvas.renderAll();
 
     origHeight = canvas.getHeight();
     origWidth = canvas.getWidth();
+
+    if( $("#loadIntoCanvas").length > 0 )
+    {
+        var canvasImage = $("#loadIntoCanvas").text();
+        canvas.loadFromJSON(canvasImage, canvas.renderAll.bind(canvas));
+        $("#loadIntoCanvas").remove();
+    }
+    canvas.renderAll();
 
 
 
