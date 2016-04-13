@@ -29,6 +29,7 @@ public class Chapter {
     String description;
     Date createdDate;
     Date lastModifiedDate;
+    Boolean published;
 
     Key<Flow> theFlow;
     List<Key<PublishedPage>> publishedPageList;
@@ -206,5 +207,11 @@ public class Chapter {
         return flow;
     }
 
+    public Boolean getPublished() {
+        return published;
+    }
 
+    public void setPublished(Boolean published) {
+        this.published = published;
+    }
 }

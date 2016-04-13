@@ -21,7 +21,6 @@ import com.data.api.updatables.DoodleUpdater;
 import com.data.api.updatables.ScribbleUpdater;
 import com.data.api.updatables.UserDataUpdater;
 import com.data.api.updatables.updateTasks.UpdateDoodleTask;
-import com.data.api.updatables.updateTasks.UpdateScribbleTask;
 import com.data.api.updatables.updateTasks.UpdateUserDataTask;
 import com.data.creation.Doodle;
 import com.data.creation.Page;
@@ -315,17 +314,17 @@ public class Test {
         Scribble theScribble = getScribble.fetch().getResult();
         String updatedScribbleTitle = "I updated Scribble title yo";
 
-        //update scribble
-        try {
-            updateScribble.updateEntity(getScribble,
-                    new UpdateScribbleTask(updatedScribbleTitle,
-                            theScribble.getDescription(),
-                            theScribble.getPageList())
-            );
-        }
-        catch ( FetchException| UpdateException ex){
-            ex.printStackTrace();
-        }
+//        //update scribble
+//        try {
+//            updateScribble.updateEntity(getScribble,
+//                    new UpdateScribbleTask(updatedScribbleTitle,
+//                            theScribble.getDescription(),
+//                            theScribble.getPageList())
+//            );
+//        }
+//        catch ( FetchException| UpdateException ex){
+//            ex.printStackTrace();
+//        }
 
 //        //Update the UserData
 //        Updateable<UserData> updateUserData = new UserDataUpdater();
