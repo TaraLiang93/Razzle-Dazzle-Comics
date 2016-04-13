@@ -19,7 +19,10 @@ $(document).ready(function() {
         var doodleDescriptionTag = $("#doodleDescription").attr("value");
         //if(validArgs($("#doodleTitle"), $("#doodleDescription")))
         //{
-            $.post("/create/doodle/save", {"canvasImage": JSON.stringify(canvas), "doodleTitle": doodleTitleTag, "doodleDescription": doodleDescriptionTag
+            $.post("/create/doodle/save", {"canvasImage": JSON.stringify(canvas),
+                                           "doodleTitle": doodleTitleTag,
+                                           "doodleDescription": doodleDescriptionTag,
+                                           "doodleId" : $("#loadDoodleId").text()
                 })
                 .done(function () {
                     $(location).attr('href', "/create/ideas");

@@ -103,14 +103,13 @@ public class IdeaFactoryController {
 
         String canvasImage;
 
-        Long newId = new Long("5066549580791808");
-
         try {
-            Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(newId);
+            Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(id);
             Doodle doodle = getDoodle.fetch().getResult();
             map.put("canvasImage",doodle.getCanvas().getCanvasImage());
             map.put("doodleTitle",doodle.getTitle());
             map.put("doodleDescription",doodle.getDescription());
+            map.put("doodleId",doodle.getDoodleId());
         } catch (FetchException e) {
             e.printStackTrace();
         }
@@ -143,7 +142,7 @@ public class IdeaFactoryController {
             try {
                 Doodle theDoodle = getDoodle.fetch().getResult();
                 updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(doodleTitle, doodleDescription, canvasImage) );
-            } catch (FetchException | UpdateException  e) {
+            } catch (CreateException | FetchException | UpdateException  e) {
                 e.printStackTrace();
             }
 
