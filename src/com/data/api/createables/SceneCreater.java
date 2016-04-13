@@ -23,8 +23,8 @@ public class SceneCreater extends Createable<Scene> {
             throw new CreateException();
         }
         Scene scene =  new Scene(0, sceneModel.getSetting());
-        sceneModel.getTinyMCEText();
-        sceneModel.getIndex();
+        scene.setTinyMCEText( sceneModel.getTinyMCEText() );
+        scene.setIndex( sceneModel.getIndex() );
 
         return scene;
     }
