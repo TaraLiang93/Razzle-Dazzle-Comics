@@ -614,7 +614,7 @@ public class Test {
             }
             UserService service = UserServiceFactory.getUserService();
             User user = service.getCurrentUser();
-            Readable<UserData> getUserData = new GetUserDataByIDCommand( user.getUserId());
+            Readable<UserData> getUserData = new GetUserDataByUserCommand(user);
             UserData userData = getUserData.fetch().getResult();
             for( Scribble scrib : userData.getScribbles() ){
 
