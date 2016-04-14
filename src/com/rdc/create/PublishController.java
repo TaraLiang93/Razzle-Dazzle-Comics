@@ -16,7 +16,7 @@ public class PublishController {
 
     @RequestMapping(value="/create/publish", method= RequestMethod.GET)
     public ModelAndView  loadPublishPage(HttpServletRequest req, ModelMap map){
-        
+
         return new ModelAndView("homepage");
     }
 
