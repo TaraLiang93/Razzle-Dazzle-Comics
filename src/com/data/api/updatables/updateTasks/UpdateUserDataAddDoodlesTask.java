@@ -8,7 +8,6 @@ import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.UpdateTask;
 import com.data.api.queries.external.GetDoodlesByIDCommand;
 import com.data.creation.Doodle;
-import com.google.appengine.api.users.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class UpdateUserDataAddDoodlesTask implements UpdateTask<UserData> {
         this.doodleId = doodleID;
     }
 
-    public UpdateUserDataAddDoodlesTask(User user, String strId){
+    public UpdateUserDataAddDoodlesTask( String strId){
         try {
             this.doodleId = Long.parseLong(strId);
         }
