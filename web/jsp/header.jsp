@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +33,7 @@
     <script src="/js/navbar.js"></script>
     <script src="/js/globals.js"></script>
 
+
     <c:if test="${not empty param.js}">
         <c:forEach items = "${param.js}" var = "file">
                 <script src="${file}"></script>
@@ -46,11 +47,9 @@
     </c:if>
 
 
-    <%--<c:if test="${fn:contains(pageContext.request.requestURL,'/create') }">--%>
-        <%--<c:if test="${userData eq null}">--%>
-            <%--<c:redirect url='/login'/>--%>
-        <%--</c:if>--%>
-    <%--</c:if>--%>
+    <c:if test="${globals.status eq 'create'}">
+            <div id="isAuth" style="display: none"><c:out value="${globals.isAuth}" /></div>
+    </c:if>
 
 </head>
 <body>
