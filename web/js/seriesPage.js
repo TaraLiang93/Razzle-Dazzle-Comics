@@ -1,9 +1,10 @@
 /**
  * Created by tara on 4/11/16.
  */
+var input;
+var imgForm;
 
 $("document").ready(function(){
-
     $("#uploadButton").click(function(){
        console.log("click upload new image");
         $("#imgPreview").attr("src",$("#img").attr("src"));
@@ -21,19 +22,16 @@ $("document").ready(function(){
             };
 
         };
+        imgForm= new FormData();
+        imgForm.append("imgSrc", event.target.files[0]);
+
+        console.log("This is input "+imgForm);
         reader.readAsDataURL(event.target.files[0]);
     });
     $("#saveImg").click(function(){
         console.log("update series image");
         $("#img").attr("src",$("#imgPreview").attr("src"));
-        $.ajax({
-           url:"/create/series/updateSeriesImage",
-            data: {img: $("#imgPreview").attr("src")},
-            type:"GET",
-            error: function(){
-                alert("Fail to update series image.");
-            }
-        });
+        $("#imgForm").submit();
 
     });
 
