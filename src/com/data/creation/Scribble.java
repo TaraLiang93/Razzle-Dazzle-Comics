@@ -79,15 +79,6 @@ public class Scribble {
         this.pageList = pageList;
     }
 
-    public List<Page> getPages(){
-        List<Page> pages = new ArrayList<>();
-
-        pages.add(new Page());
-        pages.add(new Page());
-
-        return pages;
-    }
-
     public void addPageToList( Key<Page> pageKey){
         pageList.add(pageKey);
     }
@@ -98,7 +89,7 @@ public class Scribble {
         return Key.create(Scribble.class, scribbleId);
     } //TODO : Make sure scribbleID non-null
 
-    public List<Page> getPages2(){
+    public List<Page> getPages(){
         Readable<Page> getPagesFromTagsKeysAbstracted = new GetEntityListFromKeyListCommand<>(getPageList());
         List<Page> pageList = null;
         try {

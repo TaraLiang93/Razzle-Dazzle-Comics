@@ -4,8 +4,6 @@ import com.data.api.createables.fillCommands.SceneFillCommand;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Createable;
-import com.data.api.interfaces.Readable;
-import com.data.api.queries.external.GetSceneByIDCommand;
 import com.data.creation.Page;
 import com.data.creation.Scene;
 import com.googlecode.objectify.Key;
@@ -28,6 +26,10 @@ public class PageCreater extends Createable<Page> {
     @Override
     protected Page getEntity() throws CreateException, FetchException{
 
+        if(pageModel == null){
+            throw new CreateException("Page Model should not be null");
+        }
+
         Page page = new Page();
 //        page.setSummary( pageModel.getSummary());
 //        if(pageModel.getLayout() != null) {
@@ -36,27 +38,14 @@ public class PageCreater extends Createable<Page> {
 //        page.setNumRevisions(pageModel.getNumRevisions());
 
         List<Key<Scene>> sceneList = new ArrayList<>();
+
         for(SceneModel sceneModel: pageModel.getScenes() ){
-            // if doesn't exist, create it
-            if( sceneModel.getId() == null || sceneModel.getId().equals("") ){
-                // create if
                 Createable<Scene> sceneCreater = new SceneCreater(sceneModel);
                 Scene sceneCreated = sceneCreater.createEntity( new SceneFillCommand());
                 sceneList.add(sceneCreated.getKey());
-            }
-            else {
-                Readable<Scene> getScene = new GetSceneByIDCommand(sceneModel.getId());
-                Scene scene = getScene.fetch().getResult();
-                if (scene != null) {
-                    sceneList.add(scene.getKey());
-                }
-            }
-
         }
 
-        page.setSceneList( sceneList);
-
-//        pageModel.getComments(); ignore for now
+        page.setSceneList(sceneList);
         return page;
     }
 }
