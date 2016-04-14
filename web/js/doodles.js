@@ -20,8 +20,8 @@ $(document).ready(function() {
         //if(validArgs($("#doodleTitle"), $("#doodleDescription")))
         //{
         var jsonObj = {"canvasImage": JSON.stringify(canvas), "doodleTitle": doodleTitleTag, "doodleDescription": doodleDescriptionTag};
-        if($("loadDoodleId").text() != "")
-            jsonObj.push("doodleId",$("loadDoodleId").text());
+        if($("#loadDoodleId").text() != "")
+            jsonObj["doodleId"] = $("#loadDoodleId").text();
             $.post("/create/doodle/save", jsonObj)
                 .done(function () {
                     $(location).attr('href', "/create/ideas");

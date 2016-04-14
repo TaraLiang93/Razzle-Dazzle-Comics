@@ -69,7 +69,7 @@
                     <c:forEach var="i" items="${doodles}">
                         <div class="span2">
                             <div class="col-sm-3 col-md-3">
-                                <div id="thing" class="thumbnail list-item doodle">
+                                <div id="${i.doodleId}" class="thumbnail list-item doodle">
                                     <img class="idea" src="/img/logo.jpg">
                                     <div class="caption">
                                         <h3>${i.title}</h3>
