@@ -1,7 +1,9 @@
 package com.rdc.create;
 
 import com.data.api.createables.DoodleCreater;
+import com.data.api.createables.ScribbleCreater;
 import com.data.api.createables.fillCommands.DoodleFillCommand;
+import com.data.api.createables.fillCommands.ScribbleFillCommand;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
@@ -10,15 +12,14 @@ import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetDoodlesByIDCommand;
 import com.data.api.queries.external.GetDoodlesOfUserDataCommand;
+import com.data.api.queries.external.GetScribblesByIDCommand;
+import com.data.api.queries.external.GetScribblesOfUserDataCommand;
 import com.data.api.updatables.DoodleUpdater;
 import com.data.api.updatables.updateTasks.UpdateDoodleTask;
+import com.data.api.updatables.updateTasks.UpdateScribbleTask;
 import com.data.creation.Doodle;
-import com.data.api.createables.ScribbleCreater;
-import com.data.api.createables.fillCommands.ScribbleFillCommand;
-import com.data.api.exceptions.CreateException;
 import com.data.creation.Scribble;
 import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.model.ScribbleModel;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by drodrigues on 3/29/16.
@@ -45,36 +48,26 @@ public class IdeaFactoryController {
     public ModelAndView loadIdeaFactory(HttpSession session, ModelMap map){
 
         User user = UserServiceFactory.getUserService().getCurrentUser();
-        //map.put("doodles", doodles);
-        //map.put("scribbles", doodles);
-        Doodle doodle1 = new Doodle();
-        doodle1.setTitle("Ayyyy");
-        doodle1.setDescription("Awww Yeahhh");
 
-        Doodle doodle2 = new Doodle();
-        doodle2.setTitle("Beeeee");
-        doodle2.setDescription("Be Bop Boop");
+        if(user == null) return new ModelAndView("/logout");
 
-        Doodle doodle3 = new Doodle();
-        doodle3.setTitle("Seeee");
-        doodle3.setDescription("See ya next tuesday");
-
-        List<Doodle> doodles = new LinkedList<>();
-        if(UserServiceFactory.getUserService().getCurrentUser() != null) {
-            Readable<Doodle> getUserDoodles = new GetDoodlesOfUserDataCommand(UserServiceFactory.getUserService().getCurrentUser());
+            List<Doodle> doodles = new LinkedList<>();
+            Readable<Doodle> getUserDoodles = new GetDoodlesOfUserDataCommand(user);
             try {
                 List<Doodle> doodleList = getUserDoodles.fetch().getList();
                 map.put("doodles", doodleList);
             } catch (FetchException e) {
                 e.printStackTrace();
             }
-        }
 
-        doodles.add(doodle1);
-        doodles.add(doodle2);
-        doodles.add(doodle3);
-
-        map.put("scribbles", doodles);
+            List<Scribble> scribbles = new LinkedList<>();
+            Readable<Scribble> getUserScribbles = new GetScribblesOfUserDataCommand(user);
+            try {
+                List<Scribble> scribbleList = getUserScribbles.fetch().getList();
+                map.put("scribbles", scribbleList);
+            } catch (FetchException e) {
+                e.printStackTrace();
+            }
 
         return new ModelAndView("ideaFactory");
     }
@@ -86,10 +79,21 @@ public class IdeaFactoryController {
         System.out.println("ID : " + id);
         if(id != null && id.equals("new")){
             System.out.println("New!");
+            map.put("scribble", new Scribble());
         }
         else{
+            User user = UserServiceFactory.getUserService().getCurrentUser();
             System.out.println("Old!");
-            map.put("scribble", new Scribble("This is a title, Yay"));
+            Readable<Scribble> q = new GetScribblesByIDCommand(id);
+            Scribble scribble = null;
+            try {
+                scribble = q.fetch().getResult();
+                map.put("scribble", scribble);
+            } catch (FetchException e) {
+                e.printStackTrace();
+                map.put("scribble", new Scribble());
+            }
+
         }
 
         return new ModelAndView("scribbles", "scribbleModel", new ScribbleModel());
@@ -101,7 +105,11 @@ public class IdeaFactoryController {
         System.out.println("Made It! -->" + model);
 
         if(model.getId() != null && !model.getId().equals("")){ //It Exists, update it
-
+            try {
+                new Updateable().updateEntity(new GetScribblesByIDCommand(model.getId()), new UpdateScribbleTask(model));
+            } catch (FetchException | UpdateException | CreateException e) {
+                e.printStackTrace();
+            }
         }
         else{ //It's brand new
 

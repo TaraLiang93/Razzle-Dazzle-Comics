@@ -589,8 +589,6 @@ public class Test {
             model.setTitle("Test");
             model.setDescription("Test");
 
-            Createable<Scribble> scribbleCreater = new ScribbleCreater("Scribble Title", " Scribble Description");
-            Scribble scribble = scribbleCreater.createEntity(new ScribbleFillCommand(pageList));
             Createable<Scribble> scribbleCreater = new ScribbleCreater("Scribble Title", "Description");
             Scribble scribble = scribbleCreater.createEntity(new ScribbleFillCommand(model));
 
