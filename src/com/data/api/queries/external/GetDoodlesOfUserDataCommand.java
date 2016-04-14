@@ -30,8 +30,10 @@ public class GetDoodlesOfUserDataCommand extends Readable {
 
     @Override
     public Container fetch() throws FetchException{
+        //get userdata from id
         Readable<UserData> getUserData = new GetUserDataByIDCommand(user.getUserId());
         UserData userData = getUserData.fetch().getResult();
+        //get doodles of userdata
         Readable<Doodle> getDoodlesFromDoodleKeysAbtracted = new GetEntityListFromKeyListCommand<>(userData.getDoodleList());
         return getDoodlesFromDoodleKeysAbtracted.fetch();
     }

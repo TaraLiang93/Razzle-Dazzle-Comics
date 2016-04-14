@@ -1,12 +1,11 @@
 package com.data.api.queries.external;
 
-import com.data.UserData;
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
 import com.data.creation.Chapter;
-import com.data.creation.Doodle;
+import com.data.structure.Series;
 import com.google.appengine.api.datastore.Query.Filter;
 
 /**
@@ -40,10 +39,13 @@ public class GetChaptersOfSeriesCommand extends Readable {
 
     @Override
     public Container fetch() throws FetchException{
-        Readable<UserData> getUserData = new GetSeriesByIDCommand(user.getUserId());
-        UserData userData = getUserData.fetch().getResult();
-        Readable<Doodle> getDoodlesFromDoodleKeysAbtracted = new GetEntityListFromKeyListCommand<>(userData.getDoodleList());
-        return getDoodlesFromDoodleKeysAbtracted.fetch();
+        // get series from id
+        Readable<Series> getSeries = new GetSeriesByIDCommand(seriesId);
+        Series series = getSeries.fetch().getResult();
+
+        // get chapters of series
+        Readable<Chapter> getChapterFromChapterKeysAbtracted = new GetEntityListFromKeyListCommand<>(series.getChapterList());
+        return getChapterFromChapterKeysAbtracted.fetch();
     }
 
 }
