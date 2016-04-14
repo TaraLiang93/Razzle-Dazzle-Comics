@@ -114,9 +114,9 @@
             <c:when test="${globals.status == 'create'}">
                 <jsp:include page="writeNavbar.jsp"/>
             </c:when>
-            <c:otherwise>
-                <c:out value="Error loding the sub navbar!"/>
-            </c:otherwise>
+            <%--<c:otherwise>--%>
+                <%--<c:out value="Error loding the sub navbar!"/>--%>
+            <%--</c:otherwise>--%>
         </c:choose>
     </header>
 
