@@ -18,10 +18,9 @@
         <c:forEach var="i" items="${series}">
             <div class="span2">
                 <div class="col-sm-3">
-                    <div id="${i.seriesId}" class="thumbnail list-item series">
+                    <div id="${i.seriesID}" class="thumbnail list-item series">
                         <div class="caption">
                             <h3>${i.title}</h3>
-                            <p>${i.description}</p>
                         </div>
                     </div>
                 </div>
