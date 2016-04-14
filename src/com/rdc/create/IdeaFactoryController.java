@@ -1,5 +1,6 @@
 package com.rdc.create;
 
+import com.data.Globals;
 import com.data.UserData;
 import com.data.api.createables.DoodleCreater;
 import com.data.api.createables.fillCommands.DoodleFillCommand;
@@ -47,6 +48,14 @@ public class IdeaFactoryController {
 
     @RequestMapping(value=IDEA_HOME, method= {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView loadIdeaFactory(HttpSession session, ModelMap map){
+
+        Globals globals = (Globals) session.getAttribute("globals");
+        if(globals == null)
+        {
+            globals = new Globals();
+            session.setAttribute("globals",globals);
+        }
+        globals.setStatus("create");
 
         Doodle doodle1 = new Doodle();
         doodle1.setTitle("Ayyyy");

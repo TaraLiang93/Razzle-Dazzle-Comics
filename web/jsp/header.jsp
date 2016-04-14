@@ -87,7 +87,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create Comics</a>
                             <ul class="dropdown-menu">
                                 <li><a href="/create/ideas">Idea Factory</a></li>
-                                <li><a href="#">Project Admin</a></li>
+                                <li><a href="/create/projectAdminPage">Project Admin</a></li>
                                 <li><a href="#">Upload</a></li>
                             </ul>
                         </li>
@@ -108,10 +108,10 @@
         </nav>
 
         <c:choose>
-            <c:when test="${status == 'read'}">
+            <c:when test="${globals.status == 'read'}">
                 <jsp:include page="readNavbar.jsp"/>
             </c:when>
-            <c:when test="${status == 'write'}">
+            <c:when test="${globals.status == 'create'}">
                 <jsp:include page="writeNavbar.jsp"/>
             </c:when>
             <c:otherwise>

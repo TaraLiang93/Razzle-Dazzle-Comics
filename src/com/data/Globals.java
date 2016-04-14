@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public class Globals implements Serializable {
 
+
     private String status;
     private boolean accountCreated;
 

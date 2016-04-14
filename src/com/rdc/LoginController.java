@@ -31,9 +31,10 @@ public class LoginController {
 
 
     public static final String LOGIN = "/login";
+    public static final String HOME = "/";
     public static final String LOGOUT = "/logout";
 
-    @RequestMapping(value="/", method= RequestMethod.GET)
+    @RequestMapping(value=HOME, method= RequestMethod.GET)
     public ModelAndView homepage(HttpSession session, ModelMap map){
 
         if(session.getAttribute("userData") == null && session.getAttribute("loginURL") == null)
@@ -45,7 +46,7 @@ public class LoginController {
             globals = new Globals();
             session.setAttribute("globals",globals);
         }
-
+        globals.setStatus("home");
         return new ModelAndView("homepage");
     }
 
@@ -81,7 +82,7 @@ public class LoginController {
             }
         } catch (FetchException | CreateException ex)
         {
-            ref = "/"; //Redirect back to login page if failed to create User Data
+            ref = HOME; //Redirect back to login page if failed to create User Data
             ex.printStackTrace();
         }
 
@@ -102,7 +103,7 @@ public class LoginController {
         session.removeAttribute("userData");
 
 
-        return "redirect:" + userService.createLogoutURL("/");
+        return "redirect:" + userService.createLogoutURL(HOME);
 
     }
 
