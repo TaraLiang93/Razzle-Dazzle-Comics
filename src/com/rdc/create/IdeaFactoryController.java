@@ -1,5 +1,6 @@
 package com.rdc.create;
 
+import com.data.UserData;
 import com.data.api.createables.DoodleCreater;
 import com.data.api.createables.fillCommands.DoodleFillCommand;
 import com.data.api.exceptions.CreateException;
@@ -10,10 +11,14 @@ import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetDoodlesByIDCommand;
 import com.data.api.queries.external.GetDoodlesOfUserDataCommand;
+import com.data.api.queries.external.GetUserDataByIDCommand;
 import com.data.api.updatables.DoodleUpdater;
+import com.data.api.updatables.UserDataUpdater;
 import com.data.api.updatables.updateTasks.UpdateDoodleTask;
+import com.data.api.updatables.updateTasks.UpdateUserDataTask;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
+import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.labs.repackaged.org.json.JSONString;
 import com.model.ScribbleModel;
@@ -139,9 +144,13 @@ public class IdeaFactoryController {
             Long doodleId = Long.parseLong(dId);
             Updateable<Doodle> updateDoodle = new DoodleUpdater();
             Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(doodleId);
-            try {
+            try
+            {
                 Doodle theDoodle = getDoodle.fetch().getResult();
                 updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(doodleTitle, doodleDescription, canvasImage) );
+                Updateable<UserData> userDataUpdater = new UserDataUpdater();
+                Readable<UserData> userDataReadable = new GetUserDataByIDCommand(UserServiceFactory.getUserService().getCurrentUser().getUserId());
+                userDataUpdater.updateEntity(userDataReadable, new UpdateUserDataTask(theDoodle) );
             } catch (CreateException | FetchException | UpdateException  e) {
                 e.printStackTrace();
             }
