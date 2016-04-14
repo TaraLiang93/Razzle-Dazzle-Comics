@@ -14,6 +14,11 @@ public class SeriesCreater extends Createable<Series> {
 
     @Override
     protected Series getEntity() throws CreateException, FetchException {
+        Series series = new Series();
+
+
+
+
         return null;
     }
 }
