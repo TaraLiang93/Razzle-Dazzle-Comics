@@ -22,10 +22,9 @@ public class SceneCreater extends Createable<Scene> {
         if(sceneModel == null){
             throw new CreateException();
         }
-        Scene scene =  new Scene(0, sceneModel.getSetting());
-        scene.setTinyMCEText( sceneModel.getTinyMCEText() );
-        scene.setIndex( sceneModel.getIndex() );
-
+        Scene scene =  new Scene(sceneModel.getIndex(),
+                                sceneModel.getSetting(),
+                                sceneModel.getTinyMCEText());
         return scene;
     }
 

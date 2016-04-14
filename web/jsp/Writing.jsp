@@ -30,6 +30,7 @@
                         <div class="content">
                             <div class="narritive">
                                 <input type="hidden" name="pages[${pageIndex.index}].scenes[${i.index}].id" value="${scene.id}"/>
+                                <input type="hidden" name="pages[${pageIndex.index}].scenes[${i.index}].index" value="${i.index}"/>
                                 <textarea id="Page${pageIndex.index + 1}writingArea${i.index}" name="pages[${pageIndex.index}].scenes[${i.index}].tinyMCEText" class="tinyMCE">
                                         ${scene.tinyMCEText}
                                 </textarea>

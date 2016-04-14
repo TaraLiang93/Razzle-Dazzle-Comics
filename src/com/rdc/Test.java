@@ -30,6 +30,7 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
 import com.model.PageModel;
 import com.model.SceneModel;
+import com.model.ScribbleModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -213,7 +214,7 @@ public class Test {
 
             ScribbleCreater scribbleCreater = new ScribbleCreater("title");
             List<Key<Page>> pageList = new ArrayList<>();
-            Scribble scribble = scribbleCreater.createEntity(new ScribbleFillCommand(pageList));
+           // Scribble scribble = scribbleCreater.createEntity(new ScribbleFillCommand(pageList));
         }
         catch (Exception ex){
             ex.printStackTrace();
@@ -254,7 +255,7 @@ public class Test {
 
         //createScribble
         ScribbleCreater scribbleCreater = new ScribbleCreater("I am ScribbleCreater created");
-        Scribble createdScribble =  scribbleCreater.createEntity(new ScribbleFillCommand(pageList));
+        //Scribble createdScribble =  scribbleCreater.createEntity(new ScribbleFillCommand(pageList));
 
 //        james.addDoodleToList(createdDoodle.getKey());
 //        james.addScribbleToList(createdScribble.getKey());
@@ -269,8 +270,8 @@ public class Test {
         System.out.println( "Readable to fetch Doodle has title: " + getDoodleReadable.fetch().getResult().getTitle() );
 
         //get Scribble by passing in the long id of the scribble
-        Readable<Scribble> getScribbleReadable = new GetScribblesByIDCommand(createdScribble.getScribbleId());
-        System.out.println( "Readable to fetch Scribble has title " + getScribbleReadable.fetch().getResult().getTitle());
+        //Readable<Scribble> getScribbleReadable = new GetScribblesByIDCommand(createdScribble.getScribbleId());
+       // System.out.println( "Readable to fetch Scribble has title " + getScribbleReadable.fetch().getResult().getTitle());
 
 //        Readable<UserData> getUserdataReadable = new GetEntityFromKeyCommand<>(james.getKey());
 //        UserData theUser = getUserdataReadable.fetch().getResult();
@@ -308,8 +309,8 @@ public class Test {
 
         Updateable<Scribble> updateScribble = new ScribbleUpdater();
                 // frontend will have the scribble id of the scribble to get
-        Readable<Scribble> getScribble = new GetScribblesByIDCommand(createdScribble.getScribbleId());
-        Scribble theScribble = getScribble.fetch().getResult();
+        //Readable<Scribble> getScribble = new GetScribblesByIDCommand(createdScribble.getScribbleId());
+        //Scribble theScribble = getScribble.fetch().getResult();
         String updatedScribbleTitle = "I updated Scribble title yo";
 
 //        //update scribble
@@ -339,8 +340,8 @@ public class Test {
         System.out.println( "Updated Doodle has title: " + getDoodleReadable.fetch().getResult().getTitle() );
 
         //get Scribble by passing in the long id of the scribble
-        Readable<Scribble> getScribbleReadable2 = new GetScribblesByIDCommand(createdScribble.getScribbleId());
-        System.out.println( "Updated Scribble has title " + getScribbleReadable.fetch().getResult().getTitle());
+        //Readable<Scribble> getScribbleReadable2 = new GetScribblesByIDCommand(createdScribble.getScribbleId());
+       // System.out.println( "Updated Scribble has title " + getScribbleReadable.fetch().getResult().getTitle());
 
 //        Readable<UserData> getUserdataReadable2 = new GetEntityFromKeyCommand<>(james.getKey());
 //        UserData theUser2 = getUserdataReadable.fetch().getResult();
@@ -492,19 +493,19 @@ public class Test {
 
         List<Key<Page>> pageList = new ArrayList<>();
 
-        Scribble scribble = scribbleCreateable.createEntity(new ScribbleFillCommand(pageList));
+        //Scribble scribble = scribbleCreateable.createEntity(new ScribbleFillCommand(pageList));
 
 
         Updateable<UserData> userDataUpdater3 = new UserDataUpdater();
         Readable<UserData> getUserData3 = new GetEntityFromKeyCommand<>( userData.getKey());
-        try {
+        /*try {
             userDataUpdater3.updateEntity(getUserData3, new UpdateUserDataTask(scribble));
         }
         catch( FetchException| UpdateException ex){
             ex.printStackTrace();
 
         }
-
+*/
         for(Scribble scrib : userData.getScribbles()){
             System.out.println( "Scribble Title is: " + scrib.getTitle() + " and description is: " + scrib.getDescription());
         }
@@ -580,10 +581,18 @@ public class Test {
             pageList.add(pageCreated1.getKey());
             pageList.add(pageCreated2.getKey());
 
-
+            List<PageModel> mList = new ArrayList<>();
+            mList.add(page1Model);
+            mList.add(page2Model);
+            ScribbleModel model = new ScribbleModel();
+            model.setPages(mList);
+            model.setTitle("Test");
+            model.setDescription("Test");
 
             Createable<Scribble> scribbleCreater = new ScribbleCreater("Scribble Title", " Scribble Description");
             Scribble scribble = scribbleCreater.createEntity(new ScribbleFillCommand(pageList));
+            Createable<Scribble> scribbleCreater = new ScribbleCreater("Scribble Title", "Description");
+            Scribble scribble = scribbleCreater.createEntity(new ScribbleFillCommand(model));
 
             if(scribble !=null){
                 UserService service = UserServiceFactory.getUserService();

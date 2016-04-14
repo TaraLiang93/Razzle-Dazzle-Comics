@@ -13,7 +13,12 @@ import com.data.api.queries.external.GetDoodlesOfUserDataCommand;
 import com.data.api.updatables.DoodleUpdater;
 import com.data.api.updatables.updateTasks.UpdateDoodleTask;
 import com.data.creation.Doodle;
+import com.data.api.createables.ScribbleCreater;
+import com.data.api.createables.fillCommands.ScribbleFillCommand;
+import com.data.api.exceptions.CreateException;
 import com.data.creation.Scribble;
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.model.ScribbleModel;
 import org.springframework.stereotype.Controller;
@@ -23,8 +28,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by drodrigues on 3/29/16.
@@ -41,6 +44,9 @@ public class IdeaFactoryController {
     @RequestMapping(value=IDEA_HOME, method= {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView loadIdeaFactory(HttpSession session, ModelMap map){
 
+        User user = UserServiceFactory.getUserService().getCurrentUser();
+        //map.put("doodles", doodles);
+        //map.put("scribbles", doodles);
         Doodle doodle1 = new Doodle();
         doodle1.setTitle("Ayyyy");
         doodle1.setDescription("Awww Yeahhh");
@@ -93,6 +99,18 @@ public class IdeaFactoryController {
     public ModelAndView saveScribble(@ModelAttribute("scribbleModel") ScribbleModel model, HttpServletRequest req){
 
         System.out.println("Made It! -->" + model);
+
+        if(model.getId() != null && !model.getId().equals("")){ //It Exists, update it
+
+        }
+        else{ //It's brand new
+
+            try {
+                new ScribbleCreater(model.getTitle(), model.getDescription()).createEntity(new ScribbleFillCommand(model));
+            } catch (CreateException e) {
+                e.printStackTrace();
+            }
+        }
 
         return new ModelAndView("redirect:" + IDEA_HOME);
     }

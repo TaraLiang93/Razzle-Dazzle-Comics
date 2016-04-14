@@ -79,7 +79,6 @@ public class Scribble {
         this.pageList = pageList;
     }
 
-
     public void addPageToList( Key<Page> pageKey){
         pageList.add(pageKey);
     }
