@@ -68,6 +68,7 @@ public class UpdateScribbleTask implements UpdateTask<Scribble> {
                         scene.setSetting(sceneModel.getSetting());
                         scene.setTinyMCEText(sceneModel.getTinyMCEText());
                         scene.setIndex(sceneModel.getIndex());
+                        sceneList.add(scene.getKey());
                     }
                     else{ //It's new
                         Createable<Scene> pageCreater = new SceneCreater(sceneModel);
