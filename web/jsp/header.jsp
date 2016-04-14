@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +33,7 @@
     <script src="/js/navbar.js"></script>
     <script src="/js/globals.js"></script>
 
+
     <c:if test="${not empty param.js}">
         <c:forEach items = "${param.js}" var = "file">
                 <script src="${file}"></script>
@@ -46,11 +47,9 @@
     </c:if>
 
 
-    <%--<c:if test="${fn:contains(pageContext.request.requestURL,'/create') }">--%>
-        <%--<c:if test="${userData eq null}">--%>
-            <%--<c:redirect url='/login'/>--%>
-        <%--</c:if>--%>
-    <%--</c:if>--%>
+    <c:if test="${globals.status eq 'create'}">
+            <div id="isAuth" style="display: none"><c:out value="${globals.isAuth}" /></div>
+    </c:if>
 
 </head>
 <body>
@@ -87,7 +86,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create Comics</a>
                             <ul class="dropdown-menu">
                                 <li><a href="/create/ideas">Idea Factory</a></li>
-                                <li><a href="#">Project Admin</a></li>
+                                <li><a href="/create/projectAdminPage">Project Admin</a></li>
                                 <li><a href="#">Upload</a></li>
                             </ul>
                         </li>
@@ -108,15 +107,15 @@
         </nav>
 
         <c:choose>
-            <c:when test="${status == 'read'}">
+            <c:when test="${globals.status == 'read'}">
                 <jsp:include page="readNavbar.jsp"/>
             </c:when>
-            <c:when test="${status == 'write'}">
+            <c:when test="${globals.status == 'create'}">
                 <jsp:include page="writeNavbar.jsp"/>
             </c:when>
-            <c:otherwise>
-                <c:out value="Error loding the sub navbar!"/>
-            </c:otherwise>
+            <%--<c:otherwise>--%>
+                <%--<c:out value="Error loding the sub navbar!"/>--%>
+            <%--</c:otherwise>--%>
         </c:choose>
     </header>
 

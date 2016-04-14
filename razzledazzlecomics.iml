@@ -4,11 +4,6 @@
     <option name="compassConfigPath" value="$MODULE_DIR$/config.rb" />
     <option name="compassExecutableFilePath" value="/usr/local/bin/compass" />
     <option name="compassSupportEnabled" value="true" />
-    <option name="importPaths">
-      <list>
-        <option value="/usr/local/lib/ruby/gems/2.3.0/gems/compass-core-1.0.3/stylesheets" />
-      </list>
-    </option>
   </component>
   <component name="FacetManager">
     <facet type="web" name="Web">
@@ -58,8 +53,7 @@
     <orderEntry type="library" name="jstl:jstl:1.2" level="project" />
     <orderEntry type="library" name="ant:ant-apache-log4j:1.6.5" level="project" />
     <orderEntry type="library" name="com.googlecode.objectify:objectify:5.1.9" level="project" />
-    <orderEntry type="library" name="commons-fileupload:commons-fileupload:1.3.1" level="application" />
-    <orderEntry type="library" name="commons-fileupload:commons-fileupload:1.3.1" level="project" />
     <orderEntry type="library" name="compass-library" level="project" />
+    <orderEntry type="library" name="commons-fileupload:commons-fileupload:1.3.1" level="project" />
   </component>
 </module>

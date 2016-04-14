@@ -7,4 +7,12 @@ $(document).ready(function() {
 
     $("body").height( $(window).height()-$("body").height() );
 
+    $(".reading").click(function() {
+        $(location).attr("href","/read");
+    });
+
+    $(".creation").click(function() {
+        $(location).attr("href","/create");
+    });
+
 });

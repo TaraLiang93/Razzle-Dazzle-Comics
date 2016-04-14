@@ -31,9 +31,10 @@ public class LoginController {
 
 
     public static final String LOGIN = "/login";
+    public static final String HOME = "/";
     public static final String LOGOUT = "/logout";
 
-    @RequestMapping(value="/", method= RequestMethod.GET)
+    @RequestMapping(value=HOME, method= RequestMethod.GET)
     public ModelAndView homepage(HttpSession session, ModelMap map){
 
         if(session.getAttribute("userData") == null && session.getAttribute("loginURL") == null)
@@ -45,13 +46,21 @@ public class LoginController {
             globals = new Globals();
             session.setAttribute("globals",globals);
         }
-
+        globals.setStatus("home");
         return new ModelAndView("homepage");
     }
 
 
     @RequestMapping(value =LOGIN, method= RequestMethod.GET)
     public String login(@RequestHeader("Referer") String ref, HttpSession session, ModelMap map){
+
+        Globals globals = (Globals) session.getAttribute("globals");
+        if(globals == null)
+        {
+            globals = new Globals();
+            session.setAttribute("globals",globals);
+        }
+        globals.setAuth(true);
 
         UserService userService = UserServiceFactory.getUserService();
 
@@ -81,7 +90,7 @@ public class LoginController {
             }
         } catch (FetchException | CreateException ex)
         {
-            ref = "/"; //Redirect back to login page if failed to create User Data
+            ref = HOME; //Redirect back to login page if failed to create User Data
             ex.printStackTrace();
         }
 
@@ -94,6 +103,14 @@ public class LoginController {
     @RequestMapping(value =LOGOUT, method= RequestMethod.GET)
     public String logout(HttpSession session, ModelMap map){
 
+        Globals globals = (Globals) session.getAttribute("globals");
+        if(globals == null)
+        {
+            globals = new Globals();
+            session.setAttribute("globals",globals);
+        }
+        globals.setAuth(false);
+
         UserService userService = UserServiceFactory.getUserService();
 
         if(session.getAttribute("logoutURL") != null)
@@ -102,7 +119,7 @@ public class LoginController {
         session.removeAttribute("userData");
 
 
-        return "redirect:" + userService.createLogoutURL("/");
+        return "redirect:" + userService.createLogoutURL(HOME);
 
     }
 

@@ -9,10 +9,12 @@ import java.io.Serializable;
  */
 public class Globals implements Serializable {
 
+
     private String status;
     private boolean accountCreated;
+    private boolean isAuth;
 
-    public boolean isAccountCreated() {
+    public boolean getIsAccountCreated() {
         return accountCreated;
     }
 
@@ -26,5 +28,13 @@ public class Globals implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public boolean getIsAuth() {
+        return isAuth;
+    }
+
+    public void setAuth(boolean auth) {
+        isAuth = auth;
     }
 }
