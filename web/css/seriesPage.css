@@ -5,26 +5,26 @@ body {
 #outer {
     border-radius: 5px;
     border: 2px solid;
-    margin: 1% 7.5% 0 7.5%;
+    margin: 1% 2.5% 1%;
     padding: 10px;
-    width: 85%;
-    height: 85%;
+    width: 95%;
 }
 
 #seriesInfo {
     display: inline-block;
+    height: 100%;
     margin: 20px;
     width: 20%;
-    height: 100%
 }
 
-#seriesChapter{
-    overflow-y: scroll;
+#seriesChapter {
     height: 100%;
+    overflow-y: scroll;
+    width: 75%;
 }
 
 #seriesImg {
-    margin: 0% 5% 0% 5%;
+    margin: 0% 5%;
     position: relative;
 }
 
@@ -35,15 +35,15 @@ body {
     top: 5px;
 }
 
-#uploadButton{
+#uploadButton {
+    background-color: #e5e7e1;
     border-radius: 5px;
-    border: 2px solid;
-    border-color: #E5E7E1;
+    border: 2px solid #e5e7e1;
     padding: 2px;
 }
 
 #title {
-    margin: 5% 5% 0% 5%;
+    margin: 5% 5% 0%;
     text-align: center;
 }
 
@@ -51,11 +51,11 @@ body {
     border-radius: 5px;
     border: 2px solid;
     font-size: 20px;
-    margin: 5% 5% 0% 5%;
-    padding: 28px 10px 10px 10px;
-    position: relative;
-    overflow-y: scroll;
     height: 40%;
+    margin: 5% 5% 0%;
+    overflow-y: scroll;
+    padding: 28px 10px 10px;
+    position: relative;
 }
 
 .updateDescr {
@@ -67,7 +67,7 @@ body {
 .addUnpublish {
     display: block;
     font-size: 20px;
-    margin: 5% 5% 0% 5%;
+    margin: 5% 5% 0%;
 }
 
 .chapter {
@@ -79,11 +79,9 @@ body {
 }
 
 .chapter p {
-    display:inline-flex;
+    display: inline-flex;
     font-size: 20px;
     margin: 10px 50px 0px 0px;
-    /*border-radius: 5px;*/
-    /*border: 2px solid;*/
 }
 
 #chapterImg {
@@ -91,18 +89,16 @@ body {
 }
 
 #chapterTitle {
-    display:inline-flex;
-    /*border-radius: 5px;*/
-    /*border: 2px solid;*/
+    display: inline-flex;
     margin: 10px 50px 0px 0px;
 }
 
-#textboxDescr{
-    width: 500px;
+#textboxDescr {
     height: 250px;
+    width: 500px;
 }
 
-#img{
+#img {
     max-height: 100%;
     max-width: 100%;
 }

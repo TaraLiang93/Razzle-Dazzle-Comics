@@ -95,7 +95,9 @@
                 </div>
                 <div class="modal-body">
                     <img id="imgPreview" src="">
-                    <input id="browseImg" type="file" accept="image/*">
+                    <form id="imgForm" method="post" action="/create/series/updateSeriesImage" enctype="multipart/form-data">
+                        <input name="imgSrc"  id="browseImg" type="file" accept="image/*">
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

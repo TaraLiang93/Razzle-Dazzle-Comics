@@ -1,6 +1,8 @@
 package com.rdc.create;
 
 import com.model.ScribbleModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -20,18 +22,22 @@ import java.io.IOException;
 public class SeriesController {
 
     @RequestMapping(value="/create/series/updateDescription", method= RequestMethod.POST)
-    public ModelAndView updateSeriesDescr(@RequestParam String desc, HttpSession session){
+    @ResponseBody
+    public ResponseEntity<Boolean> updateSeriesDescr(@RequestParam String desc, HttpSession session){
 
         System.out.println("NEW DESCRIPTION: " + desc);
 
 
-        return new ModelAndView("homepage");
+        return new ResponseEntity(true, HttpStatus.OK);
     }
 
-    @RequestMapping(value="/create/series/updateSeriesImage", method=RequestMethod.GET)
-    public ModelAndView updateSeriesImg(@RequestParam String imgSrc, HttpSession session){
+    @RequestMapping(value="/create/series/updateSeriesImage", method=RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Boolean> updateSeriesImg(@RequestPart("imgSrc") MultipartFile imgSrc,
+                                                                                      HttpSession session){
         System.out.println("New image: "+ imgSrc);
-        return new ModelAndView("homepage");
+
+        return new ResponseEntity(true, HttpStatus.OK);
 
     }
 
