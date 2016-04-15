@@ -97,6 +97,6 @@ public class ProjectAdminPageController {
             }
         }
 
-        return "rediret:/create/projectAdminPage)";
+        return "redirect:/create/projectAdminPage";
     }
 }
