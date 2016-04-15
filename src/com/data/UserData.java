@@ -240,4 +240,8 @@ public class UserData implements java.io.Serializable {
     public void addFlowToList( Key<Flow> flow ) {
         this.flowList.add(flow);
     }
+
+    public void addSeriesToList( Key<Series> seriesKey){
+        this.seriesList.add(seriesKey);
+    }
 }
