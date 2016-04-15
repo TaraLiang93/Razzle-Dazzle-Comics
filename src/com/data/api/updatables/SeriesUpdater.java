@@ -1,4 +1,4 @@
-package com.data.api.updatables.updateTasks;
+package com.data.api.updatables;
 
 import com.data.api.interfaces.Updateable;
 import com.data.structure.Series;
