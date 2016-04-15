@@ -4,6 +4,7 @@ import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Createable;
 import com.data.structure.Series;
+import com.google.appengine.api.datastore.Blob;
 import com.model.SeriesModel;
 
 /**
@@ -11,21 +12,37 @@ import com.model.SeriesModel;
  */
 public class SeriesCreater extends Createable<Series> {
     SeriesModel seriesModel;
+    Blob seriesCover;
+    String title;
+    String description;
+    Boolean isPublished;
 
     public SeriesCreater(SeriesModel seriesModel){
         this.seriesModel = seriesModel;
     }
 
+    public SeriesCreater(Blob seriesCover, String title, String description, Boolean isPublished){
+        this.seriesCover = seriesCover;
+        this.title =title;
+        this.description = description;
+        this.isPublished = isPublished;
+    }
+
     @Override
     protected Series getEntity() throws CreateException, FetchException {
-        if( seriesModel == null){
-            throw new CreateException();
-        }
         Series series = new Series();
-        series.setSeriesCover(seriesModel.getSeriesCover());
-        series.setTitle( seriesModel.getTitle());
-        series.setDescription(seriesModel.getDescription());
-        series.setPublished(seriesModel.isPublished());
+        if( seriesModel != null) {
+            series.setSeriesCover(seriesModel.getSeriesCover());
+            series.setTitle(seriesModel.getTitle());
+            series.setDescription(seriesModel.getDescription());
+            series.setPublished(seriesModel.isPublished());
+        }
+        else{
+            series.setSeriesCover(this.seriesCover);
+            series.setTitle(this.title);
+            series.setDescription(this.description);
+            series.setPublished(this.isPublished);
+        }
 
         return series;
     }
