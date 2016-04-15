@@ -1,5 +1,6 @@
 package com.data.api.updatables.updateTasks;
 
+import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
@@ -8,6 +9,7 @@ import com.data.api.queries.external.GetFlowByIDCommand;
 import com.data.creation.Chapter;
 import com.data.structure.Flow;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,14 +29,20 @@ public class UpdateChapterFlowTask implements UpdateTask<Chapter> {
 
 
     @Override
-    public List<Chapter> update(Container<Chapter> entity) throws UpdateException {
+    public List<Chapter> update(Container<Chapter> entity) throws UpdateException, FetchException {
+        Chapter chapter = entity.getResult();
         if(this.flowIdLong == null){
             throw new UpdateException("UpdateChapterFlowTask flowIdLong is null");
         }
         else{
             Readable<Flow> loadFlow = new GetFlowByIDCommand(this.flowIdLong);
-//            loadFlow.fetch().getResult();
+//          Flow flow =  loadFlow.fetch().getResult();
+//            chapter.setTheFlow(flow.getKey());
         }
-        return null;
+
+        List<Chapter> chapterList = new ArrayList<>();
+        chapterList.add(chapter);
+
+        return chapterList;
     }
 }
