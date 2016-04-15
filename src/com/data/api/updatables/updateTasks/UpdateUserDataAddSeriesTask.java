@@ -37,7 +37,7 @@ public class UpdateUserDataAddSeriesTask implements UpdateTask<UserData> {
     @Override
     public List<UserData> update(Container<UserData> entity) throws UpdateException, FetchException, CreateException {
         if(  this.seriesId == null || entity == null){
-            throw new UpdateException("UpdateUserDataAddDoodlesTask doodleId or entity is null");
+            throw new UpdateException("UpdateUserDataAddSeriesTask seriesId or entity is null");
         }
 
         UserData userData = entity.getResult();
