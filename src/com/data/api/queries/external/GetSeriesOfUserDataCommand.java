@@ -36,6 +36,7 @@ public class GetSeriesOfUserDataCommand extends Readable {
         UserData userData = getUserData.fetch().getResult();
 
         Readable<Series> getSeriesFromSeriesKeysAbtracted = new GetEntityListFromKeyListCommand<>( userData.getSeriesList() );
+
         return getSeriesFromSeriesKeysAbtracted.fetch();
 
     }
