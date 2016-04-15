@@ -78,7 +78,7 @@ public class ProjectAdminPageController {
 
         User user = UserServiceFactory.getUserService().getCurrentUser();
 
-        for(int i = 0;i < 100;++i) {
+        for(int i = 0;i < 1000;++i) {
 
             Createable<Series> seriesCreater = new SeriesCreater(null,"Series "+ i,"This is a description",true);
             try {
