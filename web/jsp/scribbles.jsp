@@ -20,6 +20,8 @@
                 <h3 class="panel-title">Pages</h3>
             </div>
             <div class="panel-body">
+
+                <!-- Page Nav Tab -->
                 <ul id="pageTabs" class="nav nav-pills nav-stacked">
                     <c:forEach items = "${scribble.pages}" var = "page" varStatus="i">
                         <li role="presentation" class="page-tab ${i.index eq 0 ? "active" : ""}">
@@ -30,6 +32,7 @@
                         <a id="addPage" href="#addPage" aria-controls="plus" role="tab" data-toggle="tab"> + Page </a>
                     </li>
                 </ul>
+                <!-- END Page Nav Tab -->
             </div>
         </div>
     </div>
