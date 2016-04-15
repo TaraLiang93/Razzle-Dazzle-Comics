@@ -2,6 +2,7 @@ package com.rdc.create;
 
 import com.data.Globals;
 import com.data.api.createables.SeriesCreater;
+import com.data.api.createables.fillCommands.SeriesFillCommand;
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Createable;
 import com.data.api.queries.external.GetSeriesOfUserDataCommand;
@@ -69,7 +70,11 @@ public class ProjectAdminPageController {
 
         User user = UserServiceFactory.getUserService().getCurrentUser();
 
-//        Createable<Series> seriesCreater = new SeriesCreater();
+        for(int i = 0;i < 100;++i) {
+
+            Createable<Series> seriesCreater = new SeriesCreater(null,"Series "+ i,"This is a description",true);
+//            Series  series = seriesCreater.createEntity(new SeriesFillCommand());
+        }
 
         return "rediret:/create/projectAdminPage)";
     }
