@@ -9,6 +9,7 @@ import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.Updateable;
+import com.data.api.queries.external.GetSeriesByIDCommand;
 import com.data.api.queries.external.GetSeriesOfUserDataCommand;
 import com.data.api.queries.external.GetUserDataByIDCommand;
 import com.data.api.updatables.UserDataUpdater;
@@ -21,6 +22,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 import com.sun.org.apache.bcel.internal.generic.L2D;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,7 +55,7 @@ public class ProjectAdminPageController {
         try {
 
             Readable<Series> getUserSeries = new GetSeriesOfUserDataCommand(UserServiceFactory.getUserService().getCurrentUser());
-            Series seriesList = getUserSeries.fetch().getResult();
+            List<Series> seriesList = getUserSeries.fetch().getList();
             map.put("series",seriesList);
 
         } catch (FetchException e) {
@@ -73,30 +75,7 @@ public class ProjectAdminPageController {
 
         return new ModelAndView("projectAdminPage");
     }
-//    @RequestMapping(value="/createData", method= RequestMethod.GET)
-//    public String createData(HttpSession session, ModelMap map){
-//
-//        User user = UserServiceFactory.getUserService().getCurrentUser();
-//
-//        for(int i = 0;i < 1000;++i) {
-//
-//            Createable<Series> seriesCreater = new SeriesCreater(null,"Series "+ i,"This is a description",true);
-//            try {
-//                Series  series = seriesCreater.createEntity(new SeriesFillCommand());
-//                Readable<UserData> userDataReadable = new GetUserDataByIDCommand(UserServiceFactory.getUserService().getCurrentUser().getUserId());
-//                Updateable<UserData> userDataUpdateable = new UserDataUpdater();
-//                userDataUpdateable.updateEntity(userDataReadable,new UpdateUserDataAddSeriesTask(series.getSeriesID()));
-//
-//
-//            } catch (CreateException e) {
-//                e.printStackTrace();
-//            } catch (FetchException e) {
-//                e.printStackTrace();
-//            } catch (UpdateException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        return "redirect:/create/projectAdminPage";
-//    }
+
+
+
 }
