@@ -9,19 +9,17 @@
 <div role="tabpanel" class="tab-pane" id="series">
     <div class="row">
         <div id="newSeries" class="span2">
-            <div class="col-sm-3">
-                <div class="thumbnail list-item">
+            <div class="col-sm-2">
+                <div class="thumbnail list-item center-block">
                     <img class="idea" src="/img/plus_sign.jpg" alt="New Scribble"/>
                 </div>
             </div>
         </div>
         <c:forEach var="i" items="${series}">
             <div class="span2">
-                <div class="col-sm-3">
-                    <div id="${i.seriesID}" class="thumbnail list-item series">
-                        <div class="caption">
-                            <h3>${i.title}</h3>
-                        </div>
+                <div class="col-sm-2">
+                    <div id="${i.seriesID}" class="thumbnail list-item center-block series">
+                        <h1>${i.title}</h1>
                     </div>
                 </div>
             </div>

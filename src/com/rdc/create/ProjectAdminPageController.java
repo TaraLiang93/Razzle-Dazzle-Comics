@@ -36,7 +36,7 @@ public class ProjectAdminPageController {
             Series newSeries = new Series();
             newSeries.setSeriesID(new Long(i));
             newSeries.setTitle("Series " + i);
-            newSeries.setDescription("This is a serires about love " + i);
+            newSeries.setDescription("This is a series about love " + i);
             series.add(newSeries);
         }
 
