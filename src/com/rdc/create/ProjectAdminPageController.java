@@ -53,7 +53,7 @@ public class ProjectAdminPageController {
         try {
 
             Readable<Series> getUserSeries = new GetSeriesOfUserDataCommand(UserServiceFactory.getUserService().getCurrentUser());
-            List<Series> seriesList = getUserSeries.fetch().getList();
+            Series seriesList = getUserSeries.fetch().getResult();
             map.put("series",seriesList);
 
         } catch (FetchException e) {
@@ -73,30 +73,30 @@ public class ProjectAdminPageController {
 
         return new ModelAndView("projectAdminPage");
     }
-    @RequestMapping(value="/createData", method= RequestMethod.GET)
-    public String createData(HttpSession session, ModelMap map){
-
-        User user = UserServiceFactory.getUserService().getCurrentUser();
-
-        for(int i = 0;i < 1000;++i) {
-
-            Createable<Series> seriesCreater = new SeriesCreater(null,"Series "+ i,"This is a description",true);
-            try {
-                Series  series = seriesCreater.createEntity(new SeriesFillCommand());
-                Readable<UserData> userDataReadable = new GetUserDataByIDCommand(UserServiceFactory.getUserService().getCurrentUser().getUserId());
-                Updateable<UserData> userDataUpdateable = new UserDataUpdater();
-                userDataUpdateable.updateEntity(userDataReadable,new UpdateUserDataAddSeriesTask(series.getSeriesID()));
-
-
-            } catch (CreateException e) {
-                e.printStackTrace();
-            } catch (FetchException e) {
-                e.printStackTrace();
-            } catch (UpdateException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return "redirect:/create/projectAdminPage";
-    }
+//    @RequestMapping(value="/createData", method= RequestMethod.GET)
+//    public String createData(HttpSession session, ModelMap map){
+//
+//        User user = UserServiceFactory.getUserService().getCurrentUser();
+//
+//        for(int i = 0;i < 1000;++i) {
+//
+//            Createable<Series> seriesCreater = new SeriesCreater(null,"Series "+ i,"This is a description",true);
+//            try {
+//                Series  series = seriesCreater.createEntity(new SeriesFillCommand());
+//                Readable<UserData> userDataReadable = new GetUserDataByIDCommand(UserServiceFactory.getUserService().getCurrentUser().getUserId());
+//                Updateable<UserData> userDataUpdateable = new UserDataUpdater();
+//                userDataUpdateable.updateEntity(userDataReadable,new UpdateUserDataAddSeriesTask(series.getSeriesID()));
+//
+//
+//            } catch (CreateException e) {
+//                e.printStackTrace();
+//            } catch (FetchException e) {
+//                e.printStackTrace();
+//            } catch (UpdateException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        return "redirect:/create/projectAdminPage";
+//    }
 }
