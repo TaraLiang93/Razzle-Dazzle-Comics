@@ -1,11 +1,19 @@
 package com.rdc.create;
 
 import com.data.Globals;
+import com.data.UserData;
 import com.data.api.createables.SeriesCreater;
 import com.data.api.createables.fillCommands.SeriesFillCommand;
+import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Createable;
+import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetSeriesOfUserDataCommand;
+import com.data.api.queries.external.GetUserDataByIDCommand;
+import com.data.api.updatables.UserDataUpdater;
+import com.data.api.updatables.updateTasks.UpdateUserDataAddDoodlesTask;
+import com.data.api.updatables.updateTasks.UpdateUserDataAddSeriesTask;
 import com.data.creation.Doodle;
 import com.data.structure.Series;
 import com.google.appengine.api.users.User;
@@ -73,7 +81,20 @@ public class ProjectAdminPageController {
         for(int i = 0;i < 100;++i) {
 
             Createable<Series> seriesCreater = new SeriesCreater(null,"Series "+ i,"This is a description",true);
-//            Series  series = seriesCreater.createEntity(new SeriesFillCommand());
+            try {
+                Series  series = seriesCreater.createEntity(new SeriesFillCommand());
+                Readable<UserData> userDataReadable = new GetUserDataByIDCommand(UserServiceFactory.getUserService().getCurrentUser().getUserId());
+                Updateable<UserData> userDataUpdateable = new UserDataUpdater();
+                userDataUpdateable.updateEntity(userDataReadable,new UpdateUserDataAddSeriesTask(series.getSeriesID()));
+
+
+            } catch (CreateException e) {
+                e.printStackTrace();
+            } catch (FetchException e) {
+                e.printStackTrace();
+            } catch (UpdateException e) {
+                e.printStackTrace();
+            }
         }
 
         return "rediret:/create/projectAdminPage)";
