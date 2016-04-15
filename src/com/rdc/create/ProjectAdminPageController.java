@@ -32,7 +32,7 @@ public class ProjectAdminPageController {
 
         LinkedList<Series> series = new LinkedList<>();
 
-        for(int i = 0; i <= 5; ++i){
+        for(int i = 0; i <= 100; ++i){
             Series newSeries = new Series();
             newSeries.setSeriesID(new Long(i));
             newSeries.setTitle("Series " + i);

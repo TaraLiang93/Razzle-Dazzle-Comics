@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/customnav.css">
     <link rel="stylesheet" href="/css/customsubnav.css">
+    <link rel="stylesheet" href="/css/commonStyles.css">
     <script src="/js/navbar.js"></script>
     <script src="/js/globals.js"></script>
 

@@ -1,4 +1,22 @@
+.seriesList{
+    margin: 1%;
+    overflow: scroll;
+    height: 55vh;
+}
 
+.papWrapper {
+
+}
+
+.customFlow > .btn {
+    /*float: right;*/
+    border-radius: 12px;
+    display: block;
+    width :25%;
+    position: relative;
+    left:98%;
+    transform: translateX(-100%);
+}
 
 #wrapper{
     width:75%;
