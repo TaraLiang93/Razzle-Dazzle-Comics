@@ -28,7 +28,7 @@
 
 
             <!-- Scene Tab panes -->
-            <div id="scene-list" class="tab-content">
+            <div  class="scene-list tab-content">
                 <c:set var="sceneCount" value="0"/>
                 <c:forEach items = "${page.scenes}" var = "scene" varStatus="i">
                     <div role="tabpanel" class="scene-tabs tab-pane fade in ${i.index eq 0 ? 'active' : none} " id="Page${pageIndex.index}Scene${i.index}">
