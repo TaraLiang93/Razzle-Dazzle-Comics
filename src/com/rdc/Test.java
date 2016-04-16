@@ -12,22 +12,23 @@ import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.*;
 import com.data.api.queries.internal.GetDoodleByKeyCommand;
 import com.data.api.queries.internal.GetEntityFromKeyCommand;
+import com.data.api.updatables.ChapterUpdater;
 import com.data.api.updatables.DoodleUpdater;
 import com.data.api.updatables.ScribbleUpdater;
 import com.data.api.updatables.UserDataUpdater;
+import com.data.api.updatables.updateTasks.UpdateChapterTask;
 import com.data.api.updatables.updateTasks.UpdateDoodleTask;
 import com.data.api.updatables.updateTasks.UpdateUserAddScribbleTask;
 import com.data.api.updatables.updateTasks.UpdateUserDataTask;
-import com.data.creation.Doodle;
-import com.data.creation.Page;
-import com.data.creation.Scene;
-import com.data.creation.Scribble;
+import com.data.creation.*;
+import com.data.structure.Series;
 import com.data.structure.Tag;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.cmd.Query;
+import com.model.ChapterModel;
 import com.model.PageModel;
 import com.model.SceneModel;
 import com.model.ScribbleModel;
@@ -647,6 +648,75 @@ public class Test {
     }
 
 
+    @RequestMapping(value="/testSeries", method= RequestMethod.GET)
+    public ModelAndView testSeries(HttpSession session, ModelMap map)  {
+        try{
+            //create a series
+            Createable<Series> seriesCreater = new SeriesCreater( null, "Series Title Mang", "Series Description Mang", false);
+            Series seriesOne = seriesCreater.createEntity( new SeriesFillCommand());
+
+            // create a chapter
+            Createable<Chapter> chapterCreater = new ChapterCreater("Chapter Title Mang",
+                    "Chapter ChapterString Mang", "Chapter description Mang");
+
+            Chapter chapterOne = chapterCreater.createEntity( new ChapterFillCommand());
+
+            //create scene Models
+            SceneModel sceneModelOne = new SceneModel();
+            sceneModelOne.setTinyMCEText("SceneModel TinyMCEText One");
+            sceneModelOne.setSetting("SceneModel Setting One");
+
+            SceneModel sceneModelTwo = new SceneModel();
+            sceneModelTwo.setTinyMCEText("SceneModel TinyMCEText Two");
+            sceneModelTwo.setSetting("SceneModel Setting Two");
+
+
+            //create a page Models
+            PageModel pageModelOne = new PageModel();
+
+            //SceneList
+            List<SceneModel> sceneModelList = new ArrayList<>();
+            sceneModelList.add(sceneModelOne);
+            sceneModelList.add(sceneModelTwo);
+
+            //page has scene models
+            pageModelOne.setScenes(sceneModelList);
+
+            //Chapter Model
+            ChapterModel chapterModel = new ChapterModel();
+            chapterModel.setTitle("Chapter title mang Updated");
+            chapterModel.setDescription("Chapter description mang Updated");
+            chapterModel.setPublished(false);
+
+            //PageModelList
+            List<PageModel> pageModelList = new ArrayList<>();
+            pageModelList.add(pageModelOne);
+
+            //Chapter has PagesModels
+            chapterModel.setPageModelList(pageModelList);
+
+            //Create page
+            Createable<Page> pageCreater = new PageCreater(pageModelOne);
+            Page page = pageCreater.createEntity( new PageFillCommand());
+
+            //Update Chapter with page
+            Updateable<Chapter> chapterUpdater = new ChapterUpdater();
+            Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterOne.getChapterId());
+            chapterUpdater.updateEntity(chapterReadable, new UpdateChapterTask( chapterModel ));
+
+            System.out.println( chapterOne.getDescription() );
+            System.out.println( chapterOne.getTitle() );
+            System.out.println( chapterOne.getPublished() );
+
+
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ModelAndView("test3");
+
+    }
         /*
     @RequestMapping(value="/addScribbles", method= RequestMethod.GET)
     @ResponseBody

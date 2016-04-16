@@ -88,11 +88,11 @@ public class ChapterModel {
         this.published = published;
     }
 
-    public List<PageModel> getPageList() {
+    public List<PageModel> getPageModelList() {
         return pageList;
     }
 
-    public void setPageList(List<PageModel> pageList) {
+    public void setPageModelList(List<PageModel> pageList) {
         this.pageList = pageList;
     }
 }
