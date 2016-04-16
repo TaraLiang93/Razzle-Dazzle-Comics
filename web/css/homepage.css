@@ -48,9 +48,12 @@ div.main {
     top: 70%;
     width: 50%;
     left: 50%;
-    /*display: none;*/
+    display: none;
     text-shadow: 1px 1px white;
     transform: translateX(-50%);
+}
+.main:hover .info, .RDC:hover  {
+    display: block;
 }
 .storySave {
     float: right;
@@ -61,11 +64,11 @@ div.main {
     width:100%;
 }
 
-.notActive > .cover{
+.notActive > .overlay{
     opacity: .5;
     background-color:#000;
-    transition: opacity .5s ease-out;
-    -moz-transition: opacity .5s ease-out;
-    -webkit-transition: opacity .5s ease-out;
-    -o-transition: opacity .5s ease-out;
+    /*transition: opacity .5s ease-out;*/
+    /*-moz-transition: opacity .5s ease-out;*/
+    /*-webkit-transition: opacity .5s ease-out;*/
+    /*-o-transition: opacity .5s ease-out;*/
 }
