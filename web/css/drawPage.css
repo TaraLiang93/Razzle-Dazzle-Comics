@@ -1,0 +1,13 @@
+.diaglogBox {
+    float: left;
+    height: 600px;
+    width: 20%;
+}
+
+.drawingContainer {
+    float: left;
+}
+.drawingScenes {
+    clear: both;
+}
+
