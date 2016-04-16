@@ -7,12 +7,16 @@
 <div class="selection">
     <h1 class="RDC">RDC <br>Read Design Collaborate</h1>
 
-    <div class="main reading">
-        <a class="btn btn-sm btn-default">READ COMICS</a>
+    <div class="main reading notActive">
+        <div class="overlay">
+            <h3 class="info">READ COMICS</h3>
+        </div>
     </div>
 
     <div class="main creation">
-        <a class="btn btn-sm btn-default">CREATE CONTENT</a>
+        <div class="overlay">
+            <h3 class="info">CREATE CONTENT</h3>
+        </div>
     </div>
 
 </div>
