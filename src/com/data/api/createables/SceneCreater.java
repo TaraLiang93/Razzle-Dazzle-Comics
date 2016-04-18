@@ -20,7 +20,7 @@ public class SceneCreater extends Createable<Scene> {
     @Override
     protected Scene getEntity() throws CreateException, FetchException {
         if(sceneModel == null){
-            throw new CreateException();
+            throw new CreateException("Scene Model cannot be null");
         }
         Scene scene =  new Scene(sceneModel.getIndex(),
                                 sceneModel.getSetting(),

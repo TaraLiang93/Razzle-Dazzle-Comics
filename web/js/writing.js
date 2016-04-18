@@ -38,6 +38,51 @@ function pageEvent(selector){
     });
 }
 
+function addNewScene(){
+
+    var page = $('#currPage').val();
+    var scenes = $('#Page'+page+' .sceneTabHeader .sceneTab').length;
+    var nextScene = scenes;
+    var nextID = "Page"+page+"Scene"+nextScene;
+
+
+    //Hide the active pages
+    $('#Page'+page+' .scene-list .active').each(function(){
+        $(this).removeClass('active');
+    });
+
+
+    var scenePanelText= "<div role=\"tabpanel\" class=\"scene-tabs tab-pane fade in active \" id=\""+nextID+"\">                               \
+<div class=\"content\"><div class=\"narritive\"><input type=\"hidden\" name=\"pages["+page+"].scenes["+nextScene+"].id\" value=\"\"/>              \
+<input type=\"hidden\" name=\"pages["+page+"].scenes["+nextScene+"].index\" value=\""+nextScene+"\"/>                                                           \
+<textarea id=\"Page"+page+"writingArea"+nextScene+"\" name=\"pages["+page+"].scenes["+nextScene+"].tinyMCEText\" class=\"tinyMCE\">                    \
+</textarea></div></div><label for=\"Setting"+nextID+"\">Setting:</label>                                                                           \
+<textarea id=\"Setting"+nextID+"\" name=\"pages["+page+"].scenes["+nextScene+"].setting\" readonly=\"readonly\" class=\"setting form-control\"></textarea></div>";
+
+
+    //Insert the new scene after the last one
+    $('#Page'+page+' .scene-tabs:last').after(scenePanelText);
+
+    initTinyMCE("#Page"+page+"writingArea"+nextScene);
+
+
+    var headerText = "<li role=\"presentation\" class=\"sceneTab active\">                              \
+                         <a id=\"tabPage"+page+"Scene"+nextScene+"\" href=\"#"+nextID+"\"                   \
+                         aria-controls=\""+nextID+"\" role=\"tab\" data-toggle=\"tab\">Scene "+ (nextScene + 1) +"</a></li>";
+
+    var nextTab = $('#Page'+page+' .sceneTabHeader .sceneTab:last');
+
+    //Put the new Tab after the last one but before the add scene button
+    $(nextTab).after(headerText);
+
+    var nextSetting = $('#Setting'+nextID);
+    settingsEvent(nextSetting);
+
+
+    $('#Page'+page+' .sceneTabHeader .sceneTab:last').tab('show');
+
+}
+
 $(document).ready(function(){
 
 
@@ -90,48 +135,10 @@ $(document).ready(function(){
 
     /*  Add a New Scene */
 
-    $('#addScene').click(function(){
-        var page = $('#currPage').val();
-        var scenes = $('#Page'+page+' .sceneTabHeader .sceneTab').length;
-        var nextScene = scenes;
-        var nextID = "Page"+page+"Scene"+nextScene;
-
-
-        //Hide the active pages
-        $('#Page'+page+' .scene-list .active').each(function(){
-            $(this).removeClass('active');
+    $('.add-contact').each(function(){
+        $(this).click(function(){
+            addNewScene();
         });
-
-
-        var scenePanelText= "<div role=\"tabpanel\" class=\"scene-tabs tab-pane fade in active \" id=\""+nextID+"\">                               \
-<div class=\"content\"><div class=\"narritive\"><input type=\"hidden\" name=\"pages["+page+"].scenes["+nextScene+"].id\" value=\"\"/>              \
-<input type=\"hidden\" name=\"pages["+page+"].scenes["+nextScene+"].index\" value=\""+nextScene+"\"/>                                                           \
-<textarea id=\"Page"+page+"writingArea"+nextScene+"\" name=\"pages["+page+"].scenes["+nextScene+"].tinyMCEText\" class=\"tinyMCE\">                    \
-</textarea></div></div><label for=\"Setting"+nextID+"\">Setting:</label>                                                                           \
-<textarea id=\"Setting"+nextID+"\" name=\"pages["+page+"].scenes["+nextScene+"].setting\" readonly=\"readonly\" class=\"setting form-control\"></textarea></div>";
-
-
-        //Insert the new scene after the last one
-        $('#Page'+page+' .scene-tabs:last').after(scenePanelText);
-
-        initTinyMCE("#Page"+page+"writingArea"+nextScene);
-
-
-        var headerText = "<li role=\"presentation\" class=\"sceneTab active\">                              \
-                         <a id=\"tabPage"+page+"Scene"+nextScene+"\" href=\"#"+nextID+"\"                   \
-                         aria-controls=\""+nextID+"\" role=\"tab\" data-toggle=\"tab\">Scene "+ (nextScene + 1) +"</a></li>";
-
-        var nextTab = $('#Page'+page+' .sceneTabHeader .sceneTab:last');
-
-        //Put the new Tab after the last one but before the add scene button
-        $(nextTab).after(headerText);
-
-        var nextSetting = $('#Setting'+nextID);
-        settingsEvent(nextSetting);
-
-
-        $('#Page'+page+' .sceneTabHeader .sceneTab:last').tab('show');
-
     });
 
     /*  END Add a New Scene */
@@ -150,7 +157,7 @@ $(document).ready(function(){
     $('#addPage').click(function(){
 
         var page = $('.page-pane').length;
-
+        $('#currPage').val(page);
 /*
         $('.pageList .page-tab').each(function(){
             if($(this).hasClass('active')){
@@ -203,6 +210,8 @@ aria-controls=\"Page"+page+"\" role=\"tab\" data-toggle=\"tab\">Page "+ (page + 
 
 
 
+        var thing = $('#Page'+page+' .sceneTabHeader li:last .add-contact');
+        $(thing).click(addNewScene);
     });
 
     /*  END Add a New Page */
