@@ -19,13 +19,6 @@ function initTinyMCE(selector){
     });
 }
 
-function settingsEvent(selector){
-    $(selector).click(function(){
-        $('#redirectModal').val($(this).attr('id'));
-        $('#modalSetting').val($(this).val());
-        $('#settingModel').modal('show');
-    });
-}
 
 function pageEvent(selector){
     $(selector).click(function(){
@@ -189,7 +182,7 @@ aria-controls=\"Page"+page+" Scene0\" role=\"tab\" data-toggle=\"tab\">Scene 1</
 class=\"setting form-control\"></textarea></div></div></div>";
 
 
-        $('.page-pane:last').after(newPage);
+        $('#pageHolder').append(newPage);
 
 
         initTinyMCE("#Page"+page+"writingArea0");
@@ -202,7 +195,8 @@ class=\"setting form-control\"></textarea></div></div></div>";
 aria-controls=\"Page"+page+"\" role=\"tab\" data-toggle=\"tab\">Page "+ (page + 1) +"</a></li>";
 
 
-        $('#pageTabs .page-tab:last').after(newPageTab);
+        //$('#pageTabs .page-tab:last').after(newPageTab);
+        $('#addPage').before(newPageTab);
 
         pageEvent($('#pageTabs .page-tab:last a'));
 

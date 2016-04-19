@@ -14,3 +14,12 @@ function readURL(input, selector) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+
+function settingsEvent(selector){
+    $(selector).click(function(){
+        $('#redirectModal').val($(this).attr('id'));
+        $('#modalSetting').val($(this).val());
+        $('#settingModel').modal('show');
+    });
+}
