@@ -1,7 +1,26 @@
 .diaglogBox {
     float: left;
-    height: 600px;
-    width: 20%;
+    height: 664px;
+    width: 15%;
+    position: relative;
+}
+
+.diaglogs {
+    height :250px;
+    overflow: scroll;
+    margin-bottom: 4%;
+}
+
+#drawingForm {
+    bottom: 5%;
+    width: 90%;
+    position: absolute;
+    display: block;
+}
+
+#drawingForm > .btn {
+    border-radius: 12px;
+    margin-bottom: 4%;
 }
 
 .drawingContainer {
@@ -9,5 +28,13 @@
 }
 .drawingScenes {
     clear: both;
+    width: 1006px;
+    height: 15vh;
+}
+
+.drawingSetting {
+    left: 20%;
+    position: relative;
+    width: 600px;
 }
 
