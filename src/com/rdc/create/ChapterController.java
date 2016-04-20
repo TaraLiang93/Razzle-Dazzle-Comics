@@ -39,6 +39,7 @@ public class ChapterController {
         return "newChapterModal";
     }
 
+
     @RequestMapping(value=NEW_CHAPTER, method= RequestMethod.POST)
     public ModelAndView addChapter(@RequestParam String id,
                                    @RequestParam String title,
