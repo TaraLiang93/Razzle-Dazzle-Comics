@@ -693,7 +693,7 @@ public class Test {
             pageModelList.add(pageModelOne);
 
             //Chapter has PagesModels
-            chapterModel.setPageModelList(pageModelList);
+            chapterModel.setPageList(pageModelList);
 
             //Create page
             Createable<Page> pageCreater = new PageCreater(pageModelOne);
