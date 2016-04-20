@@ -25,7 +25,7 @@ $(document).ready(function(){
                "<option id='Owner'>Owner</option>" +
                "<option id='Manager'>Manager</option>" +
                "</select>" +
-               "<i class='fa fa-times btn   ' aria-hidden='true'></i>" +
+               "<i class='fa fa-times btn deleteMember' aria-hidden='true'></i>" +
                "</div>" +
                "</div>";
 
@@ -36,7 +36,7 @@ $(document).ready(function(){
 
     $("#teamModal").on("shown.bs.modal",function(){
         console.log("team modal open");
-        $("#target").change(function(){
+        $(".deleteMember").click(function(){
             console.log(this.getElementById("name"));
         });
     });
