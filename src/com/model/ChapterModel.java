@@ -95,4 +95,5 @@ public class ChapterModel {
     public void setPageList(List<PageModel> pageList) {
         this.pageList = pageList;
     }
+
 }
