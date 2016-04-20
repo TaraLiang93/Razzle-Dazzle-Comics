@@ -41,6 +41,10 @@
     </div>
 </div>
 
-<div class="drawingScenes content-border">The Scenes will go here</div>
+<div class="drawingScenes content-border">
+    <span class="scenes content-border">
+
+    </span>
+</div>
 
 <jsp:include page="footer.jsp" />
