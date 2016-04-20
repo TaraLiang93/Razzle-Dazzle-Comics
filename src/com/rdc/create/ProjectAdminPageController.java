@@ -39,7 +39,7 @@ import java.util.List;
 public class ProjectAdminPageController {
 
     @RequestMapping(value="/create/projectAdminPage", method= RequestMethod.GET)
-    public ModelAndView loadPublishPage(HttpSession session, ModelMap map){
+    public ModelAndView loadProjectAdminPage(HttpSession session, ModelMap map){
 
         Globals globals = (Globals) session.getAttribute("globals");
         if(globals == null)
