@@ -15,6 +15,7 @@ public class ChapterFillCommand implements FillDataCommand<Chapter> {
     Flow flow;
     String description;
 
+    public  ChapterFillCommand(){}
     public ChapterFillCommand(Blob chapterCover){
         this.chapterCover = chapterCover;
     }
@@ -41,9 +42,9 @@ public class ChapterFillCommand implements FillDataCommand<Chapter> {
             entity.setDescription(this.description);
         }
 
-        if((this.description == null || this.description.equals("")) && chapterCover== null){
-            throw new CreateException();
-        }
+//        if((this.description == null || this.description.equals("")) && chapterCover== null){
+//            throw new CreateException();
+//        }
 
     }
 }

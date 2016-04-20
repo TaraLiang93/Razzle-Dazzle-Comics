@@ -55,7 +55,7 @@ public class UpdateScribbleTask implements UpdateTask<Scribble> {
         List<Key<Page>> pageList = new ArrayList<>();
         for( PageModel pageModel: scribbleModel.getPages()){
             //check if Page with ID exists
-           Readable<Page> getPage = new GetPageByIDCommand(pageModel.getId());
+            Readable<Page> getPage = new GetPageByIDCommand(pageModel.getId());
             Page page = getPage.fetch().getResult();
             if(page != null){
 

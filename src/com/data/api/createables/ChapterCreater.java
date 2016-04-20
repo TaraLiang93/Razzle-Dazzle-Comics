@@ -37,17 +37,16 @@ public class ChapterCreater extends Createable<Chapter> {
 
         if( this.title == null || this.title.equals("") ||
                 this.chapterString == null || this.chapterString.equals("")){
-            chapter.setTitle(this.title);
-            chapter.setDescription(this.description);
+            throw new CreateException();
         }
         else{
-            throw new CreateException();
+            chapter.setTitle(this.title);
+            chapter.setDescription(this.description);
         }
 
         if( this.description != null &&  !(this.description.equals(""))) {
             chapter.setDescription(this.description);
         }
-
 
 
         return chapter;
