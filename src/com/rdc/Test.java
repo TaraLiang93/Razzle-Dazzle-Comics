@@ -658,7 +658,6 @@ public class Test {
             // create a chapter
             Createable<Chapter> chapterCreater = new ChapterCreater("Chapter Title Mang",
                     "Chapter ChapterString Mang", "Chapter description Mang");
-
             Chapter chapterOne = chapterCreater.createEntity( new ChapterFillCommand());
 
             //create scene Models
@@ -699,9 +698,11 @@ public class Test {
             Createable<Page> pageCreater = new PageCreater(pageModelOne);
             Page page = pageCreater.createEntity( new PageFillCommand());
 
+
             //Update Chapter with page
             Updateable<Chapter> chapterUpdater = new ChapterUpdater();
             Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterOne.getChapterId());
+            Chapter chapterFetch = chapterReadable.fetch().getResult();
             chapterUpdater.updateEntity(chapterReadable, new UpdateChapterTask( chapterModel ));
 
             System.out.println( chapterOne.getDescription() );

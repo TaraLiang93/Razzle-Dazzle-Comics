@@ -24,6 +24,8 @@ public class ChapterModel {
 //    List<TeamMemberModel> teamMemberList;
     List<PageModel> pageList;
 
+    public ChapterModel(){}
+
     public Long getChapterId() {
         return chapterId;
     }

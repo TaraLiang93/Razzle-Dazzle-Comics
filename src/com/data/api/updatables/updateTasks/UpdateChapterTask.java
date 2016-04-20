@@ -1,25 +1,19 @@
 package com.data.api.updatables.updateTasks;
 
 import com.data.api.createables.PageCreater;
-import com.data.api.createables.SceneCreater;
 import com.data.api.createables.fillCommands.PageFillCommand;
-import com.data.api.createables.fillCommands.SceneFillCommand;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Createable;
-import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.UpdateTask;
 import com.data.api.queries.external.GetPageByIDCommand;
-import com.data.api.queries.external.GetSceneByIDCommand;
+import com.data.api.updatables.PageUpdater;
 import com.data.creation.Chapter;
 import com.data.creation.Page;
-import com.data.creation.Scene;
-import com.googlecode.objectify.Key;
 import com.model.ChapterModel;
 import com.model.PageModel;
-import com.model.SceneModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +32,11 @@ public class UpdateChapterTask implements UpdateTask<Chapter> {
 
     @Override
     public List<Chapter> update(Container<Chapter> entity) throws UpdateException, FetchException, CreateException {
-        if (chapterModel == null) {
-            throw new UpdateException();
+        Chapter chapterToUpdate = entity.getResult(); // get the chapter
+        if (chapterToUpdate == null || chapterModel == null) {
+            throw new UpdateException( "chapter info is null");
         }
-        Chapter chapterToUpdate = entity.getResult();
+
         chapterToUpdate.setTitle(chapterModel.getTitle() );
         chapterToUpdate.setChapterCover(chapterModel.getChapterCover() );
         chapterToUpdate.setChapterString( chapterModel.getChapterString() );
@@ -49,42 +44,30 @@ public class UpdateChapterTask implements UpdateTask<Chapter> {
         chapterToUpdate.setLastModifiedDate( chapterModel.getLastModifiedDate());
         chapterToUpdate.setPublished( chapterModel.getPublished() );
 
+        // make sure the chapterModelPageList isn't null
+        if( chapterModel.getPageList() == null){
+            throw new UpdateException("Update Chapter Task chapter model is null");
+        }
 
-        List<Key<Page>> pageList = new ArrayList<>();
+
         for( PageModel pageModel: chapterModel.getPageList()){
 
-            Readable<Page> getPage = new GetPageByIDCommand(pageModel.getId());
-            Page page = getPage.fetch().getResult();
-            if(page != null){
+            if(pageModel.getId() == null || pageModel == null){ // create page if it doesn't exist
 
-                List<Key<Scene>> sceneList = new ArrayList<>();
-                for(SceneModel sceneModel : pageModel.getScenes()){
-                    Readable<Scene> getScene = new GetSceneByIDCommand(sceneModel.getId());
-                    Scene scene = getScene.fetch().getResult(); //TODO : Probably should have it's own update task
-
-                    if(scene != null){//We have the scene
-                        scene.setSetting(sceneModel.getSetting());
-                        scene.setTinyMCEText(sceneModel.getTinyMCEText());
-                        scene.setIndex(sceneModel.getIndex());
-                        sceneList.add(scene.getKey());
-                    }
-                    else{ //It's new
-                        Createable<Scene> pageCreater = new SceneCreater(sceneModel);
-                        Scene sceneCreated = pageCreater.createEntity(new SceneFillCommand());
-                        sceneList.add(sceneCreated.getKey());
-                    }
-                }
-
-                page.setSceneList(sceneList);
-                pageList.add(page.getKey());
-
-            }
-            else{ // create page if it doesn't exist
                 Createable<Page> pageCreater = new PageCreater(pageModel);
                 Page pageCreated = pageCreater.createEntity( new PageFillCommand() );
-                pageList.add(pageCreated.getKey());
+                chapterToUpdate.addPagesToPagesList(pageCreated.getKey());
+
 
             }
+            else{ // update old Page
+                new PageUpdater()
+                        .updateEntity(
+                                new GetPageByIDCommand(pageModel.getId()),
+                                new UpdatePageTask(pageModel)
+                        );
+            }
+
 
         }
 
