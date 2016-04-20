@@ -51,7 +51,7 @@ public class UpdateChapterTask implements UpdateTask<Chapter> {
 
 
         List<Key<Page>> pageList = new ArrayList<>();
-        for( PageModel pageModel: chapterModel.getPageModelList()){
+        for( PageModel pageModel: chapterModel.getPageList()){
 
             Readable<Page> getPage = new GetPageByIDCommand(pageModel.getId());
             Page page = getPage.fetch().getResult();
