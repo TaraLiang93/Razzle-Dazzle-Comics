@@ -48,4 +48,5 @@ public class GetChaptersOfSeriesCommand extends Readable {
         return getChapterFromChapterKeysAbtracted.fetch();
     }
 
+
 }
