@@ -5,16 +5,12 @@
   Time: 10:17 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-
-    <jsp:include page="header.jsp">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="header.jsp">
         <jsp:param name="title" value="Series Page"/>
         <jsp:param name="css" value="/css/seriesPage.css"/>
         <jsp:param name="js" value="/js/seriesPage.js"/>
-    </jsp:include></head>
-<body>
+</jsp:include></head>
     <div class="container-fluid">
         <div class="container-fluid" id="outer">
 
@@ -28,18 +24,18 @@
                 </div>
 
                 <div id="title">
-                    <h1>Title Of Series</h1>
+                    <h1>${seriesTitle}</h1>
                 </div>
 
                 <div id="description">
-                    <p id="descrText">Description of series goes here.</p>
+                    <p id="descrText">${seriesDescription}</p>
                     <a class="btn btn-link updateDescr" id="updateDescr">
                         <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
                     </a>
                 </div>
 
                  <button type="button" class="btn btn-default addUnpublish">Add Chapter</button>
-                 <button type="button" class="btn btn-default addUnpublish">Unpublish Series</button>
+                 <button type="button" class="btn btn-default addUnpublish">${seriesIsPublished eq true ? "Unpublish Series" : "Publish Series"}</button>
             </div>
 
              <%--LEFT SIDE: SERIES CHAPTER   --%>
@@ -107,6 +103,4 @@
         </div>
     </div>
 
-
-</body>
-</html>
+<jsp:include page="footer.jsp"/>

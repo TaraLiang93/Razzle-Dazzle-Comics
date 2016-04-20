@@ -15,4 +15,16 @@ $(document).ready(function() {
         $(location).attr("href","/create");
     });
 
+    $(".creation").hover(function() {
+        $(this).removeClass("notActive");
+        $(".reading").addClass("notActive");
+    });
+
+    $(".reading").hover(function() {
+        $(this).removeClass("notActive");
+        $(".creation").addClass("notActive");
+    });
+
+
+
 });

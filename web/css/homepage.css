@@ -43,13 +43,33 @@ div.main {
     text-shadow: 1px 1px white;
 }
 
-.main .btn {
+.overlay > .info {
     position: absolute;
     top: 70%;
-    width: 200px;
+    width: 50%;
     left: 50%;
+    display: none;
+    color: white;
+    text-shadow: 2px 2px #000;
     transform: translateX(-50%);
+}
+.main:hover .info, .RDC:hover  {
+    display: block;
 }
 .storySave {
     float: right;
+}
+
+.overlay {
+    height:100%;
+    width:100%;
+}
+
+.notActive > .overlay{
+    opacity: .5;
+    background-color:#000;
+    transition: opacity .5s ease-out;
+    -moz-transition: opacity .5s ease-out;
+    -webkit-transition: opacity .5s ease-out;
+    -o-transition: opacity .5s ease-out;
 }
