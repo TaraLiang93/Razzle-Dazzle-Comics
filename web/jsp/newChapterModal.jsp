@@ -29,7 +29,7 @@ $(document).ready(function(){
     }
 </script>
 
-<form id="chapterForm" method="post" action="/create/chapter/new" enctype="multipart/form-data">
+<form id="chapterForm" method="post" action="${uploadAction}" enctype="multipart/form-data">
     <div id="chapterModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

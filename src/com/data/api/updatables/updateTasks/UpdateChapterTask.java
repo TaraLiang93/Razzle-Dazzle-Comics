@@ -43,11 +43,9 @@ public class UpdateChapterTask implements UpdateTask<Chapter> {
         }
         Chapter chapterToUpdate = entity.getResult();
         chapterToUpdate.setTitle(chapterModel.getTitle() );
-        chapterToUpdate.setChapterCover(chapterModel.getChapterCover() );
         chapterToUpdate.setChapterString( chapterModel.getChapterString() );
         chapterToUpdate.setDescription( chapterModel.getDescription() );
-        chapterToUpdate.setLastModifiedDate( chapterModel.getLastModifiedDate());
-        chapterToUpdate.setPublished( chapterModel.getPublished() );
+
 
 
         List<Key<Page>> pageList = new ArrayList<>();

@@ -4,12 +4,14 @@ import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
+import com.data.api.queries.internal.GetImgUrlFromBlobKey;
 import com.data.structure.Flow;
 import com.data.structure.TeamMember;
-import com.google.appengine.api.datastore.Blob;
+import com.google.appengine.api.blobstore.BlobKey;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,11 +22,15 @@ import java.util.List;
  */
 @Entity
 public class Chapter {
+
+    @Ignore
+    private static final String DEFAULT_IMG = "/img/profile_default";
+
     @Id
     Long chapterId;
 
     String title;
-    Blob chapterCover;
+    BlobKey chapterCover;
     String chapterString;
     String description;
     Date createdDate;
@@ -61,11 +67,12 @@ public class Chapter {
         this.title = title;
     }
 
-    public Blob getChapterCover() {
-        return chapterCover;
+    public String getChapterCover() {
+        String url = (chapterCover == null)? DEFAULT_IMG : GetImgUrlFromBlobKey.getURL(chapterCover);
+        return url;
     }
 
-    public void setChapterCover(Blob chapterCover) {
+    public void setChapterCover(BlobKey chapterCover) {
         this.chapterCover = chapterCover;
     }
 
