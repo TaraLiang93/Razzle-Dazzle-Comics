@@ -92,12 +92,7 @@ public class ChapterModel {
         return pageList;
     }
 
-
-    public List<PageModel> getPageModelList() {
-        return pageList;
-    }
-
-    public void setPageModelList(List<PageModel> pageList) {
+    public void setPageList(List<PageModel> pageList) {
         this.pageList = pageList;
     }
 }
