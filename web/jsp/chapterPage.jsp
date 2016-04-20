@@ -19,16 +19,19 @@
         <div class="top">
             <div class="team">
                 <p>Team</p>
-                <a class="btn btn-link updateDescr" id="addTeam">
+                <a class="btn btn-link change" id="addTeam">
                     <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
                 </a>
                 <div class="memberList">
-
+                    <p>Member 1</p>
+                    <p>Calculus</p>
+                    <p>Physic</p>
+                    <p>Chemistry</p>
                 </div>
             </div>
 
             <div class="chapterInfo pull-right">
-                <a class="btn btn-link updateDescr" id="editChapterInfo">
+                <a class="btn btn-link change" id="editChapterInfo">
                     <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
                 </a>
                 <img src="http://placehold.it/150x150" id="img" class="pull-left">
@@ -77,9 +80,35 @@
             </div>
         </div>
 
-        <div class="bottom">
-            <%--<button type="  "></button>--%>
+        <div id="bottom" class="pull-right">
+            <button type="button" class="btn btn-default">Return to Series Page</button>
+            <button type="button" class="btn btn-primary">Publish Page</button>
         </div>
+
+
+        <%--MODAL FOR TEAM--%>
+        <div class="modal fade" id="teamModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Team Member</h4>
+                    </div>
+                    <div class="modal-body" id="teamBody">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"id="saveImg">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 
 
     </div>
