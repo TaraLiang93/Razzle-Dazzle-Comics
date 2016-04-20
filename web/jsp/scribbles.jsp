@@ -28,8 +28,8 @@
                             <a href="#Page${i.index}" aria-controls="Page${i.index}" role="tab" data-toggle="tab">Page ${i.index + 1}</a>
                         </li>
                     </c:forEach>
-                    <li role="presentation">
-                        <a id="addPage" href="#addPage" aria-controls="plus" role="tab" data-toggle="tab"> + Page </a>
+                    <li>
+                        <a id="addPage" href="#addPage"> + Page </a>
                     </li>
                 </ul>
                 <!-- END Page Nav Tab -->
@@ -50,7 +50,7 @@
                     </div>
                     <div>
                         <label for="storyDesc">Description</label>
-                        <form:textarea id="storyDesc" path="description" class="form-control" maxlength="100" placeholder="${scribble.description}"/>
+                        <textarea id="storyDesc" name="description" class="form-control" maxlength="100" >${scribble.description}</textarea>
                     </div>
                 </div>
                 <div id="buttons" class="col-sm-2 center-block">

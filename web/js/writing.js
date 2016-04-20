@@ -19,6 +19,63 @@ function initTinyMCE(selector){
     });
 }
 
+
+function pageEvent(selector){
+    $(selector).click(function(){
+        var index = $('#pageTabs li').index($(this).parent());
+        $('#currPage').val(index);
+        $('.page-pane:visible').hide();
+        var id = $(selector).attr('href');
+        $(id).show();
+        $(this).tab('show');
+    });
+}
+
+function addNewScene(){
+
+    var page = $('#currPage').val();
+    var scenes = $('#Page'+page+' .sceneTabHeader .sceneTab').length;
+    var nextScene = scenes;
+    var nextID = "Page"+page+"Scene"+nextScene;
+
+
+    //Hide the active pages
+    $('#Page'+page+' .scene-list .active').each(function(){
+        $(this).removeClass('active');
+    });
+
+
+    var scenePanelText= "<div role=\"tabpanel\" class=\"scene-tabs tab-pane fade in active \" id=\""+nextID+"\">                               \
+<div class=\"content\"><div class=\"narritive\"><input type=\"hidden\" name=\"pages["+page+"].scenes["+nextScene+"].id\" value=\"\"/>              \
+<input type=\"hidden\" name=\"pages["+page+"].scenes["+nextScene+"].index\" value=\""+nextScene+"\"/>                                                           \
+<textarea id=\"Page"+page+"writingArea"+nextScene+"\" name=\"pages["+page+"].scenes["+nextScene+"].tinyMCEText\" class=\"tinyMCE\">                    \
+</textarea></div></div><label for=\"Setting"+nextID+"\">Setting:</label>                                                                           \
+<textarea id=\"Setting"+nextID+"\" name=\"pages["+page+"].scenes["+nextScene+"].setting\" readonly=\"readonly\" class=\"setting form-control\"></textarea></div>";
+
+
+    //Insert the new scene after the last one
+    $('#Page'+page+' .scene-tabs:last').after(scenePanelText);
+
+    initTinyMCE("#Page"+page+"writingArea"+nextScene);
+
+
+    var headerText = "<li role=\"presentation\" class=\"sceneTab active\">                              \
+                         <a id=\"tabPage"+page+"Scene"+nextScene+"\" href=\"#"+nextID+"\"                   \
+                         aria-controls=\""+nextID+"\" role=\"tab\" data-toggle=\"tab\">Scene "+ (nextScene + 1) +"</a></li>";
+
+    var nextTab = $('#Page'+page+' .sceneTabHeader .sceneTab:last');
+
+    //Put the new Tab after the last one but before the add scene button
+    $(nextTab).after(headerText);
+
+    var nextSetting = $('#Setting'+nextID);
+    settingsEvent(nextSetting);
+
+
+    $('#Page'+page+' .sceneTabHeader .sceneTab:last').tab('show');
+
+}
+
 $(document).ready(function(){
 
 
@@ -40,11 +97,7 @@ $(document).ready(function(){
 
     //On Click handler for the setting section. Update the Modal with new Data
     $('.setting').each(function(){
-        $(this).click(function(){
-            $('#redirectModal').val($(this).attr('id'));
-            $('#modalSetting').val($(this).val());
-            $('#settingModel').modal('show');
-        });
+        settingsEvent(this);
     });
 
 
@@ -69,13 +122,23 @@ $(document).ready(function(){
     //When the page tab is selected hide the other tabs
     // and show this new one
     $('.page-tab a').each(function(){
+        pageEvent(this);
+    });
+
+
+    /*  Add a New Scene */
+
+    $('.add-contact').each(function(){
         $(this).click(function(){
-            $('.page-pane:visible').hide();
-            var id = $(this).attr('href');
-            $(id).show();
-            $(this).tab('show');
+            addNewScene();
         });
     });
+
+    /*  END Add a New Scene */
+    /////////////////////////////////////////////////////////////
+
+
+
 
     ///////// BAD //////////
 
@@ -86,34 +149,63 @@ $(document).ready(function(){
 
     $('#addPage').click(function(){
 
+        var page = $('.page-pane').length;
+        $('#currPage').val(page);
+/*
         $('.pageList .page-tab').each(function(){
             if($(this).hasClass('active')){
                 $(this).removeClass('active');
             }
         });
+*/
 
-
-        $('.page-pane').each(function(){
+        $(".page-pane").each(function(){
             if($(this).hasClass('active')){
                 $(this).removeClass('active');
+                $(this).hide();
             }
-
-            if($(this).hasClass('in')){
-                $(this).removeClass('in');
-            }
-
         });
 
 
-            var newPane= "<div role=\"tabpanel\" class=\"page-pane tab-pane fade in active\" id=\"Page${pageIndex.index}\">\
-         <ul id=\"tabHeader\" class=\"nav nav-tabs\" role=\"tablist\"> <li role=\"presentation\" class=\"sceneTab active\">\
-         <a id=\"tabPage${pageIndex.index}Scene${i.index}\" href=\"#Page${pageIndex.index}Scene${i.index}\" aria-controls=\"Page${pageIndex.index}Scene${i.index}\" role=\"tab\" data-toggle=\"tab\">Scene 1</a> \
-         </li><li><a id=\"addScene\" href=\"#plus\" class=\"add-contact\"></a></li></ul>  <div id=\"scene-list\" class=\"tab-content\">\
-         <div role=\"tabpanel\" class=\"scene-tabs tab-pane fade in active \" id=\"Page${pageIndex.index}Scene${i.index}\"> <div class=\"content\"><div class=\"narritive\">\
-             <textarea id=\"Page${pageIndex.index}writingArea${i.index}\" name=\"pages[${pageIndex.index}].scenes[${i.index}].tinyMCEText\" class=\"tinyMCE\"></textarea></div></div><label for=\"SettingPage${pageIndex.index}Scene${i.index}\">Setting:</label>\
-              <textarea id=\"SettingPage${pageIndex.index}Scene${i.index}\" name=\"pages[${pageIndex.index}].scenes[${i.index}].setting\" \readonly=\"readonly\" class=\"setting form-control\"></textarea></div></div></div> "
+
+            var newPage= "<div role=\"tabpanel\" class=\"page-pane tab-pane fade in active \" id=\"Page"+page+"\">                                     \
+<input type=\"hidden\" name=\"pages["+page+"].id\" value=\"\"/><ul class=\"sceneTabHeader nav nav-tabs\" role=\"tablist\">    \
+<li role=\"presentation\" class=\"sceneTab active\"><a id=\"tabPage"+page+"Scene0\" href=\"#Page"+page+"Scene0\"              \
+aria-controls=\"Page"+page+" Scene0\" role=\"tab\" data-toggle=\"tab\">Scene 1</a></li><li>                                   \
+<a id=\"addScene\" href=\"#plus\" class=\"add-contact\"> + </a></li></ul><div  class=\"scene-list tab-content\">              \
+<div role=\"tabpanel\" class=\"scene-tabs tab-pane fade in active \" id=\"Page"+page+"Scene0\"><div class=\"content\">        \
+<div class=\"narritive\"><input type=\"hidden\" name=\"pages["+page+"].scenes[0].id\" value=\"\"/>                            \
+<input type=\"hidden\" name=\"pages["+page+"].scenes[0].index\" value=\"0\"/>                                                 \
+<textarea id=\"Page"+page+"writingArea0\" name=\"pages["+page+"].scenes[0].tinyMCEText\" class=\"tinyMCE\"></textarea></div>  \
+</div><label for=\"SettingPage"+page+"Scene0\">Setting:</label>                                                               \
+<textarea id=\"SettingPage"+page+"Scene0\" name=\"pages["+page+"].scenes[0].setting\" readonly=\"readonly\"                   \
+class=\"setting form-control\"></textarea></div></div></div>";
 
 
+        $('#pageHolder').append(newPage);
+
+
+        initTinyMCE("#Page"+page+"writingArea0");
+
+        var nextSetting = $('#SettingPage'+page+'Scene0');
+        settingsEvent(nextSetting);
+
+
+        var newPageTab = "<li role=\"presentation\" class=\"page-tab active\"><a href=\"#Page"+page+"\"                       \
+aria-controls=\"Page"+page+"\" role=\"tab\" data-toggle=\"tab\">Page "+ (page + 1) +"</a></li>";
+
+
+        //$('#pageTabs .page-tab:last').after(newPageTab);
+        $('#addPage').before(newPageTab);
+
+        pageEvent($('#pageTabs .page-tab:last a'));
+
+        $('#pageTabs .page-tab:last').tab('show');
+
+
+
+        var thing = $('#Page'+page+' .sceneTabHeader li:last .add-contact');
+        $(thing).click(addNewScene);
     });
 
     /*  END Add a New Page */
@@ -121,55 +213,11 @@ $(document).ready(function(){
 
 
 
-    /*  Add a New Scene */
-
-    $('#addScene').click(function(){
-        var page = $('#currPage').val();
-        var scenes = $('#Page'+page+' .sceneTabHeader .sceneTab').length;
-        var nextScene = scenes + 1;
-        var nextID = "Page"+page+"Scene"+nextScene;
-
-
-        /*
-        $('#scene-list .scene-tabs').each(function(){
-            if($(this).hasClass('active')){
-                $(this).removeClass('active');
-            }
-
-            if($(this).hasClass('in')){
-                $(this).removeClass('in');
-            }
-
-        });
-*/
-        var scenePanelText= "<div role=\"tabpanel\" class=\"scene-tabs tab-pane fade in active \" id=\""+nextID+"\">                               \
-<div class=\"content\"><div class=\"narritive\"><input type=\"hidden\" name=\"pages["+page+"].scenes["+nextScene+"].id\" value=\"\"/>              \
-<input type=\"hidden\" name=\"pages["+page+"].scenes["+nextScene+"].index\" value=\"\"/>                                                           \
-<textarea id=\"Page"+page+"writingArea"+nextScene+"\" name=\"pages["+page+"].scenes["+nextScene+"].tinyMCEText\" class=\"tinyMCE\">                    \
-</textarea></div></div><label for=\"Setting"+nextID+"\">Setting:</label>                                                                           \
-<textarea id=\"Setting"+nextID+"\" name=\"pages["+page+"].scenes["+nextScene+"].setting\" readonly=\"readonly\" class=\"setting form-control\"></textarea></div>";
-
-        $('#Page'+page+' .scene-tabs').append(scenePanelText);
-
-        initTinyMCE("#Page"+page+"writingArea"+nextScene);
-
-        var headerText ="<li role=\"presentation\" class=\"sceneTab active\">\
-            <a href=\"#"+nextID+"\" aria-controls=\""+nextID+"\" role=\"tab\" data-toggle=\"tab\">\
-            Scene "+sceneInt+"</a></li>";
-
-        $('#tabHeader li:last').prev().after(headerText); //Insert the new scene before the '+'
-
-        $('#nextScene').val(sceneInt); //Increment the amount of scenes we have
-
-
-        $('#tab' + nextID).first().click();
-
-    });
 
 
 
-    /*  END Add a New Scene */
-    /////////////////////////////////////////////////////////////
+
+
 
 
 });

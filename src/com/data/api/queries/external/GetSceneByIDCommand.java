@@ -24,7 +24,9 @@ public class GetSceneByIDCommand extends Readable {
     }
 
     public GetSceneByIDCommand( String strId ){
-        this.sceneId = Long.parseLong( strId );
+       if(strId == null || ! strId.equals("")){
+           this.sceneId = Long.parseLong( strId );
+       }
     }
 
     @Override
