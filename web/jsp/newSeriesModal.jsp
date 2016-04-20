@@ -23,7 +23,7 @@
     }
 </script>
 
-<form id="seriesForm" method="post" action="/create/series/new" enctype="multipart/form-data">
+<form id="seriesForm" method="post" action="${uploadAction}" enctype="multipart/form-data">
     <div id="seriesModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

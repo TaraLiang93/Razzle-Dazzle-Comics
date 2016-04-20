@@ -72,6 +72,10 @@ public class Chapter {
         return url;
     }
 
+    public BlobKey getChapterCoverBlob(){
+        return chapterCover;
+    }
+
     public void setChapterCover(BlobKey chapterCover) {
         this.chapterCover = chapterCover;
     }

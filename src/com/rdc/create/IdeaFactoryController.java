@@ -1,6 +1,5 @@
 package com.rdc.create;
 
-import com.data.Globals;
 import com.data.UserData;
 import com.data.api.createables.DoodleCreater;
 import com.data.api.createables.ScribbleCreater;
@@ -50,13 +49,6 @@ public class IdeaFactoryController {
     public ModelAndView loadIdeaFactory(HttpSession session, ModelMap map){
 
         User user = UserServiceFactory.getUserService().getCurrentUser();
-        Globals globals = (Globals) session.getAttribute("globals");
-        if(globals == null)
-        {
-            globals = new Globals();
-            session.setAttribute("globals",globals);
-        }
-        globals.setStatus("create");
 
         if(user == null) return new ModelAndView("/logout");
 
