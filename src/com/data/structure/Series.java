@@ -28,6 +28,11 @@ public class Series {
     List<Key<Chapter>> chapterList;
     List<Key<Genre>> genreList;
 
+    public Series(){
+        chapterList = new ArrayList<>();
+        genreList = new ArrayList<>();
+    }
+
     public Long getSeriesID() {
         return seriesID;
     }

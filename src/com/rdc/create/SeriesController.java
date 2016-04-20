@@ -1,5 +1,9 @@
 package com.rdc.create;
 
+import com.data.api.exceptions.FetchException;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.external.GetSeriesByIDCommand;
+import com.data.structure.Series;
 import com.model.ScribbleModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -93,6 +97,23 @@ public class SeriesController {
         return view;
         */
         return new ModelAndView(redirect);
+    }
+    @RequestMapping(value="/create/series/load/{id}", method= RequestMethod.GET)
+    public ModelAndView loadSeries(@PathVariable String id, HttpSession session, ModelMap map){
+
+
+        try {
+            Readable<Series> getSeries = new GetSeriesByIDCommand(id);
+            Series series = getSeries.fetch().getResult();
+            map.put("seriesTitle",series.getTitle());
+            map.put("seriesDescription",series.getDescription());
+            map.put("seriesIsPublished",series.isPublished());
+        } catch (FetchException e) {
+            e.printStackTrace();
+        }
+
+        return new ModelAndView("seriesPage");
+
     }
 
 }

@@ -8,5 +8,6 @@ $(document).ready(function(){
     {
         $(location).attr("href","/login");
     }
+    $("#isAuth").remove();
 
 });

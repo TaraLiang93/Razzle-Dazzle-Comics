@@ -14,10 +14,11 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class PageController {
 
-    @RequestMapping(value="/drawPage", method= RequestMethod.GET)
+    @RequestMapping(value="/create/drawPage", method= RequestMethod.GET)
     public ModelAndView redirectDrawPage(HttpSession session, ModelMap map){
 
 
-        return new ModelAndView("homepage");
+
+        return new ModelAndView("drawPage");
     }
 }

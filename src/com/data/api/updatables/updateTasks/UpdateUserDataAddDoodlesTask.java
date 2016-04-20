@@ -23,6 +23,7 @@ public class UpdateUserDataAddDoodlesTask implements UpdateTask<UserData> {
     }
 
     public UpdateUserDataAddDoodlesTask( String strId){
+
         try {
             this.doodleId = Long.parseLong(strId);
         }

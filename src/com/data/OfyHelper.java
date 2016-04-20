@@ -8,6 +8,7 @@ package com.data;
 //import com.googlecode.objectify.ObjectifyFactory;
 
 import com.data.creation.*;
+import com.data.structure.Series;
 import com.data.structure.Tag;
 import com.googlecode.objectify.ObjectifyService;
 
@@ -20,6 +21,7 @@ import javax.servlet.ServletContextListener;
  **/
 public class OfyHelper implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
+
         // This will be invoked as part of a warmup request, or the first User request if no warmup
         // request.
 
@@ -32,6 +34,7 @@ public class OfyHelper implements ServletContextListener {
         ObjectifyService.register(Scene.class);
         ObjectifyService.register(Dialogue.class);
         ObjectifyService.register(Chapter.class);
+        ObjectifyService.register(Series.class);
 
 
     }
