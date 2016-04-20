@@ -38,7 +38,7 @@ public class UpdateScribbleTask implements UpdateTask<Scribble> {
     @Override
     public List<Scribble> update(Container<Scribble> entity) throws UpdateException, FetchException, CreateException {
 
-        Scribble scribbleToUpdate = entity.getResult();;
+        Scribble scribbleToUpdate = entity.getResult();
         if( scribbleToUpdate == null || scribbleModel == null) throw new UpdateException("Scribble Info cannot be null");
 
         scribbleToUpdate.setTitle(scribbleModel.getTitle());

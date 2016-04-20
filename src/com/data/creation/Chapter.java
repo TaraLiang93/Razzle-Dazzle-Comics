@@ -43,6 +43,9 @@ public class Chapter {
         this.description = "";
         this.createdDate = new Date();
         this.lastModifiedDate = null;
+        this.publishedPageList = new ArrayList<>();
+        this.teamMemberList = new ArrayList<>();
+        this.pageList = new ArrayList<>();
     }
 
     public Long getChapterId() {
