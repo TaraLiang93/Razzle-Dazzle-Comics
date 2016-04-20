@@ -1,10 +1,17 @@
 package com.rdc.create;
 
+import com.data.api.exceptions.FetchException;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.external.GetTeamMemberByIDCommand;
+import com.data.creation.Doodle;
+import com.data.structure.TeamMember;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -14,6 +21,22 @@ import java.io.IOException;
 public class ChapterController {
 
     public static final String NEW_CHAPTER = "/create/chapter/new";
+
+    @RequestMapping(value="/loadTeam", method= RequestMethod.GET)
+    public ModelAndView loadTeam(@PathVariable String id, HttpSession session, ModelMap map){
+
+        try {
+            System.out.println(id);
+            Readable<TeamMember> getMember = new GetTeamMemberByIDCommand(id);
+            TeamMember member = getMember.fetch().getResult();
+            map.put("teamMember",member);
+        } catch (FetchException e) {
+            e.printStackTrace();
+        }
+
+        return new ModelAndView("doodles");
+    }
+
 
     @RequestMapping(value=NEW_CHAPTER, method= RequestMethod.POST)
     public ModelAndView addChapter(@RequestParam String id,

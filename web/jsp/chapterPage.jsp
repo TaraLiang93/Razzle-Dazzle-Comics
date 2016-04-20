@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: tara
@@ -23,6 +24,12 @@
                     <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
                 </a>
                 <div class="memberList">
+                    <c:if test="${teamMember ne null}">
+                        it works
+                        <c:forEach var="member" items="$teamMember >
+                            <p>${teamMember}</p>
+                        </c:forEach>
+                    </c:if>
                     <p>Member 1</p>
                     <p>Calculus</p>
                     <p>Physic</p>
@@ -100,8 +107,17 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal"id="saveImg">Save</button>
+                        <div id="addMember">
+                            <p>New Member: </p>
+                            <div>
+                                <input type="text" id="newMember" value="Member Id">
+                                <button type="button" class="btn" id="addButton">Add</button>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"id="saveImg">Save</button>
+                        </div>
                     </div>
                 </div>
             </div>
