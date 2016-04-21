@@ -5,6 +5,7 @@ var input;
 var imgForm;
 
 $("document").ready(function(){
+
     $("#uploadButton").click(function(){
        console.log("click upload new image");
         $("#imgPreview").attr("src",$("#img").attr("src"));
@@ -57,4 +58,12 @@ $("document").ready(function(){
             }
         });
     });
+
+    $(".chapter").each(function(){
+        $(this).click(function(){
+            $(location).attr("href","/" + $(this).attr("id"));
+
+        });
+    });
+
 });
