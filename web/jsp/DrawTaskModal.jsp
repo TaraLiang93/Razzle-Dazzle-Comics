@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <%--<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>--%>
@@ -49,46 +50,41 @@
             </div>
             <div class="modal-body" style="height: 60%">
                 <div class="col-sm-8" style="height: 100%">
-                    <h4 class="">Page String</h4>
+                    <h4 class="">${drawTaskPageTitle eq null ? "Page Title" : drawTaskPageTitle}</h4>
                     <br>
                     <div class="form-group">
                         <label for="drawTaskDescription">Description</label>
-                        <textarea id="drawTaskDescription" row="12" class="form-control" name="Description" placeholder="Description of Current Page"></textarea>
+                        <textarea id="drawTaskDescription" row="12" class="form-control" name="Description" placeholder="Description of Current Page">${drawTaskDescription}</textarea>
                     </div>
                     <div class="form-inline">
                         <label for="createByLabel" >Created By:</label>
                         <div class="form-group">
-                        <input type="text" id="createByLabel" name="createByLabel" class="form-control"/>
+                        <input type="text" id="createByLabel" name="createByLabel" class="form-control" value="${drawTaskAuthor}"/>
                         </div>
                     </div>
                     <div class="form-inline">
                         <label for="createOnLabel" >Created On:</label>
                         <div class="form-group">
-                        <input type="text" id="createOnLabel" name="createOnLabel" class="form-control"/>
+                        <input type="text" id="createOnLabel" name="createOnLabel" class="form-control" value="${drawTaskDate}"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="drawTaskComments">Comments</label>
-                        <textarea id="drawTaskComments" row="12" class="form-control" name="comments" placeholder="comments from the beginning of the chapter" style="height: 85px;"></textarea>
+                        <textarea id="drawTaskComments" row="12" class="form-control" name="comments" placeholder="comments from the beginning of the chapter" style="height: 85px;">${drawTaskComment}</textarea>
                     </div>
                     <a class="btn btn-default pull-right round-button" type="button"  href="#" >Add Comment</a>
                 </div>
 
                 <div class="col-sm-4" style="height: 100%">
                     <div class="col-sm-12 drawTaskImg">
-                        <img src="http://placehold.it/150x150" id="drawTaskImage">
+                        <img src="${drawTaskImg eq null ? "http://placehold.it/150x150" : drawTaskImg}" id="drawTaskImage">
                     </div>
                     <div class="col-sm-12 drawTaskDialog">
                     <label>Dialog</label>
                         <div class="content-border col-sm-12" style="height: 125px; overflow-y:auto">
-                            <p class="dialog content-border">James: I have a sandwich</p>
-                            <p class="dialog content-border">Jason: what kind of sandwich</p>
-                            <p class="dialog content-border">Terrell: nah i'm good</p>
-                            <p class="dialog content-border">Shakeeb: I can't eat pork</p>
-                            <p class="dialog content-border">Tara: Chinese food</p>
-                            <p class="dialog content-border">Ben: off to moes</p>
-                            <p class="dialog content-border">Danny: I'm ok</p>
-                            <p class="dialog content-border">Miu Ki: Let's go get tacos</p>
+                            <c:forEach var="i" items="${drawTaskDialogs}">
+                                <p class="dialog content-border">${i}</p>
+                            </c:forEach>
                         </div>
                     </div>
                         <div class="btn-inline btn-xs-12">
