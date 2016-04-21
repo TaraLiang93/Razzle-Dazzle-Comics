@@ -25,9 +25,8 @@
                 </a>
                 <div class="memberList">
                     <c:if test="${teamMember ne null}">
-                        it works
-                        <c:forEach var="member" items="$teamMember >
-                            <p>${teamMember}</p>
+                        <c:forEach var="member" items="${teamMember}" >
+                            <p>${member}</p>
                         </c:forEach>
                     </c:if>
                     <p>Member 1</p>
@@ -43,16 +42,22 @@
                 </a>
                 <img src="http://placehold.it/150x150" id="img" class="pull-left">
                 <div class="text pull-right">
-                    <p>Title:</p>
-                    <p>#:</p>
+                    <div class="info">
+                        <p style="font-weight: bold">Title:</p>
+                        <p id="chapterTitle">All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! </p>
+                    </div>
+
+                    <div class="info">
+                        <p style="font-weight: bold">#:</p>
+                        <p id="chapterString">1000</p>
+                    </div>
+
                     <div class="btnInfo">
-                        <button type="button" class="btn btn-default">Customize Workflow</button>
                         <button type="button" class="btn btn-default pull-right">Deactive</button>
                     </div>
                 </div>
             </div>
         </div>
-
 
         <div class="middle">
             <div class="flow">
@@ -87,7 +92,56 @@
             </div>
         </div>
 
+    <%--<table class="table middle" border="1">--%>
+                <%--<tbody style="width: 100%;">--%>
+                <%--<tr class="flow1" id="writer">--%>
+                    <%--<td>Writer</td>--%>
+                    <%--<th>Pre-Draw</th>--%>
+                    <%--<th>Draw</th>--%>
+                    <%--<th>Review</th>--%>
+                    <%--<th>Complete</th>--%>
+                <%--</tr>--%>
+                <%--<tr class="flow2" id="preDraw">--%>
+                <%--</tr>--%>
+                <%--<tr class="flow1" id="draw">--%>
+                <%--</tr>--%>
+                <%--<tr class="flow2" id="review">--%>
+                <%--</tr>--%>
+                <%--<tr class="flow1" id="complete">--%>
+                <%--</tr>--%>
+                <%--</tbody>--%>
+            <%--</table>--%>
+
+            <%--<table class="middle" border="1">--%>
+                <%--<tr class="flow1" id="writer">--%>
+                    <%--<th>Writer</th>--%>
+                    <%--<td></td>--%>
+                <%--</tr>--%>
+
+                <%--<tr class="flow2" id="preDraw">--%>
+                    <%--<th>Pre-Draw</th>--%>
+                    <%--<td></td>--%>
+                <%--</tr>--%>
+
+                <%--<tr class="flow1" id="draw">--%>
+                    <%--<th>Draw</th>--%>
+                    <%--<td></td>--%>
+                <%--</tr>--%>
+
+                <%--<tr class="flow2" id="review">--%>
+                    <%--<th>Review</th>--%>
+                    <%--<td></td>--%>
+                <%--</tr>--%>
+
+                <%--<tr class="flow1" id="complete">--%>
+                    <%--<th>Complete</th>--%>
+                    <%--<td></td>--%>
+                <%--</tr>--%>
+            <%--</table>--%>
+
+
         <div id="bottom" class="pull-right">
+            <button type="button" class="btn btn-primary" id="addPage">Add Page</button>
             <button type="button" class="btn btn-default">Return to Series Page</button>
             <button type="button" class="btn btn-primary">Publish Page</button>
         </div>
@@ -116,17 +170,55 @@
                         </div>
                         <div>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal"id="saveImg">Save</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="modal fade" id="infoModal" role="dialog">
+            <div class="modal-dialog">
 
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit Chapter Info</h4>
+                    </div>
+                    <div class="modal-body editInfo">
 
+                        <div class="einfo">
+                            <div id="changeTitle">
+                            <p style="font-weight: bold">Title: </p>
+                            <input type="text" id="Title">
+                            </div>
 
+                            <div id="changeChapterStr">
+                            <p style="font-weight: bold">#: </p>
+                            <input type="number" id="myNumber">
+                            </div>
 
+                            <div id="editDescr">
+                            <p style="font-weight: bold">Description: </p>
+                            <textarea id="textboxDescr"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="editImg">
+                            <p style="font-weight: bold">Chapter Icon: </p>
+                            <img id="imgPreview" src="">
+                            <form id="imgForm" method="post" action="/create/series/updateSeriesImage" enctype="multipart/form-data">
+                                <input name="imgSrc"  id="browseImg" type="file" accept="image/*">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"id="saveInfo">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

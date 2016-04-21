@@ -151,3 +151,37 @@ body {
     font-size: 14px;
     margin: 6px 12px;
 }
+
+.info p{
+    display: inline;
+}
+
+.info{
+    margin-bottom: 5px;
+}
+
+.einfo{
+    width: 100%;
+}
+
+.editImg{
+    width: 100%;
+}
+
+.editInfo{
+    width: 100%;
+    display: inline-flex;
+}
+
+#imgPreview{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.pageTask{
+    opacity: 0.5;
+    width: 100%;
+    color: black;
+    font-size: 16px;
+
+}
