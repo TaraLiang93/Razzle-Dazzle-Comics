@@ -30,7 +30,6 @@ public class UpdateDoodleTask implements UpdateTask<Doodle> {
     public List<Doodle> update(Container<Doodle> entity) throws UpdateException, FetchException{
         Doodle doodleToUpdate = entity.getResult();
 
-
         if( doodleToUpdate == null){
             throw new UpdateException("UpdateDoodleTask doodleToUpdate null");
         }
@@ -47,7 +46,6 @@ public class UpdateDoodleTask implements UpdateTask<Doodle> {
         // add the doodleToUpdate to a Doodle list because the return type expects a list of Doodles
         List<Doodle> doodleList = new ArrayList<>();
         doodleList.add(doodleToUpdate);
-
 
         return doodleList;
     }

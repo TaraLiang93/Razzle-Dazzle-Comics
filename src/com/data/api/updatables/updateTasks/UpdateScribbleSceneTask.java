@@ -14,11 +14,11 @@ import java.util.List;
 /**
  * Created by drodrigues on 4/18/16.
  */
-public class UpdateSceneTask implements UpdateTask<Scene> {
+public class UpdateScribbleSceneTask implements UpdateTask<Scene> {
 
     private SceneModel sceneModel;
 
-    public UpdateSceneTask(SceneModel model){
+    public UpdateScribbleSceneTask(SceneModel model){
         this.sceneModel = model;
     }
 
