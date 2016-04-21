@@ -58,14 +58,16 @@
         <span class=""><img src="/img/logo.jpg"></span>
         <span class=""><img src="/img/plus_sign.jpg"></span>
         <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>            <span class=""><img src="/img/logo.jpg"></span>
         <span class=""><img src="/img/plus_sign.jpg"></span>
         <span class=""><img src="/img/logo.jpg"></span>
         <span class=""><img src="/img/plus_sign.jpg"></span>
         <span class=""><img src="/img/logo.jpg"></span>
         <span class=""><img src="/img/plus_sign.jpg"></span>
         <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>            <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
         <span class=""><img src="/img/plus_sign.jpg"></span>
         <span class=""><img src="/img/logo.jpg"></span>
         <span class=""><img src="/img/plus_sign.jpg"></span>
