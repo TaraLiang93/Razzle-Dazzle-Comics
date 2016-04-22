@@ -73,7 +73,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navlinks">
 
-                        <li class="dropdown active">
+                        <li class="dropdown ${globals.status == 'read'? "active": none}">
                             <span class="sr-only">(current)</span>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Read Comics</a>
                             <ul class="dropdown-menu">
@@ -83,7 +83,7 @@
                                <c:if test="${true}"><li><a href="#">Bookmarked</a></li></c:if>
                             </ul>
                         </li>
-                        <li class="dropdown">
+                        <li class="dropdown ${globals.status == 'create'? "active": none}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create Comics</a>
                             <ul class="dropdown-menu">
                                 <li><a href="/create/ideas">Idea Factory</a></li>
