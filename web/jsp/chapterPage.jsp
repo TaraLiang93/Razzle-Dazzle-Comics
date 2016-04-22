@@ -44,12 +44,12 @@
                 <div class="text pull-right">
                     <div class="info">
                         <p style="font-weight: bold">Title:</p>
-                        <p id="chapterTitle">All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! All Work No Fun! </p>
+                        <p id="chapterTitle">${chapter.title}</p>
                     </div>
 
                     <div class="info">
                         <p style="font-weight: bold">#:</p>
-                        <p id="chapterString">1000</p>
+                        <p id="chapterString">${chapter.chapterstring}}</p>
                     </div>
 
                     <div class="btnInfo">
@@ -155,7 +155,7 @@
 
                             <div id="editDescr">
                             <p style="font-weight: bold">Description: </p>
-                            <textarea id="textboxDescr"></textarea>
+                            <textarea id="textboxDescr">${chapter.description}</textarea>
                             </div>
                         </div>
 
@@ -175,5 +175,9 @@
             </div>
         </div>
     </div>
+
+    <c:if test="${chapterId ne null}">
+        <div id="chapterId" style="display: none">${chapterId}</div>
+    </c:if>
 </body>
 </html>

@@ -6,6 +6,7 @@ var numPage;
 
 $(document).ready(function(){
     numPage=0;
+    var chapterId = $("#chapterId");
 
    $("#editChapterInfo").click(function(){
         console.log("edit chapter info clicked");
@@ -25,7 +26,7 @@ $(document).ready(function(){
        }
        $(".memberList p").each(function(index){
            var code =
-               "<div class='indMemeber' >" +
+               "<div class='indMemeber' id="+$(this).text()+">" +
                "<div>" +
                "<p class='name'>"+$(this).text()+"</p>" +
                "</div>" +
@@ -51,12 +52,20 @@ $(document).ready(function(){
         $(".deleteMember").click(function(){
             var userName = $(".name").get(this.getAttribute("id")).innerHTML;
             console.log("plz delete "+$(".name").get(this.getAttribute("id")).innerHTML);
-
+            var jsonObj = {"chapterID": chapterId, "newMemeber": userName};
+            $.post("/create/chapter/removeMember", jsonObj)
+                .done(function(){
+                    $(".name").get(this.getAttribute("id")).parentNode.removeChild($(".name").get(this.getAttribute("id")));
+                })
+                .fail(function(){
+                    alert("Cannot remove user: "+userName);
+                });
         });
+
         $("#addButton").click(function(){
            console.log("add "+$("#newMember").val());
-            jsonObj["memberName"]=$("#newMember").val();
-            $.post("create/chapterPage/addMember",jsonObj)
+            var jsonObj = {"chapterID": chapterId, "newMemeber": $("#newMember").val()};
+            $.post("/create/chapter/addMember", jsonObj)
                 .done(function(){
                     var code =
                         "<div class='indMemeber' >" +
@@ -77,15 +86,9 @@ $(document).ready(function(){
 
                     $("#teamBody").append(code);
                 })
-
-            jsonObj["doodleId"] = $("#loadDoodleId").text();
-            $.post("/create/doodle/save", jsonObj)
-                .done(function () {
-                    $(location).attr('href', "/create/ideas");
-                })
-                .fail(function () {
-                    console.log("it did not go here");
-                });
+                .fail(function(){
+                    alert("Cannot add user: "+$("#newMember").val());
+            });
 
         });
     });
