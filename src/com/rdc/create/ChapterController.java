@@ -23,9 +23,12 @@ import com.data.api.updatables.SeriesUpdater;
 import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
 import com.data.creation.Chapter;
 import com.google.appengine.api.blobstore.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,15 +75,12 @@ public class ChapterController {
 
     @RequestMapping(value="/create/loadChapter/{idOfChapter}", method= RequestMethod.GET)
     public ModelAndView loadChapter(@PathVariable String idOfChapter, HttpSession session, ModelMap map){
-        System.out.println(idOfChapter);
 
         try {
-                   Long id = Long.parseLong(idOfChapter);
-
-            System.out.println("DID WE GET HEREEEEEEEEEEEEEEEEEEEEEE"+idOfChapter);
-//            Readable<TeamMember> getMember = new GetTeamMembersOfChapterCommand(idOfChapter);
-//            List<TeamMember> member = getMember.fetch().getList();
-//            map.put("teamMember",member);
+            Long id = Long.parseLong(idOfChapter);
+//          Readable<TeamMember> getMember = new GetTeamMembersOfChapterCommand(idOfChapter);
+//          List<TeamMember> member = getMember.fetch().getList();
+//          map.put("teamMember",member);
             Readable<Chapter> res = new GetChapterByIDCommand(id);
             Chapter result = res.fetch().getResult();
 
@@ -188,6 +188,16 @@ public class ChapterController {
 
 
         return new ModelAndView(redirect);
+    }
+
+    @RequestMapping(value="/create/chapter/updateChapterImage", method=RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Boolean> updateSeriesImg(@RequestPart("imgSrc") MultipartFile imgSrc,
+                                                   HttpSession session){
+        System.out.println("New image: "+ imgSrc);
+
+        return new ResponseEntity(true, HttpStatus.OK);
+
     }
 
 }
