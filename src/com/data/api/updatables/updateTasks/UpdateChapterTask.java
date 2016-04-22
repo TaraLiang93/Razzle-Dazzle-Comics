@@ -67,7 +67,7 @@ public class UpdateChapterTask implements UpdateTask<Chapter> {
                 new PageUpdater()
                         .updateEntity(
                                 new GetPageByIDCommand(pageModel.getId()),
-                                new UpdatePageTask(pageModel)
+                                new UpdateScribblePageTask(pageModel)
                         );
             }
 
