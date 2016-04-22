@@ -92,53 +92,6 @@
             </div>
         </div>
 
-    <%--<table class="table middle" border="1">--%>
-                <%--<tbody style="width: 100%;">--%>
-                <%--<tr class="flow1" id="writer">--%>
-                    <%--<td>Writer</td>--%>
-                    <%--<th>Pre-Draw</th>--%>
-                    <%--<th>Draw</th>--%>
-                    <%--<th>Review</th>--%>
-                    <%--<th>Complete</th>--%>
-                <%--</tr>--%>
-                <%--<tr class="flow2" id="preDraw">--%>
-                <%--</tr>--%>
-                <%--<tr class="flow1" id="draw">--%>
-                <%--</tr>--%>
-                <%--<tr class="flow2" id="review">--%>
-                <%--</tr>--%>
-                <%--<tr class="flow1" id="complete">--%>
-                <%--</tr>--%>
-                <%--</tbody>--%>
-            <%--</table>--%>
-
-            <%--<table class="middle" border="1">--%>
-                <%--<tr class="flow1" id="writer">--%>
-                    <%--<th>Writer</th>--%>
-                    <%--<td></td>--%>
-                <%--</tr>--%>
-
-                <%--<tr class="flow2" id="preDraw">--%>
-                    <%--<th>Pre-Draw</th>--%>
-                    <%--<td></td>--%>
-                <%--</tr>--%>
-
-                <%--<tr class="flow1" id="draw">--%>
-                    <%--<th>Draw</th>--%>
-                    <%--<td></td>--%>
-                <%--</tr>--%>
-
-                <%--<tr class="flow2" id="review">--%>
-                    <%--<th>Review</th>--%>
-                    <%--<td></td>--%>
-                <%--</tr>--%>
-
-                <%--<tr class="flow1" id="complete">--%>
-                    <%--<th>Complete</th>--%>
-                    <%--<td></td>--%>
-                <%--</tr>--%>
-            <%--</table>--%>
-
 
         <div id="bottom" class="pull-right">
             <button type="button" class="btn btn-primary" id="addPage">Add Page</button>
@@ -176,6 +129,8 @@
             </div>
         </div>
 
+
+        <%--Modal for Chapter info--%>
         <div class="modal fade" id="infoModal" role="dialog">
             <div class="modal-dialog">
 
@@ -195,7 +150,7 @@
 
                             <div id="changeChapterStr">
                             <p style="font-weight: bold">#: </p>
-                            <input type="number" id="myNumber">
+                            <input type="text" id="myNumber">
                             </div>
 
                             <div id="editDescr">

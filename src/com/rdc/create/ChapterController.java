@@ -4,6 +4,7 @@ import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.external.GetTeamMemberByIDCommand;
 import com.data.api.queries.external.GetTeamMembersOfChapterCommand;
+import com.data.creation.Chapter;
 import com.data.creation.Doodle;
 import com.data.structure.TeamMember;
 import org.springframework.stereotype.Controller;
@@ -24,20 +25,29 @@ public class ChapterController {
 
     public static final String NEW_CHAPTER = "/create/chapter/new";
 
-    @RequestMapping(value="/create/loadTeam/{idOfChapter}", method= RequestMethod.GET)
-    public ModelAndView loadTeam(@PathVariable String idOfChapter, HttpSession session, ModelMap map){
-
-        try {
-            System.out.println(idOfChapter);
-            Readable<TeamMember> getMember = new GetTeamMembersOfChapterCommand(idOfChapter);
-            List<TeamMember> member = getMember.fetch().getList();
-            map.put("teamMember",member);
-        } catch (FetchException e) {
-            e.printStackTrace();
-        }
-
-        return new ModelAndView("chapterPage");
-    }
+//    @RequestMapping(value="/create/loadChapter/{idOfChapter}", method= RequestMethod.GET)
+//    public ModelAndView loadTeam(@PathVariable String idOfChapter, HttpSession session, ModelMap map){
+//
+//        try {
+//            Long id = Long.parseLong(idOfChapter);
+//            Chapter test = new Chapter();
+//            test.setChapterId(id);
+//            test.setTitle("Bobby is bumb");
+//            test.setChapterString("808");
+//            test.setDescription("This sucksssss");
+//            test.setTeamMemberList();
+//
+//
+//
+//            System.out.println(idOfChapter);
+//            Readable<TeamMember> getMember = new GetTeamMembersOfChapterCommand(idOfChapter);
+//            List<TeamMember> member = getMember.fetch().getList();
+//            map.put("teamMember",member);
+//        } catch (FetchException e) {
+//            e.printStackTrace();
+//        }
+//        return new ModelAndView("chapterPage");
+//    }
 
 
     @RequestMapping(value=NEW_CHAPTER, method= RequestMethod.POST)

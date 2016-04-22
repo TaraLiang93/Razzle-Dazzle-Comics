@@ -3,6 +3,7 @@
  */
 var numPage;
 
+
 $(document).ready(function(){
     numPage=0;
 
@@ -54,6 +55,37 @@ $(document).ready(function(){
         });
         $("#addButton").click(function(){
            console.log("add "+$("#newMember").val());
+            jsonObj["memberName"]=$("#newMember").val();
+            $.post("create/chapterPage/addMember",jsonObj)
+                .done(function(){
+                    var code =
+                        "<div class='indMemeber' >" +
+                        "<div>" +
+                        "<p class='name'>"+$("#newMember").val()+"</p>" +
+                        "</div>" +
+                        "<div>" +
+                        "<select id='target' >" +
+                        "<option id='Member'>Member</option>" +
+                        "<option id='Artist'>Artist</option>" +
+                        "<option id='Writer'>Writer</option>" +
+                        "<option id='Owner'>Owner</option>" +
+                        "<option id='Manager'>Manager</option>" +
+                        "</select>" +
+                        "<i class='fa fa-times btn deleteMember' id='"+index+"' aria-hidden='true'></i>" +
+                        "</div>" +
+                        "</div>";
+
+                    $("#teamBody").append(code);
+                })
+
+            jsonObj["doodleId"] = $("#loadDoodleId").text();
+            $.post("/create/doodle/save", jsonObj)
+                .done(function () {
+                    $(location).attr('href', "/create/ideas");
+                })
+                .fail(function () {
+                    console.log("it did not go here");
+                });
 
         });
     });
