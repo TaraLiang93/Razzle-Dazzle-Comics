@@ -44,12 +44,12 @@
                 <div class="text pull-right">
                     <div class="info">
                         <p style="font-weight: bold">Title:</p>
-                        <p id="chapterTitle">${chapterTitle}</p>
+                        <p id="chapterTitle">${chapter.title}</p>
                     </div>
 
                     <div class="info">
                         <p style="font-weight: bold">#:</p>
-                        <p id="chapterString">${chapterString}</p>
+                        <p id="chapterString">${chapter.chapterstring}}</p>
                     </div>
 
                     <div class="btnInfo">
@@ -155,7 +155,7 @@
 
                             <div id="editDescr">
                             <p style="font-weight: bold">Description: </p>
-                            <textarea id="textboxDescr">${chapterDescr}</textarea>
+                            <textarea id="textboxDescr">${chapter.description}</textarea>
                             </div>
                         </div>
 

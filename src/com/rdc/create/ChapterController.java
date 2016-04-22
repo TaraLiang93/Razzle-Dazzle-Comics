@@ -60,38 +60,12 @@ public class ChapterController {
             Container<Chapter> chapterContainer = new GetChapterByIDCommand(id).fetch();
             Chapter chapter = chapterContainer.getResult();
             map.put("chapter", chapter);
+            map.put("chapterId", id);
         } catch (FetchException e) {
             e.printStackTrace();
             return new ModelAndView(referer);
         }
 
-        return new ModelAndView("chapterPage");
-    }
-
-
-
-    @RequestMapping(value="/create/loadChapter/{idOfChapter}", method= RequestMethod.GET)
-    public ModelAndView loadChapter(@PathVariable String idOfChapter, HttpSession session, ModelMap map){
-        System.out.println(idOfChapter);
-
-        try {
-                   Long id = Long.parseLong(idOfChapter);
-
-            System.out.println("DID WE GET HEREEEEEEEEEEEEEEEEEEEEEE"+idOfChapter);
-//            Readable<TeamMember> getMember = new GetTeamMembersOfChapterCommand(idOfChapter);
-//            List<TeamMember> member = getMember.fetch().getList();
-//            map.put("teamMember",member);
-            Readable<Chapter> res = new GetChapterByIDCommand(id);
-            Chapter result = res.fetch().getResult();
-
-            map.put("chapterId", id);
-            map.put("chapterTitle", result.getTitle());
-            map.put("chapterString", result.getChapterString());
-            map.put("chapterDescr",result.getDescription());
-        }
-        catch (FetchException e) {
-            e.printStackTrace();
-        }
         return new ModelAndView("chapterPage");
     }
 
