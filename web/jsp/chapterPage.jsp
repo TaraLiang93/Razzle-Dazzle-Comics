@@ -29,10 +29,6 @@
                             <p>${member}</p>
                         </c:forEach>
                     </c:if>
-                    <p>Member 1</p>
-                    <p>Calculus</p>
-                    <p>Physic</p>
-                    <p>Chemistry</p>
                 </div>
             </div>
 

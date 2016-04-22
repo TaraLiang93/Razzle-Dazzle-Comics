@@ -9,28 +9,28 @@
 <div class="papWrapper">
     <div class="seriesList content-border">
         <div role="tabpanel" class="tab-pane" id="series">
-            <div class="row">
-                <div id="newSeries" class="span2" data-toggle="modal" data-target="#seriesModal">
-                    <div class="col-sm-2">
-                        <div class="thumbnail list-item center-block">
-                            <img class="idea" src="/img/plus_sign.jpg" alt="New Scribble"/>
-                        </div>
+
+            <div class="col-sm-3 item">
+                <div id="newSeries" class="thumbnail " data-toggle="modal" data-target="#seriesModal">
+                    <img class="idea" src="/img/plus_sign.jpg" alt="New Scribble"/>
+                </div>
+            </div>
+
+            <c:forEach var="i" items="${series}">
+                <div class="col-sm-3  item">
+                <div id="${i.seriesID}" class="thumbnail series" >
+                    <div style="height: 85%;">
+                        <img src="${i.seriesCover}" class="seriesImg">
+                    </div>
+                    <div class="caption text-center">
+                        <p>${i.title}</p>
                     </div>
                 </div>
-                <c:forEach var="i" items="${series}">
-                    <div class="span2">
-                        <div class="col-sm-2">
-                            <div id="${i.seriesID}" class="thumbnail list-item center-block series">
-                                <h2>${i.title}</h2>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach>
+                </div>
+            </c:forEach>
+
             </div>
         </div>
-    </div>
-    <div class="customFlow">
-        <a href="#" class="btn btn-info push-right">Customize Flow</a>
     </div>
 </div>
 
