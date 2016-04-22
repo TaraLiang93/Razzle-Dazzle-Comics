@@ -61,7 +61,7 @@ $("document").ready(function(){
 
     $(".chapter").each(function(){
         $(this).click(function(){
-            $(location).attr("href","/" + $(this).attr("id"));
+            $(location).attr("href","/create/loadChapter/" + $(this).attr("id"));
 
         });
     });
