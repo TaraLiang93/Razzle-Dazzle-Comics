@@ -15,7 +15,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 /**
  * Created by Zhenya on 4/13/16.
  */
-public class GetPageByIDCommand extends Readable
+public class GetPageByIDCommand extends Readable<Page>
 {
     Long pageId;
     public GetPageByIDCommand( Long pageId){

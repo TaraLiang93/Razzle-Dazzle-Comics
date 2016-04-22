@@ -17,7 +17,7 @@
             <%--RIGHT SIDE: SERIES INFO--%>
             <div class="pull-right container" id="seriesInfo">
                 <div id="seriesImg">
-                    <img src="http://placehold.it/250x250" id="img">
+                    <img src="${series.seriesCover}" id="img">
                     <a class="btn btn-link" id="uploadButton">
                         <i class="fa fa-upload fa-2x" aria-hidden="true"></i>
                     </a>

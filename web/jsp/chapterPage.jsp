@@ -40,7 +40,7 @@
                 <a class="btn btn-link change" id="editChapterInfo">
                     <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
                 </a>
-                <img src="http://placehold.it/150x150" id="img" class="pull-left">
+                <img src="${chapter.chapterCover}" id="img" class="pull-left">
                 <div class="text pull-right">
                     <div class="info">
                         <p style="font-weight: bold">Title:</p>

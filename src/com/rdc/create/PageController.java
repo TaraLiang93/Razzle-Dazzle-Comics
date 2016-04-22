@@ -1,12 +1,13 @@
 package com.rdc.create;
 
+import com.data.api.exceptions.FetchException;
+import com.data.api.interfaces.Container;
+import com.data.api.queries.external.GetPageByIDCommand;
+import com.data.creation.Page;
 import com.model.WritePageModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -30,9 +31,22 @@ public class PageController {
 
 
     @RequestMapping(value=LOAD_WRITE_PAGE, method= RequestMethod.GET)
-    public ModelAndView redirectWritePage(@RequestParam String chapterID, ModelMap map){
+    public ModelAndView redirectWritePage(@RequestParam String pageID,
+                                          @RequestParam String chapterID,
+                                          @RequestHeader String referer,
+                                          ModelMap map){
 
         map.put("chapterID", chapterID);
+        Page page = null;
+        try {
+            Container<Page> pageReadable = new GetPageByIDCommand(pageID).fetch();
+            page = pageReadable.getResult();
+            map.put("page", page);
+        } catch (FetchException e) {
+            e.printStackTrace();
+            return new ModelAndView(referer);
+        }
+
 
         return new ModelAndView("WritePage");
     }
@@ -41,7 +55,7 @@ public class PageController {
     public ModelAndView saveWritePage(@ModelAttribute("writePageModel") WritePageModel model, ModelMap map){
 
 
-
+        System.out.println(model);
 
         return new ModelAndView("chapterPage");
     }

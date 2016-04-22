@@ -12,7 +12,7 @@
 
 <div class="scribbleWrapper center-block">
 
-    <form:form method="post" action="/create/writePage/save" modelAttribute="pageModel">
+    <form:form method="post" action="/create/writePage/save" modelAttribute="writePageModel">
 
         <input type="hidden" name="parentID" value="${chapterID}"/>
 
