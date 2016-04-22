@@ -1,25 +1,19 @@
 package com.rdc.create;
 
-import com.data.api.exceptions.FetchException;
-import com.data.api.interfaces.Readable;
-import com.data.api.interfaces.Updateable;
-import com.data.api.queries.external.GetTeamMemberByIDCommand;
-import com.data.api.queries.external.GetTeamMembersOfChapterCommand;
-import com.data.api.updatables.ChapterUpdater;
-import com.data.api.updatables.updateTasks.UpdateChapterAddTeamMemberTask;
-import com.data.api.updatables.updateTasks.UpdateChapterRemoveTeamMemberTask;
-import com.data.creation.Chapter;
-import com.data.creation.Doodle;
-import com.data.structure.TeamMember;
 import com.data.api.createables.ChapterCreater;
 import com.data.api.createables.fillCommands.ChapterFillCommand;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
+import com.data.api.interfaces.Readable;
+import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetChapterByIDCommand;
 import com.data.api.queries.external.GetSeriesByIDCommand;
+import com.data.api.updatables.ChapterUpdater;
 import com.data.api.updatables.SeriesUpdater;
+import com.data.api.updatables.updateTasks.UpdateChapterAddTeamMemberTask;
+import com.data.api.updatables.updateTasks.UpdateChapterRemoveTeamMemberTask;
 import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
 import com.data.creation.Chapter;
 import com.google.appengine.api.blobstore.*;
@@ -29,11 +23,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by drodrigues on 3/29/16.
@@ -118,6 +110,7 @@ public class ChapterController {
         BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
         Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
         List<BlobKey> blobKeys = blobs.get("chapterImage");
+
 
         if (blobKeys == null) {
             System.out.println("Why you null BlobKeys?");
