@@ -49,7 +49,7 @@
 
                     <div class="info">
                         <p style="font-weight: bold">#:</p>
-                        <p id="chapterString">${chapter.chapterstring}}</p>
+                        <p id="chapterString">${chapter.chapterString}</p>
                     </div>
 
                     <div class="btnInfo">

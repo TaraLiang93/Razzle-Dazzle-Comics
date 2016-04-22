@@ -66,4 +66,9 @@ $("document").ready(function(){
         });
     });
 
+
+    $('#addChapter').click(function(){
+         $('#chapterModal').modal('show');
+    });
+
 });

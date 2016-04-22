@@ -90,7 +90,7 @@ public class ChapterController {
 
 
     @RequestMapping(value=NEW_CHAPTER, method= RequestMethod.POST)
-    public ModelAndView addChapter(@RequestParam String id,
+    public ModelAndView addChapter(@RequestParam String chapterID,
                                    @RequestParam String title,
                                    @RequestParam String description,
                                    @RequestParam String flow,
@@ -99,9 +99,8 @@ public class ChapterController {
                                    HttpServletRequest req,
                                    ModelMap map){
 
-        String redirect = "testAddChapter";
+        String redirect = "chapterPage";
 
-        System.out.println("ID : " + id);
         System.out.println("Title : " + title);
         System.out.println("Description : " + description);
         System.out.println("Flow : " + flow);
@@ -131,19 +130,14 @@ public class ChapterController {
                     BlobKey key = info.getBlobKey();
 
                 try {
-                    Chapter chapter = new ChapterCreater(title, id, description).createEntity(new ChapterFillCommand(key));
+                    Chapter chapter = new ChapterCreater(title, chapterID, description).createEntity(new ChapterFillCommand(key));
                     new SeriesUpdater()
                             .updateEntity(
                                           new GetSeriesByIDCommand(seriesID),
                                           new UpdateSeriesAddChapterTask(chapter));
-                    map.put("chapterCover", chapter.getChapterCover());
-                } catch (CreateException e) {
-                    redirect = referer;
-                    e.printStackTrace();
-                } catch (FetchException e) {
-                    redirect = referer;
-                    e.printStackTrace();
-                } catch (UpdateException e) {
+                    map.put("chapter", chapter);
+                    redirect="redirect:/create/chapter/load/" + chapter.getChapterId();
+                } catch (CreateException | FetchException | UpdateException e) {
                     redirect = referer;
                     e.printStackTrace();
                 }

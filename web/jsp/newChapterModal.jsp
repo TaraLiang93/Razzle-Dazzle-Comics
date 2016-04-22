@@ -30,6 +30,7 @@ $(document).ready(function(){
 </script>
 
 <form id="chapterForm" method="post" action="${uploadAction}" enctype="multipart/form-data">
+    <input type="hidden" name="seriesID" value="${param.seriesID}"/>
     <div id="chapterModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -52,7 +53,7 @@ $(document).ready(function(){
                                     </div>
                                     <div class="col-xs-2">
                                         <label for="chapterID"># :</label>
-                                        <input type="text" id="chapterID" name="id" maxlength="5" size="5"/>
+                                        <input type="text" id="chapterID" name="chapterID" maxlength="5" size="5"/>
                                     </div>
 
                                 </div>

@@ -653,7 +653,7 @@ public class Test {
         try{
             //create a series
             Createable<Series> seriesCreater = new SeriesCreater( null, "Series Title Mang", "Series Description Mang", false);
-            Series seriesOne = seriesCreater.createEntity( new SeriesFillCommand());
+            Series seriesOne = seriesCreater.createEntity( new SeriesFillCommand(null));
 
             // create a chapter
             Createable<Chapter> chapterCreater = new ChapterCreater("Chapter Title Mang",

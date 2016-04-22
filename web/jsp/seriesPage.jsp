@@ -10,7 +10,7 @@
         <jsp:param name="title" value="Series Page"/>
         <jsp:param name="css" value="/css/seriesPage.css"/>
         <jsp:param name="js" value="/js/seriesPage.js"/>
-</jsp:include></head>
+</jsp:include>
     <div class="container-fluid">
         <div class="container-fluid" id="outer">
 
@@ -24,18 +24,18 @@
                 </div>
 
                 <div id="title">
-                    <h1>${seriesTitle}</h1>
+                    <h1>${series.title}</h1>
                 </div>
 
                 <div id="description">
-                    <p id="descrText">${seriesDescription}</p>
+                    <p id="descrText">${series.description}</p>
                     <a class="btn btn-link updateDescr" id="updateDescr">
                         <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
                     </a>
                 </div>
 
-                 <button type="button" class="btn btn-default addUnpublish">Add Chapter</button>
-                 <button type="button" class="btn btn-default addUnpublish">${seriesIsPublished eq true ? "Unpublish Series" : "Publish Series"}</button>
+                 <button id="addChapter" type="button" class="btn btn-default addUnpublish">Add Chapter</button>
+                 <button type="button" class="btn btn-default addUnpublish">${series.published eq true ? "Unpublish Series" : "Publish Series"}</button>
             </div>
 
              <%--LEFT SIDE: SERIES CHAPTER   --%>
@@ -107,5 +107,9 @@
             </div>
         </div>
     </div>
+
+<jsp:include page="newChapterModal.jsp">
+    <jsp:param name="seriesID" value="${series.seriesID}"/>
+</jsp:include>
 
 <jsp:include page="footer.jsp"/>
