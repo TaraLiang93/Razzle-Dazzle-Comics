@@ -162,7 +162,7 @@
                         <div class="editImg">
                             <p style="font-weight: bold">Chapter Icon: </p>
                             <img id="imgPreview" src="">
-                            <form id="imgForm" method="post" action="/create/series/updateSeriesImage" enctype="multipart/form-data">
+                            <form id="imgForm" method="post" action="/create/chapter/updateChapterImage" enctype="multipart/form-data">
                                 <input name="imgSrc"  id="browseImg" type="file" accept="image/*">
                             </form>
                         </div>
