@@ -41,11 +41,16 @@ public class UpdateChapterTask implements UpdateTask<Chapter> {
         chapterToUpdate.setChapterString( chapterModel.getChapterString() );
         chapterToUpdate.setDescription( chapterModel.getDescription() );
 
+        // make sure the chapterModelPageList isn't null
+        if( chapterModel.getPageList() == null){
+            throw new UpdateException("Update Chapter Task chapter model is null");
+        }
 
         // make sure the chapterModelPageList isn't null
         if( chapterModel.getPageList() == null){
             throw new UpdateException("Update Chapter Task chapter model is null");
         }
+
 
 
         for( PageModel pageModel: chapterModel.getPageList()){

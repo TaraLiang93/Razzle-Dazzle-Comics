@@ -55,7 +55,7 @@ public class UpdateScribbleTask implements UpdateTask<Scribble> {
                 new PageUpdater()
                         .updateEntity(
                                 new GetPageByIDCommand(pageModel.getId()),
-                                new UpdatePageTask(pageModel)
+                                new UpdateScribblePageTask(pageModel)
                         );
             }
         }

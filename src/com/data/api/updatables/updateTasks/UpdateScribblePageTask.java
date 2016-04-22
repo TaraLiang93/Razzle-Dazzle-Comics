@@ -21,11 +21,11 @@ import java.util.List;
 /**
  * Created by drodrigues on 4/18/16.
  */
-public class UpdatePageTask implements UpdateTask<Page> {
+public class UpdateScribblePageTask implements UpdateTask<Page> {
 
     private PageModel pageModel;
 
-    public UpdatePageTask(PageModel pageModel){
+    public UpdateScribblePageTask(PageModel pageModel){
         this.pageModel = pageModel;
     }
 
@@ -49,7 +49,7 @@ public class UpdatePageTask implements UpdateTask<Page> {
                 new SceneUpdater()
                         .updateEntity(
                                 new GetSceneByIDCommand(sceneModel.getId()),
-                                new UpdateSceneTask(sceneModel)
+                                new UpdateScribbleSceneTask(sceneModel)
                         );
             }
 

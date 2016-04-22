@@ -1,12 +1,16 @@
 package com.data.api.updatables.updateTasks;
 
+import com.data.UserData;
+import com.data.api.createables.TeamMemberCreater;
+import com.data.api.createables.fillCommands.TeamMemberFillCommand;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
+import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.UpdateTask;
-import com.data.api.queries.external.GetTeamMemberByIDCommand;
+import com.data.api.queries.external.GetUserDataByUserNameCommand;
 import com.data.creation.Chapter;
 import com.data.structure.TeamMember;
 
@@ -17,30 +21,34 @@ import java.util.List;
  * Created by Zhenya on 4/15/16.
  */
 public class UpdateChapterAddTeamMemberTask implements UpdateTask<Chapter> {
-    Long teamMemberId;
+    String userName; // the username of the user which is same as the gmail
 
-    public UpdateChapterAddTeamMemberTask(Long teamMember){
-        this.teamMemberId = teamMember;
-    }
 
-    public UpdateChapterAddTeamMemberTask(String strTeamMemberId){
-        try {
-            this.teamMemberId = Long.parseLong(strTeamMemberId);
-        }
-        catch (NumberFormatException ex){
-            ex.printStackTrace();
-        }
+    public UpdateChapterAddTeamMemberTask(String userName){
+        userName = userName;
     }
 
     @Override
     public List<Chapter> update(Container<Chapter> entity) throws UpdateException, FetchException, CreateException {
         Chapter chapter = entity.getResult();
-        if( this.teamMemberId == null){
-            throw new UpdateException("UpdateChapterAddTeamMemberTask teamMemberId null");
+        if( this.userName == null || this.userName.equals("") ){
+            throw new UpdateException("UpdateChapterAddTeamMemberTask userName is null");
         }
-        else{
-            Readable<TeamMember> getTeamMember = new GetTeamMemberByIDCommand(this.teamMemberId);
-            TeamMember teamMember = getTeamMember.fetch().getResult();
+        else{//userName is Valid
+
+            // get the userData with userName
+            Readable<UserData> getUserData= new GetUserDataByUserNameCommand(userName);
+            UserData userData = getUserData.fetch().getResult();
+
+            if( userData == null){
+                throw new UpdateException("userData null");
+            }
+
+            //Create the TeamMember object
+            Createable<TeamMember> teamMemberCreateable = new TeamMemberCreater( userData.getKey());
+            TeamMember teamMember = teamMemberCreateable.createEntity( new TeamMemberFillCommand());
+
+            // add TeamMember to Chapter
             chapter.addTeamMemberToTeamMemberList(teamMember.getKey());
         }
 
