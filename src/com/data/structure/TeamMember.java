@@ -4,6 +4,7 @@ import com.data.UserData;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,9 @@ public class TeamMember {
     @Id
     Long teamMemberId;
 
+    @Index
     Key<UserData> userDataKey;
+
     List<Key<Role>> roleList;
 
     public TeamMember(){
