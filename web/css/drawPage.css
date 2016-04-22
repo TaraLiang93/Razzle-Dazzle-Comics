@@ -7,7 +7,7 @@
 
 .diaglogs {
     height :250px;
-    overflow: scroll;
+    overflow-y: scroll;
     margin-bottom: 4%;
 }
 
@@ -28,8 +28,10 @@
 }
 .drawingScenes {
     clear: both;
-    width: 943px;
+    width: 885px;
     height: 15vh;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .drawingSetting {
@@ -38,3 +40,31 @@
     width: 600px;
 }
 
+#sceneCarousel {
+    height:100%;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+.scenes {
+    width:100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.drawingScenes  span {
+    height:inherit;
+    /*width:150px;*/
+    /*display: inline-block;*/
+}
+
+/*#sceneCarousel > span {*/
+    /*height: 75px;*/
+/*}*/
+
+.drawingScenes  img{
+    height: 100%;
+    width: 100px;
+    /*display: block;*/
+}

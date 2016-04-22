@@ -23,7 +23,7 @@ import java.util.List;
 public class ProjectAdminPageController {
 
     @RequestMapping(value="/create/projectAdminPage", method= RequestMethod.GET)
-    public ModelAndView loadPublishPage(HttpSession session, ModelMap map){
+    public ModelAndView loadProjectAdminPage(HttpSession session, ModelMap map){
 
 
         BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();

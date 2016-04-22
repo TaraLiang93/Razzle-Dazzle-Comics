@@ -3,10 +3,20 @@ package com.rdc.create;
 import com.data.api.createables.SeriesCreater;
 import com.data.api.createables.fillCommands.SeriesFillCommand;
 import com.data.api.exceptions.CreateException;
+import com.data.api.createables.ChapterCreater;
+import com.data.api.createables.fillCommands.ChapterFillCommand;
+import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
+import com.data.api.exceptions.UpdateException;
+import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.Readable;
+import com.data.api.interfaces.Updateable;
+import com.data.api.queries.external.GetChaptersOfSeriesCommand;
 import com.data.api.queries.external.GetSeriesByIDCommand;
+import com.data.api.updatables.SeriesUpdater;
+import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
+import com.data.creation.Chapter;
 import com.data.api.queries.external.GetUserDataByUserCommand;
 import com.data.api.updatables.UserDataUpdater;
 import com.data.api.updatables.updateTasks.UpdateUserDataAddSeriesTask;
@@ -16,6 +26,7 @@ import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.object.UpdatableSqlQuery;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +37,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
+import java.io.IOException;
 
 /**
  * Created by drodrigues on 3/29/16.
@@ -123,9 +135,25 @@ public class SeriesController {
         try {
             Readable<Series> getSeries = new GetSeriesByIDCommand(id);
             Series series = getSeries.fetch().getResult();
+
+            //Creating chapter
+//            for(int i = 0; i < 1000; i++) {
+//                Createable<Chapter> chapterCreater = new ChapterCreater("Chapter "+ i," Yo I be dying " + i,
+//                        "Jesus is awesome blah bloo bleep");
+//                Chapter chapter = chapterCreater.createEntity(new ChapterFillCommand());
+//
+//                Updateable<Series> seriesUpdateable = new SeriesUpdater();
+//                seriesUpdateable.updateEntity(getSeries,new UpdateSeriesAddChapterTask(chapter.getChapterId()));
+//
+//            }
+
+            Readable<Chapter> getChapters = new GetChaptersOfSeriesCommand(series.getSeriesID());
+            List<Chapter> chapters = getChapters.fetch().getList();
+
             map.put("seriesTitle",series.getTitle());
             map.put("seriesDescription",series.getDescription());
             map.put("seriesIsPublished",series.isPublished());
+            map.put("chapters", chapters);
         } catch (FetchException e) {
             e.printStackTrace();
         }

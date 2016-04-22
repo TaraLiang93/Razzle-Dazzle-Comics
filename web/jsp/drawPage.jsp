@@ -42,9 +42,38 @@
 </div>
 
 <div class="drawingScenes content-border">
-    <span class="scenes content-border">
+    <div class="scenes">
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class=""><img src="/img/logo.jpg"></span>
+        <span class=""><img src="/img/plus_sign.jpg"></span>
 
-    </span>
+
+    </div>
 </div>
 
 <jsp:include page="footer.jsp" />

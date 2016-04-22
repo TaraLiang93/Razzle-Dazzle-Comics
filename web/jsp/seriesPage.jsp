@@ -40,20 +40,25 @@
 
              <%--LEFT SIDE: SERIES CHAPTER   --%>
             <div class="pull-left container" id="seriesChapter">
-                <div class="chapter">
-                    <img class="pull-left" id="chapterImg" src="http://placehold.it/150x150">
-                    <div>
-                        <h2 id="chapterTitle">Chapter Title</h2>
+
+                <c:forEach var="chapter" items="${chapters}">
+                    <div class="chapter" id="${chapter.chapterId}">
+                        <img class="pull-left" id="chapterImg" src="http://placehold.it/150x150">
+                        <div>
+                            <h2 id="chapterTitle">Chapter Title${chapter.title}</h2>
+                        </div>
+                        <div>
+                            <p class="stringAndStatus">${chapter.chapterString}</p>
+                            <p class="stringAndStatus pull-right">${chapter.published ? "Published" : "Publish"}</p>
+                        </div>
+                        <p id="chapterDescr">${chapter.description}</p>
+                        <a class="btn btn-link updateDescr">
+                            <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+                        </a>
                     </div>
-                    <div>
-                        <p class="stringAndStatus">Chapter String</p>
-                        <p class="stringAndStatus pull-right">Chapter Status</p>
-                    </div>
-                    <p id="chapterDescr">Description</p>
-                    <a class="btn btn-link updateDescr">
-                        <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
-                    </a>
-                </div>
+                </c:forEach>
+
+
             </div>
         </div>
     </div>
