@@ -1,5 +1,12 @@
 package com.rdc.create;
 
+import com.data.api.exceptions.FetchException;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.external.GetTeamMemberByIDCommand;
+import com.data.api.queries.external.GetTeamMembersOfChapterCommand;
+import com.data.creation.Chapter;
+import com.data.creation.Doodle;
+import com.data.structure.TeamMember;
 import com.data.api.createables.ChapterCreater;
 import com.data.api.createables.fillCommands.ChapterFillCommand;
 import com.data.api.exceptions.CreateException;
@@ -20,6 +27,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by drodrigues on 3/29/16.
