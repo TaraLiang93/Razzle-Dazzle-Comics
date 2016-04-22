@@ -2,8 +2,12 @@ package com.rdc.create;
 
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
+import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetTeamMemberByIDCommand;
 import com.data.api.queries.external.GetTeamMembersOfChapterCommand;
+import com.data.api.updatables.ChapterUpdater;
+import com.data.api.updatables.updateTasks.UpdateChapterAddTeamMemberTask;
+import com.data.api.updatables.updateTasks.UpdateChapterRemoveTeamMemberTask;
 import com.data.creation.Chapter;
 import com.data.creation.Doodle;
 import com.data.structure.TeamMember;
@@ -66,29 +70,65 @@ public class ChapterController {
 
 
 
-//    @RequestMapping(value="/create/loadChapter/{idOfChapter}", method= RequestMethod.GET)
-//    public ModelAndView loadTeam(@PathVariable String idOfChapter, HttpSession session, ModelMap map){
-//
+    @RequestMapping(value="/create/loadChapter/{idOfChapter}", method= RequestMethod.GET)
+    public ModelAndView loadChapter(@PathVariable String idOfChapter, HttpSession session, ModelMap map){
+        System.out.println(idOfChapter);
+
 //        try {
-//            Long id = Long.parseLong(idOfChapter);
-//            Chapter test = new Chapter();
-//            test.setChapterId(id);
-//            test.setTitle("Bobby is bumb");
-//            test.setChapterString("808");
-//            test.setDescription("This sucksssss");
+            Long id = Long.parseLong(idOfChapter);
+            Chapter test = new Chapter();
+            test.setChapterId(id);
+            test.setTitle("Bobby is bumb");
+            test.setChapterString("808");
+            test.setDescription("This sucksssss");
 //            test.setTeamMemberList();
-//
-//
-//
-//            System.out.println(idOfChapter);
+
+
+
+            System.out.println("DID WE GET HEREEEEEEEEEEEEEEEEEEEEEE"+idOfChapter);
 //            Readable<TeamMember> getMember = new GetTeamMembersOfChapterCommand(idOfChapter);
 //            List<TeamMember> member = getMember.fetch().getList();
 //            map.put("teamMember",member);
-//        } catch (FetchException e) {
+//            Readable<Chapter> res = new GetChapterByIDCommand(id);
+//            Chapter result = res.fetch().getResult();
+
+            map.put("chapterId", id);
+            map.put("chapterTitle", test.getTitle());
+            map.put("chapterString", test.getChapterString());
+            map.put("chapterDescr",test.getDescription());
+//        }
+//        catch (FetchException e) {
 //            e.printStackTrace();
 //        }
-//        return new ModelAndView("chapterPage");
-//    }
+        return new ModelAndView("chapterPage");
+    }
+
+    @RequestMapping(value="/create/chapter/addMember", method = RequestMethod.POST)
+    public boolean addTeam(@RequestParam String chapterID, @RequestParam String newMemeber, HttpSession session){
+        try{
+            Updateable<Chapter> chapterUpdater = new ChapterUpdater();
+            Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterID);
+            chapterUpdater.updateEntity(chapterReadable, new UpdateChapterAddTeamMemberTask(newMemeber));
+        } catch(UpdateException | FetchException | CreateException e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
+    @RequestMapping(value="/create/chapter/removeMember", method = RequestMethod.POST)
+    public boolean removeTeamMember(@RequestParam String chapterID, @RequestParam String removeMember, HttpSession session){
+        try{
+            Updateable<Chapter> chapterUpdater = new ChapterUpdater();
+            Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterID);
+            chapterUpdater.updateEntity(chapterReadable, new UpdateChapterRemoveTeamMemberTask(removeMember));
+        } catch(UpdateException | FetchException | CreateException e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
 
     @RequestMapping(value=NEW_CHAPTER, method= RequestMethod.POST)
