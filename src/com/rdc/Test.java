@@ -685,7 +685,6 @@ public class Test {
             ChapterModel chapterModel = new ChapterModel();
             chapterModel.setTitle("Chapter title mang Updated");
             chapterModel.setDescription("Chapter description mang Updated");
-            chapterModel.setPublished(false);
 
             //PageModelList
             List<PageModel> pageModelList = new ArrayList<>();

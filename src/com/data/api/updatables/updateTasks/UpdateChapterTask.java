@@ -38,11 +38,9 @@ public class UpdateChapterTask implements UpdateTask<Chapter> {
         }
 
         chapterToUpdate.setTitle(chapterModel.getTitle() );
-        chapterToUpdate.setChapterCover(chapterModel.getChapterCover() );
         chapterToUpdate.setChapterString( chapterModel.getChapterString() );
         chapterToUpdate.setDescription( chapterModel.getDescription() );
-        chapterToUpdate.setLastModifiedDate( chapterModel.getLastModifiedDate());
-        chapterToUpdate.setPublished( chapterModel.getPublished() );
+
 
         // make sure the chapterModelPageList isn't null
         if( chapterModel.getPageList() == null){

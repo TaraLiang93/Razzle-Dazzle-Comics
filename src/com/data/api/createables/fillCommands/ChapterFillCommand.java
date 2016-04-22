@@ -4,19 +4,19 @@ import com.data.api.exceptions.CreateException;
 import com.data.api.interfaces.FillDataCommand;
 import com.data.creation.Chapter;
 import com.data.structure.Flow;
-import com.google.appengine.api.datastore.Blob;
+import com.google.appengine.api.blobstore.BlobKey;
 
 /**
  * Created by Zhenya on 4/9/16.
  */
 public class ChapterFillCommand implements FillDataCommand<Chapter> {
 
-    Blob chapterCover;
+    BlobKey chapterCover;
     Flow flow;
     String description;
 
     public  ChapterFillCommand(){}
-    public ChapterFillCommand(Blob chapterCover){
+    public ChapterFillCommand(BlobKey chapterCover){
         this.chapterCover = chapterCover;
     }
 
@@ -24,7 +24,7 @@ public class ChapterFillCommand implements FillDataCommand<Chapter> {
         this.description = description;
     }
 
-    public ChapterFillCommand(String description, Blob chapterCover){
+    public ChapterFillCommand(String description, BlobKey chapterCover){
         this.description = description;
         this.chapterCover = chapterCover;
     }

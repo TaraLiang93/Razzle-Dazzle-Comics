@@ -1,29 +1,39 @@
 package com.rdc.create;
 
+import com.data.api.createables.SeriesCreater;
+import com.data.api.createables.fillCommands.SeriesFillCommand;
+import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.external.GetSeriesByIDCommand;
+import com.data.api.queries.external.GetUserDataByUserCommand;
+import com.data.api.updatables.UserDataUpdater;
+import com.data.api.updatables.updateTasks.UpdateUserDataAddSeriesTask;
 import com.data.structure.Series;
-import com.model.ScribbleModel;
+import com.google.appengine.api.blobstore.*;
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserServiceFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpSession;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by drodrigues on 3/29/16.
  */
 @Controller
 public class SeriesController {
+
+    public static final String NEW_SERIES = "/create/series/new";
 
     @RequestMapping(value="/create/series/updateDescription", method= RequestMethod.POST)
     @ResponseBody
@@ -46,56 +56,64 @@ public class SeriesController {
     }
 
 
-    public static final String NEW_SERIES = "/create/series/new";
-
     @RequestMapping(value=NEW_SERIES, method= RequestMethod.POST)
     public ModelAndView addSeries(@RequestParam String title,
-                                   @RequestParam String author,
-                                   @RequestParam String artist,
-                                   @RequestParam String description,
-                                   @RequestPart final MultipartFile seriesImage,
-                                   @RequestHeader String referer){
+                                  @RequestParam String author,
+                                  @RequestParam String artist,
+                                  @RequestParam String description,
+                                  @RequestHeader String referer,
+                                  HttpServletRequest req,
+                                  ModelMap map){
+
+        String redirect = "testAddChapter";
 
         System.out.println("Title : " + title);
         System.out.println("Author : " + author);
         System.out.println("Artist : " + artist);
         System.out.println("Description : " + description);
-        System.out.println("Image Content : " + seriesImage.getContentType());
 
-        byte[] bytes;
-        try {
-            bytes = seriesImage.getBytes();
-            System.out.println("Series Img length : " + bytes.length);
-            System.out.println("Series Img : " + bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+
         System.out.println("Referer: " + referer);
 
-        String redirect = "homepage";
+        User user = UserServiceFactory.getUserService().getCurrentUser();
 
-/*
-        try {
-            Chapter chapter = new ChapterCreater(title, id, description).createEntity(new NoWork<Chapter>());
-        } catch (CreateException e) {
-            redirect = referer;
-            e.printStackTrace();
+
+        BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+        Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
+        List<BlobKey> blobKeys = blobs.get("seriesImage");
+
+        if (blobKeys == null) {
+            System.out.println("Why you null BlobKeys?");
+            redirect = referer; //Go back from whence thee came
         }
-    View view = new View() {
-            @Override
-            public String getContentType() {
-                return "image/png";
+        else {
+
+            if (blobKeys.size() == 0) {
+                System.out.println("There should be a default Image here");
+                redirect = referer;
+            } else {
+                BlobKey blobKey = blobKeys.get(0); // Get the first one
+                BlobInfoFactory blobInfoFactory = new BlobInfoFactory();
+                BlobInfo info = blobInfoFactory.loadBlobInfo(blobKey);
+                System.out.println("Content Type : " + info.getContentType());
+                System.out.println("Image FileName : " + info.getFilename());
+                BlobKey key = info.getBlobKey();
+
+                try {
+                    Series series = new SeriesCreater(key, title, description, false).createEntity(new SeriesFillCommand());
+                    new UserDataUpdater()
+                            .updateEntity(
+                                    new GetUserDataByUserCommand(user),
+                                    new UpdateUserDataAddSeriesTask(series));
+                    map.put("chapterCover", series.getSeriesCover());
+                } catch (CreateException | FetchException| UpdateException e) {
+                    redirect = referer;
+                    e.printStackTrace();
+                }
             }
 
-            @Override
-            public void render(Map<String, ?> map, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-                ServletOutputStream sos = httpServletResponse.getOutputStream();
-                sos.write(seriesImage.getBytes());
-            }
-        };
-
-        return view;
-        */
+        }
         return new ModelAndView(redirect);
     }
     @RequestMapping(value="/create/series/load/{id}", method= RequestMethod.GET)

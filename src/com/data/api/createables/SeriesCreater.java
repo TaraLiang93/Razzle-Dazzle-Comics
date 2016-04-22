@@ -4,7 +4,7 @@ import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Createable;
 import com.data.structure.Series;
-import com.google.appengine.api.datastore.Blob;
+import com.google.appengine.api.blobstore.BlobKey;
 import com.model.SeriesModel;
 
 /**
@@ -12,7 +12,7 @@ import com.model.SeriesModel;
  */
 public class SeriesCreater extends Createable<Series> {
     SeriesModel seriesModel;
-    Blob seriesCover;
+    BlobKey seriesCover;
     String title;
     String description;
     Boolean isPublished;
@@ -21,7 +21,7 @@ public class SeriesCreater extends Createable<Series> {
         this.seriesModel = seriesModel;
     }
 
-    public SeriesCreater(Blob seriesCover, String title, String description, Boolean isPublished){
+    public SeriesCreater(BlobKey seriesCover, String title, String description, Boolean isPublished){
         this.seriesCover = seriesCover;
         this.title =title;
         this.description = description;
@@ -32,7 +32,6 @@ public class SeriesCreater extends Createable<Series> {
     protected Series getEntity() throws CreateException, FetchException {
         Series series = new Series();
         if( seriesModel != null) {
-            series.setSeriesCover(seriesModel.getSeriesCover());
             series.setTitle(seriesModel.getTitle());
             series.setDescription(seriesModel.getDescription());
             series.setPublished(seriesModel.isPublished());

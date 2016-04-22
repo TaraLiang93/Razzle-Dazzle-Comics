@@ -23,6 +23,11 @@
     <mvc:annotation-driven />
 
 
+    <mvc:interceptors>
+        <bean class="com.rdc.interceptor.URLInterceptor" />
+    </mvc:interceptors>
+
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix">
             <value>/jsp/</value>

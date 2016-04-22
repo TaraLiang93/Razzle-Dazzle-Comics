@@ -1,7 +1,5 @@
 package com.model;
 
-import com.google.appengine.api.datastore.Blob;
-
 import java.util.List;
 
 /**
@@ -10,7 +8,6 @@ import java.util.List;
 public class SeriesModel {
 
     private Long id;
-    private Blob seriesCover;
     String title;
     String description;
     boolean published;
@@ -23,14 +20,6 @@ public class SeriesModel {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Blob getSeriesCover() {
-        return seriesCover;
-    }
-
-    public void setSeriesCover(Blob seriesCover) {
-        this.seriesCover = seriesCover;
     }
 
     public String getTitle() {

@@ -196,7 +196,7 @@ aria-controls=\"Page"+page+"\" role=\"tab\" data-toggle=\"tab\">Page "+ (page + 
 
 
         //$('#pageTabs .page-tab:last').after(newPageTab);
-        $('#addPage').before(newPageTab);
+        $('#addPage').parent().before(newPageTab);
 
         pageEvent($('#pageTabs .page-tab:last a'));
 

@@ -7,12 +7,26 @@ import com.data.api.queries.external.GetTeamMembersOfChapterCommand;
 import com.data.creation.Chapter;
 import com.data.creation.Doodle;
 import com.data.structure.TeamMember;
+import com.data.api.createables.ChapterCreater;
+import com.data.api.createables.fillCommands.ChapterFillCommand;
+import com.data.api.exceptions.CreateException;
+import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
+import com.data.api.interfaces.Container;
+import com.data.api.queries.external.GetChapterByIDCommand;
+import com.data.api.queries.external.GetSeriesByIDCommand;
+import com.data.api.updatables.SeriesUpdater;
+import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
+import com.data.creation.Chapter;
+import com.google.appengine.api.blobstore.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
@@ -24,6 +38,33 @@ import java.util.List;
 public class ChapterController {
 
     public static final String NEW_CHAPTER = "/create/chapter/new";
+    public static final String LOAD_CHAPTER = "/create/chapter/load/{id}";
+    public static final String LOAD_NEW_CHAPTER = "/create/chapter/new/load";
+
+
+    @RequestMapping(value = LOAD_NEW_CHAPTER, method = RequestMethod.GET)
+    public String getImageUploadUrl(ModelMap map) {
+        BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+        map.put("uploadAction",blobstoreService.createUploadUrl(NEW_CHAPTER));
+        return "newChapterModal";
+    }
+
+    @RequestMapping(value = LOAD_CHAPTER, method = RequestMethod.GET)
+    public ModelAndView loadChapter(@PathVariable String id, @RequestHeader String referer, ModelMap map) {
+
+        try {
+            Container<Chapter> chapterContainer = new GetChapterByIDCommand(id).fetch();
+            Chapter chapter = chapterContainer.getResult();
+            map.put("chapter", chapter);
+        } catch (FetchException e) {
+            e.printStackTrace();
+            return new ModelAndView(referer);
+        }
+
+        return new ModelAndView("chapterPage");
+    }
+
+
 
 //    @RequestMapping(value="/create/loadChapter/{idOfChapter}", method= RequestMethod.GET)
 //    public ModelAndView loadTeam(@PathVariable String idOfChapter, HttpSession session, ModelMap map){
@@ -52,38 +93,68 @@ public class ChapterController {
 
     @RequestMapping(value=NEW_CHAPTER, method= RequestMethod.POST)
     public ModelAndView addChapter(@RequestParam String id,
-                           @RequestParam String title,
-                           @RequestParam String description,
-                           @RequestParam String flow,
-                           @RequestPart MultipartFile chapterImage,
-                           @RequestHeader String referer){
+                                   @RequestParam String title,
+                                   @RequestParam String description,
+                                   @RequestParam String flow,
+                                   @RequestParam String seriesID,
+                                   @RequestHeader String referer,
+                                   HttpServletRequest req,
+                                   ModelMap map){
+
+        String redirect = "testAddChapter";
 
         System.out.println("ID : " + id);
         System.out.println("Title : " + title);
         System.out.println("Description : " + description);
         System.out.println("Flow : " + flow);
-        System.out.println("Image Content : " + chapterImage.getContentType());
+        System.out.println("Series ID : " + seriesID);
 
-         byte[] bytes;
-        try {
-            bytes = chapterImage.getBytes();
-            System.out.println("Chapter Img length : " + bytes.length);
-            System.out.println("Chapter Img : " + bytes);
-        } catch (IOException e) {
-            e.printStackTrace();
+        BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+        Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
+        List<BlobKey> blobKeys = blobs.get("chapterImage");
+
+        if (blobKeys == null) {
+            System.out.println("Why you null BlobKeys?");
+            redirect = referer; //Go back from whence thee came
         }
-        System.out.println("Referer: " + referer);
+        else {
+            if(blobKeys.size() == 0){
+                System.out.println("There should be a default Image here");
+                redirect = referer;
+            }
+            else{
 
-        String redirect = "homepage";
+                    BlobKey blobKey = blobKeys.get(0); // Get the first one
+                    BlobInfoFactory blobInfoFactory = new BlobInfoFactory();
+                    BlobInfo info = blobInfoFactory.loadBlobInfo(blobKey);
+                    System.out.println("Content Type : "+info.getContentType());
+                    System.out.println("Image FileName : "+info.getFilename());
+                    BlobKey key = info.getBlobKey();
 
-/*
-        try {
-            Chapter chapter = new ChapterCreater(title, id, description).createEntity(new NoWork<Chapter>());
-        } catch (CreateException e) {
-            redirect = referer;
-            e.printStackTrace();
+                try {
+                    Chapter chapter = new ChapterCreater(title, id, description).createEntity(new ChapterFillCommand(key));
+                    new SeriesUpdater()
+                            .updateEntity(
+                                          new GetSeriesByIDCommand(seriesID),
+                                          new UpdateSeriesAddChapterTask(chapter));
+                    map.put("chapterCover", chapter.getChapterCover());
+                } catch (CreateException e) {
+                    redirect = referer;
+                    e.printStackTrace();
+                } catch (FetchException e) {
+                    redirect = referer;
+                    e.printStackTrace();
+                } catch (UpdateException e) {
+                    redirect = referer;
+                    e.printStackTrace();
+                }
+            }
+
         }
-*/
+
+
+
+
         return new ModelAndView(redirect);
     }
 

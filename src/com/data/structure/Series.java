@@ -3,11 +3,13 @@ package com.data.structure;
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
+import com.data.api.queries.internal.GetImgUrlFromBlobKey;
 import com.data.creation.Chapter;
-import com.google.appengine.api.datastore.Blob;
+import com.google.appengine.api.blobstore.BlobKey;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Ignore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +19,14 @@ import java.util.List;
  */
 @Entity
 public class Series {
+
+    @Ignore
+    private static final String DEFAULT_IMG = "/img/profile_default";
+
     @Id
     Long seriesID;
 
-    Blob seriesCover;
+    BlobKey seriesCover;
     String title;
     String description;
 //    Float rating;
@@ -41,11 +47,16 @@ public class Series {
         this.seriesID = seriesID;
     }
 
-    public Blob getSeriesCover() {
+    public BlobKey getSeriesCoverBlob() {
         return seriesCover;
     }
 
-    public void setSeriesCover(Blob seriesCover) {
+    public String getSeriesCover(){
+        String url = (seriesCover == null)? DEFAULT_IMG : GetImgUrlFromBlobKey.getURL(seriesCover);
+        return url;
+    }
+
+    public void setSeriesCover(BlobKey seriesCover) {
         this.seriesCover = seriesCover;
     }
 

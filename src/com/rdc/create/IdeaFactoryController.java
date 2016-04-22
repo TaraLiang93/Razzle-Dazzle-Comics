@@ -1,6 +1,5 @@
 package com.rdc.create;
 
-import com.data.Globals;
 import com.data.UserData;
 import com.data.api.createables.DoodleCreater;
 import com.data.api.createables.ScribbleCreater;
@@ -12,17 +11,13 @@ import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
-import com.data.api.queries.external.GetDoodlesByIDCommand;
-import com.data.api.queries.external.GetDoodlesOfUserDataCommand;
-import com.data.api.queries.external.GetUserDataByIDCommand;
-import com.data.api.queries.external.GetScribblesByIDCommand;
-import com.data.api.queries.external.GetScribblesOfUserDataCommand;
+import com.data.api.queries.external.*;
 import com.data.api.updatables.DoodleUpdater;
 import com.data.api.updatables.UserDataUpdater;
 import com.data.api.updatables.updateTasks.UpdateDoodleTask;
-import com.data.api.updatables.updateTasks.UpdateUserDataAddDoodlesTask;
-import com.data.api.updatables.updateTasks.UpdateUserDataTask;
 import com.data.api.updatables.updateTasks.UpdateScribbleTask;
+import com.data.api.updatables.updateTasks.UpdateUserAddScribbleTask;
+import com.data.api.updatables.updateTasks.UpdateUserDataAddDoodlesTask;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
 import com.google.appengine.api.users.User;
@@ -54,13 +49,6 @@ public class IdeaFactoryController {
     public ModelAndView loadIdeaFactory(HttpSession session, ModelMap map){
 
         User user = UserServiceFactory.getUserService().getCurrentUser();
-        Globals globals = (Globals) session.getAttribute("globals");
-        if(globals == null)
-        {
-            globals = new Globals();
-            session.setAttribute("globals",globals);
-        }
-        globals.setStatus("create");
 
         if(user == null) return new ModelAndView("/logout");
 
@@ -117,6 +105,8 @@ public class IdeaFactoryController {
 
         System.out.println("Made It! -->" + model);
 
+        User user = UserServiceFactory.getUserService().getCurrentUser();
+
         if(model.getId() != null && !model.getId().equals("")){ //It Exists, update it
             try {
                 new Updateable().updateEntity(new GetScribblesByIDCommand(model.getId()), new UpdateScribbleTask(model));
@@ -127,8 +117,13 @@ public class IdeaFactoryController {
         else{ //It's brand new
 
             try {
-                new ScribbleCreater(model.getTitle(), model.getDescription()).createEntity(new ScribbleFillCommand(model));
+                Scribble newScribb = new ScribbleCreater(model.getTitle(), model.getDescription()).createEntity(new ScribbleFillCommand(model));
+                new UserDataUpdater().updateEntity(new GetUserDataByUserCommand(user), new UpdateUserAddScribbleTask(newScribb));
             } catch (CreateException e) {
+                e.printStackTrace();
+            } catch (FetchException e) {
+                e.printStackTrace();
+            } catch (UpdateException e) {
                 e.printStackTrace();
             }
         }
@@ -162,7 +157,7 @@ public class IdeaFactoryController {
         return new ModelAndView("doodles");
     }
 
-        @RequestMapping(value="/create/doodle/save", method= RequestMethod.POST)
+        @RequestMapping(value=SAVE_DOODLE, method= RequestMethod.POST)
     public ModelAndView saveDoodle(@RequestParam final String canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription, HttpServletRequest req, HttpSession session, ModelMap map){
 
         System.out.println("saving a doodle made easy");
