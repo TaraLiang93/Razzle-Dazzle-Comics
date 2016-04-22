@@ -7,6 +7,8 @@ import java.util.List;
  */
 public class PageModel {
 
+    private String parentID;
+
     private String id;
 
     private List<SceneModel> scenes;
@@ -25,6 +27,15 @@ public class PageModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+
+    public String getParentID() {
+        return parentID;
+    }
+
+    public void setParentID(String parentID) {
+        this.parentID = parentID;
     }
 
     @Override

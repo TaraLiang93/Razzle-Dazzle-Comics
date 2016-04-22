@@ -6,22 +6,17 @@ import java.util.List;
  * Created by Zhenya on 4/15/16.
  */
 public class ChapterModel {
-    private Long chapterId;
-
-    private  String title;
+    private String chapterId;
+    private String title;
     private String chapterString;
     private String description;
+    private List<PageModel> pages;
 
-//    private FlowModel theFlow;
-//    List<PublishedPageModel> publishedPageList;
-//    List<TeamMemberModel> teamMemberList;
-    List<PageModel> pageList;
-
-    public Long getChapterId() {
+    public String getChapterId() {
         return chapterId;
     }
 
-    public void setChapterId(Long chapterId) {
+    public void setChapterId(String chapterId) {
         this.chapterId = chapterId;
     }
 
@@ -50,10 +45,10 @@ public class ChapterModel {
     }
 
     public List<PageModel> getPageList() {
-        return pageList;
+        return pages;
     }
 
     public void setPageList(List<PageModel> pageList) {
-        this.pageList = pageList;
+        this.pages = pageList;
     }
 }

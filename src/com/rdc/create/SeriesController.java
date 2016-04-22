@@ -107,13 +107,7 @@ public class SeriesController {
                                     new GetUserDataByUserCommand(user),
                                     new UpdateUserDataAddSeriesTask(series));
                     map.put("chapterCover", series.getSeriesCover());
-                } catch (CreateException e) {
-                    redirect = referer;
-                    e.printStackTrace();
-                } catch (FetchException e) {
-                    redirect = referer;
-                    e.printStackTrace();
-                } catch (UpdateException e) {
+                } catch (CreateException | FetchException| UpdateException e) {
                     redirect = referer;
                     e.printStackTrace();
                 }

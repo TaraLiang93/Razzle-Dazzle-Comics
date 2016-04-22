@@ -39,24 +39,13 @@
     <form:form method="post" action="/create/scribble/save" modelAttribute="scribbleModel">
 
         <input type="hidden" name="id" value="${scribble.scribbleId}"/>
-        <jsp:include page="Writing.jsp"/>
+        <jsp:include page="Writing.jsp">
+            <jsp:param name="textRequired" value="${true}"/>
+            <jsp:param name="text" value="${scribble.title}"/>
+            <jsp:param name="textarea" value="${scribble.description}"/>
+        </jsp:include>
 
-        <div class="description writeTabs center-block">
 
-                <div id="textForm" class="col-sm-2">
-                    <div>
-                        <label for="storyTitle">Title </label>
-                        <form:input id="storyTitle" path="title" value="${scribble.title}" type="text" class="form-control"/>
-                    </div>
-                    <div>
-                        <label for="storyDesc">Description</label>
-                        <textarea id="storyDesc" name="description" class="form-control" maxlength="100" >${scribble.description}</textarea>
-                    </div>
-                </div>
-                <div id="buttons" class="col-sm-2 center-block">
-                    <button type="submit" class="btn btn-primary storySave center-block">Save Draft</button>
-                </div>
-        </div>
     </form:form>
 
 </div>

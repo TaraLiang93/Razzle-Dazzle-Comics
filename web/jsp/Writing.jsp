@@ -28,7 +28,7 @@
 
 
             <!-- Scene Tab panes -->
-            <div  class="scene-list tab-content">
+            <div class="scene-list tab-content">
                 <c:set var="sceneCount" value="0"/>
                 <c:forEach items = "${page.scenes}" var = "scene" varStatus="i">
                     <div role="tabpanel" class="scene-tabs tab-pane fade in ${i.index eq 0 ? 'active' : none} " id="Page${pageIndex.index}Scene${i.index}">
@@ -57,6 +57,26 @@
     <input id="currPage" type="hidden" value="0"/>
 </div>
 
+
+<div class="description writeTabs center-block">
+
+    <c:if test="${not empty param.textRequired}">
+        <div id="textForm" class="col-sm-2">
+            <div>
+                <label for="storyTitle">Title </label>
+                <form:input id="storyTitle" path="title" value="${param.text}" type="text" class="form-control"/>
+            </div>
+
+                <div>
+                    <label for="storyDesc">Description</label>
+                    <textarea id="storyDesc" name="description" class="form-control" maxlength="100" >${param.textarea}</textarea>
+                </div>
+        </div>
+    </c:if>
+    <div id="buttons" class="col-sm-2 center-block">
+        <button type="submit" class="btn btn-primary storySave center-block">Save Draft</button>
+    </div>
+</div>
 
 <div id="settingModel" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog">

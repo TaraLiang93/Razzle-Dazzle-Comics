@@ -5,6 +5,8 @@ import com.data.api.createables.fillCommands.ChapterFillCommand;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
+import com.data.api.interfaces.Container;
+import com.data.api.queries.external.GetChapterByIDCommand;
 import com.data.api.queries.external.GetSeriesByIDCommand;
 import com.data.api.updatables.SeriesUpdater;
 import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
@@ -12,10 +14,7 @@ import com.data.creation.Chapter;
 import com.google.appengine.api.blobstore.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +28,7 @@ import java.util.Map;
 public class ChapterController {
 
     public static final String NEW_CHAPTER = "/create/chapter/new";
+    public static final String LOAD_CHAPTER = "/create/chapter/load/{id}";
     public static final String LOAD_NEW_CHAPTER = "/create/chapter/new/load";
 
 
@@ -38,6 +38,22 @@ public class ChapterController {
         map.put("uploadAction",blobstoreService.createUploadUrl(NEW_CHAPTER));
         return "newChapterModal";
     }
+
+    @RequestMapping(value = LOAD_CHAPTER, method = RequestMethod.GET)
+    public ModelAndView loadChapter(@PathVariable String id, @RequestHeader String referer, ModelMap map) {
+
+        try {
+            Container<Chapter> chapterContainer = new GetChapterByIDCommand(id).fetch();
+            Chapter chapter = chapterContainer.getResult();
+            map.put("chapter", chapter);
+        } catch (FetchException e) {
+            e.printStackTrace();
+            return new ModelAndView(referer);
+        }
+
+        return new ModelAndView("chapterPage");
+    }
+
 
 
     @RequestMapping(value=NEW_CHAPTER, method= RequestMethod.POST)

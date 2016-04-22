@@ -15,7 +15,6 @@ public class URLInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest,
                              HttpServletResponse httpServletResponse,
                              Object o) throws Exception {
-        System.out.println("Before!");
         return true;
     }
 
