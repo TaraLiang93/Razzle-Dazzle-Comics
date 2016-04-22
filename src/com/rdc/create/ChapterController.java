@@ -74,32 +74,24 @@ public class ChapterController {
     public ModelAndView loadChapter(@PathVariable String idOfChapter, HttpSession session, ModelMap map){
         System.out.println(idOfChapter);
 
-//        try {
-            Long id = Long.parseLong(idOfChapter);
-            Chapter test = new Chapter();
-            test.setChapterId(id);
-            test.setTitle("Bobby is bumb");
-            test.setChapterString("808");
-            test.setDescription("This sucksssss");
-//            test.setTeamMemberList();
-
-
+        try {
+                   Long id = Long.parseLong(idOfChapter);
 
             System.out.println("DID WE GET HEREEEEEEEEEEEEEEEEEEEEEE"+idOfChapter);
 //            Readable<TeamMember> getMember = new GetTeamMembersOfChapterCommand(idOfChapter);
 //            List<TeamMember> member = getMember.fetch().getList();
 //            map.put("teamMember",member);
-//            Readable<Chapter> res = new GetChapterByIDCommand(id);
-//            Chapter result = res.fetch().getResult();
+            Readable<Chapter> res = new GetChapterByIDCommand(id);
+            Chapter result = res.fetch().getResult();
 
             map.put("chapterId", id);
-            map.put("chapterTitle", test.getTitle());
-            map.put("chapterString", test.getChapterString());
-            map.put("chapterDescr",test.getDescription());
-//        }
-//        catch (FetchException e) {
-//            e.printStackTrace();
-//        }
+            map.put("chapterTitle", result.getTitle());
+            map.put("chapterString", result.getChapterString());
+            map.put("chapterDescr",result.getDescription());
+        }
+        catch (FetchException e) {
+            e.printStackTrace();
+        }
         return new ModelAndView("chapterPage");
     }
 
