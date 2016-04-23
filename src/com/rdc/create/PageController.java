@@ -5,6 +5,8 @@ import com.data.api.interfaces.Container;
 import com.data.api.queries.external.GetPageByIDCommand;
 import com.data.creation.Page;
 import com.model.WritePageModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class PageController {
 
     public static final String LOAD_DRAW_PAGE ="/create/drawPage";
-    public static final String LOAD_WRITE_PAGE ="/create/writePage";
-
+    public static final String LOAD_WRITE_PAGE ="/create/writePage/load";
     public static final String SAVE_WRITE_PAGE ="/create/writePage/save";
+
+    public static final String ADD_COMMENT="/create/page/comment/add";
+    public static final String EDIT_SUMMARY="/create/page/editSummary";
 
 
     @RequestMapping(value=LOAD_DRAW_PAGE, method= RequestMethod.GET)
@@ -36,7 +40,7 @@ public class PageController {
                                           @RequestHeader String referer,
                                           ModelMap map){
 
-        map.put("chapterID", chapterID);
+       // map.put("chapterID", chapterID);
         Page page = null;
         try {
             Container<Page> pageReadable = new GetPageByIDCommand(pageID).fetch();
@@ -58,6 +62,35 @@ public class PageController {
         System.out.println(model);
 
         return new ModelAndView("chapterPage");
+    }
+
+
+    @RequestMapping(value=ADD_COMMENT, method=RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Boolean> addComment(@RequestParam String comment,
+                                              @RequestParam String pageID){
+
+        System.out.println("Found Comment : " + comment);
+        System.out.println("Found PageID : " + pageID);
+
+
+
+        return new ResponseEntity(true, HttpStatus.OK);
+
+    }
+
+    @RequestMapping(value=EDIT_SUMMARY, method=RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Boolean> editSummary(@RequestParam String summary,
+                                              @RequestParam String pageID){
+
+        System.out.println("Found Summary : " + summary);
+        System.out.println("Found PageID : " + pageID);
+
+
+
+        return new ResponseEntity(true, HttpStatus.OK);
+
     }
 
 }
