@@ -25,6 +25,8 @@ public class PageController {
     public static final String ADD_COMMENT="/create/page/comment/add";
     public static final String EDIT_SUMMARY="/create/page/editSummary";
 
+    public static final String MOVE_NEXT="/create/page/moveNext";
+    public static final String MOVE_PREV="/create/page/movePrev";
 
     @RequestMapping(value=LOAD_DRAW_PAGE, method= RequestMethod.GET)
     public ModelAndView redirectDrawPage( ModelMap map){
@@ -93,4 +95,32 @@ public class PageController {
 
     }
 
+
+    @RequestMapping(value=MOVE_NEXT, method=RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Boolean> moveNextTask(@RequestParam String summary,
+                                               @RequestParam String pageID){
+
+        System.out.println("Found Summary : " + summary);
+        System.out.println("Found PageID : " + pageID);
+
+
+
+        return new ResponseEntity(true, HttpStatus.OK);
+
+    }
+
+    @RequestMapping(value=MOVE_PREV, method=RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Boolean> movePrevTask(@RequestParam String summary,
+                                                @RequestParam String pageID){
+
+        System.out.println("Found Summary : " + summary);
+        System.out.println("Found PageID : " + pageID);
+
+
+
+        return new ResponseEntity(true, HttpStatus.OK);
+
+    }
 }

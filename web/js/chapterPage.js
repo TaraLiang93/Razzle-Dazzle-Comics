@@ -129,4 +129,48 @@ $(document).ready(function(){
         numPage++;
     });
 
+
 });
+
+function doMovePage(json, url){
+    $.ajax({
+        url:url,
+        data: json,
+        type:"POST",
+        success: function(data){
+            if(data){
+                console.log("Move Successful");
+            }
+        },
+        error: function(){
+            alert("Failed to Move Page");
+        }
+    });
+}
+
+function movePage(pid, direction){
+
+    if(direction > 0){ // Move forward
+        console.log("Moving Page with ID : " + pid + "Forward ");
+        doMovePage(null, "/create/page/moveNext")
+    }
+    else if (direction < 0){ // Move backwards
+        console.log("Moving Page with ID : " + pid + "backwards ");
+        doMovePage(null, "/create/page/movePrev")
+    }
+    else{
+        console.log("Direction == 0 means lets stay still");
+    }
+}
+
+function moveNext(pid){
+    movePage(pid, 1);
+}
+
+function movePrev(pid){
+    movePage(pid, 1);
+}
+
+
+
+
