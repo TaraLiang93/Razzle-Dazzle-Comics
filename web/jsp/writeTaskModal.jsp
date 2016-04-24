@@ -161,9 +161,8 @@ $(document).ready(function(){
                             </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button id="redirectWriting" type="submit" class="btn btn-default" onclick="">Start Writing</button>
-                        <button id="createButton" type="button" class="btn btn-primary" onclick="formSubmit();">Pre-Draw</button>
+                        <button id="createButton" type="button" class="btn btn-primary" onclick="moveNext($('#hiddenPageID').val(), $('#writeTaskModal'));">Pre-Draw</button>
                     </div>
                 </div> <!-- / End WriteTask -->
             </div> <!-- Modal body -->

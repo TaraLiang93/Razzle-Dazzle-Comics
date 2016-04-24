@@ -132,10 +132,10 @@ $(document).ready(function(){
 
 });
 
-function doMovePage(json, url){
+function doMovePage(pid, url){
     $.ajax({
         url:url,
-        data: json,
+        data: {pageID:pid},
         type:"POST",
         success: function(data){
             if(data){
@@ -152,23 +152,25 @@ function movePage(pid, direction){
 
     if(direction > 0){ // Move forward
         console.log("Moving Page with ID : " + pid + "Forward ");
-        doMovePage(null, "/create/page/moveNext")
+        doMovePage(pid, "/create/page/moveNext")
     }
     else if (direction < 0){ // Move backwards
         console.log("Moving Page with ID : " + pid + "backwards ");
-        doMovePage(null, "/create/page/movePrev")
+        doMovePage(pid, "/create/page/movePrev")
     }
     else{
         console.log("Direction == 0 means lets stay still");
     }
 }
 
-function moveNext(pid){
+function moveNext(pid, modal){
     movePage(pid, 1);
+    $(modal).modal('hide');
 }
 
-function movePrev(pid){
-    movePage(pid, 1);
+function movePrev(pid, modal){
+    movePage(pid, -1);
+    $(modal).modal('hide');
 }
 
 

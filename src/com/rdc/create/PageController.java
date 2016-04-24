@@ -98,13 +98,9 @@ public class PageController {
 
     @RequestMapping(value=MOVE_NEXT, method=RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Boolean> moveNextTask(@RequestParam String summary,
-                                               @RequestParam String pageID){
+    public ResponseEntity<Boolean> moveNextTask(@RequestParam String pageID){
 
-        System.out.println("Found Summary : " + summary);
-        System.out.println("Found PageID : " + pageID);
-
-
+        System.out.println("Move Next Task --> Found PageID : " + pageID);
 
         return new ResponseEntity(true, HttpStatus.OK);
 
@@ -112,11 +108,9 @@ public class PageController {
 
     @RequestMapping(value=MOVE_PREV, method=RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Boolean> movePrevTask(@RequestParam String summary,
-                                                @RequestParam String pageID){
+    public ResponseEntity<Boolean> movePrevTask(@RequestParam String pageID){
 
-        System.out.println("Found Summary : " + summary);
-        System.out.println("Found PageID : " + pageID);
+        System.out.println("Move Previous Task --> Found PageID : " + pageID);
 
 
 
