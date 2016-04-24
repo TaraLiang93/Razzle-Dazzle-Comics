@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PageController {
 
-    public static final String LOAD_DRAW_PAGE ="/create/drawPage";
+    public static final String LOAD_DRAW_PAGE ="/create/drawPage/load";
     public static final String LOAD_WRITE_PAGE ="/create/writePage/load";
     public static final String SAVE_WRITE_PAGE ="/create/writePage/save";
 

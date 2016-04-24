@@ -13,55 +13,8 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 --%>
-
-<script>
-$(document).ready(function(){
-
-    $('#writeTaskSummary').click(function(){
-        $(this).removeAttr("readonly");
-        $('#editSummary').removeClass('hide');
-    });
-
-    $('#editSummary').click(function(){
-        $('#writeTaskSummary').attr("readonly", "readonly");
-        $('#editSummary').addClass('hide');
-        var summary = $('#writeTaskSummary').val();
-
-        $.ajax({
-            url:"/create/page/editSummary",
-            data: {summary:summary, pageID: $('#hiddenPageID').val()},
-            type:"POST",
-            error: function(){
-                alert("Failed to edit the Summary.");
-            }
-        });
-    });
-
-    $('#addNewComment').click(function(){
-         var text = $('#commentText').val();
-         var appendText= "<span class=\"label label-default\">Me : "+text+"</span>";
-
-
-        $.ajax({
-            url:"/create/page/comment/add",
-            data: {comment:text, pageID: $('#hiddenPageID').val()},
-            type:"POST",
-            success: function(data){
-                if(data){
-                    console.log("Appending Text : text");
-                    $('#commentsBox').append(appendText);
-                }
-            },
-            error: function(){
-                alert("Failed to add a Comment.");
-            }
-        });
-    });
-
-});
-
-</script>
 
 
 
@@ -126,39 +79,14 @@ $(document).ready(function(){
                                 </div>
 
                             </div>
-                            <div class="row"> <!-- Summary -->
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Summary : </h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="input-group" style="width:100%;">
-                                            <textarea id="writeTaskSummary" readonly="readonly" name="description" class="form-control" style="width:inherit;" maxlength="100">
-                                            </textarea>
-                                            <span id="editSummary" class="input-group-addon hide">
-                                                <a id="editSummaryButton" class="btn btn-default btn-sm" style="padding:0px;">Add Comment</a>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
+                            <jsp:include page="taskDescription.jsp">
+                                <jsp:param name="selector" value="writeTask"/>
+                            </jsp:include>
 
-                            </div>
-                            <div class="row"> <!-- Comments -->
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">Comments :</h3>
-                                    </div>
-                                    <div id="commentsBox" class="panel-body" style="overflow:scroll;">
-
-                                    </div>
-                                </div>
-
-                                <div class="input-group" style="width:100%;">
-                                    <input id="commentText" type="text" class="form-control" aria-label="Add a comment">
-                                    <span class="input-group-addon"><a id="addNewComment" class="btn btn-default btn-sm" style="padding:0px;">Add Comment</a></span>
-                                </div>
-
-                            </div>
+                            <jsp:include page="taskComments.jsp">
+                                <jsp:param name="height" value="25%"/>
+                                <jsp:param name="selector" value="writeTask"/>
+                            </jsp:include>
 
                     <div class="modal-footer">
                         <button id="redirectWriting" type="submit" class="btn btn-default" onclick="">Start Writing</button>

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%-- --%>
+<%--
 <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="/js/globals.js"></script>
@@ -14,37 +14,7 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-
-<script>
-    $(document).ready(function(){
-
-        $('#preDrawTaskModal').modal('show');
-
-        $('#addNewComment').click(function(){
-            var text = $('#commentText').val();
-            var appendText= "<div class=\"well\">Me: "+text+"</div>";
-
-            $.ajax({
-                url:"/create/page/comment/add",
-                data: {comment:text, pageID: $('#hiddenPageID').val()},
-                type:"POST",
-                success: function(data){
-                    if(data){
-                        console.log("Appending Text : text");
-                        $('#commentsBox').append(appendText);
-                    }
-                },
-                error: function(){
-                    alert("Failed to add a Comment.");
-                }
-            });
-        });
-
-    });
-
-</script>
-
-<script src="/js/chapterPage.js"></script>
+--%>
 
     <input id="hiddenChapterID" type="hidden" name="chapterID" value="${param.chapterID}"/>
     <input id="hiddenPageID" type="hidden" name="pageID" value=""/>
@@ -109,24 +79,14 @@
 
                                 </div> <!-- End Accordion -->
 
+
                             </div> <!-- Left Column-->
 
                             <div class="pull-right col-xs-4">
-                                <div class="row"> <!-- Comments -->
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">Comments :</h3>
-                                        </div>
-                                        <div id="commentsBox" class="panel-body" style="overflow:scroll; height:50%;">
-                                        </div>
-                                    </div>
-
-                                    <div class="input-group" style="width:100%;">
-                                        <input id="commentText" type="text" class="form-control" aria-label="Add a comment">
-                                        <span class="input-group-addon"><a id="addNewComment" class="btn btn-default btn-sm" style="padding:0px;">Add Comment</a></span>
-                                    </div>
-
-                                </div>
+                                <jsp:include page="taskComments.jsp">
+                                    <jsp:param name="height" value="50%"/>
+                                    <jsp:param name="selector" value="preDrawTask"/>
+                                </jsp:include>
                             </div> <!-- Right Column -->
 
                         </div> <!-- row -->
