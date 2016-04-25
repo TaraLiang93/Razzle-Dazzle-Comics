@@ -10,13 +10,17 @@ import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetChapterByIDCommand;
 import com.data.api.queries.external.GetSeriesByIDCommand;
+import com.data.api.queries.external.GetTeamMembersOfChapterCommand;
 import com.data.api.updatables.ChapterUpdater;
 import com.data.api.updatables.SeriesUpdater;
 import com.data.api.updatables.updateTasks.UpdateChapterAddTeamMemberTask;
 import com.data.api.updatables.updateTasks.UpdateChapterRemoveTeamMemberTask;
 import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
 import com.data.creation.Chapter;
+import com.data.structure.TeamMember;
 import com.google.appengine.api.blobstore.*;
+import com.google.appengine.labs.repackaged.org.json.JSONObject;
+import com.google.appengine.repackaged.com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -54,8 +58,13 @@ public class ChapterController {
         try {
             Container<Chapter> chapterContainer = new GetChapterByIDCommand(id).fetch();
             Chapter chapter = chapterContainer.getResult();
+
+            Readable<TeamMember> teamMemberReadable = new GetTeamMembersOfChapterCommand(id);
+            List<TeamMember> teamMember = teamMemberReadable.fetch().getList();
+
             map.put("chapter", chapter);
             map.put("chapterId", id);
+            map.put("teamMember",teamMember);
         } catch (FetchException e) {
             e.printStackTrace();
             return new ModelAndView(referer);
@@ -162,6 +171,13 @@ public class ChapterController {
 
         return new ResponseEntity(true, HttpStatus.OK);
 
+    }
+
+    @RequestMapping(value="/create/chapter/addTeam", method=RequestMethod.GET)
+    @ResponseBody
+    public JSONObject getTeam(HttpServletRequest req, String chapter){
+
+        return null;
     }
 
 }
