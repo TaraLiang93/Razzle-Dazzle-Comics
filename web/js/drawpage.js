@@ -11,11 +11,21 @@ $(document).ready(function() {
         });
     });
 
-    $(".newScene").click(function() {
-        $(this).parent().append("<span class=''>" +
-            "<img class='inner content-border'/>" +
-            "<div class='canvasJson' style='display: none;'>" +
-            "</span>");
+    $(".scene").click(function() {
+        $(".scene.selected").removeClass("selected");
+        $(this).addClass("selected");
+
+        var canvasImg = $(this).find(".canvasImage").text();
+        var diaglogs = $(this).find(".SceneDialogs").html();
+        var setting = $(this).find(".sceneSetting").text();
+
+
+        canvas.loadFromJSON(canvasImg, canvas.renderAll.bind(canvas));
+        canvas.renderAll();
+
+        $("#SettingScene").text(setting);
+        $(".diaglogs").html(diaglogs);
+
     });
 
 });
