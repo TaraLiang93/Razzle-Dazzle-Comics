@@ -25,25 +25,29 @@ $(document).ready(function(){
            }
        }
        $(".memberList p").each(function(index){
+           var selectValue = $(this).attr("title");
+           console.log(selectValue);
            var code =
                "<div class='indMemeber' id="+$(this).text()+">" +
                "<div>" +
                "<p class='name'>"+$(this).text()+"</p>" +
                "</div>" +
                "<div>" +
-               "<select id='target' >" +
-               "<option id='Member'>Member</option>" +
-               "<option id='Artist'>Artist</option>" +
-               "<option id='Writer'>Writer</option>" +
-               "<option id='Owner'>Owner</option>" +
-               "<option id='Manager'>Manager</option>" +
+               "<select class='target'>" +
+               "<option name='Member' value='Member'>Member</option>" +
+               "<option name='Artist'  value='Artist'>Artist</option>" +
+               "<option name='Writer' value='Writer'>Writer</option>" +
+               "<option name='Owner' value='Owner'>Owner</option>" +
+               "<option name='Manager' value='Manager'>Manager</option>" +
                "</select>" +
                "<i class='fa fa-times btn deleteMember' id='"+index+"' aria-hidden='true'></i>" +
                "</div>" +
                "</div>";
 
            $("#teamBody").append(code);
+           $(".target:not('.target.added')").val(selectValue).addClass("added");
        });
+       $(".target.added").removeClass("added");
        $("#teamModal").modal();
    });
 

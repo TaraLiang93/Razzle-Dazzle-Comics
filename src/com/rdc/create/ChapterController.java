@@ -1,5 +1,6 @@
 package com.rdc.create;
 
+import com.data.UserData;
 import com.data.api.createables.ChapterCreater;
 import com.data.api.createables.fillCommands.ChapterFillCommand;
 import com.data.api.exceptions.CreateException;
@@ -64,7 +65,7 @@ public class ChapterController {
 
             map.put("chapter", chapter);
             map.put("chapterId", id);
-            map.put("teamMember",teamMember);
+//            map.put("teamMember",teamMember);
         } catch (FetchException e) {
             e.printStackTrace();
             return new ModelAndView(referer);
@@ -173,7 +174,7 @@ public class ChapterController {
 
     }
 
-    @RequestMapping(value="/create/chapter/addTeam", method=RequestMethod.GET)
+    @RequestMapping(value="/create/chapter/getTeam", method=RequestMethod.GET)
     @ResponseBody
     public JSONObject getTeam(HttpServletRequest req, String chapter){
 
