@@ -11,4 +11,11 @@ $(document).ready(function() {
         });
     });
 
+    $(".newScene").click(function() {
+        $(this).parent().append("<span class=''>" +
+            "<img class='inner content-border'/>" +
+            "<div class='canvasJson' style='display: none;'>" +
+            "</span>");
+    });
+
 });

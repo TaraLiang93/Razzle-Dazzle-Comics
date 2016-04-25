@@ -55,6 +55,7 @@
 
 .drawingScenes  span {
     height:inherit;
+    margin-right:2%;
     /*width:150px;*/
     /*display: inline-block;*/
 }
@@ -63,8 +64,8 @@
     /*height: 75px;*/
 /*}*/
 
-.drawingScenes  img{
-    height: 100%;
+.drawingScenes  .inner{
+    height: 75px;
     width: 100px;
     /*display: block;*/
 }

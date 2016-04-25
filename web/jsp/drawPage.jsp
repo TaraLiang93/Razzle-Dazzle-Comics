@@ -43,34 +43,7 @@
 
 <div class="drawingScenes content-border">
     <div class="scenes">
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
-        <span class=""><img src="/img/logo.jpg"></span>
-        <span class=""><img src="/img/plus_sign.jpg"></span>
+        <span class="newScene "><img class="inner content-border" src="/img/plus_sign.jpg"></span>
 
 
     </div>
