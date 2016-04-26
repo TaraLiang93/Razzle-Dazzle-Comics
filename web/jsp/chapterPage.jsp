@@ -25,7 +25,7 @@
                 </a>
                 <div class="memberList">
                         <c:forEach var="member" items="${teamMembers}" >
-                            <p title="Member">${member.userData.userName}</p>
+                            <p title="Member">${member.userData.nickName}</p>
                         </c:forEach>
                 </div>
             </div>
