@@ -24,7 +24,7 @@ import java.util.List;
 public class Chapter {
 
     @Ignore
-    private static final String DEFAULT_IMG = "/img/profile_default";
+    private static final String DEFAULT_IMG = "/img/chapter_default";
 
     @Id
     Long chapterId;
