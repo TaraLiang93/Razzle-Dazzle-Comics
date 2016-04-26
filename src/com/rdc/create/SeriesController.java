@@ -96,11 +96,11 @@ public class SeriesController {
                 redirect = referer;
             } else {
                 BlobKey blobKey = blobKeys.get(0); // Get the first one
-                BlobInfoFactory blobInfoFactory = new BlobInfoFactory();
-                BlobInfo info = blobInfoFactory.loadBlobInfo(blobKey);
-                System.out.println("Content Type : " + info.getContentType());
-                System.out.println("Image FileName : " + info.getFilename());
-                BlobKey key = info.getBlobKey();
+                BlobInfoFactory blobInfoFactory = new BlobInfoFactory(); //info about img
+                BlobInfo info = blobInfoFactory.loadBlobInfo(blobKey);  //info about img
+                System.out.println("Content Type : " + info.getContentType());  //info about img
+                System.out.println("Image FileName : " + info.getFilename());   //info about img
+                BlobKey key = info.getBlobKey();    //the actual blob key to the img for storage
 
                 try {
                     Series series = new SeriesCreater(key, title, description, false).createEntity(new SeriesFillCommand(key));
