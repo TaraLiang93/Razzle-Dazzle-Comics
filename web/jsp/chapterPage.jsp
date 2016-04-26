@@ -26,7 +26,7 @@
                 <div class="memberList">
                     <c:if test="${teamMember ne null}">
                         <c:forEach var="member" items="${teamMember}" >
-                            <p title="Member">${member.getUserData().userName}</p>
+                            <p title="Member">${member.UserData.userName}</p>
                         </c:forEach>
                             <p title="Owner">Tara</p>
                             <p title="Artist">Miuki</p>
