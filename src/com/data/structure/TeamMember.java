@@ -1,6 +1,9 @@
 package com.data.structure;
 
 import com.data.UserData;
+import com.data.api.exceptions.FetchException;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -54,5 +57,10 @@ public class TeamMember {
 
     public void setRoleList(List<Key<Role>> roleList) {
         this.roleList = roleList;
+    }
+
+    public UserData getUserData() throws FetchException{
+        Readable<UserData> userDataReadable = new GetEntityFromKeyCommand<>(userDataKey);
+        return userDataReadable.fetch().getResult();
     }
 }
