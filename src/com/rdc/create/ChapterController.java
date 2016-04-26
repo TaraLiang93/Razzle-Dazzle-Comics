@@ -61,11 +61,11 @@ public class ChapterController {
             Chapter chapter = chapterContainer.getResult();
 
             Readable<TeamMember> teamMemberReadable = new GetTeamMembersOfChapterCommand(id);
-            List<TeamMember> teamMember = teamMemberReadable.fetch().getList();
+            List<TeamMember> teamMembers = teamMemberReadable.fetch().getList();
 
             map.put("chapter", chapter);
             map.put("chapterId", id);
-//            map.put("teamMember",teamMember);
+            map.put("teamMembers",teamMembers);
         } catch (FetchException e) {
             e.printStackTrace();
             return new ModelAndView(referer);

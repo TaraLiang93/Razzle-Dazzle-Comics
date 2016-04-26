@@ -22,7 +22,6 @@ $(document).ready(function() {
 
         canvas.loadFromJSON(canvasImg, canvas.renderAll.bind(canvas));
         canvas.renderAll();
-
         $("#SettingScene").text(setting);
         $(".diaglogs").html(diaglogs);
 
