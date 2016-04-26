@@ -43,7 +43,7 @@
 
                 <c:forEach var="chapter" items="${chapters}">
                     <div class="chapter" id="${chapter.chapterId}">
-                        <img class="pull-left" id="chapterImg" src="http://placehold.it/150x150">
+                        <img class="pull-left chapterImg" src="${chapter.chapterCover}">
                         <div>
                             <h2 id="chapterTitle">Chapter Title${chapter.title}</h2>
                         </div>

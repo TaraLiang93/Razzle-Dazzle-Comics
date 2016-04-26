@@ -85,8 +85,10 @@ body {
     margin: 10px 50px 0px 0px;
 }
 
-#chapterImg {
+.chapterImg {
     margin: 10px;
+    height:150px;
+    width: 150px;
 }
 
 #chapterTitle {

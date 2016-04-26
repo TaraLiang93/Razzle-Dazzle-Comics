@@ -1,5 +1,6 @@
 package com.rdc.create;
 
+import com.data.UserData;
 import com.data.api.createables.ChapterCreater;
 import com.data.api.createables.fillCommands.ChapterFillCommand;
 import com.data.api.exceptions.CreateException;
@@ -10,14 +11,18 @@ import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetChapterByIDCommand;
 import com.data.api.queries.external.GetSeriesByIDCommand;
+import com.data.api.queries.external.GetTeamMembersOfChapterCommand;
 import com.data.api.updatables.ChapterUpdater;
 import com.data.api.updatables.SeriesUpdater;
 import com.data.api.updatables.updateTasks.UpdateChapterAddTeamMemberTask;
 import com.data.api.updatables.updateTasks.UpdateChapterRemoveTeamMemberTask;
 import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
 import com.data.creation.Chapter;
+import com.data.structure.TeamMember;
 import com.google.appengine.api.blobstore.*;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.appengine.labs.repackaged.org.json.JSONObject;
+import com.google.appengine.repackaged.com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -55,8 +60,13 @@ public class ChapterController {
         try {
             Container<Chapter> chapterContainer = new GetChapterByIDCommand(id).fetch();
             Chapter chapter = chapterContainer.getResult();
+
+            Readable<TeamMember> teamMemberReadable = new GetTeamMembersOfChapterCommand(id);
+            List<TeamMember> teamMembers = teamMemberReadable.fetch().getList();
+
             map.put("chapter", chapter);
             map.put("chapterId", id);
+            map.put("teamMembers",teamMembers);
         } catch (FetchException e) {
             e.printStackTrace();
             return new ModelAndView(referer);
@@ -134,7 +144,7 @@ public class ChapterController {
                     BlobKey key = info.getBlobKey();
 
                 try {
-                    Chapter chapter = new ChapterCreater(UserServiceFactory.getUserService().getCurrentUser(),title, chapterID, description).createEntity(new ChapterFillCommand(key));
+                    Chapter chapter = new ChapterCreater(title, chapterID, description).createEntity(new ChapterFillCommand(key));
                     new SeriesUpdater()
                             .updateEntity(
                                           new GetSeriesByIDCommand(seriesID),
@@ -163,6 +173,13 @@ public class ChapterController {
 
         return new ResponseEntity(true, HttpStatus.OK);
 
+    }
+
+    @RequestMapping(value="/create/chapter/getTeam", method=RequestMethod.GET)
+    @ResponseBody
+    public JSONObject getTeam(HttpServletRequest req, String chapter){
+
+        return null;
     }
 
 }

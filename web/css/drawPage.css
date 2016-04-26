@@ -53,18 +53,22 @@
     white-space: nowrap;
 }
 
-.drawingScenes  span {
-    height:inherit;
+.drawingScenes  .scene {
+
     /*width:150px;*/
     /*display: inline-block;*/
 }
 
-/*#sceneCarousel > span {*/
-    /*height: 75px;*/
-/*}*/
-
-.drawingScenes  img{
-    height: 100%;
+.drawingScenes  .scene{
+    height: 75px;
     width: 100px;
-    /*display: block;*/
+    height:inherit;
+    margin-right:2%;
+    display: inline-block;
+}
+.drawingScenes .scene.selected {
+    border: 4px solid blue;
+}
+.drawingScenes .scene *:not(h4) {
+    display: none;
 }

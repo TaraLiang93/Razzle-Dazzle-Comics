@@ -22,15 +22,9 @@
                     <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
                 </a>
                 <div class="memberList">
-                    <c:if test="${teamMember ne null}">
-                        <c:forEach var="member" items="${teamMember}" >
-                            <p>${member}</p>
+                        <c:forEach var="member" items="${teamMembers}" >
+                            <p title="Member">${member.userData.nickName}</p>
                         </c:forEach>
-                    </c:if>
-                    <p>Member 1</p>
-                    <p>Calculus</p>
-                    <p>Physic</p>
-                    <p>Chemistry</p>
                 </div>
             </div>
 
