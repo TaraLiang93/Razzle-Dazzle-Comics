@@ -71,6 +71,8 @@ public class ChapterCreater extends Createable<Chapter> {
         Createable<TeamMember> teamMemberCreateable = new TeamMemberCreater( userData.getKey() );
         TeamMember teamMember = teamMemberCreateable.createEntity(new TeamMemberFillCommand());
 
+        //update Chapter with Team Member
+        chapter.addTeamMemberToTeamMemberList(teamMember.getKey());
 
         chapter.addTeamMemberToTeamMemberList(teamMember.getKey());
 
