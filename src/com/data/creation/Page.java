@@ -23,6 +23,7 @@ public class Page {
     @Id
     private Long id;
 
+    private String title;
 
     private String summary;
 
@@ -52,61 +53,66 @@ public class Page {
         this(null);
     }
 
-    public Page(String summary) {
-        this(summary, new Date()); //Creation date is obv today!
+    public Page(String title){
+        this(title, null);
     }
 
-    public Page( String summary, Date createDate) {
-        this(summary, createDate, null);
+    public Page(String title, String summary) {
+        this(title, summary, new Date()); //Creation date is obv today!
     }
 
-    public Page(String summary, Date createDate, Date drawnDate) {
-        this(summary, createDate, drawnDate, null);
+    public Page(String title,  String summary, Date createDate) {
+        this(title, summary, createDate, null);
     }
 
-    public Page( String summary, Date createDate, Date drawnDate, Date completeDate) {
-        this(summary, createDate, drawnDate, completeDate, 0);
+    public Page(String title, String summary, Date createDate, Date drawnDate) {
+        this(title, summary, createDate, drawnDate, null);
     }
 
-    public Page(String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions) {
-        this(summary, createDate, drawnDate, completeDate, numRevisions,null);
+    public Page(String title,  String summary, Date createDate, Date drawnDate, Date completeDate) {
+        this(title, summary, createDate, drawnDate, completeDate, 0);
     }
 
-    public Page( String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
+    public Page(String title, String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions) {
+        this(title, summary, createDate, drawnDate, completeDate, numRevisions,null);
+    }
+
+    public Page(String title,  String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
                 Key<FlowTask> flowTask) {
-        this( summary, createDate, drawnDate, completeDate, numRevisions, flowTask, null);
+        this(title, summary, createDate, drawnDate, completeDate, numRevisions, flowTask, null);
     }
 
-    public Page( String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
+    public Page(String title,  String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
                 Key<FlowTask> flowTask, Key<Page> nextRevision) {
-        this( summary, createDate, drawnDate, completeDate, numRevisions, flowTask, nextRevision, null);
+        this(title, summary, createDate, drawnDate, completeDate, numRevisions, flowTask, nextRevision, null);
     }
 
-    public Page(String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
+    public Page(String title, String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
                 Key<FlowTask> flowTask, Key<Page> nextRevision, Key<Page> prevRevision) {
-        this(summary, createDate, drawnDate, completeDate, numRevisions, flowTask, nextRevision, prevRevision, null);
+        this(title, summary, createDate, drawnDate, completeDate, numRevisions, flowTask, nextRevision, prevRevision, null);
     }
 
-    public Page( String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
+    public Page(String title, String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
                 Key<FlowTask> flowTask, Key<Page> nextRevision, Key<Page> prevRevision, Key<Canvas> layout) {
-        this(summary, createDate, drawnDate, completeDate, numRevisions, flowTask, nextRevision, prevRevision, layout, new ArrayList<Key<Scene>>());
+        this(title, summary, createDate, drawnDate, completeDate, numRevisions, flowTask, nextRevision, prevRevision, layout, new ArrayList<Key<Scene>>());
     }
 
-    public Page( String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
+    public Page(String title, String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
                 Key<FlowTask> flowTask, Key<Page> nextRevision, Key<Page> prevRevision, Key<Canvas> layout,
                 List<Key<Scene>> sceneList) {
-        this(summary, createDate, drawnDate, completeDate, numRevisions, flowTask, nextRevision, prevRevision, layout, sceneList, new ArrayList<Key<Comment>>());
+        this(title, summary, createDate, drawnDate, completeDate, numRevisions, flowTask, nextRevision, prevRevision, layout, sceneList, new ArrayList<Key<Comment>>());
     }
 
-    public Page(String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
+    public Page(String title, String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
                 Key<FlowTask> flowTask, Key<Page> nextRevision, Key<Page> prevRevision, Key<Canvas> layout,
                 List<Key<Scene>> sceneList, List<Key<Comment>> commentList) {
-        this(summary,createDate,drawnDate,completeDate,numRevisions,flowTask,nextRevision,prevRevision,layout, sceneList, commentList, null);
+        this(title, summary,createDate,drawnDate,completeDate,numRevisions,flowTask,nextRevision,prevRevision,layout, sceneList, commentList, null);
     }
 
-    public Page(String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
+    public Page(String title, String summary, Date createDate, Date drawnDate, Date completeDate, int numRevisions,
                 Key<FlowTask> flowTask, Key<Page> nextRevision, Key<Page> prevRevision, Key<Canvas> layout,
                 List<Key<Scene>> sceneList, List<Key<Comment>> commentList, Key<UserData> createdBy) {
+        this.title = title;
         this.summary = summary;
         this.createDate = createDate;
         this.drawnDate = drawnDate;
@@ -209,6 +215,14 @@ public class Page {
         this.sceneList = sceneList;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public List<Scene> getScenes(){
         Readable<Scene> getPagesFromTagsKeysAbstracted = new GetEntityListFromKeyListCommand<>(getSceneList());
         List<Scene> scenes = null;
@@ -227,6 +241,18 @@ public class Page {
 
     public void setCommentList(List<Key<Comment>> commentList) {
         this.commentList = commentList;
+    }
+
+    public List<Comment> getComments(){
+        Readable<Comment> getComments = new GetEntityListFromKeyListCommand<>(getCommentList());
+        List<Comment> comments = null;
+        try {
+            comments = getComments.fetch().getList();
+        }
+        catch (FetchException ex){
+            comments = new ArrayList<>();
+        }
+        return comments;
     }
 
     public Key<UserData> getCreatedBy() {

@@ -1,5 +1,9 @@
 package com.data.creation;
 
+import com.data.api.exceptions.FetchException;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.internal.GetEntityFromKeyCommand;
+import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -87,12 +91,38 @@ public class Scene {
         this.canvasElement = canvasElement;
     }
 
+    public Canvas getCanvas(){
+        if(getCanvasElement() == null) return null;
+
+        Readable<Canvas> getCanvas = new GetEntityFromKeyCommand<>(getCanvasElement());
+        Canvas canvas = null;
+        try {
+            canvas = getCanvas.fetch().getResult();
+        }
+        catch (FetchException ex){
+            ex.printStackTrace();
+        }
+        return canvas;
+    }
+
     public List<Key<Dialogue>> getDialogueList() {
         return dialogueList;
     }
 
     public void setDialogueList(List<Key<Dialogue>> dialogueList) {
         this.dialogueList = dialogueList;
+    }
+
+    public List<Dialogue> getDialogues(){
+        Readable<Dialogue> getDialogues = new GetEntityListFromKeyListCommand<>(getDialogueList());
+        List<Dialogue> dialogues = null;
+        try {
+            dialogues = getDialogues.fetch().getList();
+        }
+        catch (FetchException ex){
+            dialogues = new ArrayList<>();
+        }
+        return dialogues;
     }
 
     public String getTinyMCEText() {

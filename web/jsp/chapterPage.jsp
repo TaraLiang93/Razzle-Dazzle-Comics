@@ -7,14 +7,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
     <jsp:include page="header.jsp">
         <jsp:param name="title" value="Edit Chapter Page"/>
         <jsp:param name="css" value="/css/chapterPage.css"/>
         <jsp:param name="js" value="/js/chapterPage.js"/>
-    </jsp:include></head></head>
-<body>
+    </jsp:include>
+
     <div class="outer">
 
         <div class="top">

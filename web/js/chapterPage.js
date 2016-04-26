@@ -129,8 +129,26 @@ $(document).ready(function(){
         numPage++;
     });
 
+    $('.flow').each(function(){
+        storeFlow($(this).attr("id"));
+    });
 
 });
+
+var flowArray = [];
+var flowMapNext = {};
+var flowMapPrev = {};
+
+function storeFlow(selector){
+    var last = flowArray[flowArray.length - 1];
+    flowMapNext[last] = selector; //First update the previous last to point to this new one
+
+    var prev = (flowArray.length == 0)? selector : last;
+    flowArray.push(selector);
+    flowMapPrev[selector] = prev; //The previous is the most recent one, or itself if it's the first one
+    flowMapNext[selector] = selector; //Point this new next to itself
+
+}
 
 function doMovePage(pid, url){
     $.ajax({
@@ -163,15 +181,32 @@ function movePage(pid, direction){
     }
 }
 
-function moveNext(pid, modal){
-    movePage(pid, 1);
-    $(modal).modal('hide');
+function swapTasks(map, task){
+    var id = $( ".flow:has(#"+task+")").attr("id");
+    var nextID = flowMapNext[id]; //Fetch the next one from the map
+    if(id === nextID){
+        console.log("Nothing to do, ID's are the same, must be illegal move");
+    }
+    else{
+        $(nextID).append($(task)); //Append it to the new one
+        $(id).remove($(task));     //Remove it from the previous
+        console.log("Done Swapping");
+    }
+
 }
 
-function movePrev(pid, modal){
+function moveNext(task, pid, modal){
+    movePage(pid, 1);
+    $(modal).modal('hide');
+    swapTasks(flowMapNext, task);
+}
+
+function movePrev(task, pid, modal){
     movePage(pid, -1);
     $(modal).modal('hide');
+    swapTasks(flowMapPrev, task);
 }
+
 
 
 
