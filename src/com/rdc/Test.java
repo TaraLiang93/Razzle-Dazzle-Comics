@@ -656,7 +656,7 @@ public class Test {
             Series seriesOne = seriesCreater.createEntity( new SeriesFillCommand(null));
 
             // create a chapter
-            Createable<Chapter> chapterCreater = new ChapterCreater("Chapter Title Mang",
+            Createable<Chapter> chapterCreater = new ChapterCreater(UserServiceFactory.getUserService().getCurrentUser(),"Chapter Title Mang",
                     "Chapter ChapterString Mang", "Chapter description Mang");
             Chapter chapterOne = chapterCreater.createEntity( new ChapterFillCommand());
 

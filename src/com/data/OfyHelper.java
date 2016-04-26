@@ -10,6 +10,7 @@ package com.data;
 import com.data.creation.*;
 import com.data.structure.Series;
 import com.data.structure.Tag;
+import com.data.structure.TeamMember;
 import com.googlecode.objectify.ObjectifyService;
 
 import javax.servlet.ServletContextEvent;
@@ -35,6 +36,7 @@ public class OfyHelper implements ServletContextListener {
         ObjectifyService.register(Dialogue.class);
         ObjectifyService.register(Chapter.class);
         ObjectifyService.register(Series.class);
+        ObjectifyService.register(TeamMember.class);
 
 
     }

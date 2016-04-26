@@ -17,6 +17,7 @@ import com.data.api.updatables.updateTasks.UpdateChapterRemoveTeamMemberTask;
 import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
 import com.data.creation.Chapter;
 import com.google.appengine.api.blobstore.*;
+import com.google.appengine.api.users.UserServiceFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -133,7 +134,7 @@ public class ChapterController {
                     BlobKey key = info.getBlobKey();
 
                 try {
-                    Chapter chapter = new ChapterCreater(title, chapterID, description).createEntity(new ChapterFillCommand(key));
+                    Chapter chapter = new ChapterCreater(UserServiceFactory.getUserService().getCurrentUser(),title, chapterID, description).createEntity(new ChapterFillCommand(key));
                     new SeriesUpdater()
                             .updateEntity(
                                           new GetSeriesByIDCommand(seriesID),
