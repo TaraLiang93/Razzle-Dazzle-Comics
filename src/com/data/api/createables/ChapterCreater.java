@@ -74,8 +74,6 @@ public class ChapterCreater extends Createable<Chapter> {
         //update Chapter with Team Member
         chapter.addTeamMemberToTeamMemberList(teamMember.getKey());
 
-        chapter.addTeamMemberToTeamMemberList(teamMember.getKey());
-
         return chapter;
 
     }
