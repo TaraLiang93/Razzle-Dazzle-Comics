@@ -24,16 +24,9 @@
                     <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
                 </a>
                 <div class="memberList">
-                    <c:if test="${teamMember ne null}">
-                        <c:forEach var="member" items="${teamMember}" >
-                            <p title="Member">${member.UserData.userName}</p>
+                        <c:forEach var="member" items="${teamMembers}" >
+                            <p title="Member">${member.userData.userName}</p>
                         </c:forEach>
-                            <p title="Owner">Tara</p>
-                            <p title="Artist">Miuki</p>
-                            <p title="Writer">Shakeeb</p>
-                            <p title="Member">Terrell</p>
-                            <p title="Manager">James</p>
-                    </c:if>
                 </div>
             </div>
 
