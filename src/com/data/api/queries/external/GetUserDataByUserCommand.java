@@ -40,6 +40,9 @@ public class GetUserDataByUserCommand extends Readable<UserData> {
 
     @Override
     public Container fetch() throws  FetchException{ // TODO : do error validation, throw exceptions. Check OFY response codes
+        if(user == null){
+            throw new FetchException("user is null");
+        }
         String userID = user.getUserId();
 
         if( userID == null || userID.equals("") ){

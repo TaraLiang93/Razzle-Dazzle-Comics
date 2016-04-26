@@ -25,6 +25,7 @@ public class UpdateSeriesToggleVisibilityTask implements UpdateTask<Series> {
         series.setPublished( !series.isPublished() ); // flip the value of is published
 
         List<Series> seriesList = new ArrayList<>();
+        seriesList.add(series);
         return seriesList;
     }
 }

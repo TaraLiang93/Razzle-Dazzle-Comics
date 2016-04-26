@@ -22,4 +22,5 @@ public class FlowType {
     public void setFlowTypeId(Long flowTypeId) {
         this.flowTypeId = flowTypeId;
     }
+
 }

@@ -12,14 +12,8 @@ import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.*;
 import com.data.api.queries.internal.GetDoodleByKeyCommand;
 import com.data.api.queries.internal.GetEntityFromKeyCommand;
-import com.data.api.updatables.ChapterUpdater;
-import com.data.api.updatables.DoodleUpdater;
-import com.data.api.updatables.ScribbleUpdater;
-import com.data.api.updatables.UserDataUpdater;
-import com.data.api.updatables.updateTasks.UpdateChapterTask;
-import com.data.api.updatables.updateTasks.UpdateDoodleTask;
-import com.data.api.updatables.updateTasks.UpdateUserAddScribbleTask;
-import com.data.api.updatables.updateTasks.UpdateUserDataTask;
+import com.data.api.updatables.*;
+import com.data.api.updatables.updateTasks.*;
 import com.data.creation.*;
 import com.data.structure.Series;
 import com.data.structure.Tag;
@@ -709,6 +703,12 @@ public class Test {
             System.out.println( chapterOne.getPublished() );
 
 
+            // update series visibility
+            System.out.println( seriesOne.isPublished() );
+            Updateable<Series> seriesUpdateable = new SeriesUpdater();
+            Readable<Series> seriesReadable = new GetSeriesByIDCommand(seriesOne.getSeriesID());
+            seriesUpdateable.updateEntity(seriesReadable, new UpdateSeriesToggleVisibilityTask());
+            System.out.println( seriesOne.isPublished());
 
         }
         catch (Exception e) {
@@ -717,6 +717,8 @@ public class Test {
         return new ModelAndView("test3");
 
     }
+
+
         /*
     @RequestMapping(value="/addScribbles", method= RequestMethod.GET)
     @ResponseBody
