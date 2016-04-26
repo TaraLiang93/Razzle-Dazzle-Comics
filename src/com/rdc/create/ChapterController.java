@@ -144,7 +144,8 @@ public class ChapterController {
                     BlobKey key = info.getBlobKey();
 
                 try {
-                    Chapter chapter = new ChapterCreater(title, chapterID, description).createEntity(new ChapterFillCommand(key));
+                    Chapter chapter = new ChapterCreater(UserServiceFactory.getUserService().getCurrentUser(),
+                                                    title, chapterID, description).createEntity(new ChapterFillCommand(key));
                     new SeriesUpdater()
                             .updateEntity(
                                           new GetSeriesByIDCommand(seriesID),
