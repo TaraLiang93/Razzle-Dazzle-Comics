@@ -35,4 +35,22 @@ $(document).ready(function() {
 
     });
 
+    $("#saveDrawing").click(function() {
+        var jsonObj = [];
+        var dialogJson = [];
+        $(".scene").each(function() {
+
+            $(this).find(".SceneDialogs").find(".dialog").each(function() {
+                dialogJson.push({ "dialog" : $(this).text() });
+
+            });
+            jsonObj.push( {"scene" : {"canvasImage": $(this).find(".canvasImage").text(),
+                                   "dialogs" : dialogJson,
+                                    "setting" : $(this).find(".sceneSetting").text() } } );
+
+
+        });
+        console.log(jsonObj);
+    })
+
 });
