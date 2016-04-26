@@ -20,6 +20,7 @@ import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
 import com.data.creation.Chapter;
 import com.data.structure.TeamMember;
 import com.google.appengine.api.blobstore.*;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 import com.google.appengine.repackaged.com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
@@ -143,7 +144,7 @@ public class ChapterController {
                     BlobKey key = info.getBlobKey();
 
                 try {
-                    Chapter chapter = new ChapterCreater(title, chapterID, description).createEntity(new ChapterFillCommand(key));
+                    Chapter chapter = new ChapterCreater(UserServiceFactory.getUserService().getCurrentUser(),title, chapterID, description).createEntity(new ChapterFillCommand(key));
                     new SeriesUpdater()
                             .updateEntity(
                                           new GetSeriesByIDCommand(seriesID),
