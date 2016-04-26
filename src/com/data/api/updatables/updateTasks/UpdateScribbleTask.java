@@ -1,7 +1,7 @@
 package com.data.api.updatables.updateTasks;
 
 import com.data.api.createables.PageCreater;
-import com.data.api.createables.fillCommands.PageFillCommand;
+import com.data.api.createables.fillCommands.PageModelFillCommand;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
@@ -47,8 +47,8 @@ public class UpdateScribbleTask implements UpdateTask<Scribble> {
         for( PageModel pageModel: scribbleModel.getPages()){
 
             if(pageModel.getId() == null || pageModel.getId().equals("")){ //New Page
-                Createable<Page> pageCreater = new PageCreater(pageModel);
-                Page pageCreated = pageCreater.createEntity(new PageFillCommand());
+                Createable<Page> pageCreater = new PageCreater();
+                Page pageCreated = pageCreater.createEntity(new PageModelFillCommand(pageModel));
                 scribbleToUpdate.getPageList().add(pageCreated.getKey());
             }
             else{//Update the old Page

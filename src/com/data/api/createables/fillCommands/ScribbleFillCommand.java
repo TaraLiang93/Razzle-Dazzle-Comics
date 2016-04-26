@@ -40,8 +40,8 @@ public class ScribbleFillCommand implements FillDataCommand<Scribble>{
         List<Key<Page>> pageList = new ArrayList<>();
         for( PageModel pageModel: model.getPages()){
 
-            Createable<Page> pageCreater = new PageCreater(pageModel);
-            Page pageCreated = pageCreater.createEntity( new PageFillCommand());
+            Createable<Page> pageCreater = new PageCreater();
+            Page pageCreated = pageCreater.createEntity( new PageModelFillCommand(pageModel));
             pageList.add(pageCreated.getKey());
         }
 

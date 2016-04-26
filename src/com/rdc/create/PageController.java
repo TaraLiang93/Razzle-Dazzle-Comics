@@ -1,9 +1,16 @@
 package com.rdc.create;
 
 import com.data.UserData;
+import com.data.api.createables.PageCreater;
+import com.data.api.createables.fillCommands.PageFillCommand;
+import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
+import com.data.api.queries.external.GetChapterByIDCommand;
 import com.data.api.queries.external.GetPageByIDCommand;
+import com.data.api.updatables.ChapterUpdater;
+import com.data.api.updatables.updateTasks.UpdateChapterAddPageTask;
 import com.data.creation.*;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -17,6 +24,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -37,6 +45,7 @@ public class PageController {
     public static final String MOVE_NEXT="/create/page/moveNext";
     public static final String MOVE_PREV="/create/page/movePrev";
 
+    public static final String ADD_TASK="/create/page/add";
     public static final String LOAD_TASK="/create/page/loadTask";
 
     @RequestMapping(value=LOAD_DRAW_PAGE, method= RequestMethod.GET)
@@ -192,4 +201,47 @@ public class PageController {
         }
 
     }
+
+
+    @RequestMapping(value=ADD_TASK, method=RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<String> addTask(@RequestParam String chapterID,
+                                          @RequestParam String title,
+                                          @RequestParam String summary,
+                                          HttpServletRequest req){
+
+        System.out.println("Add Task --> Found chapterID : " + chapterID);
+        System.out.println("Add Task --> Found Title : " + title);
+        System.out.println("Add Task --> Found Summary : " + summary);
+
+        try {
+            Container<Chapter> getChap = new GetChapterByIDCommand(chapterID).fetch();
+            Chapter chapter = getChap.getResult();
+
+            if(chapter == null){ //Make sure the chapter exists before we try to create the page
+                throw new CreateException("The chapter must exist before adding the new page");
+            }
+
+            Page page = new PageCreater(title, summary).createEntity(new PageFillCommand());
+
+            new ChapterUpdater().updateEntity(new GetChapterByIDCommand(chapterID), new UpdateChapterAddPageTask(page.getId()));
+
+            return new ResponseEntity<String>(""+ page.getId(), HttpStatus.OK);
+        } catch (CreateException | FetchException | UpdateException e ) {
+            e.printStackTrace();
+            return new ResponseEntity<String>("", HttpStatus.BAD_REQUEST);
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 }

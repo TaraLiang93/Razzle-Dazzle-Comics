@@ -1,7 +1,7 @@
 package com.data.api.updatables.updateTasks;
 
 import com.data.api.createables.PageCreater;
-import com.data.api.createables.fillCommands.PageFillCommand;
+import com.data.api.createables.fillCommands.PageModelFillCommand;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
@@ -57,8 +57,8 @@ public class UpdateChapterTask implements UpdateTask<Chapter> {
 
             if(pageModel.getId() == null || pageModel == null){ // create page if it doesn't exist
 
-                Createable<Page> pageCreater = new PageCreater(pageModel);
-                Page pageCreated = pageCreater.createEntity( new PageFillCommand() );
+                Createable<Page> pageCreater = new PageCreater();
+                Page pageCreated = pageCreater.createEntity( new PageModelFillCommand(pageModel) );
                 chapterToUpdate.addPagesToPagesList(pageCreated.getKey());
 
 

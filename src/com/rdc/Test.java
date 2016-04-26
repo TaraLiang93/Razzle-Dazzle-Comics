@@ -549,8 +549,8 @@ public class Test {
             page1Model.setScenes(sceneModelListForPage1);
 
             //Make a Page
-            Createable<Page> pageCreater1 = new PageCreater(page1Model);
-            Page pageCreated1 = pageCreater1.createEntity(new PageFillCommand());
+            Createable<Page> pageCreater1 = new PageCreater();
+            Page pageCreated1 = pageCreater1.createEntity(new PageModelFillCommand(page1Model));
 
             /**
              * Page 2
@@ -572,8 +572,8 @@ public class Test {
             page2Model.setScenes(sceneModelListForPage2);
 
             //Make a Page
-            Createable<Page> pageCreater2 = new PageCreater(page2Model);
-            Page pageCreated2 = pageCreater2.createEntity(new PageFillCommand());
+            Createable<Page> pageCreater2 = new PageCreater();
+            Page pageCreated2 = pageCreater2.createEntity(new PageModelFillCommand(page2Model));
 
             /**
              * pageList of the 2 pages
@@ -694,8 +694,8 @@ public class Test {
             chapterModel.setPageList(pageModelList);
 
             //Create page
-            Createable<Page> pageCreater = new PageCreater(pageModelOne);
-            Page page = pageCreater.createEntity( new PageFillCommand());
+            Createable<Page> pageCreater = new PageCreater();
+            Page page = pageCreater.createEntity( new PageModelFillCommand(pageModelOne));
 
 
             //Update Chapter with page
