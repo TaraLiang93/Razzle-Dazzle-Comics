@@ -4,7 +4,6 @@ import com.data.api.containers.ResultContainer;
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
-import com.data.creation.Doodle;
 import com.data.structure.Flow;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
@@ -16,7 +15,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 /**
  * Created by Zhenya on 4/12/16.
  */
-public class GetFlowByIDCommand extends Readable {
+public class GetFlowByIDCommand extends Readable<Flow> {
 
     Long flowId;
 
@@ -50,8 +49,8 @@ public class GetFlowByIDCommand extends Readable {
         if(this.flowId == null){
             throw new FetchException();
         }
-        LoadResult<Doodle> LoadResultOfID = ofy().load().type(getType()).id(this.flowId);
-        ResultContainer<Doodle> resultContainer = new ResultContainer<Doodle>(LoadResultOfID);
+        LoadResult<Flow> LoadResultOfID = ofy().load().type(getType()).id(this.flowId);
+        ResultContainer<Flow> resultContainer = new ResultContainer<Flow>(LoadResultOfID);
         return resultContainer;
     }
 
