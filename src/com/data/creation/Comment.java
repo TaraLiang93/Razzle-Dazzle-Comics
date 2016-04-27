@@ -17,10 +17,29 @@ public class Comment {
     @Id
     private Long id;
 
-
     private String comment;
+
     private int index;
+
     private Key<UserData> userData;
+
+    public Comment(){this(null, null);}
+
+    public Comment(String comment){
+        this(comment, null);
+    }
+
+    public Comment(String comment, UserData data){
+        this(comment,data, 0);
+    }
+
+    public Comment(String comment, UserData data, int index){
+        if(data != null){
+            this.userData = data.getKey();
+        }
+        this.comment = comment;
+        this.index = index;
+    }
 
 
     public Long getId() {
@@ -65,5 +84,9 @@ public class Comment {
             ex.printStackTrace();
         }
         return data;
+    }
+
+    public Key<Comment> getKey() {
+        return Key.create(Comment.class, this.id);
     }
 }

@@ -1,7 +1,9 @@
 package com.rdc.create;
 
 import com.data.UserData;
+import com.data.api.createables.CommentCreater;
 import com.data.api.createables.PageCreater;
+import com.data.api.createables.fillCommands.CommentFillCommand;
 import com.data.api.createables.fillCommands.PageFillCommand;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
@@ -10,7 +12,9 @@ import com.data.api.interfaces.Container;
 import com.data.api.queries.external.GetChapterByIDCommand;
 import com.data.api.queries.external.GetPageByIDCommand;
 import com.data.api.updatables.ChapterUpdater;
+import com.data.api.updatables.PageUpdater;
 import com.data.api.updatables.updateTasks.UpdateChapterAddPageTask;
+import com.data.api.updatables.updateTasks.UpdatePageAddCommentTask;
 import com.data.creation.*;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -95,6 +99,20 @@ public class PageController {
         System.out.println("Found Comment : " + comment);
         System.out.println("Found PageID : " + pageID);
 
+        User user = UserServiceFactory.getUserService().getCurrentUser();
+
+        try {
+            Comment comEnt = new CommentCreater(comment).createEntity(new CommentFillCommand(user, pageID));
+
+            new PageUpdater().updateEntity(
+                    new GetPageByIDCommand(pageID),
+                    new UpdatePageAddCommentTask(comEnt)
+            );
+
+        } catch (CreateException | UpdateException | FetchException e) {
+            e.printStackTrace();
+            return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+        }
 
 
         return new ResponseEntity(true, HttpStatus.OK);

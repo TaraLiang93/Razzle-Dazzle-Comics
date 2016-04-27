@@ -32,14 +32,15 @@
         $('#newTaskModal').modal('hide');
         $.ajax({
             url:"/create/page/add",
-            data: {chapterID:4582764464570368,
-                    title : $('#title').val(),
-                    summary : $('#desc').val()
+            data: {chapterID: $('#newTaskchapterID'),
+                    title : $('#newTasktitle').val(),
+                    summary : $('#newTaskdesc').val()
             },
             type:"POST",
             success: function(data){
                 if(data){
                     console.log("Move Successful");
+                    //TODO: Add logic to move to flow when flow complete
                 }
             },
             error: function(){
@@ -64,11 +65,11 @@
                     <div class="center-stage row" style="width:90%; margin:auto; margin-bottom: 5em;">
                         <div class="row input-group" style="padding-bottom:2em;">
                             <span class="input-group-addon" id="title-addon">Title : </span>
-                            <input id="title" type="text" class="form-control" placeholder="Title" aria-describedby="title-addon" value="Page ${param.tasks + 1}">
+                            <input id="newTasktitle" type="text" class="form-control" placeholder="Title" aria-describedby="title-addon" value="Page ${param.tasks + 1}">
                         </div>
                         <div class="row input-group">
                             <span class="input-group-addon" id="desc-addon">Description : </span>
-                            <textarea id="desc" class="form-control" placeholder="Description" aria-describedby="desc-addon" rows="3">
+                            <textarea id="newTaskdesc" class="form-control" placeholder="Description" aria-describedby="desc-addon" rows="3">
                             </textarea>
                         </div>
                     </div>
