@@ -687,6 +687,7 @@ public class Test {
             //Chapter has PagesModels
             chapterModel.setPageList(pageModelList);
 
+
             //Create page
             Createable<Page> pageCreater = new PageCreater(pageModelOne);
             Page page = pageCreater.createEntity( new PageFillCommand());
@@ -697,18 +698,43 @@ public class Test {
             Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterOne.getChapterId());
             Chapter chapterFetch = chapterReadable.fetch().getResult();
             chapterUpdater.updateEntity(chapterReadable, new UpdateChapterTask( chapterModel ));
+            chapterUpdater.updateEntity(chapterReadable, new UpdateChapterTask( chapterModel ));
 
             System.out.println( chapterOne.getDescription() );
             System.out.println( chapterOne.getTitle() );
             System.out.println( chapterOne.getPublished() );
 
+            //Update Series with chapter
+            Updateable<Series> seriesUpdateable2 = new SeriesUpdater();
+            Readable<Series> seriesReadable2 = new GetSeriesByIDCommand( seriesOne.getSeriesID()); // make series readable
+            seriesUpdateable2.updateEntity(seriesReadable2, new UpdateSeriesAddChapterTask( chapterOne.getChapterId() ));
 
-            // update series visibility
+            /**
+             * update series visibility
+             */
             System.out.println( seriesOne.isPublished() );
             Updateable<Series> seriesUpdateable = new SeriesUpdater();
             Readable<Series> seriesReadable = new GetSeriesByIDCommand(seriesOne.getSeriesID());
             seriesUpdateable.updateEntity(seriesReadable, new UpdateSeriesToggleVisibilityTask());
             System.out.println( seriesOne.isPublished());
+
+
+            /**
+             * add comment ot a page of a series
+             */
+            //create comment
+            Createable<Comment> commentCreateable = new CommentCreater(UserServiceFactory.getUserService().getCurrentUser(), "Comment Duh", 0);
+            Comment comment = commentCreateable.createEntity(new CommentFillCommand());
+
+            // add comment to a page of a series
+            Long pageId = seriesOne.getChapters().get(0).getPages().get(0).getId(); // get page id
+            Readable<Page> pageReadable = new GetPageByIDCommand(pageId); // make readable
+            Updateable<Page> pageUpdateable = new PageUpdater(); // make updater
+            pageUpdateable.updateEntity(pageReadable, new UpdatePageAddCommentTask( UserServiceFactory.getUserService().getCurrentUser(), comment.getId()));
+
+            //print comment
+            System.out.println( seriesOne.getChapters().get(0).getPages().get(0).getComments().get(0).getComment() );
+
 
         }
         catch (Exception e) {

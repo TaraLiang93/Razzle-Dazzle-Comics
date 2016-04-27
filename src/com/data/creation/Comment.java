@@ -66,4 +66,9 @@ public class Comment {
         }
         return data;
     }
+
+    public Key<Comment> getKey() {
+        return Key.create(Comment.class, this.id);
+    }
+
 }

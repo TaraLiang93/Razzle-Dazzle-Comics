@@ -278,4 +278,8 @@ public class Page {
     public Key<Page> getKey() {
         return Key.create(Page.class, this.id);
     }
+
+    public void addCommentToCommentList( Key<Comment> commentKey){
+        this.commentList.add(commentKey);
+    }
 }

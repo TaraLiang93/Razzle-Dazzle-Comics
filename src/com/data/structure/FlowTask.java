@@ -15,6 +15,8 @@ public class FlowTask {
     String flowTaskName;
     int index;
     Key<FlowType> flowTypeKey;
+    Key<FlowTask> nextTask;
+    Key<FlowTask> prevTask;
 
     public Long getFlowTaskId() {
         return flowTaskId;
@@ -46,5 +48,21 @@ public class FlowTask {
 
     public void setFlowTypeKey(Key<FlowType> flowTypeKey) {
         this.flowTypeKey = flowTypeKey;
+    }
+
+    public Key<FlowTask> getNextTask() {
+        return nextTask;
+    }
+
+    public void setNextTask(Key<FlowTask> nextTask) {
+        this.nextTask = nextTask;
+    }
+
+    public Key<FlowTask> getPrevTask() {
+        return prevTask;
+    }
+
+    public void setPrevTask(Key<FlowTask> prevTask) {
+        this.prevTask = prevTask;
     }
 }
