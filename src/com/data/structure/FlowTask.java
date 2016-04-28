@@ -1,5 +1,8 @@
 package com.data.structure;
 
+import com.data.api.exceptions.FetchException;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -64,5 +67,14 @@ public class FlowTask {
 
     public void setPrevTask(Key<FlowTask> prevTask) {
         this.prevTask = prevTask;
+    }
+
+    public Key<FlowTask> getKey(){
+        return Key.create(FlowTask.class, flowTaskId);
+    }
+
+    public FlowType getFlowType() throws FetchException{
+        Readable<FlowType> flowTypeReadable = new GetEntityFromKeyCommand<>(this.flowTypeKey);
+        return flowTypeReadable.fetch().getResult();
     }
 }

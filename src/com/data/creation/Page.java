@@ -3,6 +3,7 @@ package com.data.creation;
 import com.data.UserData;
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
+import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
 import com.data.structure.FlowTask;
 import com.googlecode.objectify.Key;
@@ -282,4 +283,11 @@ public class Page {
     public void addCommentToCommentList( Key<Comment> commentKey){
         this.commentList.add(commentKey);
     }
+
+    public FlowTask getFlowTaskEntity() throws FetchException{
+        Readable<FlowTask>  flowTaskReadable = new GetEntityFromKeyCommand<>(flowTask);
+        FlowTask flowTask = flowTaskReadable.fetch().getResult();
+        return flowTask;
+    }
+
 }

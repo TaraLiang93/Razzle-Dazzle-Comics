@@ -15,8 +15,7 @@ import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.data.api.updatables.*;
 import com.data.api.updatables.updateTasks.*;
 import com.data.creation.*;
-import com.data.structure.Series;
-import com.data.structure.Tag;
+import com.data.structure.*;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -719,21 +718,170 @@ public class Test {
             System.out.println( seriesOne.isPublished());
 
 
+
+
             /**
-             * add comment ot a page of a series
+             * Test: Create Default Flow, add flowTasks and assign FlowTypes
              */
-            //create comment
-            Createable<Comment> commentCreateable = new CommentCreater(UserServiceFactory.getUserService().getCurrentUser(), "Comment Duh", 0);
-            Comment comment = commentCreateable.createEntity(new CommentFillCommand());
+            Createable<Flow> defaultFlowCreater = new FlowCreater( "defaultFlow");
+            Flow defaultFlow = defaultFlowCreater.createEntity( new FlowFillCommand() );
 
-            // add comment to a page of a series
-            Long pageId = seriesOne.getChapters().get(0).getPages().get(0).getId(); // get page id
-            Readable<Page> pageReadable = new GetPageByIDCommand(pageId); // make readable
-            Updateable<Page> pageUpdateable = new PageUpdater(); // make updater
-            pageUpdateable.updateEntity(pageReadable, new UpdatePageAddCommentTask( UserServiceFactory.getUserService().getCurrentUser(), comment.getId()));
+            //Create the FlowTypes
+            Createable<FlowType> flowTypeCreateable = new FlowTypeCreater("Write Type");
+            FlowType writeFlowType = flowTypeCreateable.createEntity( new FlowTypeFillCommand( ) );
 
-            //print comment
-            System.out.println( seriesOne.getChapters().get(0).getPages().get(0).getComments().get(0).getComment() );
+            //Create the FlowTypes
+            Createable<FlowType> flowTypeCreateable2 = new FlowTypeCreater("PreDraw Type");
+            FlowType preDrawFlowType = flowTypeCreateable2.createEntity( new FlowTypeFillCommand( ) );
+
+            //Create the FlowTypes
+            Createable<FlowType> flowTypeCreateable3 = new FlowTypeCreater("Draw Type");
+            FlowType drawFlowType = flowTypeCreateable3.createEntity( new FlowTypeFillCommand( ) );
+
+            //Create the FlowTypes
+            Createable<FlowType> flowTypeCreateable4 = new FlowTypeCreater("Review Type");
+            FlowType reviewFlowType = flowTypeCreateable4.createEntity( new FlowTypeFillCommand( ) );
+
+            //Create the FlowTypes
+            Createable<FlowType> flowTypeCreateable5 = new FlowTypeCreater("Done Type");
+            FlowType doneFlowType = flowTypeCreateable5.createEntity( new FlowTypeFillCommand( ) );
+
+
+            //Create FlowTask0
+            Createable<FlowTask> flowTaskCreateable0 = new FlowTaskCreater( "Write Task", 0);
+            FlowTask flowTask0 = flowTaskCreateable0.createEntity( new FlowTaskFillCommand());
+            //Update FlowTask with correct Type
+            Updateable<FlowTask> flowTaskUpdateable0 = new FlowTaskUpdater();
+            Readable<FlowTask> flowTaskReadable0 = new GetFlowTaskByIDCommand(flowTask0.getFlowTaskId());
+            flowTaskUpdateable0.updateEntity(flowTaskReadable0, new UpdateFlowTaskSetTypeTask(writeFlowType.getFlowTypeId()));
+//            flowTask0.setFlowTypeKey(writeFlowType.getKey());
+
+            //Create FlowTask1
+            Createable<FlowTask> flowTaskCreateable1 = new FlowTaskCreater( "PreDraw Task", 1);
+            FlowTask flowTask1 = flowTaskCreateable1.createEntity( new FlowTaskFillCommand());
+            //Update FlowTask with correct Type
+            Updateable<FlowTask> flowTaskUpdateable1 = new FlowTaskUpdater();
+            Readable<FlowTask> flowTaskReadable1 = new GetFlowTaskByIDCommand(flowTask1.getFlowTaskId());
+            flowTaskUpdateable1.updateEntity(flowTaskReadable1, new UpdateFlowTaskSetTypeTask(preDrawFlowType.getFlowTypeId()));
+//            flowTask1.setFlowTypeKey( preDrawFlowType.getKey() );
+
+            //Create FlowTask2
+            Createable<FlowTask> flowTaskCreateable2 = new FlowTaskCreater( "Draw Task", 2);
+            FlowTask flowTask2 = flowTaskCreateable2.createEntity( new FlowTaskFillCommand());
+            //Update FlowTask with correct Type
+            Updateable<FlowTask> flowTaskUpdateable2 = new FlowTaskUpdater();
+            Readable<FlowTask> flowTaskReadable2 = new GetFlowTaskByIDCommand(flowTask2.getFlowTaskId());
+            flowTaskUpdateable2.updateEntity(flowTaskReadable2, new UpdateFlowTaskSetTypeTask(drawFlowType.getFlowTypeId()));
+//            flowTask2.setFlowTypeKey( drawFlowType.getKey() ); // how do we want to set the Flow Type?
+
+            //Create FlowTask3
+            Createable<FlowTask> flowTaskCreateable3 = new FlowTaskCreater( "Review Task", 3);
+            FlowTask flowTask3 = flowTaskCreateable3.createEntity( new FlowTaskFillCommand());
+            //Update FlowTask with correct Type
+            Updateable<FlowTask> flowTaskUpdateable3 = new FlowTaskUpdater();
+            Readable<FlowTask> flowTaskReadable3 = new GetFlowTaskByIDCommand( flowTask3.getFlowTaskId() );
+            flowTaskUpdateable3.updateEntity( flowTaskReadable3, new UpdateFlowTaskSetTypeTask(reviewFlowType.getFlowTypeId()));
+//            flowTask3.setFlowTypeKey( reviewFlowType.getKey() );
+
+
+            //Create FlowTask4
+            Createable<FlowTask> flowTaskCreateable4 = new FlowTaskCreater( "Done Task", 4);
+            FlowTask flowTask4 = flowTaskCreateable4.createEntity( new FlowTaskFillCommand());
+            //Update FlowTask with correct Type
+            Updateable<FlowTask> flowTaskUpdateable4 = new FlowTaskUpdater();
+            Readable<FlowTask> flowTaskReadable4 = new GetFlowTaskByIDCommand(flowTask4.getFlowTaskId());
+            flowTaskUpdateable4.updateEntity(flowTaskReadable4, new UpdateFlowTaskSetTypeTask(doneFlowType.getFlowTypeId()) );
+//            flowTask4.setFlowTypeKey( doneFlowType.getKey() );
+
+
+            //Update Flow with FlowTasks
+            Updateable<Flow> flowUpdateable = new FlowUpdater();
+            Readable<Flow> flowReadable = new GetFlowByIDCommand(defaultFlow.getFlowId());
+            flowUpdateable.updateEntity(flowReadable, new UpdateFlowAddFlowTask( flowTask0.getFlowTaskId() ));
+            flowUpdateable.updateEntity(flowReadable, new UpdateFlowAddFlowTask( flowTask1.getFlowTaskId() ));
+            flowUpdateable.updateEntity(flowReadable, new UpdateFlowAddFlowTask( flowTask2.getFlowTaskId() ));
+            flowUpdateable.updateEntity(flowReadable, new UpdateFlowAddFlowTask( flowTask3.getFlowTaskId() ));
+            flowUpdateable.updateEntity(flowReadable, new UpdateFlowAddFlowTask( flowTask4.getFlowTaskId() ));
+
+            //Set the next and previous flows
+            // (Do this internally if one flow?)
+            flowTask0.setNextTask(flowTask1.getKey());
+
+            flowTask1.setPrevTask(flowTask0.getKey());
+            flowTask1.setNextTask(flowTask2.getKey());
+
+            flowTask2.setPrevTask(flowTask1.getKey());
+            flowTask2.setNextTask(flowTask3.getKey());
+
+            flowTask3.setPrevTask(flowTask2.getKey());
+            flowTask3.setNextTask(flowTask4.getKey());
+
+            flowTask4.setPrevTask(flowTask3.getKey());
+
+            //Set Chapter to use defaultFlow
+            // (Do this internally if only one flow?)
+            Updateable<Chapter> chapterUpdateable1 = new ChapterUpdater();
+            Readable<Chapter> chapterReadable1 = new GetChapterByIDCommand(chapterOne.getChapterId());
+            chapterUpdateable1.updateEntity( chapterReadable1 , new UpdateChapterFlowTask( defaultFlow.getFlowId() ) );
+
+
+            //Set page to a Flow
+            Updateable<Page> pageUpdateable1 = new PageUpdater();
+            Readable<Page> pageReadable1 = new GetPageByIDCommand(chapterOne.getPages().get(0).getId());
+            pageUpdateable1.updateEntity( pageReadable1, new UpdatePageSetFlowTask( flowTask0.getFlowTaskId() ));
+
+
+            // 1) Check to make sure chapter has the default flow
+            Chapter chapter = seriesOne.getChapters().get(0);
+            System.out.println( chapter.getTitle() + " has the flow: " + chapter.getFlow().getFlowName() );
+
+            // 2) Check to make sure flow has a list of flowTasks
+            // 3) Check to make sure flowTasks has  a flow type
+            Flow flow = chapter.getFlow();
+            System.out.println( flow.getFlowName() + " has the following flow Tasks: ");
+            for( FlowTask flowTask : flow.getFlowTasks() ){
+                System.out.println( flowTask.getFlowTaskName() + " of type " + flowTask.getFlowType().getFlowTypeName() );
+            }
+
+            /**
+             *
+             * Test if we can change move a page between tasks
+             *
+             **/
+
+            // BEFORE PRINT
+            Page pageToUpdate = seriesOne.getChapters().get(0).getPages().get(0);
+            FlowTask flowTaskBefore =  pageToUpdate.getFlowTaskEntity();
+            System.out.println( " Flow Task is " + flowTaskBefore.getFlowTaskName()
+                                + " with the type " + flowTaskBefore.getFlowType().getFlowTypeName() );
+
+            // Move to next Flow
+            Updateable<Page> flowUpdateable1 = new PageUpdater();
+            Readable<Page> pageReadable2 = new GetPageByIDCommand(pageToUpdate.getId());
+            flowUpdateable1.updateEntity( pageReadable2, new UpdatePageMoveToNextFlowTask());
+            System.out.println( "Move page to Next Flow");
+
+            //AFTER PRINT
+            Page pageToUpdate2 = seriesOne.getChapters().get(0).getPages().get(0);
+            FlowTask flowTaskAfter =  pageToUpdate2.getFlowTaskEntity();
+            System.out.println( " Flow Task is " + flowTaskAfter.getFlowTaskName()
+                    + " with the type " + flowTaskAfter.getFlowType().getFlowTypeName() );
+
+            //Move to previous flow
+            Updateable<Page> flowUpdateable2 = new PageUpdater();
+            Readable<Page> pageReadable3 = new GetPageByIDCommand(pageToUpdate2.getId());
+            flowUpdateable2.updateEntity( pageReadable3, new UpdatePageMoveToPreviousFlowTask());
+            System.out.println( "Move page to Previous Flow");
+
+            //After 2 Print
+            Page pageToUpdate3 = seriesOne.getChapters().get(0).getPages().get(0);
+            FlowTask flowTaskAfter2 =  pageToUpdate3.getFlowTaskEntity();
+            System.out.println( " Flow Task is " + flowTaskAfter2.getFlowTaskName()
+                    + " with the type " + flowTaskAfter2.getFlowType().getFlowTypeName() );
+
+
+
+
 
 
         }
