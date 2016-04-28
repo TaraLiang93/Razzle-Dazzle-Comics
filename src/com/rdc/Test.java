@@ -878,6 +878,16 @@ public class Test {
                     + " with the type " + flowTaskAfter2.getFlowType().getFlowTypeName() );
 
 
+            /**
+             * Testing Update Series Edit Description
+             */
+
+            Updateable<Series> seriesUpdateableDannyGangsta = new SeriesUpdater();
+            Readable<Series> seriesReadableDannyGansta = new GetSeriesByIDCommand(seriesOne.getSeriesID());
+            seriesUpdateableDannyGangsta.updateEntity( seriesReadableDannyGansta,
+                    new UpdateSeriesEditDescriptionTask("Series One Updated Danny Gangsta"));
+
+            System.out.println(" seriesOne has new description:  " + seriesOne.getDescription() );
 
         }
         catch (Exception e) {

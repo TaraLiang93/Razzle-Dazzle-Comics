@@ -6,10 +6,13 @@ import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Readable;
+import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetChaptersOfSeriesCommand;
 import com.data.api.queries.external.GetSeriesByIDCommand;
 import com.data.api.queries.external.GetUserDataByUserCommand;
+import com.data.api.updatables.SeriesUpdater;
 import com.data.api.updatables.UserDataUpdater;
+import com.data.api.updatables.updateTasks.UpdateSeriesEditDescriptionTask;
 import com.data.api.updatables.updateTasks.UpdateUserDataAddSeriesTask;
 import com.data.creation.Chapter;
 import com.data.structure.Series;
@@ -39,9 +42,18 @@ public class SeriesController {
 
     @RequestMapping(value="/create/series/updateDescription", method= RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Boolean> updateSeriesDescr(@RequestParam String desc, HttpSession session){
+    public ResponseEntity<Boolean> updateSeriesDescr(@RequestParam String seriesID, @RequestParam String desc, HttpSession session){
 
         System.out.println("NEW DESCRIPTION: " + desc);
+        Updateable<Series> seriesUpdateableDannyGangsta = new SeriesUpdater();
+        Readable<Series> seriesReadableDannyGansta = new GetSeriesByIDCommand(seriesID);
+        try {
+            seriesUpdateableDannyGangsta.updateEntity( seriesReadableDannyGansta,
+                    new UpdateSeriesEditDescriptionTask(desc));
+        } catch (FetchException | UpdateException | CreateException e) {
+            e.printStackTrace();
+            return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+        }
 
 
         return new ResponseEntity(true, HttpStatus.OK);
