@@ -71,4 +71,9 @@ $("document").ready(function(){
          $('#chapterModal').modal('show');
     });
 
+    $("#uploadChapter").click(function(){
+        console.log("upload chapter click");
+        $("#uploadChapterModal").modal("show");
+    });
+
 });
