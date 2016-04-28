@@ -12,7 +12,10 @@
 
             <div class="col-sm-3 item">
                 <div id="newSeries" class="thumbnail " data-toggle="modal" data-target="#seriesModal">
-                    <img class="idea" src="/img/plus_sign.jpg" alt="New Scribble"/>
+                    <div style="height: 85%;">
+                        <img class="idea" src="/img/plus_sign.jpg" alt="New Scribble"/>
+                    </div>
+                    <div class="caption text-center">Add New Series</div>
                 </div>
             </div>
 
