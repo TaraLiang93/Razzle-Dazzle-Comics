@@ -38,6 +38,7 @@ public class OfyHelper implements ServletContextListener {
         ObjectifyService.register(Series.class);
         ObjectifyService.register(TeamMember.class);
         ObjectifyService.register(Comment.class);
+        ObjectifyService.register(PublishedPage.class);
 
     }
 
