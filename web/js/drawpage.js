@@ -36,23 +36,17 @@ $(document).ready(function() {
     });
 
     $("#saveDrawing").click(function() {
-        var jsonObj = [];
-
+        var jsonObj = {"size" : 0};
+        var i = 0;
         $(".scene").each(function() {
-            var dialogJson = [];
-            $(this).find(".SceneDialogs").find(".dialog").each(function() {
-                dialogJson.push({"dialog" : $(this).text()});
-
-
-            });
-            jsonObj.push( { "scene" : {"canvasImage": $(this).find(".canvasImage").text(),
-                                   "dialogs" : dialogJson,
-                                    "setting" : $(this).find(".sceneSetting").text() } });
+            var map = "canvasImage" + i++;
+            jsonObj[map] = $(this).find(".canvasImage").text() ;
         });
-        console.log({"drawing":jsonObj});
+        jsonObj["size"] = i;
+        console.log(jsonObj);
 
 
-        $.post("/create/drawPage/save",{"drawing":(jsonObj)},'json')
+        $.post("/create/drawPage/save", jsonObj )
             .done(function() {
             console.log("Yes");
         })

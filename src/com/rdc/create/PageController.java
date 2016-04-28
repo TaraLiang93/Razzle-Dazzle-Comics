@@ -44,6 +44,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -381,32 +382,20 @@ public class PageController {
 
 
     @RequestMapping(value="/create/drawPage/save", method=RequestMethod.POST)
-    public ModelAndView saveDrawPage(HttpServletRequest req, HttpSession session){
+    @ResponseStatus(value = HttpStatus.OK)
+    public void saveDrawPage(HttpServletRequest req, HttpSession session){
 
-//        String drawing = req.getParameter("drawing");
-        String drawings[] = req.getParameterValues("drawing");
-//        drawing = drawing.repalceAll("");
+        LinkedList<String> list = new LinkedList<>();
+        String canvasArr[];
+        Integer size = Integer.parseInt(req.getParameter("size"));
 
-//        String drawingData[] =  gson.fromJson(drawing,String[].class);
-//
-//        System.out.println("drawingData = " + drawingData);
-//
-//        try {
-//            JSONObject jsonObj = new JSONObject(drawing);
-//            JSONArray json = new JSONArray(drawing);
-//            System.out.println("json = " + json);
-//            JsonArray
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
+        for(int i = 0; i < size;i++)
+        {
+            list.add(req.getParameter("canvasImage" + i));
+        }
+
+        canvasArr = list.toArray(new String[list.size()]);
 
 
-//
-
-        System.out.println();
-
-
-
-        return new ModelAndView("forward:/" );
     }
 }
