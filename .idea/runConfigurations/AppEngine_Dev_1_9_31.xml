@@ -2,6 +2,7 @@
   <configuration default="false" name="AppEngine Dev 1.9.31" type="GoogleAppEngineDevServer" factoryName="Local" APPLICATION_SERVER_NAME="AppEngine Dev 1.9.31" ALTERNATIVE_JRE_ENABLED="false" show_console_on_std_out="true" show_console_on_std_err="true">
     <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
     <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
+    <option name="UPDATING_POLICY" value="restart-server" />
     <server-settings>
       <option name="artifact" value="razzledazzlecomics:war exploded" />
       <option name="port" value="8088" />

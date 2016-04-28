@@ -7,8 +7,10 @@ import com.data.api.queries.external.GetPageByIDCommand;
 import com.data.creation.*;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.repackaged.com.google.gson.JsonArray;
-import com.google.appengine.repackaged.com.google.gson.JsonObject;
+import com.google.appengine.labs.repackaged.org.json.JSONArray;
+import com.google.appengine.labs.repackaged.org.json.JSONException;
+import com.google.appengine.labs.repackaged.org.json.JSONObject;
+import com.google.appengine.repackaged.com.google.gson.*;
 import com.model.WritePageModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -191,5 +195,35 @@ public class PageController {
             return new ResponseEntity<String>("", HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+
+    @RequestMapping(value="/create/drawPage/save", method=RequestMethod.POST)
+    public ModelAndView saveDrawPage(HttpServletRequest req, HttpSession session){
+
+        String drawing = req.getParameter("drawing");
+//        drawing = drawing.repalceAll("");
+
+//        String drawingData[] =  gson.fromJson(drawing,String[].class);
+//
+//        System.out.println("drawingData = " + drawingData);
+//
+//        try {
+//            JSONObject jsonObj = new JSONObject(drawing);
+//            JSONArray json = new JSONArray(drawing);
+//            System.out.println("json = " + json);
+//            JsonArray
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+
+
+//
+
+        System.out.println();
+
+
+
+        return new ModelAndView("forward:/" );
     }
 }
