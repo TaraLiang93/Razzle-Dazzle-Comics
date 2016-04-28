@@ -63,7 +63,7 @@
                 <div id="upload" >
                     <div class="row-fluid">
                         <div class="uploadEle col-sm-4">
-                            <img  id="pageImgPlus" src="/img/plus_sign.jpg" >
+                            <img  id="pageImgPlus" class="imgPage" src="/img/plus_sign.jpg" >
                                  <%--nclick="$('#pageImgInput').click();" >--%>
                             <input name="pageImg"  class="hide" type="file" accept="image/*">
                         </div>

@@ -94,6 +94,8 @@
 }
 
 .uploadEle p {
+    margin: 0;
+    text-align: center;
     height: 20px;
     padding: 0px;
 }
