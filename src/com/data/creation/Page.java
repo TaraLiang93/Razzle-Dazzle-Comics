@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Created by drodrigues on 3/30/16.
  */
+
 @Entity
 public class Page {
 

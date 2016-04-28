@@ -19,6 +19,7 @@ import java.util.Map;
 /**
  * Created by drodrigues on 3/29/16.
  */
+
 @Controller
 public class PublishController {
 

@@ -25,7 +25,7 @@ public class UpdateChapterAddTeamMemberTask implements UpdateTask<Chapter> {
 
 
     public UpdateChapterAddTeamMemberTask(String userName){
-        userName = userName;
+        this.userName = userName;
     }
 
     @Override
