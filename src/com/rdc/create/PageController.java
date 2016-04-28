@@ -201,7 +201,8 @@ public class PageController {
     @RequestMapping(value="/create/drawPage/save", method=RequestMethod.POST)
     public ModelAndView saveDrawPage(HttpServletRequest req, HttpSession session){
 
-        String drawing = req.getParameter("drawing");
+//        String drawing = req.getParameter("drawing");
+        String drawings[] = req.getParameterValues("drawing");
 //        drawing = drawing.repalceAll("");
 
 //        String drawingData[] =  gson.fromJson(drawing,String[].class);

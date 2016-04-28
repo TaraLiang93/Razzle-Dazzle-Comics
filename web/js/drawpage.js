@@ -52,7 +52,7 @@ $(document).ready(function() {
         console.log({"drawing":jsonObj});
 
 
-        $.post("/create/drawPage/save",{"drawing":JSON.stringify(jsonObj)},'json')
+        $.post("/create/drawPage/save",{"drawing":(jsonObj)},'json')
             .done(function() {
             console.log("Yes");
         })
