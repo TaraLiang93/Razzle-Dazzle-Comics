@@ -24,56 +24,54 @@
                 <h4 class="modal-title">Upload Chapter</h4>
             </div>
             <div class="modal-body" id="uploadBody">
-                <div id="uploadInfo">
-                    <div class="pull-left" id="imgInfo">
-                        <label for="chapterIcon">Chapter Icon:</label>
-                        <img class="form-control" id="chapterIcon" src="/img/chapter_default.jpeg" >
-                        <%--onclick="$('.browseChapIcon').click();"--%>
-                        <input name="chapterIcon"  class="browseChapIcon hide" type="file" accept="image/*">
-                    </div>
-                    <div class="chapterInfo pull-right">
-                        <div class="info">
-                            <div class="half">
-                                <label for="chapterTitle">Chapter Title:</label>
-                                <input class="text form-control" id="chapterTitle" name="chapterTitle" value="Chapter Title">
-                            </div>
-                            <div class="half">
-                                <label for="chapterStr">Chapter String:</label>
-                                <input class="text form-control" id="chapterStr" name="chapterStr" value="Chapter String">
-                            </div>
+                <form action="${uploadChapterAction}" enctype="multipart/form-data" style="height:100%; width:100%;">
+                    <div id="uploadInfo">
+                        <div class="pull-left" id="imgInfo">
+                            <label for="chapterIcon">Chapter Icon:</label>
+                            <img class="form-control" id="chapterIcon" src="/img/chapter_default.jpeg" >
+                            <%--onclick="$('.browseChapIcon').click();"--%>
+                            <input name="chapterIcon"  class="browseChapIcon hide" type="file" accept="image/*">
                         </div>
+                        <div class="chapterInfo pull-right">
+                            <div class="info">
+                                <div class="half">
+                                    <label for="chapterTitle">Chapter Title:</label>
+                                    <input class="text form-control" id="chapterTitle" name="chapterTitle" value="Chapter Title">
+                                </div>
+                                <div class="half">
+                                    <label for="chapterStr">Chapter String:</label>
+                                    <input class="text form-control" id="chapterStr" name="chapterStr" value="Chapter String">
+                                </div>
+                            </div>
 
-                        <div class="info">
-                            <div class="half">
-                                <label for="author">Author:</label>
-                                <input class="text form-control" id="author" name="author" value="Author">
+                            <div class="info">
+                                <div class="half">
+                                    <label for="author">Author:</label>
+                                    <input class="text form-control" id="author" name="author" value="Author">
+                                </div>
+                                <div class="half">
+                                    <label for="artist">Artist:</label>
+                                    <input class="text form-control" id="artist" name="artist" value="Artist">
+                                </div>
                             </div>
-                            <div class="half">
-                                <label for="artist">Artist:</label>
-                                <input class="text form-control" id="artist" name="artist" value="Artist">
-                            </div>
-                        </div>
 
-                        <div style="margin-left: 3%;">
-                            <label for="descr">Description:</label>
-                            <textarea class="text form-control" id="descr" name="chapterDescr">Description</textarea>
+                            <div style="margin-left: 3%;">
+                                <label for="descr">Description:</label>
+                                <textarea class="text form-control" id="descr" name="chapterDescr">Description</textarea>
+                            </div>
                         </div>
-                    </div>
                 </div>
                 <div id="upload" >
                     <div class="row-fluid">
                         <div class="uploadEle col-sm-4">
                             <img  id="pageImgPlus" class="imgPage" src="/img/plus_sign.jpg" >
                                  <%--nclick="$('#pageImgInput').click();" >--%>
-                            <input name="pageImg"  class="hide" type="file" accept="image/*">
+                            <input class="hide" type="file" accept="image/*">
                         </div>
                     </div>
-
-
-
-
-
                 </div>
+                </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
