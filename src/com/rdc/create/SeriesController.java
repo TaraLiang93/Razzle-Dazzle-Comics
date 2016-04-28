@@ -39,6 +39,8 @@ import java.util.Map;
 public class SeriesController {
 
     public static final String NEW_SERIES = "/create/series/new";
+    public static final String LOAD_SERIES = "/create/series/load/{id}";
+
 
     @RequestMapping(value="/create/series/updateDescription", method= RequestMethod.POST)
     @ResponseBody
@@ -130,7 +132,7 @@ public class SeriesController {
         }
         return new ModelAndView(redirect);
     }
-    @RequestMapping(value="/create/series/load/{id}", method= {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value=LOAD_SERIES, method= {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView loadSeries(@PathVariable String id, HttpSession session, ModelMap map){
 
 
@@ -141,7 +143,7 @@ public class SeriesController {
 
             BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
             map.put("uploadAction",blobstoreService.createUploadUrl(ChapterController.NEW_CHAPTER));
-
+            map.put("uploadChapterAction",blobstoreService.createUploadUrl(PublishController.PUBLISH_UPLOADS));
 
             Readable<Chapter> getChapters = new GetChaptersOfSeriesCommand(series.getSeriesID());
             List<Chapter> chapters = getChapters.fetch().getList();
