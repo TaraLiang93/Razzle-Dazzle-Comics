@@ -58,7 +58,7 @@ public class PublishController {
         return new ModelAndView("homepage");
     }
 
-    @RequestMapping(value=PUBLISH_UPLOADS, method= RequestMethod.GET)
+    @RequestMapping(value=PUBLISH_UPLOADS, method= {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView publishUploads(@RequestParam String seriesID,
                                        @RequestParam String chapterTitle,
                                        @RequestParam String chapterStr,
@@ -81,7 +81,7 @@ public class PublishController {
 
         try{
 
-            Chapter newChapter = new ChapterCreater(user, chapterTitle, chapterStr, chapterDescr).createEntity(new ChapterFillCommand());
+            Chapter newChapter = new ChapterCreater(user, chapterTitle, chapterStr, chapterDescr).createEntity(new ChapterFillCommand(chapterIcon));
 
             for(int i=0; i <newList.size();i++){
                 String key = newList.get(i);
@@ -105,7 +105,7 @@ public class PublishController {
 
 
 
-        return new ModelAndView("seriesPage");
+        return new ModelAndView("redirect:/create/series/load/" + seriesID);
     }
 
 

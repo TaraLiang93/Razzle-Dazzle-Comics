@@ -1,5 +1,6 @@
 package com.data.api.interfaces;
 
+import com.data.api.containers.EntityContainer;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
@@ -33,8 +34,10 @@ public class Updateable<T> {
 
     }
 
-    public void updateEntity(T ent, UpdateTask<T> task) throws FetchException, UpdateException{
+    public void updateEntity(T ent, UpdateTask<T> task) throws CreateException, FetchException, UpdateException{
         if(ent == null) throw new UpdateException("Cannot be null");
+
+        task.update(new EntityContainer<T>(ent));
 
         try{
             // save all the entities to update
