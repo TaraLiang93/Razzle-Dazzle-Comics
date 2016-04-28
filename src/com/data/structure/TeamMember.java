@@ -23,7 +23,7 @@ public class TeamMember {
     @Index
     Key<UserData> userDataKey;
 
-    List<Key<Role>> roleList;
+    List<Key<RoleType>> roleList;
 
     public TeamMember(){
         userDataKey = null;
@@ -51,11 +51,11 @@ public class TeamMember {
         this.teamMemberId = teamMemberId;
     }
 
-    public List<Key<Role>> getRoleList() {
+    public List<Key<RoleType>> getRoleList() {
         return roleList;
     }
 
-    public void setRoleList(List<Key<Role>> roleList) {
+    public void setRoleList(List<Key<RoleType>> roleList) {
         this.roleList = roleList;
     }
 
@@ -63,4 +63,13 @@ public class TeamMember {
         Readable<UserData> userDataReadable = new GetEntityFromKeyCommand<>(userDataKey);
         return userDataReadable.fetch().getResult();
     }
+
+    public void addRoleTypeToRoleTypeList( Key<RoleType> roleTypeKey){
+
+        this.roleList.add(roleTypeKey);
+
+    }
+
+
+
 }

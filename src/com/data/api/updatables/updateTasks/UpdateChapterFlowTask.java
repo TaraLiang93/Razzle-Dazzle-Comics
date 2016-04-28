@@ -36,8 +36,8 @@ public class UpdateChapterFlowTask implements UpdateTask<Chapter> {
         }
         else{
             Readable<Flow> loadFlow = new GetFlowByIDCommand(this.flowIdLong);
-//          Flow flow =  loadFlow.fetch().getResult();
-//            chapter.setTheFlow(flow.getKey());
+            Flow flow =  loadFlow.fetch().getResult();
+            chapter.setTheFlow(flow.getKey());
         }
 
         List<Chapter> chapterList = new ArrayList<>();

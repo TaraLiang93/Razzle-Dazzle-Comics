@@ -11,18 +11,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Zhenya on 4/15/16.
+ * Created by Zhenya on 4/27/16.
  */
-public class UpdateSeriesToggleVisibilityTask implements UpdateTask<Series> {
+public class UpdateSeriesEditDescriptionTask implements UpdateTask<Series> {
 
-    public UpdateSeriesToggleVisibilityTask(){
-        //take no parameters just toggle published boolean.
+    String description;
+
+    public UpdateSeriesEditDescriptionTask( String description ){
+
+        this.description = description;
+
     }
 
     @Override
     public List<Series> update(Container<Series> entity) throws UpdateException, FetchException, CreateException {
+
+        if(description == null || description.equals("")){
+            throw new UpdateException("description null");
+        }
+
         Series series = entity.getResult();
-        series.setPublished( !series.isPublished() ); // flip the value of is published
+        series.setDescription(description);
 
         List<Series> seriesList = new ArrayList<>();
         seriesList.add(series);

@@ -7,4 +7,8 @@ import com.googlecode.objectify.annotation.Entity;
  */
 @Entity
 public class Role {
+    //No Role only RoleType
+
+
+
 }
