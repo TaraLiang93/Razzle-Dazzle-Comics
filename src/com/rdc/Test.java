@@ -844,9 +844,7 @@ public class Test {
             }
 
             /**
-             *
              * Test if we can change move a page between tasks
-             *
              **/
 
             // BEFORE PRINT
@@ -875,12 +873,9 @@ public class Test {
 
             //After 2 Print
             Page pageToUpdate3 = seriesOne.getChapters().get(0).getPages().get(0);
-            FlowTask flowTaskAfter2 =  pageToUpdate3.getFlowTaskEntity();
+            FlowTask flowTaskAfter2 = pageToUpdate3.getFlowTaskEntity();
             System.out.println( " Flow Task is " + flowTaskAfter2.getFlowTaskName()
                     + " with the type " + flowTaskAfter2.getFlowType().getFlowTypeName() );
-
-
-
 
 
 
