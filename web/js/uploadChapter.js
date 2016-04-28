@@ -1,10 +1,10 @@
 /**
  * Created by tara on 4/22/16.
  */
-
+var numUpload;
 $(document).ready(function(){
 
-    var numUpload = 1;
+    numUpload = 1;
 
 
     $("#uploadChapterModal").on("shown.bs.modal", function(){
@@ -45,22 +45,29 @@ $(document).ready(function(){
             imgForm= new FormData();
             console.log("This is input "+imgForm);
             reader.readAsDataURL(event.target.files[0]);
+            alert("number of upload:" + numUpload);
+            numUpload = numUpload+1;
+
         }
 
         $("#pageImgPlus").click(function(){
             var code =
                 "<div class='uploadEle col-sm-4'>" +
-                    "<img id="+numUpload+" name="+numUpload +"src=''  onclick='$('.uploadPage').click();'>"+
-                    "<input class='uploadPage hide' class='hide' type='file' accept='image/*'>"+
-                    "<p class='pageNum'></p>"+
+                    "<img id="+numUpload+" name="+numUpload +"src='/img/chapter_default.jpeg'  onclick='$('.uploadPage').click();'>"+
+                    "<input class='uploadPage hide' id='input"+numUpload+"' class='hide' type='file' accept='image/*'>"+
+                    "<p class='pageNum'>Page"+numUpload+"</p>"+
                 "</div>";
 
 
-
             $(".row-fluid").append(code);
-            $(".uploadPage").bind("change",newPage);
+            $("#input"+numUpload).bind("change",newPage);
 
-            $(".uploadPage").trigger("click");
+            $("#input"+numUpload).trigger("click");
+
+            console.log('been here right now'+numUpload);
+                //$("#p"+numUpload).val("Page "+numUpload);
+                //numUpload= numUpload+1;
+            console.log('after increase one in numUpload: '+numUpload);
 
 
 
