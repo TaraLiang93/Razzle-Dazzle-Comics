@@ -34,4 +34,5 @@ public class GetTeamMemberWithUserDataKeyCommand extends Readable<TeamMember> {
     protected Class<TeamMember> getType() {
         return TeamMember.class;
     }
+
 }

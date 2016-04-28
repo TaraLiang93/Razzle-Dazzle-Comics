@@ -35,10 +35,13 @@ public class UpdatePageSetFlowTask implements UpdateTask<Page> {
 
     @Override
     public List<Page> update(Container<Page> entity) throws UpdateException, FetchException, CreateException {
+        //get page
         Page page = entity.getResult();
 
+        //get Flow Task
         Readable<FlowTask> flowTaskReadable = new GetFlowTaskByIDCommand(flowTaskId);
         FlowTask flowTask = flowTaskReadable.fetch().getResult();
+
         if( flowTask == null){ throw new UpdateException("flowTask is null"); }
 
         page.setFlowTask(flowTask.getKey());

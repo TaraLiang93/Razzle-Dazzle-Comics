@@ -6,6 +6,7 @@ import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 /**
  * Created by drodrigues on 3/30/16.
@@ -15,6 +16,7 @@ public class FlowTask {
     @Id
     Long flowTaskId;
 
+    @Index
     String flowTaskName;
     int index;
     Key<FlowType> flowTypeKey;
