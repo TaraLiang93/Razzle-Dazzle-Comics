@@ -1,0 +1,101 @@
+.modal-dialog {
+    height: 85%;
+    width: 85%;
+}
+
+.modal-content {
+    height: 100%;
+    width: 100%;
+}
+
+.modal-footer {
+    height: 10%;
+    width: 100%;
+}
+
+.modal-header {
+    height: 7%;
+    width: 100%;
+}
+
+.modal-body {
+    height: 90%;
+    width: 100%;
+}
+
+#uploadInfo {
+    height: 35%;
+    width: 100%;
+}
+
+#upload {
+    display: inline;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+.row-fluid {
+    border: 1px solid;
+    height: 65%;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+#uploadBody {
+    margin: 1%;
+}
+
+#imgInfo {
+    height: 100%;
+    width: 25%;
+}
+
+.chapterInfo {
+    height: 25%;
+    width: 70%;
+}
+
+.text {
+    margin-bottom: 2%;
+}
+
+.half {
+    margin-left: 3%;
+    width: 45%;
+}
+
+.info {
+    display: inline-flex;
+    width: 100%;
+}
+
+#chapterIcon {
+    height: 85%;
+    width: 95%;
+}
+
+#descr {
+    padding: 0px;
+    width: 90%;
+}
+
+.uploadEle {
+    border: 1px solid;
+    height: 150px;
+    margin: 1% 0px 0px 1%;
+    padding: 0px;
+    width: 125px;
+}
+
+.uploadEle img {
+    height: 125px;
+    padding: 0px;
+    width: 120px;
+}
+
+.uploadEle p {
+    margin: 0;
+    text-align: center;
+    height: 20px;
+    padding: 0px;
+}

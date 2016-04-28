@@ -35,6 +35,7 @@
                 </div>
 
                  <button id="addChapter" type="button" class="btn btn-default addUnpublish">Add Chapter</button>
+                <button id="uploadChapter" type="button" class="btn btn-default addUnpublish">Upload Chapter</button>
                  <button type="button" class="btn btn-default addUnpublish">${series.published eq true ? "Unpublish Series" : "Publish Series"}</button>
             </div>
 
@@ -109,6 +110,10 @@
     </div>
 
 <jsp:include page="newChapterModal.jsp">
+    <jsp:param name="seriesID" value="${series.seriesID}"/>
+</jsp:include>
+
+<jsp:include page="uploadChapter.jsp">
     <jsp:param name="seriesID" value="${series.seriesID}"/>
 </jsp:include>
 
