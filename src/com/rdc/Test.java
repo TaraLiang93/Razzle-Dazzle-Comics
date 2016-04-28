@@ -889,6 +889,30 @@ public class Test {
 
             System.out.println(" seriesOne has new description:  " + seriesOne.getDescription() );
 
+
+
+
+            /**
+             * Test Getting Pages with the FlowTask Done
+             */
+            // move the Page to done task
+            Page pageToUpdate4 = seriesOne.getChapters().get(0).getPages().get(0);
+
+            Updateable<Page> pageUpdateableDoneTask = new PageUpdater();
+            Readable<Page> pageReadable = new GetPageByIDCommand(pageToUpdate4.getId());
+            pageUpdateableDoneTask.updateEntity( pageReadable, new UpdatePageSetFlowTask( flowTask4.getFlowTaskId() ) );
+
+            seriesOne.getChapters().get(0).getPages().get(0).setFlowTask( flowTask4.getKey());
+
+            //Getting the pages in the done task
+            Readable<Page> pageReadable4 = new GetPagesInDoneFlowTaskCommand();
+            List<Page> pageList = pageReadable4.fetch().getList();
+
+            System.out.println("printing pages in the Done Task");
+            for( Page p : pageList){
+                System.out.println( p.getTitle() );
+            }
+
         }
         catch (Exception e) {
             e.printStackTrace();

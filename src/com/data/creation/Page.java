@@ -9,6 +9,7 @@ import com.data.structure.FlowTask;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * Created by drodrigues on 3/30/16.
  */
+
 @Entity
 public class Page {
 
@@ -36,6 +38,7 @@ public class Page {
 
     private int numRevisions;
 
+    @Index
     private Key<FlowTask> flowTask;
 
     private Key<Page> nextRevision;

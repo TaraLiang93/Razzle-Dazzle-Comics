@@ -9,6 +9,7 @@ import com.googlecode.objectify.annotation.Id;
  */
 @Entity
 public class RoleType {
+
     @Id
     Long roleTypeId;
 
@@ -37,6 +38,8 @@ public class RoleType {
     public Key<Role> getKey(){
         return Key.create(Role.class, roleTypeId);
     }
+
+
 
 
 }
