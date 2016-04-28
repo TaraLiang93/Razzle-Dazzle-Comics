@@ -113,4 +113,5 @@ public class PublishedPage {
     public Key<PublishedPage> getKey(){
         return Key.create(PublishedPage.class, publishedPageId);
     }
+
 }
