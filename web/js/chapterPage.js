@@ -7,6 +7,7 @@ var numPage;
 $(document).ready(function(){
     numPage=0;
     var chapterId = $("#chapterId");
+    var deleteMember;
 
    $("#editChapterInfo").click(function(){
         console.log("edit chapter info clicked");
@@ -53,10 +54,11 @@ $(document).ready(function(){
 
     $("#teamModal").on("shown.bs.modal",function(){
         console.log("team modal open");
-        $(".deleteMember").click(function(){
-            var userName = $(".name").get(this.getAttribute("id")).innerHTML;
+        $(".deleteMember").click(deleteMember = function(){
+            var selector = "#" +$(".name").get(this.getAttribute("id")).innerHTML + "ID";
+            var userName = $(selector).text();
             console.log("plz delete "+$(".name").get(this.getAttribute("id")).innerHTML);
-            var jsonObj = {"chapterID": chapterId, "newMemeber": userName};
+            var jsonObj = {"chapterID": chapterId.text(), "removeMember": userName};
             $.post("/create/chapter/removeMember", jsonObj)
                 .done(function(){
                     $(".name").get(this.getAttribute("id")).parentNode.removeChild($(".name").get(this.getAttribute("id")));
@@ -67,9 +69,10 @@ $(document).ready(function(){
         });
 
         $("#addButton").click(function(){
+
            console.log("add "+$("#newMember").val());
-            var jsonObj = {"chapterID": chapterId, "newMemeber": $("#newMember").val()};
-            $.post("/create/chapter/addMember", jsonObj)
+
+            $.post("/create/chapter/addMember", {"chapterID": chapterId.text(), "newMemeber": $("#newMember").val()})
                 .done(function(){
                     var code =
                         "<div class='indMemeber' >" +
@@ -84,11 +87,15 @@ $(document).ready(function(){
                         "<option id='Owner'>Owner</option>" +
                         "<option id='Manager'>Manager</option>" +
                         "</select>" +
-                        "<i class='fa fa-times btn deleteMember' id='"+index+"' aria-hidden='true'></i>" +
+                        "<i class='fa fa-times btn deleteMember' id='"+$('.indMemeber').length+"' aria-hidden='true'></i>" +
                         "</div>" +
                         "</div>";
 
+
                     $("#teamBody").append(code);
+                    $(".memberList").append("<p title='Member'>"+$('#newMember').val()+"</p>");
+                    $(".deleteMember").bind("click",deleteMember);
+                    console.log("Team member was added");
                 })
                 .fail(function(){
                     alert("Cannot add user: "+$("#newMember").val());

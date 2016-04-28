@@ -76,30 +76,29 @@ public class ChapterController {
     }
 
     @RequestMapping(value="/create/chapter/addMember", method = RequestMethod.POST)
-    public boolean addTeam(@RequestParam String chapterID, @RequestParam String newMemeber, HttpSession session){
+    @ResponseStatus(value = HttpStatus.OK)
+    public void addTeam(@RequestParam String chapterID, @RequestParam String newMemeber, HttpSession session){
         try{
+            System.out.println("newMemeber = " + newMemeber);
             Updateable<Chapter> chapterUpdater = new ChapterUpdater();
             Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterID);
             chapterUpdater.updateEntity(chapterReadable, new UpdateChapterAddTeamMemberTask(newMemeber));
         } catch(UpdateException | FetchException | CreateException e){
             e.printStackTrace();
-            return false;
         }
-        return true;
     }
 
 
     @RequestMapping(value="/create/chapter/removeMember", method = RequestMethod.POST)
-    public boolean removeTeamMember(@RequestParam String chapterID, @RequestParam String removeMember, HttpSession session){
+    @ResponseStatus(value = HttpStatus.OK)
+    public void removeTeamMember(@RequestParam String chapterID, @RequestParam String removeMember, HttpSession session){
         try{
             Updateable<Chapter> chapterUpdater = new ChapterUpdater();
             Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterID);
             chapterUpdater.updateEntity(chapterReadable, new UpdateChapterRemoveTeamMemberTask(removeMember));
         } catch(UpdateException | FetchException | CreateException e){
             e.printStackTrace();
-            return false;
         }
-        return true;
     }
 
 

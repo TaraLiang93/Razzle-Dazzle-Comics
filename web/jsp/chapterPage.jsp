@@ -24,6 +24,7 @@
                 <div class="memberList">
                         <c:forEach var="member" items="${teamMembers}" >
                             <p title="Member">${member.userData.nickName}</p>
+                            <div id="${member.userData.nickName}ID" style="display: none">${member.userData.userName}</div>
                         </c:forEach>
                 </div>
             </div>
