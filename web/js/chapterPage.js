@@ -137,7 +137,7 @@ $(document).ready(function(){
     $("#addPage").click(function(){
        console.log("add page clicked");
         var code =
-            "<div><button class='btn pageTask' id="+numPage+" data-toggle='modal' data-target='#reviewTaskModal'>Page" +numPage+
+            "<div><button class='btn pageTask' id="+numPage+" data-toggle='modal' data-target='#writeTaskModal'>Page" +numPage+
             "</button></div>";
 
         $("#writer").append(code);
