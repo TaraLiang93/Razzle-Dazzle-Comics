@@ -2,6 +2,7 @@ package com.data.api.createables.fillCommands;
 
 import com.data.api.createables.PageCreater;
 import com.data.api.exceptions.CreateException;
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.FillDataCommand;
 import com.data.creation.Page;
@@ -30,7 +31,7 @@ public class ScribbleFillCommand implements FillDataCommand<Scribble>{
      * @param entity the entity that the Scribble fill command will fill
      */
     @Override
-    public void fillEntity(Scribble entity) throws CreateException {
+    public void fillEntity(Scribble entity) throws CreateException, FetchException {
 
         if(model == null || entity == null) throw new CreateException("Scribble Model should not be null");
 
