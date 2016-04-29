@@ -916,16 +916,17 @@ public class Test {
             /**
              * Test Getting Pages with the FlowTask Done
              */
+
             //Getting the pages in the done task
-            Readable<Page> pageReadable4 = new GetPagesInDoneFlowTaskCommand();
+            Readable<Page> pageReadable4 = new GetPagesInDoneFlowTaskCommand( chapter.getChapterId());
             List<Page> pageList = pageReadable4.fetch().getList();
 
             System.out.println("printing pages in the Done Task");
             
             for( Page p : pageList){
-                System.out.println( p.getTitle() );
+                System.out.println( p.getId() );
+                System.out.println( seriesOne.getChapters().get(0).getPages().get(0).getId());
             }
-
 
 
 
