@@ -31,7 +31,7 @@ public class TeamMemberCreater extends Createable<TeamMember> {
         Readable<UserData> userDataReadable = new GetEntityFromKeyCommand( userDataKey );
         UserData userData = userDataReadable.fetch().getResult();
 
-        teamMember.setUserStringId( userData.getUserId());
+        teamMember.setUserStringId( userData.getUserId() );
 
         return teamMember;
     }
