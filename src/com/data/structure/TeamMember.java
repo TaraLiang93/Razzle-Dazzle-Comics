@@ -23,6 +23,9 @@ public class TeamMember {
     @Index
     Key<UserData> userDataKey;
 
+    @Index
+    String userStringId;
+
     List<Key<RoleType>> roleList;
 
     public TeamMember(){
@@ -39,8 +42,10 @@ public class TeamMember {
         return userDataKey;
     }
 
-    public void setUserDataKey(Key<UserData> userDataKey) {
+    public void setUserDataKey(Key<UserData> userDataKey) throws FetchException {
         this.userDataKey = userDataKey;
+        Readable<UserData> userReadable = new GetEntityFromKeyCommand<>(this.userDataKey);
+        userStringId = userReadable.fetch().getResult().getUserId();
     }
 
     public Long getTeamMemberId() {
@@ -68,6 +73,14 @@ public class TeamMember {
 
         this.roleList.add(roleTypeKey);
 
+    }
+
+    public String getUserStringId() {
+        return userStringId;
+    }
+
+    public void setUserStringId(String userStringId) {
+        this.userStringId = userStringId;
     }
 
 

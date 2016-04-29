@@ -23,9 +23,13 @@ public class GetTeamMemberWithUserDataKeyCommand extends Readable<TeamMember> {
     protected Filter getFilter() throws FetchException {
         Filter filter;
 
-        filter = new FilterPredicate("userDataKey",
+        Readable<UserData> userDataReadable = new GetEntityFromKeyCommand(userDataKey);
+        UserData userData = userDataReadable.fetch().getResult();
+        String userDataId = userData.getUserId();
+
+        filter = new FilterPredicate("userStringId",
                 FilterOperator.EQUAL,
-                this.userDataKey);
+                userDataId);
 
         return filter;
     }
@@ -34,5 +38,6 @@ public class GetTeamMemberWithUserDataKeyCommand extends Readable<TeamMember> {
     protected Class<TeamMember> getType() {
         return TeamMember.class;
     }
+
 
 }
