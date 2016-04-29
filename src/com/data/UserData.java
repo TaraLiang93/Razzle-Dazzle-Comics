@@ -8,24 +8,26 @@ package com.data;
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
+import com.data.api.queries.internal.GetImgUrlFromBlobKey;
 import com.data.creation.Doodle;
 import com.data.creation.Scribble;
 import com.data.structure.Bookmark;
 import com.data.structure.Flow;
 import com.data.structure.Series;
 import com.data.structure.Tag;
-import com.google.appengine.api.datastore.Blob;
+import com.google.appengine.api.blobstore.BlobKey;
 import com.googlecode.objectify.Key;
-import com.googlecode.objectify.annotation.Entity;
-import com.googlecode.objectify.annotation.Id;
-import com.googlecode.objectify.annotation.Index;
-import com.googlecode.objectify.annotation.Serialize;
+import com.googlecode.objectify.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 public class UserData implements java.io.Serializable {
+
+    @Ignore
+    private static final String DEFAULT_IMG = "/img/profile_default.png";
+
 
     @Id @Index
     String userId;
@@ -40,7 +42,7 @@ public class UserData implements java.io.Serializable {
 
 
     @Serialize
-    Blob userImage; // blob type for userImage can't be indexed
+    BlobKey userImage; // blob type for userImage can't be indexed
 
     @Index
     String nickName;
@@ -99,11 +101,16 @@ public class UserData implements java.io.Serializable {
         this.flowList = flowList;
     }
 
-    public Blob getUserImage() {
+    public BlobKey getUserImageBlob() {
         return userImage;
     }
 
-    public void setUserImage(Blob userImage) {
+    public String getUserImage(){
+        String url = (userImage == null)? DEFAULT_IMG : GetImgUrlFromBlobKey.getURL(userImage);
+        return url;
+    }
+
+    public void setUserImage(BlobKey userImage) {
         this.userImage = userImage;
     }
 
@@ -133,6 +140,18 @@ public class UserData implements java.io.Serializable {
 
     public List<Key<Series>> getSeriesList() {
         return seriesList;
+    }
+
+    public List<Series> getSeries(){
+        Readable<Series> getSeries = new GetEntityListFromKeyListCommand<>(getSeriesList());
+        List<Series> series = null;
+        try {
+            series = getSeries.fetch().getList();
+        }
+        catch (FetchException ex){
+            series = new ArrayList<>();
+        }
+        return series;
     }
 
     public void setSeriesList(List<Key<Series>> seriesList) {

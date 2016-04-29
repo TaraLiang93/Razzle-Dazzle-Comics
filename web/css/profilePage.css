@@ -1,0 +1,59 @@
+.headerTab{
+    width:48%;
+}
+
+
+.image{
+    width:15%;
+}
+
+.name{
+    width:40%;
+    text-align:center;
+}
+
+.aboutMe{
+    width:50%;
+    text-align: center;
+}
+
+
+.seriesCaption{
+    vertical-align: bottom;
+    text-align:center;
+    width:100%;
+}
+
+.seriesItem {
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+    margin:5%;
+    min-height:10em;
+}
+
+
+.seriesItem:hover, .seriesItem:active {
+    -webkit-box-shadow: 7px 10px 14px 2px rgba(227,37,107,0.64);
+    -moz-box-shadow: 7px 10px 14px 2px rgba(227,37,107,0.64);
+    box-shadow: 7px 10px 14px 2px rgba(227,37,107,0.64);
+}
+
+.portfolio{
+    overflow:scroll;
+}
+
+.stickyBottom{
+    bottom:0;
+    position:absolute;
+    vertical-align:bottom;
+    width:100%;
+    overflow:scroll;
+    height:45%;
+
+}
+
+.settingsForm{
+    width:50%;
+    padding:1%;
+}

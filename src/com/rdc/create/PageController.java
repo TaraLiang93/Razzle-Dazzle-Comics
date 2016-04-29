@@ -18,20 +18,15 @@ import com.data.api.updatables.ChapterUpdater;
 import com.data.api.updatables.FlowTaskUpdater;
 import com.data.api.updatables.FlowUpdater;
 import com.data.api.updatables.PageUpdater;
-import com.data.api.updatables.updateTasks.UpdateChapterAddPageTask;
-import com.data.api.updatables.updateTasks.UpdateFlowAddFlowTask;
-import com.data.api.updatables.updateTasks.UpdateFlowTaskSetTypeTask;
-import com.data.api.updatables.updateTasks.UpdatePageAddCommentTask;
+import com.data.api.updatables.updateTasks.*;
 import com.data.creation.*;
 import com.data.structure.Flow;
 import com.data.structure.FlowTask;
 import com.data.structure.FlowType;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.labs.repackaged.org.json.JSONArray;
-import com.google.appengine.labs.repackaged.org.json.JSONException;
-import com.google.appengine.labs.repackaged.org.json.JSONObject;
-import com.google.appengine.repackaged.com.google.gson.*;
+import com.google.appengine.repackaged.com.google.gson.JsonArray;
+import com.google.appengine.repackaged.com.google.gson.JsonObject;
 import com.model.WritePageModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -154,6 +149,15 @@ public class PageController {
 
         System.out.println("Move Next Task --> Found PageID : " + pageID);
 
+        try {
+            new PageUpdater().updateEntity(new GetPageByIDCommand(pageID), new UpdatePageMoveToNextFlowTask());
+            System.out.println("Successfully Moved Page Next!");
+        } catch (FetchException | UpdateException | CreateException e) {
+            e.printStackTrace();
+            return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+        }
+
+
         return new ResponseEntity(true, HttpStatus.OK);
 
     }
@@ -164,7 +168,13 @@ public class PageController {
 
         System.out.println("Move Previous Task --> Found PageID : " + pageID);
 
-
+        try {
+            new PageUpdater().updateEntity(new GetPageByIDCommand(pageID), new UpdatePageMoveToPreviousFlowTask());
+            System.out.println("Successfully Moved Page Previous!");
+        } catch (FetchException | UpdateException | CreateException e) {
+            e.printStackTrace();
+            return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity(true, HttpStatus.OK);
 

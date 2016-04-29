@@ -4,34 +4,16 @@
     width:75%;
 }
 
-.idea{
-    width:70%;
-    height:90%;
-}
-
 .tabHeader{
     width:50%;
 }
 
-.caption{
-    vertical-align: bottom;
-    position:absolute;
-    bottom:0;
-    margin-bottom: 1%;
+.seriesImg{
+    width:50%;
 }
 
-.list-item {
-    -webkit-box-shadow:none;
-    -moz-box-shadow:none;
-    box-shadow:none;
-    margin:5%;
-    min-height: 300px;
-
+.imageLayer{
+    width:40%;
 }
 
 
-.list-item:hover, .list-item:active {
-    -webkit-box-shadow: 7px 10px 14px 2px rgba(227,37,107,0.64);
-    -moz-box-shadow: 7px 10px 14px 2px rgba(227,37,107,0.64);
-    box-shadow: 7px 10px 14px 2px rgba(227,37,107,0.64);
-}
