@@ -28,10 +28,8 @@ import com.data.structure.FlowTask;
 import com.data.structure.FlowType;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.labs.repackaged.org.json.JSONArray;
-import com.google.appengine.labs.repackaged.org.json.JSONException;
-import com.google.appengine.labs.repackaged.org.json.JSONObject;
-import com.google.appengine.repackaged.com.google.gson.*;
+import com.google.appengine.repackaged.com.google.gson.JsonArray;
+import com.google.appengine.repackaged.com.google.gson.JsonObject;
 import com.model.WritePageModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -254,7 +252,7 @@ public class PageController {
                 throw new CreateException("The chapter must exist before adding the new page");
             }
 
-            Page page = new PageCreater(title, summary).createEntity(new PageFillCommand());
+            Page page = new PageCreater(title, summary).createEntity(new PageFillCommand(chapterID));
 
             new ChapterUpdater().updateEntity(new GetChapterByIDCommand(chapterID), new UpdateChapterAddPageTask(page.getId()));
 
