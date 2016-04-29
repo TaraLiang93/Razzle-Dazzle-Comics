@@ -890,6 +890,13 @@ public class Test {
             System.out.println(" seriesOne has new description:  " + seriesOne.getDescription() );
 
 
+            /**
+             * Test if Page has a default flow task when using the PageFillCommand()
+             */
+
+            Createable<Page> pageCreateable = new PageCreater();
+            Page pageWithDefaultFlowTask = pageCreateable.createEntity( new PageFillCommand(chapter.getChapterId()));
+            System.out.println( pageWithDefaultFlowTask.getFlowTaskEntity().getFlowTaskName());
 
 
             /**
@@ -913,6 +920,8 @@ public class Test {
             for( Page p : pageList){
                 System.out.println( p.getTitle() );
             }
+
+
 
 
         }
