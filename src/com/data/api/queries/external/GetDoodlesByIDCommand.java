@@ -66,4 +66,5 @@ public class GetDoodlesByIDCommand extends Readable{
     protected Class getType() {
         return Doodle.class;
     }
+
 }

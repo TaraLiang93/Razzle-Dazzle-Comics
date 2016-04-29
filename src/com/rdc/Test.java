@@ -909,6 +909,7 @@ public class Test {
             List<Page> pageList = pageReadable4.fetch().getList();
 
             System.out.println("printing pages in the Done Task");
+            
             for( Page p : pageList){
                 System.out.println( p.getTitle() );
             }
