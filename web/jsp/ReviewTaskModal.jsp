@@ -54,17 +54,19 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <div class="modal-body" style="height: 70%">
+                <div class="modal-body" style="height: 85vh">
                     <div class="col-sm-8" style="height: 100%">
                         <div class="col-sm-12 reviewImage">
-                            <img class="" src="http://placehold.it/900x900"/>
+                            <div class="col-md-12" style="height: 35vh;">
+                                <img class="" src="http://placehold.it/900x900"/>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="reviewTaskDescription">Description</label>
                             <textarea id="reviewTaskDescription" row="12" class="form-control" name="Description" placeholder="Description of Current Page">${reviewTaskDescription}</textarea>
                         </div>
                         <div class="form-group">
-                            <label for="reviewTaskDescription">Setting</label>
+                            <label for="reviewTaskDescription">Add Comment</label>
                             <textarea id="reviewTaskSetting" row="12" class="form-control" name="Setting" placeholder="Setting of Current Page">${reviewTaskDescription}</textarea>
                         </div>
                         <div class="btn-inline">
@@ -74,20 +76,14 @@
                     </div>
 
                     <div class="col-sm-4" style="height: 100%">
-                        <div class="col-sm-12 reviewTaskDialog">
+                        <div class="reviewTaskDialog">
                             <label>Comments</label>
-                            <div class="content-border col-sm-12" style="height: 60%; overflow-y:auto">
-                                <c:forEach var="i" items="${reviewTaskDialogs}">
-                                    <p class="dialog content-border">${i}</p>
-                                </c:forEach>
+                            <div class="content-border col-sm-12 reviewComments" style="height: 55vh; overflow-y:auto; padding: 0">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="reviewTaskText">Setting</label>
-                            <textarea id="reviewTaskText" row="12" class="form-control" name="Text" placeholder="">${reviewTaskDescription}</textarea>
-                        </div>
-                        <div class="btn-inline btn-xs-12">
-                            <a class="btn btn-xs-4 btn-info pull-right round-button" type="button"  href="#" >Add Comment</a>
+                            <textarea id="reviewTaskText" row="12" class="form-control" name="Text" placeholder="Add a Comment" style="margin-top: 2%">${reviewTaskDescription}</textarea>
+                        <div class="btn-inline">
+                            <a class="btn btn-xs-4 btn-info pull-right round-button" id="submitComment" type="button"  href="#" >Submit</a>
                         </div>
                     </div>
                 </div>

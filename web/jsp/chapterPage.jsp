@@ -226,5 +226,9 @@
     <c:if test="${chapterId ne null}">
         <div id="chapterId" style="display: none">${chapterId}</div>
     </c:if>
+
+    <c:if test="${userData ne null}">
+        <div id="currentUserID" style="display: none">${userData.nickName}</div>
+    </c:if>
 </body>
 </html>
