@@ -57,17 +57,16 @@
                 <div class="modal-body" style="height: 85vh">
                     <div class="col-sm-8" style="height: 100%">
                         <div class="col-sm-12 reviewImage">
-                            <div class="col-md-12" style="height: 35vh;">
-                                <img class="" src="http://placehold.it/900x900"/>
+                            <div class="col-md-12 content-border" style="height: 35vh;">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="reviewTaskDescription">Description</label>
-                            <textarea id="reviewTaskDescription" row="12" class="form-control" name="Description" placeholder="Description of Current Page">${reviewTaskDescription}</textarea>
+                            <textarea id="reviewTaskDescription" row="12" class="form-control" name="Description" placeholder="Description of Current Page"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="reviewTaskDescription">Add Comment</label>
-                            <textarea id="reviewTaskSetting" row="12" class="form-control" name="Setting" placeholder="Setting of Current Page">${reviewTaskDescription}</textarea>
+                            <label for="reviewTaskSetting">Add Comment</label>
+                            <textarea id="reviewTaskSetting" row="12" class="form-control" name="Setting" placeholder="Setting of Current Page"></textarea>
                         </div>
                         <div class="btn-inline">
                             <a class="btn btn-warning pull-right round-button col-sm-3" type="button"  href="#" >Redraw</a>
