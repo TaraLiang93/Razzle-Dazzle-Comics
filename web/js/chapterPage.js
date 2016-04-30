@@ -61,7 +61,10 @@ $(document).ready(function(){
             var jsonObj = {"chapterID": chapterId.text(), "removeMember": userName};
             $.post("/create/chapter/removeMember", jsonObj)
                 .done(function(){
-                    $(".name").get(this.getAttribute("id")).parentNode.removeChild($(".name").get(this.getAttribute("id")));
+                    //$(".name").get(this.getAttribute("id")).parentNode.removeChild($(".name").get(this.getAttribute("id")));
+                    $(this).parent().parent().find(".name").remove();
+                    console.log("they gone");
+
                 })
                 .fail(function(){
                     alert("Cannot remove user: "+userName);
@@ -74,6 +77,7 @@ $(document).ready(function(){
 
             $.post("/create/chapter/addMember", {"chapterID": chapterId.text(), "newMemeber": $("#newMember").val()})
                 .done(function(){
+
                     var code =
                         "<div class='indMemeber' >" +
                         "<div>" +
@@ -133,7 +137,7 @@ $(document).ready(function(){
     $("#addPage").click(function(){
        console.log("add page clicked");
         var code =
-            "<div><button class='btn pageTask' id="+numPage+">Page" +numPage+
+            "<div><button class='btn pageTask' id="+numPage+" data-toggle='modal' data-target='#writeTaskModal'>Page" +numPage+
             "</button></div>";
 
         $("#writer").append(code);
@@ -142,6 +146,17 @@ $(document).ready(function(){
 
     $('.flow').each(function(){
         storeFlow($(this).attr("id"));
+    });
+
+    $("#submitComment").click(function() {
+        var comment = $("#reviewTaskText").val();
+        var userName = $("#currentUserID").text();
+
+        if(comment == "")
+            return;
+        $(".reviewComments").append("<p class='content-border commentBox'>"+userName+": "+comment+"</p>");
+        $("#reviewTaskText").attr("value","");
+
     });
 
 });

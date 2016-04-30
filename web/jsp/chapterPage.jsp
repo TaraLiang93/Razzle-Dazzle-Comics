@@ -22,10 +22,10 @@
                     <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
                 </a>
                 <div class="memberList">
-                        <c:forEach var="member" items="${teamMembers}" >
-                            <p title="Member">${member.userData.nickName}</p>
-                            <div id="${member.userData.nickName}ID" style="display: none">${member.userData.userName}</div>
-                        </c:forEach>
+                    <c:forEach var="member" items="${teamMembers}" >
+                        <p title="Member">${member.userData.nickName}</p>
+                        <div id="${member.userData.nickName}ID" style="display: none">${member.userData.userName}</div>
+                    </c:forEach>
                 </div>
             </div>
 
@@ -56,30 +56,62 @@
             <div class="flow">
                 <p>Writer</p>
                 <div class="flow1" id="writer">
-
+                    <c:forEach var="page" items="${writerTask}">
+                        <div>
+                            <button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target='#writeTaskModal'>
+                                ${page.pageName}
+                            </button>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
             <div class="flow">
                 <p>Pre-Draw</p>
                 <div class="flow2" id="preDraw">
-
+                    <c:forEach var="page" items="${preDrawTask}">
+                        <div>
+                            <button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target="#preDrawTaskModal">
+                                    ${page.pageName}
+                            </button>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
             <div class="flow">
                 <p>Draw</p>
                 <div class="flow1" id="draw">
-
+                    <c:forEach var="page" items="${drawTask}">
+                        <div>
+                            <button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target="#drawTaskModal">
+                                    ${page.pageName}
+                            </button>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
             <div class="flow">
                 <p>Review</p>
                 <div class="flow2" id="review">
+                    <c:forEach var="page" items="${reviewTask}">
+                        <div>
+                            <button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target="#reviewTaskModal">
+                                    ${page.pageName}
+                            </button>
+                        </div>
+                    </c:forEach>
 
                 </div>
             </div>
             <div class="flow">
                 <p>Complete</p>
                 <div class="flow1" id="complete">
+                    <c:forEach var="page" items="${completeTask}">
+                        <div>
+                            <button class="btn pageTask" id="${page.pageNumber}">
+                                    ${page.pageName}
+                            </button>
+                        </div>
+                    </c:forEach>
 
                 </div>
             </div>
@@ -169,8 +201,34 @@
         </div>
     </div>
 
+<%-- #preDrawTaskModal --%>
+    <jsp:include page="preDrawTaskModal.jsp" >
+        <jsp:param name="chapterID" value="${chapterId}"/>
+    </jsp:include>
+<%-- #drawTaskModal --%>
+    <jsp:include page="DrawTaskModal.jsp" >
+        <jsp:param name="chapterID" value="${chapterId}"/>
+    </jsp:include>
+<%-- #writeTaskModal --%>
+    <jsp:include page="writeTaskModal.jsp" >
+        <jsp:param name="chapterID" value="${chapterId}"/>
+    </jsp:include>
+<%-- #newTaskModal --%>
+    <jsp:include page="newTaskModal.jsp" >
+        <jsp:param name="chapterID" value="${chapterId}"/>
+    </jsp:include>
+<%-- #reviewTaskModal --%>
+    <jsp:include page="ReviewTaskModal.jsp" >
+        <jsp:param name="chapterID" value="${chapterId}"/>
+    </jsp:include>
+
+
     <c:if test="${chapterId ne null}">
         <div id="chapterId" style="display: none">${chapterId}</div>
+    </c:if>
+
+    <c:if test="${userData ne null}">
+        <div id="currentUserID" style="display: none">${userData.nickName}</div>
     </c:if>
 </body>
 </html>
