@@ -1,0 +1,45 @@
+.outer{
+    width: 70vw;
+    height: 100%;
+    margin: auto;
+}
+
+.row{
+    height: 30vh;
+}
+
+.item {
+    height:100%;
+}
+
+.carousel-control.right{
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 100%);
+}
+
+.carousel-control.left {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 100%);
+}
+
+.carousel-inner>.item>img{
+    margin: auto;
+    height:100%;
+    width: 100%;
+}
+
+.jumbotron{
+    padding:0;
+}
+
+.carousel-indicators li {
+    visibility: hidden;
+}
+
+label{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.preview{
+    border: 1px solid;
+    height: 80%;
+}
