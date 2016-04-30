@@ -62,7 +62,7 @@ public class PageController {
     public static final String LOAD_TASK="/create/page/loadTask";
 
     @RequestMapping(value=LOAD_DRAW_PAGE, method= RequestMethod.GET)
-    public ModelAndView redirectDrawPage( ModelMap map){
+    public ModelAndView redirectDrawPage(ModelMap map){
 
 
         return new ModelAndView("drawPage");
