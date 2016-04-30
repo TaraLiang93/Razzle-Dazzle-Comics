@@ -25,7 +25,7 @@
         </ul>
 
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade in active" id="scribbles">
+            <div role="tabpanel" class="tab-pane fade in active" id="scribbles" name="scribbles">
                 <div class="row">
                     <div id="newScribble" class="span2">
                         <div class="col-sm-3 col-md-3">
@@ -53,7 +53,7 @@
                     </c:forEach>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane fade" id="doodles">
+            <div role="tabpanel" class="tab-pane fade" id="doodles" name="doodles">
                 <div class="row">
                     <div id="newDoodle" class="span2">
                         <div class="col-sm-3 col-md-3">
