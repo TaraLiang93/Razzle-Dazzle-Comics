@@ -34,7 +34,7 @@ $(document).ready(function() {
     });
 
     $("#saveDrawing").click(function() {
-        var jsonObj = {"size" : 0};
+        var jsonObj = {"size" : 0, "pageID": "11234523"};
         var i = 0;
         saveSelectedPage();
         $(".scene").each(function() {

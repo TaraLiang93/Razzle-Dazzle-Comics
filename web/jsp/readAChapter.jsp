@@ -7,9 +7,9 @@
 <div class="readChapterContainer col-md-8">
     <h2 class="col-md-8">
         <ul class="breadcrumb">
-            <li><a href="/read">All Comics</a></li>
-            <li><a href="/create/series/load/${seriesID}">${seriesName}</a></li>
-            <li class="active">${chapterStringName}</li>
+            <li><a href="/read"><u>All Comics</u></a></li>
+            <li><a href="/create/series/load/${seriesID}"><u>${seriesName}</u></a></li>
+            <li class="active"><u>${chapterStringName}</u></li>
         </ul>
     </h2>
 
