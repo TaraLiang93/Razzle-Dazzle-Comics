@@ -1,16 +1,13 @@
 package com.data.api.updatables.updateTasks;
 
-import com.data.UserData;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
-import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.UpdateTask;
-import com.data.api.queries.external.GetUserDataByUserNameCommand;
-import com.data.api.queries.internal.GetTeamMemberWithUserDataKeyCommand;
 import com.data.creation.Chapter;
 import com.data.structure.TeamMember;
+import com.googlecode.objectify.Key;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,29 +31,25 @@ public class UpdateChapterRemoveTeamMemberTask implements UpdateTask<Chapter> {
 
     @Override
     public List<Chapter> update(Container<Chapter> entity) throws UpdateException, FetchException, CreateException {
+        // get chapter
         Chapter chapter = entity.getResult();
 
         if (chapter == null || userName == null){
             throw new UpdateException("chapter or userName ID is null");
         }
 
-        // get the userData with userName
-        Readable<UserData> getUserData= new GetUserDataByUserNameCommand(userName);
-        UserData userData = getUserData.fetch().getResult();
+        Key<TeamMember> teamMemberKeyToRemove = null;
 
-        if( userData == null){
-            throw new UpdateException("userData null");
+        for( TeamMember teamMember : chapter.getTeamMembers() ){
+            String teamMemberUserName = teamMember.getUserData().getUserName();
+            if( this.userName.equals( teamMemberUserName ) ){ // if teamMember's UserName is the userName we are looking for
+                teamMemberKeyToRemove = teamMember.getKey();
+            }
         }
 
-
-        //get TeamMember
-
-        Readable<TeamMember> teamMemberReadable = new GetTeamMemberWithUserDataKeyCommand(userData.getKey());
-        TeamMember teamMember = teamMemberReadable.fetch().getResult();
-
-        chapter.getTeamMemberList().remove( teamMember.getKey());
-        // TODO: Make sure this actually removes a key from List<Key>
-
+        if(teamMemberKeyToRemove !=null){
+            chapter.getTeamMemberList().remove(teamMemberKeyToRemove);
+        }
 
         List<Chapter> chapterList = new ArrayList<>();
         chapterList.add(chapter);
