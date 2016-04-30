@@ -11,6 +11,7 @@ import com.data.api.queries.external.GetUserDataByUserNameCommand;
 import com.data.api.queries.internal.GetTeamMemberWithUserDataKeyCommand;
 import com.data.creation.Chapter;
 import com.data.structure.TeamMember;
+import com.googlecode.objectify.Key;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +54,8 @@ public class UpdateChapterRemoveTeamMemberTask implements UpdateTask<Chapter> {
 
         Readable<TeamMember> teamMemberReadable = new GetTeamMemberWithUserDataKeyCommand(userData.getKey());
         TeamMember teamMember = teamMemberReadable.fetch().getResult();
-
-        chapter.getTeamMemberList().remove( teamMember.getKey());
+        Key<TeamMember> teamMemberKey = teamMember.getKey();
+        chapter.getTeamMemberList().remove( teamMemberKey);
         // TODO: Make sure this actually removes a key from List<Key>
 
 
