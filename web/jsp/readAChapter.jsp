@@ -21,12 +21,12 @@
         </select>
         <select class="pageNumber">
         <c:forEach var="p" items="${pages}">
-            <option value=""></option>
+            <option value="${p.id}">${p.id}</option>
         </c:forEach>
         </select>
     </div>
 
-    <div class="page col-lg-12">
+    <div class="currentPage col-lg-12">
         <div class="canvasScreen content-border">
             <canvas></canvas>
         </div>

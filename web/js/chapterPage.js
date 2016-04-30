@@ -62,7 +62,15 @@ $(document).ready(function(){
             $.post("/create/chapter/removeMember", jsonObj)
                 .done(function(){
                     //$(".name").get(this.getAttribute("id")).parentNode.removeChild($(".name").get(this.getAttribute("id")));
-                    $(this).parent().parent().find(".name").remove();
+                    var selector = "#"+userName.substring(0,userName.indexOf("@"));
+                    $(selector).remove();
+
+                    $(".memberList p").each(function(){
+                        if($(this).text() == userName.substring(0,userName.indexOf("@")) ){
+                            $(this).remove();
+                            return;
+                        }
+                    });
                     console.log("they gone");
 
                 })
@@ -73,15 +81,22 @@ $(document).ready(function(){
 
         $("#addButton").click(function(){
 
-           console.log("add "+$("#newMember").val());
+            var newMember = $("#newMember").val();
 
-            $.post("/create/chapter/addMember", {"chapterID": chapterId.text(), "newMemeber": $("#newMember").val()})
+           console.log("add "+newMember);
+
+            if(newMember.indexOf("@") == -1)
+            {
+                return;
+            }
+
+            $.post("/create/chapter/addMember", {"chapterID": chapterId.text(), "newMemeber": newMember})
                 .done(function(){
-
+                    newMember = newMember.substring(0,newMember.indexOf("@"));
                     var code =
                         "<div class='indMemeber' >" +
                         "<div>" +
-                        "<p class='name'>"+$("#newMember").val()+"</p>" +
+                        "<p class='name'>"+newMember+"</p>" +
                         "</div>" +
                         "<div>" +
                         "<select id='target' >" +
@@ -97,7 +112,7 @@ $(document).ready(function(){
 
 
                     $("#teamBody").append(code);
-                    $(".memberList").append("<p title='Member'>"+$('#newMember').val()+"</p>");
+                    $(".memberList").append("<p title='Member'>"+newMember+"</p>");
                     $(".deleteMember").bind("click",deleteMember);
                     console.log("Team member was added");
                 })
