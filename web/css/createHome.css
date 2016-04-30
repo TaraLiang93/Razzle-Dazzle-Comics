@@ -1,6 +1,5 @@
 .outer{
     width: 70vw;
-    height: 100%;
     margin: auto;
 }
 
@@ -41,5 +40,28 @@ label{
 
 .preview{
     border: 1px solid;
-    height: 80%;
+}
+
+.viewMore{
+    font-size: 20px;
+}
+
+.fa-angle-right{
+    color: #e3256b;
+}
+
+.list {
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+    margin:2.5%;
+    height: 90%;
+    overflow: hidden;
+
+}
+
+.list:hover, .list:active {
+    -webkit-box-shadow: 7px 10px 14px 2px rgba(227,37,107,0.64);
+    -moz-box-shadow: 7px 10px 14px 2px rgba(227,37,107,0.64);
+    box-shadow: 7px 10px 14px 2px rgba(227,37,107,0.64);
 }
