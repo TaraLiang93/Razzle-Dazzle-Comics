@@ -16,7 +16,7 @@
 </jsp:include>
 
 
-<div class="profilePage">
+<div class="profilePage center-block">
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
