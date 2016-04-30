@@ -2,6 +2,7 @@ package com.data.api.createables.fillCommands;
 
 import com.data.api.createables.SceneCreater;
 import com.data.api.exceptions.CreateException;
+import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.FillDataCommand;
 import com.data.creation.Page;
@@ -26,7 +27,7 @@ public class PageModelFillCommand implements FillDataCommand<Page>{
 
 
     @Override
-    public void fillEntity(Page entity) throws CreateException {
+    public void fillEntity(Page entity) throws CreateException, FetchException {
 
 
         if(pageModel == null){

@@ -4,6 +4,8 @@ import com.data.UserData;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Createable;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.internal.GetEntityFromKeyCommand;
 import com.data.structure.TeamMember;
 import com.googlecode.objectify.Key;
 
@@ -25,6 +27,11 @@ public class TeamMemberCreater extends Createable<TeamMember> {
         }
 
         teamMember.setUserDataKey(userDataKey);
+
+        Readable<UserData> userDataReadable = new GetEntityFromKeyCommand( userDataKey );
+        UserData userData = userDataReadable.fetch().getResult();
+
+        teamMember.setUserStringId( userData.getUserId() );
 
         return teamMember;
     }

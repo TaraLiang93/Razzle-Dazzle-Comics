@@ -8,8 +8,13 @@ import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.external.GetUserDataByUserCommand;
 import com.data.creation.Chapter;
+import com.data.structure.Flow;
 import com.data.structure.TeamMember;
 import com.google.appengine.api.users.User;
+
+import java.util.List;
+
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 /**
  * Created by Zhenya on 4/9/16.
@@ -73,6 +78,21 @@ public class ChapterCreater extends Createable<Chapter> {
 
         //update Chapter with Team Member
         chapter.addTeamMemberToTeamMemberList(teamMember.getKey());
+
+        /**
+         * Give Chapter the Default Flow on creation
+         */
+        List<Flow> flows = ofy().load().type(Flow.class).list();
+
+        if( flows.size() >= 0 ){ // Why is there two?
+            chapter.setTheFlow( flows.get(0).getKey()); // set the default flow to Chapter
+        }
+        else {
+            throw new CreateException(" there is more than 1 flow, there should only be the default flow ");
+        }
+
+
+
 
         return chapter;
 

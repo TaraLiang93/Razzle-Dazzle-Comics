@@ -890,11 +890,19 @@ public class Test {
             System.out.println(" seriesOne has new description:  " + seriesOne.getDescription() );
 
 
+            /**
+             * Test if Page has a default flow task when using the PageFillCommand()
+             */
 
+            Createable<Page> pageCreateable = new PageCreater();
+            Page pageWithDefaultFlowTask = pageCreateable.createEntity( new PageFillCommand(chapter.getChapterId()));
+            System.out.println( pageWithDefaultFlowTask.getFlowTaskEntity().getFlowTaskName());
 
             /**
-             * Test Getting Pages with the FlowTask Done
+             * Testing Updating a Page and setting its flowtask
+             *
              */
+
             // move the Page to done task
             Page pageToUpdate4 = seriesOne.getChapters().get(0).getPages().get(0);
 
@@ -903,21 +911,31 @@ public class Test {
             pageUpdateableDoneTask.updateEntity( pageReadable, new UpdatePageSetFlowTask( flowTask4.getFlowTaskId() ) );
 
             seriesOne.getChapters().get(0).getPages().get(0).setFlowTask( flowTask4.getKey());
+            System.out.println(" The flowtask name is " + pageToUpdate4.getFlowTaskEntity().getFlowTaskName());
+
+            /**
+             * Test Getting Pages with the FlowTask Done
+             */
 
             //Getting the pages in the done task
-            Readable<Page> pageReadable4 = new GetPagesInDoneFlowTaskCommand();
+            Readable<Page> pageReadable4 = new GetPagesInDoneFlowTaskCommand( chapter.getChapterId());
             List<Page> pageList = pageReadable4.fetch().getList();
 
             System.out.println("printing pages in the Done Task");
             
             for( Page p : pageList){
-                System.out.println( p.getTitle() );
+                System.out.println( p.getId() );
+                System.out.println( seriesOne.getChapters().get(0).getPages().get(0).getId());
             }
 
+
+
         }
+
         catch (Exception e) {
             e.printStackTrace();
         }
+
         return new ModelAndView("test3");
 
     }

@@ -264,7 +264,7 @@ public class PageController {
                 throw new CreateException("The chapter must exist before adding the new page");
             }
 
-            Page page = new PageCreater(title, summary).createEntity(new PageFillCommand());
+            Page page = new PageCreater(title, summary).createEntity(new PageFillCommand(chapterID));
 
             new ChapterUpdater().updateEntity(new GetChapterByIDCommand(chapterID), new UpdateChapterAddPageTask(page.getId()));
 

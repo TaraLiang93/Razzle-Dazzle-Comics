@@ -14,12 +14,13 @@ public class PageCreater extends Createable<Page> {
     private String summary;
 
     public PageCreater(){
-        this(null, null);
+        this( null);
     }
 
-    public PageCreater(String title){
+    public PageCreater( String title){
         this(title, null);
     }
+
 
     public PageCreater(String title, String summary){
         this.title = title;
@@ -31,6 +32,7 @@ public class PageCreater extends Createable<Page> {
     protected Page getEntity() throws CreateException, FetchException{
 
         Page page = new Page(title, summary);
+
 
         return page;
     }

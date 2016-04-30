@@ -12,7 +12,7 @@ public abstract class Createable<T>{
 
     protected abstract T getEntity() throws CreateException, FetchException;
 
-    public T createEntity(FillDataCommand<T> data) throws CreateException{
+    public T createEntity(FillDataCommand<T> data) throws CreateException, FetchException{
         T entity = null;
         try {
             entity = getEntity();
