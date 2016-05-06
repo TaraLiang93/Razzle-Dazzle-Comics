@@ -88,7 +88,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="/create/ideas">Idea Factory</a></li>
                                 <li><a href="/create/projectAdminPage">Project Admin</a></li>
-                                <li><a href="#">Upload</a></li>
+                                <li><a href="/profile/load">Profile</a></li>
                             </ul>
                         </li>
                     </ul>
