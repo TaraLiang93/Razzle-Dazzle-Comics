@@ -3,3 +3,7 @@ canvas {
     height:100%;
     width:100%;
 }
+
+.currentPage {
+    height:80vh;
+}

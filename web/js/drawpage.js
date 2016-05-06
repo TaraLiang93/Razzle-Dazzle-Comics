@@ -21,9 +21,7 @@ $(document).ready(function() {
 
 
             // save the data into the new one
-            $(".scene.selected").find(".canvasImage").text(JSON.stringify(canvas));
-            $(".scene.selected").find(".SceneDialogs").html($(".diaglogs").html());
-            $(".scene.selected").find(".sceneSetting").text($("#SettingScene").text());
+            saveSelectedPage();
             $(".scene.selected").removeClass("selected");
             $(this).addClass("selected");
 
@@ -36,8 +34,9 @@ $(document).ready(function() {
     });
 
     $("#saveDrawing").click(function() {
-        var jsonObj = {"size" : 0};
+        var jsonObj = {"size" : 0, "pageID": "11234523"};
         var i = 0;
+        saveSelectedPage();
         $(".scene").each(function() {
             var map = "canvasImage" + i++;
             jsonObj[map] = $(this).find(".canvasImage").text() ;
@@ -56,3 +55,9 @@ $(document).ready(function() {
     })
 
 });
+
+function saveSelectedPage(){
+    $(".scene.selected").find(".canvasImage").text(JSON.stringify(canvas));
+    $(".scene.selected").find(".SceneDialogs").html($(".diaglogs").html());
+    $(".scene.selected").find(".sceneSetting").text($("#SettingScene").text());
+}

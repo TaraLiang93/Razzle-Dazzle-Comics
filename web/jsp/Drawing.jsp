@@ -12,7 +12,7 @@
     </div>
 
     <div class="btn-group">
-        <a class="btn btn-default active" id="Select">
+        <a class="btn btn-default" id="Select">
             <i class="fa fa-mouse-pointer"></i>
         </a>
         <a class="btn btn-default" id="Delete">
@@ -77,7 +77,42 @@
             <input id ='Image-file' type='file' name='pic' accept='image/*'/>
         </a>
     </div>
+    <div class="btn-group">
+        <a class="btn btn-default" id="Eraser">
+            <i class="fa fa-eraser" aria-hidden="true"></i>
+        </a>
+        <a class="btn btn-default" id="Fill">
+            <i class="fa fa-tint" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="btn-group">
+        <a class="btn btn-default" data-toggle="popover" data-title="Background:"
+           data-content="<input id ='Bg-Image' type='file' name='pic' accept='image/*'/>
+            <input class='input btn-default' id='Bg-Color' type='color'/>"
+           data-html="true" id="Bg-popover">
+            <i class="fa fa-bitbucket" aria-hidden="true"></i>
+        </a>
 
+    </div>
+    <%--<div class="dropdown" >--%>
+        <%--<button class="btn dropdown-toggle" type="button" data-toggle="dropdown" id="CurrentFont">Times New Roman--%>
+            <%--<span class="caret"></span></button>--%>
+        <%--<select class="dropdown-menu" id="Font-option" multiple="multiple">--%>
+            <%--<option >Arial</option>--%>
+            <%--<option >Helvetica</option>--%>
+            <%--<option>Gadget</option>--%>
+            <%--<option>Comic Sans MS</option>--%>
+            <%--<option>Courier</option>--%>
+            <%--<option>Georgia</option>--%>
+            <%--<option>Impact</option>--%>
+            <%--<option>Lucida Console</option>--%>
+            <%--<option>Tahoma</option>--%>
+            <%--<option>Geneva</option>--%>
+            <%--<option>Verdana</option>--%>
+            <%--<option>Times New Roman</option>--%>
+
+        <%--</select>--%>
+    <%--</div>--%>
         <input class="input form-control btn-default" id="Drawing-color" type="color" oninput="changeColor()">
     <%--<input id='Line-width"  type='number' value='10' oninput='changeLineWidth()'>--%>
 

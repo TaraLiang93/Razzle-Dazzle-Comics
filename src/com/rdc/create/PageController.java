@@ -62,7 +62,27 @@ public class PageController {
     public static final String LOAD_TASK="/create/page/loadTask";
 
     @RequestMapping(value=LOAD_DRAW_PAGE, method= RequestMethod.GET)
-    public ModelAndView redirectDrawPage( ModelMap map){
+    public ModelAndView redirectDrawPage(HttpServletRequest req,ModelMap map){
+
+        String chapterID = req.getParameter("chapterID");
+        String pageID = req.getParameter("pageID");
+
+        Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterID);
+        Chapter chapter = null;
+        try {
+            chapter = chapterReadable.fetch().getResult();
+            Createable<Page> pageCreateable = new PageCreater();
+            Page page = pageCreateable.createEntity( new PageFillCommand(chapter.getChapterId() ));
+            if(page.getScenes().size() > 0)
+                map.put("firstScene",page.getScenes().get(0));
+            map.put("page",page);
+            map.put("chapter",chapter);
+
+        } catch (FetchException e) {
+            e.printStackTrace();
+        } catch (CreateException e) {
+            e.printStackTrace();
+        }
 
 
         return new ModelAndView("drawPage");
