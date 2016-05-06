@@ -929,6 +929,22 @@ public class Test {
             }
 
 
+            /**
+             * Test GetLatestReleasedSeriesCommand
+             */
+
+            System.out.println("creating latestSeries");
+            for( int i = 0; i <10; i++){
+                Createable<Series> seriesCreateable = new SeriesCreater(null, "title " + i, "description " + i, true);
+                seriesCreateable.createEntity( new SeriesFillCommand(null));
+            }
+
+            System.out.println("getting latest series");
+            Readable<Series> seriesReadable1 = new GetLatestReleasedSeriesCommand(10);
+            List<Series> seriesList = seriesReadable1.fetch().getList();
+            for(Series series : seriesList){
+                System.out.println( " Title " + series.getTitle()  + " Description: " + series.getDescription() );
+            }
 
         }
 

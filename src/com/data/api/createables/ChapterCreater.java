@@ -84,13 +84,12 @@ public class ChapterCreater extends Createable<Chapter> {
          */
         List<Flow> flows = ofy().load().type(Flow.class).list();
 
-        if( flows.size() >= 0 ){ // Why is there two?
+        if( flows.size() >= 1 ){ // Why is there two?
             chapter.setTheFlow( flows.get(0).getKey()); // set the default flow to Chapter
         }
         else {
-            throw new CreateException(" there is more than 1 flow, there should only be the default flow ");
+//            throw new CreateException(" there is no flow, there should be a default flow ");
         }
-
 
 
 
