@@ -16,6 +16,7 @@ public class ChapterFillCommand implements FillDataCommand<Chapter> {
     String description;
 
     public  ChapterFillCommand(){}
+
     public ChapterFillCommand(BlobKey chapterCover){
         this.chapterCover = chapterCover;
     }

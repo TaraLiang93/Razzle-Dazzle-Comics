@@ -10,8 +10,10 @@ import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Ignore;
+import com.googlecode.objectify.annotation.Index;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,10 +28,14 @@ public class Series {
     @Id
     Long seriesID;
 
+    @Index
+    Date createDate;
+
     BlobKey seriesCover;
     String title;
     String description;
 //    Float rating;
+    @Index
     boolean published;
     List<Key<Chapter>> chapterList;
     List<Key<Genre>> genreList;
@@ -37,6 +43,8 @@ public class Series {
     public Series(){
         chapterList = new ArrayList<>();
         genreList = new ArrayList<>();
+        createDate = new Date();
+        published = false;
     }
 
     public Long getSeriesID() {
