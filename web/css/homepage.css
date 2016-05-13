@@ -24,13 +24,13 @@ div.main {
 .reading {
     /*background-color: blue;*/
     float: left;
-    background-image: url("http://image.shutterstock.com/z/stock-vector-illustration-of-stick-kids-reading-books-from-piles-of-reading-materials-113728435.jpg");
+    background-image: url("/img/read.jpg");
 }
 
 .creation {
     /*background-color: red;*/
     float: right;
-    background-image: url("http://pre06.deviantart.net/5b7e/th/pre/i/2013/064/5/f/life_is_about_creating_yourself_by_doloy13-d5x3yd3.jpg");
+    background-image: url("/img/Create.jpg");
 }
 
 .RDC {

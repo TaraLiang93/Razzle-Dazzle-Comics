@@ -18,8 +18,8 @@
     <script src="/js/projectAdminPage.js"></script>
 </head>
 <div class="outer">
-    <div class="jumbotron row" style="height: 20vh;">
-        <img src="" alt="img promotion goes here"/>
+    <div class="jumbotron row" style="height: 150px; width: 950px; margin: 0 auto;">
+        <a href="/read"><img src="/img/ReadPromote.jpg" alt="img promotion goes here"/></a>
     </div>
 
 
@@ -30,7 +30,7 @@
         <label for="seriespreview">Series</label>
         <div class="row preview"id="seriespreview">
             <div class="row">
-                <c:forEach var="i" items="${series}">
+                <c:forEach  begin="0" end="3"  var="i" items="${series}">
                     <div class="col-sm-3  item">
                         <div id="${i.seriesID}" class="thumbnail list series" >
                             <div style="height: 85%;">

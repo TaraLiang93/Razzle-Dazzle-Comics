@@ -99,3 +99,8 @@
     height: 20px;
     padding: 0px;
 }
+
+#imgPreview{
+    max-height: 90%;
+    max-width:90%;
+}
