@@ -29,20 +29,10 @@
         </select>
     </div>
 
-    <div class="currentPage">
-        <c:choose>
-            <c:when test="${publishPage.type eq 0}">
-                <div class="canvasScreen content-border">
-                    <c:forEach var="c" items="${publishPage.canvas}">
-                        <canvas class="$">${c.canvasJSON}</canvas>
-                    </c:forEach>
-                </div>
-            </c:when>
-            <c:when test="${publishPage.type eq 1}">
-                <img class="readPageImg" src="${publishPage.image}"/>
-            </c:when>
-
-        </c:choose>
+    <div class="currentPage col-lg-12">
+        <div class="canvasScreen content-border">
+            <canvas>This is images</canvas>
+        </div>
     </div>
 </div>
 

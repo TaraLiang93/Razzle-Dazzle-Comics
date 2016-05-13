@@ -10,7 +10,6 @@ import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetChapterByIDCommand;
-import com.data.api.queries.external.GetPageByIDCommand;
 import com.data.api.queries.external.GetSeriesByIDCommand;
 import com.data.api.queries.external.GetTeamMembersOfChapterCommand;
 import com.data.api.updatables.ChapterUpdater;
@@ -19,8 +18,6 @@ import com.data.api.updatables.updateTasks.UpdateChapterAddTeamMemberTask;
 import com.data.api.updatables.updateTasks.UpdateChapterRemoveTeamMemberTask;
 import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
 import com.data.creation.Chapter;
-import com.data.creation.Page;
-import com.data.creation.PublishedPage;
 import com.data.structure.TeamMember;
 import com.google.appengine.api.blobstore.*;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -185,18 +182,13 @@ public class ChapterController {
         return null;
     }
 
-    @RequestMapping(value="/read/{seriesName}/{id}", method = RequestMethod.GET)
-    public ModelAndView readChapter(@PathVariable String seriesName, @PathVariable String id,ModelMap map){
+    @RequestMapping(value="/read/{series}/{id}", method = RequestMethod.GET)
+    public ModelAndView readChapter(@PathVariable String series, @PathVariable String id,ModelMap map){
 
 
 
-        Readable<PublishedPage> publishedPageReadable = null;
-        try {
-            PublishedPage page  = publishedPageReadable.fetch().getResult();
 
-        } catch (FetchException e) {
-            e.printStackTrace();
-        }
+            
 
 
         return new ModelAndView("readAChapter");

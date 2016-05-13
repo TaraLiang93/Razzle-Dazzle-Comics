@@ -10,8 +10,14 @@ import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
-import com.data.api.queries.external.*;
-import com.data.api.updatables.*;
+import com.data.api.queries.external.GetChapterByIDCommand;
+import com.data.api.queries.external.GetFlowByIDCommand;
+import com.data.api.queries.external.GetFlowTaskByIDCommand;
+import com.data.api.queries.external.GetPageByIDCommand;
+import com.data.api.updatables.ChapterUpdater;
+import com.data.api.updatables.FlowTaskUpdater;
+import com.data.api.updatables.FlowUpdater;
+import com.data.api.updatables.PageUpdater;
 import com.data.api.updatables.updateTasks.*;
 import com.data.creation.*;
 import com.data.structure.Flow;
@@ -407,41 +413,17 @@ public class PageController {
 
     @RequestMapping(value="/create/drawPage/save", method=RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void saveDrawPage(@RequestParam String pageID,HttpServletRequest req, HttpSession session){
+    public void saveDrawPage(HttpServletRequest req, HttpSession session){
 
+//        LinkedList<String> list = new LinkedList<>();
+//        String canvasArr[];
         Integer size = Integer.parseInt(req.getParameter("size"));
-
-        Readable<Page> pageReadable = new GetPageByIDCommand(pageID);
-        try {
-            Page page = pageReadable.fetch().getResult();
-
-            List<Scene> scenes =  page.getScenes();
-
 
         for(int i = 0; i < size;i++)
         {
             String canvasJson = req.getParameter("canvasImage" + i);
-            // if the scene already exist update it that check it if i have the I
-            for(Scene scene : scenes)
-            {
-                if(scene.getIndex() == i)
-                {
-                    Readable<Scene> sceneReadable = new GetSceneByIDCommand(scene.getId());
-                    Updateable<Scene> sceneUpdateable = new SceneUpdater();
-                    sceneUpdateable.updateEntity(sceneReadable, new UpdateDrawSceneTask(canvasJson));
-                    break;
-                }
-            }
+            // if the scene already exist update it that check it if i have the ID
 
-        }
-
-
-        } catch (FetchException e) {
-            e.printStackTrace();
-        } catch (CreateException e) {
-            e.printStackTrace();
-        } catch (UpdateException e) {
-            e.printStackTrace();
         }
 
         //updating the scenes of a page that already exist
