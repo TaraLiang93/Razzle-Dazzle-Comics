@@ -415,16 +415,24 @@ public class PageController {
     @ResponseStatus(value = HttpStatus.OK)
     public void saveDrawPage(HttpServletRequest req, HttpSession session){
 
-        LinkedList<String> list = new LinkedList<>();
-        String canvasArr[];
+//        LinkedList<String> list = new LinkedList<>();
+//        String canvasArr[];
         Integer size = Integer.parseInt(req.getParameter("size"));
 
         for(int i = 0; i < size;i++)
         {
-            list.add(req.getParameter("canvasImage" + i));
+            String canvasJson = req.getParameter("canvasImage" + i);
+            // if the scene already exist update it that check it if i have the ID
+
         }
 
-        canvasArr = list.toArray(new String[list.size()]);
+        //updating the scenes of a page that already exist
+        // using
+
+
+
+
+//        canvasArr = list.toArray(new String[list.size()]);
 
 
     }
