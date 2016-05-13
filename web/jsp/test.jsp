@@ -28,34 +28,35 @@
     <button id = "Text">Text</button>
     <button id="Zoom-in">Zoom In</button>
     <button id="Zoom-out">Zoom Out</button>
+<button id ="Eraser">Eraser</button>
+<button id="Fill">Fill</button>
+<div class = "container">
+    <div class="dropdown" >
+        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" id="CurrentFont">Times New Roman
+            <span class="caret"></span></button>
+        <select class="dropdown-menu" id="Font-option" multiple="multiple">
+            <option >Arial</option>
+            <option >Helvetica</option>
+            <option>Gadget</option>
+            <option>Comic Sans MS</option>
+            <option>Courier</option>
+            <option>Georgia</option>
+            <option>Impact</option>
+            <option>Lucida Console</option>
+            <option>Tahoma</option>
+            <option>Geneva</option>
+            <option>Verdana</option>
+            <option>Times New Roman</option>
+
+        </select>
+    </div>
+</div>
 
 <p>JASON DOES NOT HAVE THE FOLLOWING</p>
 
 
-    <button id ="Eraser">Eraser</button>
-    <button id="Fill">Fill</button>
 
-    <div class = "container">
-        <div class="dropdown" >
-            <button class="btn dropdown-toggle" type="button" data-toggle="dropdown" id="CurrentFont">Times New Roman
-                <span class="caret"></span></button>
-            <select class="dropdown-menu" id="Font-option" multiple="multiple">
-                <option >Arial</option>
-                <option >Helvetica</option>
-                <option>Gadget</option>
-                <option>Comic Sans MS</option>
-                <option>Courier</option>
-                <option>Georgia</option>
-                <option>Impact</option>
-                <option>Lucida Console</option>
-                <option>Tahoma</option>
-                <option>Geneva</option>
-                <option>Verdana</option>
-                <option>Times New Roman</option>
 
-            </select>
-        </div>
-    </div>
 
     <div class = "container">
         <div class="dropdown" >
@@ -82,12 +83,6 @@
     </a>
 
 
-
-    <button id = "Bold">Bold</button>
-    <button id = "Italic">Italic</button>
-    <button id = "Underline">Underline</button>
-    <button id = "Linethrough">Linethrough</button>
-    <button id = "Overline">Overline</button>
 
 
     <p id="Zoom-level"></p>

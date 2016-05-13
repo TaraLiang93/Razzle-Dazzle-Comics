@@ -58,7 +58,7 @@ $(document).ready(function() {
     //var newWidth = $(window).width();
         //-$(".toolbar").width();
     canvas.setWidth(600);
-    canvas.setHeight(600);
+    canvas.setHeight(900);
     //canvas.resizeCanvas(600,600);
 
     origHeight = canvas.getHeight();
@@ -78,6 +78,19 @@ $(document).ready(function() {
     /**********************************************************************************************************************
      * Listeners
      */
+
+    $("#widthRange").change(function (){
+        $("#labelWidth").text("Size: "+$("#widthRange").val());
+        changeLineWidth($("#widthRange").val());
+        if(canvas._activeObject != null){
+            if(canvas._activeObject.type == "i-text"){
+                setTextStyle(canvas._activeObject, 'fontSize', lineWidth);
+            }
+            setTextStyle(canvas._activeObject, 'strokeWidth', lineWidth);
+        }
+        console.log("in line range"+lineWidth);
+    });
+
 
     /*
      This is for scrolling within the canvas. Only functional when the user is zoomed in inside of canvas
@@ -118,7 +131,8 @@ $(document).ready(function() {
     });
 
     $("#Line-width").change(function(){
-        changeLineWidth();
+        console.log("change line width to "+$("#Line-width").val());
+        changeLineWidth(document.getElementById("Line-width").value);
         if(canvas._activeObject != null){
             if(canvas._activeObject.type == "i-text"){
                 setTextStyle(canvas._activeObject, 'fontSize', lineWidth);
@@ -221,7 +235,7 @@ $(document).ready(function() {
      * Creating a default shapes such as rectangle, square, triangle, circle and star, polygon.
      * User can resize the shape and the color is default to the lineColor
      */
-    Rectangle.onclick = function(){
+    Square.onclick = function(){
         eraserOn = false;
         canvas.isDrawingMode = false;
         var Rect = new fabric.Rect({
@@ -229,7 +243,9 @@ $(document).ready(function() {
             height: (canvas.getHeight()/6),
             left: 25,
             top: 25,
-            fill: lineColor,
+            stroke: lineColor,
+            fill: "rgba(255, 255, 255, 0)",
+            strokeWidth: 1,
             borderOpacityWhenMoving: .5,
             borderColor: "rgb(227, 37, 107)"
         });
@@ -237,7 +253,7 @@ $(document).ready(function() {
         Stack.push(canvas._objects[canvas._objects.length-1]);
     };
 
-    Square.onclick = function(){
+    Rectangle.onclick = function(){
         eraserOn = false;
         canvas.isDrawingMode = false;
         var Sqr = new fabric.Rect({
@@ -245,7 +261,9 @@ $(document).ready(function() {
             height: (canvas.getHeight()/5),
             right: 25,
             bottom: 25,
-            fill: lineColor,
+            stroke: lineColor,
+            fill: "rgba(255, 255, 255, 0)",
+            strokeWidth: 1,
             borderColor: "rgb(227, 37, 107)",
             borderOpacityWhenMove:.5
         });
@@ -261,7 +279,9 @@ $(document).ready(function() {
             height: (canvas.getHeight()/6),
             right: 25,
             bottom: 25,
-            fill: lineColor,
+            stroke: lineColor,
+            fill: "rgba(255, 255, 255, 0)",
+            strokeWidth: 1,
             borderColor: "rgb(227, 37, 107)",
             borderOpacityWhenMove:.5
         });
@@ -276,7 +296,9 @@ $(document).ready(function() {
             radius: (canvas.getWidth()/8),
             right: 25,
             bottom: 25,
-            fill: lineColor,
+            stroke: lineColor,
+            fill: "rgba(255, 255, 255, 0)",
+            strokeWidth: 1,
             borderColor: "rgb(227, 37, 107)",
             borderOpacityWhenMove:.5
         });
@@ -481,6 +503,16 @@ $(document).ready(function() {
 
 });
 
+function changeLineWidthDraw(){
+    changeLineWidth(document.getElementById("Line-width").value);
+
+    if(canvas.isDrawingMode === true){
+        console.log("New Line Width Draw is: "+ lineWidth);
+        canvas.freeDrawingBrush.width = lineWidth;
+    }
+    console.log(canvas.freeDrawingBrush.width+" width is "+ lineWidth);
+}
+
 /**
  * Zoom in or out of a canvas
  * @param num: either 0 == zoom in or 1 == zoom out
@@ -534,14 +566,13 @@ function deleteObj(currentObj){
 /**
  * Change the width of drawing line in free drawing
  */
-function changeLineWidth(){
-    lineWidth = document.getElementById("Line-width").value;
+function changeLineWidth(num){
+    lineWidth = num;
     if(canvas.isDrawingMode === true){
         console.log("New Line Width is: "+ lineWidth);
         canvas.freeDrawingBrush.width = lineWidth;
     }
 }
-
 
 /**
  * change the working color with the inputted color
@@ -585,6 +616,15 @@ function setTextStyle(obj, style, value){
     canvas.renderAll();
 }
 
-
+function addTextStr(str){
+    eraserOn = false;
+    canvas.isDrawingMode = false;
+    console.log("Text clicked")
+    var textbox = new fabric.IText(str);
+    setTextStyle(textbox, 'fontFamily', fontName);
+    textbox.fill = lineColor;
+    canvas.add(textbox);
+    Stack.push(canvas._objects[canvas._objects.length-1]);
+}
 
 
