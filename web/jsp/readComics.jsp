@@ -48,7 +48,7 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
-            <img src="" alt="img promotion goes here"/>
+            <a class="col-sm-3" href="/create"><img src="/img/createPromote.jpg" alt="img promotion goes here" style="height:100%;"/></a>
         </div>
 
         <div class="row">

@@ -42,15 +42,15 @@ public class SeriesController {
     public static final String LOAD_SERIES = "/create/series/load/{id}";
 
 
-    @RequestMapping(value="/create/series/updateDescription", method= RequestMethod.POST)
+    @RequestMapping(value = "/create/series/updateDescription", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Boolean> updateSeriesDescr(@RequestParam String seriesID, @RequestParam String desc, HttpSession session){
+    public ResponseEntity<Boolean> updateSeriesDescr(@RequestParam String seriesID, @RequestParam String desc, HttpSession session) {
 
         System.out.println("NEW DESCRIPTION: " + desc);
         Updateable<Series> seriesUpdateableDannyGangsta = new SeriesUpdater();
         Readable<Series> seriesReadableDannyGansta = new GetSeriesByIDCommand(seriesID);
         try {
-            seriesUpdateableDannyGangsta.updateEntity( seriesReadableDannyGansta,
+            seriesUpdateableDannyGangsta.updateEntity(seriesReadableDannyGansta,
                     new UpdateSeriesEditDescriptionTask(desc));
         } catch (FetchException | UpdateException | CreateException e) {
             e.printStackTrace();
@@ -61,39 +61,11 @@ public class SeriesController {
         return new ResponseEntity(true, HttpStatus.OK);
     }
 
-    @RequestMapping(value="/create/series/updateSeriesImage", method=RequestMethod.POST)
+    @RequestMapping(value = "/create/series/updateSeriesImage", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Boolean> updateSeriesImg(@RequestPart("imgSrc") MultipartFile imgSrc,
-                                                                                      HttpSession session){
-        System.out.println("New image: "+ imgSrc);
-
-        return new ResponseEntity(true, HttpStatus.OK);
-
-    }
-
-
-    @RequestMapping(value=NEW_SERIES, method= RequestMethod.POST)
-    public ModelAndView addSeries(@RequestParam String title,
-                                  @RequestParam String author,
-                                  @RequestParam String artist,
-                                  @RequestParam String description,
-                                  @RequestHeader String referer,
-                                  HttpServletRequest req,
-                                  ModelMap map){
-
-        String redirect;
-
-        System.out.println("Title : " + title);
-        System.out.println("Author : " + author);
-        System.out.println("Artist : " + artist);
-        System.out.println("Description : " + description);
-
-
-
-        System.out.println("Referer: " + referer);
-
-        User user = UserServiceFactory.getUserService().getCurrentUser();
-
+                                                   HttpSession session, HttpServletRequest req) {
+        System.out.println("New image: " + imgSrc);
 
         BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
         Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
@@ -101,64 +73,119 @@ public class SeriesController {
 
         if (blobKeys == null) {
             System.out.println("Why you null BlobKeys?");
-            redirect = referer; //Go back from whence thee came
+            return new ResponseEntity(true, HttpStatus.BAD_REQUEST);
+        } else {
+            BlobKey blobKey = blobKeys.get(0); // Get the first one
+            BlobInfoFactory blobInfoFactory = new BlobInfoFactory(); //info about img
+            BlobInfo info = blobInfoFactory.loadBlobInfo(blobKey);  //info about img
+            System.out.println("Content Type : " + info.getContentType());  //info about img
+            System.out.println("Image FileName : " + info.getFilename());   //info about img
+            BlobKey key = info.getBlobKey();    //the actual blob key to the img for storage
+
+//            try {
+
+
+
+
+
+
+//            } catch (CreateException | FetchException | UpdateException e) {
+//                return new ResponseEntity(true, HttpStatus.BAD_REQUEST);
+//                e.printStackTrace();
+//            }
         }
-        else {
 
-            if (blobKeys.size() == 0) {
-                System.out.println("There should be a default Image here");
-                redirect = referer;
-            } else {
-                BlobKey blobKey = blobKeys.get(0); // Get the first one
-                BlobInfoFactory blobInfoFactory = new BlobInfoFactory(); //info about img
-                BlobInfo info = blobInfoFactory.loadBlobInfo(blobKey);  //info about img
-                System.out.println("Content Type : " + info.getContentType());  //info about img
-                System.out.println("Image FileName : " + info.getFilename());   //info about img
-                BlobKey key = info.getBlobKey();    //the actual blob key to the img for storage
 
-                try {
-                    Series series = new SeriesCreater(key, title, description, false).createEntity(new SeriesFillCommand(key));
-                    new UserDataUpdater()
-                            .updateEntity(
-                                    new GetUserDataByUserCommand(user),
-                                    new UpdateUserDataAddSeriesTask(series));
-                    redirect = "forward:/create/series/load/" + series.getSeriesID();
-                } catch (CreateException | FetchException| UpdateException e) {
-                    redirect = referer;
-                    e.printStackTrace();
-                }
-            }
+            return new ResponseEntity(true, HttpStatus.OK);
 
         }
-        return new ModelAndView(redirect);
-    }
-    @RequestMapping(value=LOAD_SERIES, method= {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView loadSeries(@PathVariable String id, HttpSession session, ModelMap map){
 
 
-        try {
-            Readable<Series> getSeries = new GetSeriesByIDCommand(id);
-            Series series = getSeries.fetch().getResult();
+        @RequestMapping(value = NEW_SERIES, method = RequestMethod.POST)
+        public ModelAndView addSeries (@RequestParam String title,
+                @RequestParam String author,
+                @RequestParam String artist,
+                @RequestParam String description,
+                @RequestHeader String referer,
+                HttpServletRequest req,
+                ModelMap map){
+
+            String redirect;
+
+            System.out.println("Title : " + title);
+            System.out.println("Author : " + author);
+            System.out.println("Artist : " + artist);
+            System.out.println("Description : " + description);
+
+
+            System.out.println("Referer: " + referer);
+
+            User user = UserServiceFactory.getUserService().getCurrentUser();
 
 
             BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-            map.put("uploadAction",blobstoreService.createUploadUrl(ChapterController.NEW_CHAPTER));
-            map.put("uploadChapterAction",blobstoreService.createUploadUrl(PublishController.PUBLISH_UPLOADS));
+            Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);// parse request and look for all input type of file
+            List<BlobKey> blobKeys = blobs.get("seriesImage");// seriesImg is what the name of the file
 
-            Readable<Chapter> getChapters = new GetChaptersOfSeriesCommand(series.getSeriesID());
-            List<Chapter> chapters = getChapters.fetch().getList();
+            if (blobKeys == null) {
+                System.out.println("Why you null BlobKeys?");
+                redirect = referer; //Go back from whence thee came
+            } else {
 
-            map.put("series", series);
-            map.put("seriesTitle",series.getTitle());
-            map.put("seriesDescription",series.getDescription());
-            map.put("seriesIsPublished",series.isPublished());
-            map.put("chapters", chapters);
-        } catch (FetchException e) {
-            e.printStackTrace();
+                if (blobKeys.size() == 0) {
+                    System.out.println("There should be a default Image here");
+                    redirect = referer;
+                } else {
+                    BlobKey blobKey = blobKeys.get(0); // Get the first one
+                    BlobInfoFactory blobInfoFactory = new BlobInfoFactory(); //info about img
+                    BlobInfo info = blobInfoFactory.loadBlobInfo(blobKey);  //info about img
+                    System.out.println("Content Type : " + info.getContentType());  //info about img
+                    System.out.println("Image FileName : " + info.getFilename());   //info about img
+                    BlobKey key = info.getBlobKey();    //the actual blob key to the img for storage
+
+                    try {
+                        Series series = new SeriesCreater(key, title, description, false).createEntity(new SeriesFillCommand(key));
+                        new UserDataUpdater()
+                                .updateEntity(
+                                        new GetUserDataByUserCommand(user),
+                                        new UpdateUserDataAddSeriesTask(series));
+                        redirect = "forward:/create/series/load/" + series.getSeriesID();
+                    } catch (CreateException | FetchException | UpdateException e) {
+                        redirect = referer;
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+            return new ModelAndView(redirect);
+        }
+        @RequestMapping(value = LOAD_SERIES, method = {RequestMethod.GET, RequestMethod.POST})
+        public ModelAndView loadSeries (@PathVariable String id, HttpSession session, ModelMap map){
+
+
+            try {
+                Readable<Series> getSeries = new GetSeriesByIDCommand(id);
+                Series series = getSeries.fetch().getResult();
+
+
+                BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+                map.put("uploadAction", blobstoreService.createUploadUrl(ChapterController.NEW_CHAPTER));
+                map.put("uploadChapterAction", blobstoreService.createUploadUrl(PublishController.PUBLISH_UPLOADS));
+
+                Readable<Chapter> getChapters = new GetChaptersOfSeriesCommand(series.getSeriesID());
+                List<Chapter> chapters = getChapters.fetch().getList();
+
+                map.put("series", series);
+                map.put("seriesTitle", series.getTitle());
+                map.put("seriesDescription", series.getDescription());
+                map.put("seriesIsPublished", series.isPublished());
+                map.put("chapters", chapters);
+            } catch (FetchException e) {
+                e.printStackTrace();
+            }
+
+            return new ModelAndView("seriesPage");
+
         }
 
-        return new ModelAndView("seriesPage");
-
     }
-
-}
