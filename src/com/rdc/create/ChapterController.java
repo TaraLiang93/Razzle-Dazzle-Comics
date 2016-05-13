@@ -182,4 +182,16 @@ public class ChapterController {
         return null;
     }
 
+    @RequestMapping(value="/read/{series}/{id}", method = RequestMethod.GET)
+    public ModelAndView readChapter(@PathVariable String series, @PathVariable String id,ModelMap map){
+
+
+
+
+            
+
+
+        return new ModelAndView("readAChapter");
+    }
+
 }

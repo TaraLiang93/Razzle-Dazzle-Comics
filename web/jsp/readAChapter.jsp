@@ -4,7 +4,7 @@
 </jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="readChapterContainer col-md-8">
+<div class="readChapterContainer col-xs-10 col-xs-offset-1">
     <h2 class="col-md-8">
         <ul class="breadcrumb">
             <li><a href="/read"><u>All Comics</u></a></li>
@@ -13,13 +13,16 @@
         </ul>
     </h2>
 
-    <div class="form-group col-md-4">
-        <select class="chapterString">
-        <c:forEach var="c" items="${chapters}">
-            <option value="${c.chapterString}">${c.chapterString}</option>
-        </c:forEach>
+    <div class="form-group col-md-4 pull-right">
+        <select class="chapterString form-control">
+            <option>Choose A Chapter</option>
+            <c:forEach var="c" items="${chapters}">
+                <option value="${c.chapterString}">${c.chapterString}</option>
+            </c:forEach>
         </select>
-        <select class="pageNumber">
+
+        <select class="pageNumber form-control">
+            <option>select page</option>
         <c:forEach var="p" items="${pages}">
             <option value="${p.id}">${p.id}</option>
         </c:forEach>
@@ -28,7 +31,7 @@
 
     <div class="currentPage col-lg-12">
         <div class="canvasScreen content-border">
-            <canvas></canvas>
+            <canvas>This is images</canvas>
         </div>
     </div>
 </div>
