@@ -1,8 +1,9 @@
 .diaglogBox {
     float: left;
     height: 664px;
-    width: 15%;
+    margin-top: 6vh;
     position: relative;
+    width: 200px;
 }
 
 .diaglogs {
@@ -25,10 +26,11 @@
 
 .drawingContainer {
     float: left;
+    width: 750px;
 }
 .drawingScenes {
     clear: both;
-    width: 885px;
+    width: 950px;
     height: 15vh;
     overflow-x: scroll;
     overflow-y: hidden;
