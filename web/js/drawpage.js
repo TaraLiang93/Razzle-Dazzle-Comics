@@ -38,8 +38,10 @@ $(document).ready(function() {
         var i = 0;
         saveSelectedPage();
         $(".scene").each(function() {
+            var cID = "canvasID" + i;
             var map = "canvasImage" + i++;
             jsonObj[map] = $(this).find(".canvasImage").text() ;
+            jsonObj[cID] = $(this).find(".canvasID").attr("title");
         });
         jsonObj["size"] = i;
         console.log(jsonObj);
