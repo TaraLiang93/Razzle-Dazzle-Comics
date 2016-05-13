@@ -46,7 +46,7 @@
 
         <c:forEach var="scene" items="${page.scene}">
             <div class="scene content-border ${scene.id != fristScene.id ? "":"selected"}">
-                <h4>Scene ${scene.index}</h4>
+                <h4 class="canvasID" title="${scene.index}">Scene ${scene.index}</h4>
                 <div class="canvasImage">${scene.canvas.canvasImage}</div>
                 <div class="SceneDialogs">
                     <c:forEach var="dialog" items="${scene.dialogues}">
