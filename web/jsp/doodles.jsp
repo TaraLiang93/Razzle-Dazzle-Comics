@@ -13,7 +13,7 @@
 <script src="/js/fabric.js"></script>
 <script src="/js/drawing.js"></script>
 
-<div style="position: relative">
+<div style="position: relative; height:85vh;">
     <div class="drawingPage center-block">
         <div class="drawingContainer">
             <jsp:include page="Drawing.jsp"/>
