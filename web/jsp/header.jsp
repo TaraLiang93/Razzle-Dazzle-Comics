@@ -77,7 +77,7 @@
                             <span class="sr-only">(current)</span>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Read Comics</a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Top 100</a></li>
+                                <li><a href="/read/topComics">Top 100</a></li>
                                 <li><a href="#">Genres</a></li>
                                 <li><a href="/read/newReleases">Latest Release</a></li>
                                <c:if test="${true}"><li><a href="#">Bookmarked</a></li></c:if>

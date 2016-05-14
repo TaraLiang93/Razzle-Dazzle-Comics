@@ -2,6 +2,7 @@ package com.rdc.read;
 
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
+import com.data.api.queries.external.GetChaptersOfSeriesCommand;
 import com.data.api.queries.external.GetSeriesOfUserDataCommand;
 import com.data.creation.Chapter;
 import com.data.structure.Series;
@@ -37,7 +38,7 @@ public class ReadController {
     public ModelAndView loadLatestComicsPage(ModelMap map) {
 
 
-        LinkedList<String> genreList = new LinkedList<>();
+        List<String> genreList = new LinkedList<>();
         genreList.add("Action");
         genreList.add("Gays");
         genreList.add("Fun");
@@ -45,7 +46,7 @@ public class ReadController {
         genreList.add("Crime");
         map.put("genres",genreList);
 
-        LinkedList<Chapter> chapters = new LinkedList<>();
+        List<Chapter> chapters = new LinkedList<>();
         Readable<Series> seriesReadable = new GetSeriesOfUserDataCommand(UserServiceFactory.getUserService().getCurrentUser());
         try {
             List<Series> series = seriesReadable.fetch().getList();
@@ -59,6 +60,34 @@ public class ReadController {
             e.printStackTrace();
         }
         return new ModelAndView("latestRelease");
+    }
+
+    @RequestMapping(value ="/read/topComics", method = RequestMethod.GET)
+    public ModelAndView loadTopComicPage(ModelMap map) {
+
+        List<String> genreList = new LinkedList<>();
+        genreList.add("Action");
+        genreList.add("Gays");
+        genreList.add("Fun");
+        genreList.add("School life");
+        genreList.add("Crime");
+        map.put("genres",genreList);
+
+        List<Chapter> chapters = new LinkedList<>();
+        Readable<Series> seriesReadable = new GetSeriesOfUserDataCommand(UserServiceFactory.getUserService().getCurrentUser());
+        try {
+            List<Series> series = seriesReadable.fetch().getList();
+
+            Series topSeries = series.get(0);
+            series.remove(0);
+
+            map.put("topSeries",topSeries);
+            map.put("series",series);
+        } catch (FetchException e) {
+            e.printStackTrace();
+        }
+
+        return new ModelAndView("top100Comics");
     }
 
 

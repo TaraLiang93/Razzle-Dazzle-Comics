@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
             <ul class="nav navbar-nav sublinks">
-                <li><a href="#">Top 100</a></li>
+                <li><a href="/read/topComics">Top 100</a></li>
                 <li><a href="#">Genres</a></li>
                 <li><a href="/read/newReleases">Latest Release</a></li>
                 <li><a href="#">Bookmark</a></li>
