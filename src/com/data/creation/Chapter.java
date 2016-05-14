@@ -35,6 +35,7 @@ public class Chapter {
     String description;
     Date createdDate;
     Date lastModifiedDate;
+    Date publishedDate;
     Boolean published;
 
     Key<Flow> theFlow;

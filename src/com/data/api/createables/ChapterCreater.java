@@ -4,6 +4,7 @@ import com.data.UserData;
 import com.data.api.createables.fillCommands.TeamMemberFillCommand;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
+import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.external.GetUserDataByUserCommand;
@@ -11,6 +12,7 @@ import com.data.creation.Chapter;
 import com.data.structure.Flow;
 import com.data.structure.TeamMember;
 import com.google.appengine.api.users.User;
+import com.rdc.create.PageController;
 
 import java.util.List;
 
@@ -84,13 +86,19 @@ public class ChapterCreater extends Createable<Chapter> {
          */
         List<Flow> flows = ofy().load().type(Flow.class).list();
 
-        if( flows.size() >= 1 ){ // Why is there two?
-            chapter.setTheFlow( flows.get(0).getKey()); // set the default flow to Chapter
-        }
-        else {
-//            throw new CreateException(" there is no flow, there should be a default flow ");
+        if( flows.size() <= 0 ){ // Why is there two?
+
+            try {
+                PageController.createDefaultFlow();
+                flows = ofy().load().type(Flow.class).list();
+            } catch (UpdateException e) {
+                e.printStackTrace();
+                throw new CreateException("Could not add default flow");
+            }
+
         }
 
+        chapter.setTheFlow( flows.get(0).getKey()); // set the default flow to Chapter
 
 
         return chapter;

@@ -18,6 +18,8 @@ import com.data.api.updatables.updateTasks.UpdateChapterEditInfoTask;
 import com.data.api.updatables.updateTasks.UpdateChapterRemoveTeamMemberTask;
 import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
 import com.data.creation.Chapter;
+import com.data.creation.Page;
+import com.data.structure.FlowTask;
 import com.data.structure.TeamMember;
 import com.google.appengine.api.blobstore.*;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -30,6 +32,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -62,9 +66,31 @@ public class ChapterController {
             Readable<TeamMember> teamMemberReadable = new GetTeamMembersOfChapterCommand(id);
             List<TeamMember> teamMembers = teamMemberReadable.fetch().getList();
 
+            List<FlowTask> tasks = chapter.getFlow().getFlowTasks();
+
+
+            Page page1 = new Page("Page 1", "Summary 1 Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1" +
+                    "Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1",
+
+                    new Date(), null, null, 0, tasks.get(0).getKey());
+            Page page2 = new Page("Page 2", "Summary 2", new Date(), null, null, 0, tasks.get(0).getKey());
+            Page page3 = new Page("Page 3", "Summary 3", new Date(), null, null, 0, tasks.get(2).getKey());
+            Page page4 = new Page("Page 4", "Summary 4", new Date(), null, null, 0, tasks.get(3).getKey());
+            Page page5 = new Page("Page 5", "Summary 5", new Date(), null, null, 0, tasks.get(4).getKey());
+
+            List<Page> pages = new ArrayList<>();
+            pages.add(page1);
+            pages.add(page2);
+            pages.add(page3);
+            pages.add(page4);
+            pages.add(page5);
+            //chapter.getPageList().add(page1.getKey());
+            //chapter.getPageList().add(page2.getKey());
+
             map.put("chapter", chapter);
             map.put("chapterId", id);
             map.put("teamMembers",teamMembers);
+            map.put("pages", pages);
 
             BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
             map.put("uploadAction",blobstoreService.createUploadUrl(UPDATE_CHAPTER_INFO));

@@ -15,114 +15,93 @@
 
     <div class="outer">
 
-        <div class="top">
-            <div class="team">
-                <p>Team</p>
-                <a class="btn btn-link change" id="addTeam">
-                    <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
-                </a>
-                <div class="memberList">
-                    <c:forEach var="member" items="${teamMembers}" >
-                        <p title="Member">${member.userData.nickName}</p>
-                        <div id="${member.userData.nickName}ID" style="display: none">${member.userData.userName}</div>
-                    </c:forEach>
-                </div>
-            </div>
 
-            <div class="chapterInfo pull-right">
-                <a class="btn btn-link change" id="editChapterInfo">
-                    <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
-                </a>
-                <img src="${chapter.chapterCover}" id="img" class="pull-left">
-                <div class="text pull-right">
-                    <div class="info">
-                        <p style="font-weight: bold">Title:</p>
-                        <p id="chapterTitle">${chapter.title}</p>
+            <div id="top" class="top">
+
+                <div class="row">
+                    <div class="team">
+                        <p>Team</p>
+                        <a class="btn btn-link change" id="addTeam">
+                            <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+                        </a>
+                        <div class="memberList">
+                            <c:forEach var="member" items="${teamMembers}" >
+                                <p title="Member">${member.userData.nickName}</p>
+                                <div id="${member.userData.nickName}ID" style="display: none">${member.userData.userName}</div>
+                            </c:forEach>
+                        </div>
                     </div>
 
-                    <div class="info">
-                        <p style="font-weight: bold">#:</p>
-                        <p id="chapterString">${chapter.chapterString}</p>
+                    <div class="chapterInfo pull-right">
+                        <a class="btn btn-link change" id="editChapterInfo">
+                            <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+                        </a>
+                        <img src="${chapter.chapterCover}" id="img" class="pull-left">
+                        <div class="text pull-right">
+                            <div class="info">
+                                <p style="font-weight: bold">Title:</p>
+                                <p id="chapterTitle">${chapter.title}</p>
+                            </div>
+
+                            <div class="info">
+                                <p style="font-weight: bold">#:</p>
+                                <p id="chapterString">${chapter.chapterString}</p>
+                            </div>
+
+                            <div class="btnInfo">
+                                <button type="button" class="btn btn-default pull-right">Deactive</button>
+                            </div>
+                        </div>
+                    </div><%-- End Chapter Info class--%>
+            </div>
+            <div class="row">
+                <div id="bottom" class="pull-right">
+                    <button type="button" class="btn btn-primary" id="addPage">Add Page</button>
+                    <button type="button" class="btn btn-default">Return to Series Page</button>
+                    <button type="button" class="btn btn-primary">Publish Page</button>
+                </div>
+            </div>
+        </div> <%-- End TOP class--%>
+
+
+
+        <div id="flowContainer" class="middle">
+
+            <c:forEach var="flowTask" items="${chapter.flow.flowTasks}">
+                <div class="flow">
+                    <div class="row-fluid">
+                        <p>${flowTask.flowTaskName}</p>
                     </div>
+                    <div class="flowBody">
+                        <ul class="list-group">
+                        <c:forEach var="page" items="${pages}">
+                            <c:if test="${flowTask.flowTaskName eq page.flowTaskEntity.flowTaskName}">
+                                <%--<div class="row">--%>
+                                    <li class="list-group-item mItem">
+                                        <div class="flowTask">
+                                            <div class="">
+                                                <h3>${page.title}</h3>
+                                                ${page.summary}
+                                            </div>
+                                        </div>
+                                    </li>
 
-                    <div class="btnInfo">
-                        <button type="button" class="btn btn-default pull-right">Deactive</button>
+                                <%--</div>--%>
+                            </c:if>
+                        </c:forEach>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </div>
+            </c:forEach>
 
-        <div class="middle">
-            <div class="flow">
-                <p>Writer</p>
-                <div class="flow1" id="writer">
-                    <c:forEach var="page" items="${writerTask}">
-                        <div>
-                            <button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target='#writeTaskModal'>
-                                ${page.pageName}
-                            </button>
-                        </div>
-                    </c:forEach>
-                </div>
-            </div>
-            <div class="flow">
-                <p>Pre-Draw</p>
-                <div class="flow2" id="preDraw">
-                    <c:forEach var="page" items="${preDrawTask}">
-                        <div>
-                            <button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target="#preDrawTaskModal">
-                                    ${page.pageName}
-                            </button>
-                        </div>
-                    </c:forEach>
-                </div>
-            </div>
-            <div class="flow">
-                <p>Draw</p>
-                <div class="flow1" id="draw">
-                    <c:forEach var="page" items="${drawTask}">
-                        <div>
-                            <button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target="#drawTaskModal">
-                                    ${page.pageName}
-                            </button>
-                        </div>
-                    </c:forEach>
-                </div>
-            </div>
-            <div class="flow">
-                <p>Review</p>
-                <div class="flow2" id="review">
-                    <c:forEach var="page" items="${reviewTask}">
-                        <div>
-                            <button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target="#reviewTaskModal">
-                                    ${page.pageName}
-                            </button>
-                        </div>
-                    </c:forEach>
+            <%--<button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target='#writeTaskModal'>--%>
+                <%--${page.pageName}--%>
+            <%--</button>--%>
 
-                </div>
-            </div>
-            <div class="flow">
-                <p>Complete</p>
-                <div class="flow1" id="complete">
-                    <c:forEach var="page" items="${completeTask}">
-                        <div>
-                            <button class="btn pageTask" id="${page.pageNumber}">
-                                    ${page.pageName}
-                            </button>
-                        </div>
-                    </c:forEach>
-
-                </div>
-            </div>
         </div>
 
 
-        <div id="bottom" class="pull-right">
-            <button type="button" class="btn btn-primary" id="addPage">Add Page</button>
-            <button type="button" class="btn btn-default">Return to Series Page</button>
-            <button type="button" class="btn btn-primary">Publish Page</button>
-        </div>
+
 
 
         <%--MODAL FOR TEAM--%>
@@ -232,5 +211,7 @@
     <c:if test="${userData ne null}">
         <div id="currentUserID" style="display: none">${userData.nickName}</div>
     </c:if>
-</body>
-</html>
+
+
+
+<jsp:include page="footer.jsp"/>

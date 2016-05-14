@@ -9,6 +9,8 @@ $(document).ready(function(){
     var chapterId = $("#chapterId");
     var deleteMember;
 
+    $("#flowContainer").height( $(window).height()-$("body").height() );
+
    $("#editChapterInfo").click(function(){
        /*
         console.log("edit chapter info clicked");

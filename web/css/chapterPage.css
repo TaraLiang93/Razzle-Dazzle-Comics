@@ -12,7 +12,7 @@ body {
 
 .top {
     display: inline-block;
-    height: 20%;
+    height: 15%;
     margin: 1%;
     width: 98%;
 }
@@ -87,7 +87,7 @@ body {
 
 .middle {
     display: inline-flex;
-    height: 70%;
+    height: 50%;
     width: 100%;
 }
 
@@ -110,8 +110,10 @@ body {
 }
 
 .flow {
-    height: 95%;
     width: 20%;
+    height: 500px;
+    overflow-y: auto;
+    border: 2px solid black;
 }
 
 .flow p {
@@ -188,4 +190,22 @@ body {
 
 .reviewComments .commentBox {
     margin: 0;
+}
+
+.flowTask{
+    width:inherit;
+}
+
+.flowBody{
+    height:inherit;
+
+}
+
+.flowBody div{
+   /* border: 2px solid red;*/
+}
+
+.mItem{
+    min-height: 50px;
+    overflow:visible;
 }
