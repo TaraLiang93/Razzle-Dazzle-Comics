@@ -21,7 +21,7 @@ public class GetDoodlesByIDCommand extends Readable{
 
 
     /**
-     * constructor for for the command which gets doodle with an ID
+     * constructor for the command which gets doodle with an ID
      * @param id
      */
     public GetDoodlesByIDCommand(Long id){

@@ -34,6 +34,8 @@ public class Series {
     BlobKey seriesCover;
     String title;
     String description;
+    @Index
+    int views;
 //    Float rating;
     @Index
     boolean published;
@@ -144,5 +146,24 @@ public class Series {
         return genreList;
     }
 
+    public int getViews() {
+        return views;
+    }
+
+    public void setViews(int views) {
+        this.views = views;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public void incrementViews(){
+        this.views = this.views + 1;
+    }
 
 }
