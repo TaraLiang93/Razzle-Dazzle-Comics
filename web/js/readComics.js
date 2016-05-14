@@ -7,7 +7,7 @@ $(document).ready(function() {
     $(".series").each(function(){// this code needs to be changed
         $(this).click(function(){
             $.ajax({
-                url: "/read" + $(this).text(),
+                url: "/read/" + $(this).text(),
                 data : {seriesID : $(this).attr("id")},
                 async: false
 
