@@ -1,0 +1,18 @@
+.chapterImg {
+    width:100%;
+    height:100%;
+
+}
+
+.latestChapter {
+    height: 30vh;
+}
+
+.latestChapter div {
+    height:80%;
+    padding: 0;
+}
+
+.topComicsList {
+    overflow-y: scroll;
+}
