@@ -12,7 +12,7 @@
     <jsp:include page="header.jsp">
         <jsp:param name="title" value="Comic Series"/>
         <jsp:param name="css" value="/css/comicSeries.css"/>
-        <jsp:param name="js" value=""/>
+        <jsp:param name="js" value="/js/comicSeries.js"/>
     </jsp:include>
 </head>
 <body>
@@ -64,9 +64,9 @@
 
                     </div>
                 </c:forEach>
-
-
             </div>
+
+
         </div>
     </div>
 </div>
