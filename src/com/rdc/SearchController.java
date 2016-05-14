@@ -1,7 +1,6 @@
 package com.rdc;
 
 import com.data.api.queries.external.GetSeriesOfUserDataCommand;
-import com.data.structure.Genre;
 import com.data.structure.Series;
 import com.google.appengine.api.users.UserServiceFactory;
 import org.springframework.stereotype.Controller;
@@ -27,7 +26,7 @@ public class SearchController {
 
 
         String searchBar = req.getParameter("searchBar");
-        Genre genre;
+
         map.put("searchTitle",searchBar);
 
         try {
