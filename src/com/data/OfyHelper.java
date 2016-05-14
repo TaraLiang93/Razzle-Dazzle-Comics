@@ -40,7 +40,7 @@ public class OfyHelper implements ServletContextListener {
         ObjectifyService.register(Flow.class);
         ObjectifyService.register(FlowTask.class);
         ObjectifyService.register(FlowType.class);
-
+        ObjectifyService.register(Genre.class);
 
     }
 

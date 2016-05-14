@@ -34,6 +34,10 @@ public class Genre {
         this.seriesList = seriesList;
     }
 
+    public void addSeriesToSeriesList( Key<Series> seriesKey){
+        this.seriesList.add(seriesKey);
+    }
+
     public Long getId() {
         return id;
     }
