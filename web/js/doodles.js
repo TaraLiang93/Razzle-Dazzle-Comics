@@ -2,6 +2,7 @@
  * Created by Jason on 4/5/16.
  */
 
+
 $(document).ready(function() {
 
 
@@ -35,11 +36,35 @@ $(document).ready(function() {
     });
 
     $(".doodleButtons a.btn.btn-lg.btn-warning").click(function(){
-        if(Stack.length != 0)
+        if(Stack.length != 0)// prompt the user to save
+        {
+
             $("#newDoodleModal").modal('toggle');
+        }
         else
-            canvas.clear();
+            $(location).attr("href","/create/doodle/new");
     });
+
+    $(".yesDoodle").click(function(){
+
+        var doodleTitleTag = $("#doodleTitle").attr("value");
+        var doodleDescriptionTag = $("#doodleDescription").attr("value");
+        //if(validArgs($("#doodleTitle"), $("#doodleDescription")))
+        //{
+        var jsonObj = {"canvasImage": JSON.stringify(canvas), "doodleTitle": doodleTitleTag, "doodleDescription": doodleDescriptionTag};
+        if($("#loadDoodleId").text() != "")
+            jsonObj["doodleId"] = $("#loadDoodleId").text();
+        $.post("/create/doodle/save", jsonObj)
+            .done(function(){
+                console.log("it saved successfully");
+                $(location).attr("href","/create/doodle/new");
+            });
+
+    });
+
+    $(".noDoodle").click(function() {
+        $(location).attr("href","/create/doodle/new");
+    })
 
 
 });
