@@ -1,7 +1,7 @@
 .doodleInfo {
     border: 2px solid black;
     border-radius: 4px;
-    height: 15vh;
+    height: 150px;
     top: 612px;
     width: 750px;
 
@@ -9,7 +9,7 @@
 }
 
 .drawingPage {
-    height: 65vh;
+    height: 675px;
     position: relative;
     width: 750px;
 }
