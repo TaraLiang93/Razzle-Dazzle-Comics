@@ -53,8 +53,9 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Do you want to save your work</h4>
                 </div>
-                <div class="modal-body">
-                        <a href="#" class="btn btn-primary btn-lg active center saveDoodle"  role="button">Save</a>
+                <div class="modal-footer">
+                        <a href="#" class="btn btn-primary btn-lg active center yesDoodle"  role="button">Yes</a>
+                    <a href="#" class="btn btn-info btn-lg active center noDoodle"  role="button">No</a>
                         <a href="#" class="btn btn-default  btn-lg center " data-dismiss="modal" id="cancelDoodle" role="button">cancel</a>
                 </div>
             </div><!-- /.modal-content -->
