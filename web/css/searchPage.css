@@ -14,25 +14,3 @@
     overflow-x: scroll;
     height: 70vh;
 }
-
-.seriesImg {
-    height:100%;
-    padding: 0;
-}
-
-.seriesImg  .seriesIcon{
-    height:100%;
-    width: 100%;
-}
-
-.searchResult {
-    height:30%;
-    margin-bottom: 2%;
-    position: relative;
-}
-
-.searchDescrip {
-    position: relative;
-    bottom: 0;
-    left: 0;
-}
