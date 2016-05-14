@@ -20,7 +20,7 @@
                 <li><a href="#">Upload</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <form class="navbar-form navbar-left" role="search">
+                <form action="/read/search" method="post" class="navbar-form navbar-left" role="search">
                     <div class="form-group">
                         <input id="searchBar" type="text" class="form-control" placeholder="Search for Series">
                     </div>
