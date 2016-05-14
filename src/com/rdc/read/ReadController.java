@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.LinkedList;
+
 /**
  * Created by drodrigues on 3/29/16.
  */
@@ -24,11 +26,17 @@ public class ReadController {
     }
 
 
-    @RequestMapping(value ="/read/latestComics", method = RequestMethod.GET)
+    @RequestMapping(value ="/read/newReleases", method = RequestMethod.GET)
     public ModelAndView loadLatestComicsPage(ModelMap map) {
 
 
-
+        LinkedList<String> genreList = new LinkedList<>();
+        genreList.add("Action");
+        genreList.add("Gays");
+        genreList.add("Fun");
+        genreList.add("School life");
+        genreList.add("Crime");
+        map.put("genre",genreList);
         return new ModelAndView("latestRelease");
     }
 

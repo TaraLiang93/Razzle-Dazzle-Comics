@@ -17,7 +17,7 @@
             <ul class="nav navbar-nav sublinks">
                 <li><a href="#">Top 100</a></li>
                 <li><a href="#">Genres</a></li>
-                <li><a href="#">Latest Release</a></li>
+                <li><a href="/read/newReleases">Latest Release</a></li>
                 <li><a href="#">Bookmark</a></li>
                 <li><a href="#">Publish</a></li>
             </ul>
