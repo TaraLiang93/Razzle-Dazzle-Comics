@@ -22,4 +22,15 @@ public class ReadController {
 
         return new ModelAndView("readComics");
     }
+
+
+    @RequestMapping(value ="/read/latestComics", method = RequestMethod.GET)
+    public ModelAndView loadLatestComicsPage(ModelMap map) {
+
+
+
+        return new ModelAndView("latestRelease");
+    }
+
+
 }
