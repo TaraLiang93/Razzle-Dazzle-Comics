@@ -9,7 +9,7 @@
 <jsp:include page="header.jsp">
     <jsp:param name="title" value="Latest Releases"/>
     <jsp:param name="subtitle" value="Latest Release"/>
-    <jsp:param name="js" value="/"
+    <jsp:param name="js" value="/js/latestRelease.js"/>
 </jsp:include>
 
 <div class="filterBox col-xs-12 content-border">
