@@ -17,10 +17,14 @@
             <%--RIGHT SIDE: SERIES INFO--%>
             <div class="pull-right container" id="seriesInfo">
                 <div id="seriesImg">
-                    <img src="${series.seriesCover}" id="img">
-                    <a class="btn btn-link" id="uploadButton">
-                        <i class="fa fa-upload fa-2x" aria-hidden="true"></i>
-                    </a>
+                    <form id="imgForm" method="post" action="${uploadSeriesImageAction}" enctype="multipart/form-data">
+                        <input id="series" type="hidden" name="seriesID" value="${series.seriesID}"/>
+                        <img src="${series.seriesCover}" id="imgPreview">
+                        <input name="imgSrc" id="browseImg" type="file" accept="image/*" class="hide">
+                        <a class="btn btn-link" id="uploadButton">
+                            <i class="fa fa-upload fa-2x" aria-hidden="true"></i>
+                        </a>
+                    </form>
                 </div>
 
                 <div id="title">
@@ -85,29 +89,6 @@
         </div>
     </div>
 
-
-    <div class="modal fade" id="imgModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Series Image</h4>
-                </div>
-                <div class="modal-body">
-                    <img id="imgPreview" src="">
-                    <form id="imgForm" method="post" action="/create/series/updateSeriesImage" enctype="multipart/form-data">
-                        <input name="imgSrc"  id="browseImg" type="file" accept="image/*">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal"id="saveImg">Save</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 <jsp:include page="newChapterModal.jsp">
     <jsp:param name="seriesID" value="${series.seriesID}"/>

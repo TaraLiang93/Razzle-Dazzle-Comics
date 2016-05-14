@@ -12,6 +12,7 @@ import com.data.api.queries.external.GetSeriesByIDCommand;
 import com.data.api.queries.external.GetUserDataByUserCommand;
 import com.data.api.updatables.SeriesUpdater;
 import com.data.api.updatables.UserDataUpdater;
+import com.data.api.updatables.updateTasks.UpdateSeriesChangeImageTask;
 import com.data.api.updatables.updateTasks.UpdateSeriesEditDescriptionTask;
 import com.data.api.updatables.updateTasks.UpdateUserDataAddSeriesTask;
 import com.data.creation.Chapter;
@@ -24,7 +25,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,9 +40,11 @@ public class SeriesController {
 
     public static final String NEW_SERIES = "/create/series/new";
     public static final String LOAD_SERIES = "/create/series/load/{id}";
+    public static final String UDPATE_SERIESIMG = "/create/series/updateSeriesImage";
+    public static final String UPDATE_DESC = "/create/series/updateDescription";
 
 
-    @RequestMapping(value="/create/series/updateDescription", method= RequestMethod.POST)
+    @RequestMapping(value=UPDATE_DESC, method= RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Boolean> updateSeriesDescr(@RequestParam String seriesID, @RequestParam String desc, HttpSession session){
 
@@ -61,13 +63,26 @@ public class SeriesController {
         return new ResponseEntity(true, HttpStatus.OK);
     }
 
-    @RequestMapping(value="/create/series/updateSeriesImage", method=RequestMethod.POST)
+    @RequestMapping(value=UDPATE_SERIESIMG, method=RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Boolean> updateSeriesImg(@RequestPart("imgSrc") MultipartFile imgSrc,
-                                                                                      HttpSession session){
-        System.out.println("New image: "+ imgSrc);
+    public ModelAndView updateSeriesImg(@RequestParam String seriesID,
+                                                   HttpServletRequest req,
+                                                   HttpSession session){
 
-        return new ResponseEntity(true, HttpStatus.OK);
+        BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+        Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
+        List<BlobKey> blobKeys = blobs.get("imgSrc");
+
+
+        try {
+            new SeriesUpdater().updateEntity(new GetSeriesByIDCommand(seriesID),
+                    new UpdateSeriesChangeImageTask((blobKeys != null && blobKeys.size() > 0)? blobKeys.get(0) : null));
+        } catch (FetchException | UpdateException | CreateException e) {
+            e.printStackTrace();
+        }
+
+
+        return new ModelAndView("redirect:/create/series/load/" + seriesID);
 
     }
 
@@ -144,6 +159,7 @@ public class SeriesController {
             BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
             map.put("uploadAction",blobstoreService.createUploadUrl(ChapterController.NEW_CHAPTER));
             map.put("uploadChapterAction",blobstoreService.createUploadUrl(PublishController.PUBLISH_UPLOADS));
+            map.put("uploadSeriesImageAction",blobstoreService.createUploadUrl(UDPATE_SERIESIMG));
 
             Readable<Chapter> getChapters = new GetChaptersOfSeriesCommand(series.getSeriesID());
             List<Chapter> chapters = getChapters.fetch().getList();

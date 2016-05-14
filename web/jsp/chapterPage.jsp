@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: tara
+  User: tara && Jason && Danny
   Date: 4/13/16
   Time: 9:33 PM
   To change this template use File | Settings | File Templates.
@@ -158,45 +158,47 @@
         <%--Modal for Chapter info--%>
         <div class="modal fade" id="infoModal" role="dialog">
             <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Edit Chapter Info</h4>
-                    </div>
-                    <div class="modal-body editInfo">
-
-                        <div class="einfo">
-                            <div id="changeTitle">
-                            <p style="font-weight: bold">Title: </p>
-                            <input type="text" id="Title">
-                            </div>
-
-                            <div id="changeChapterStr">
-                            <p style="font-weight: bold">#: </p>
-                            <input type="text" id="myNumber">
-                            </div>
-
-                            <div id="editDescr">
-                            <p style="font-weight: bold">Description: </p>
-                            <textarea id="textboxDescr">${chapter.description}</textarea>
-                            </div>
+                <form id="imgForm" method="post" action="${uploadAction}" enctype="multipart/form-data">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Edit Chapter Info</h4>
                         </div>
+                        <div class="modal-body editInfo">
 
-                        <div class="editImg">
-                            <p style="font-weight: bold">Chapter Icon: </p>
-                            <img id="imgPreview" src="">
-                            <form id="imgForm" method="post" action="/create/chapter/updateChapterImage" enctype="multipart/form-data">
-                                <input name="imgSrc"  id="browseImg" type="file" accept="image/*">
-                            </form>
+                            <div class="einfo">
+                                <div id="changeTitle">
+                                <p style="font-weight: bold">Title: </p>
+                                <input type="text" name="chapterTitle" value="${chapter.title}">
+                                </div>
+
+                                <div id="changeChapterStr">
+                                <p style="font-weight: bold">#: </p>
+                                <input type="text" name="chapterString" value="${chapter.chapterString}">
+                                </div>
+
+                                <div id="editDescr">
+                                <p style="font-weight: bold">Description: </p>
+                                <textarea id="textboxDescr" name="description">${chapter.description}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="editImg">
+                                <p style="font-weight: bold">Chapter Icon: </p>
+                                <img id="imgPreview" src="${chapter.chapterCover}">
+
+                                    <input type="hidden" name="chapterID" value="${chapterId}"/>
+                                    <input name="imgSrc"  id="browseImg" type="file" accept="image/*" class="hide">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"id="saveInfo">Save</button>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal"id="saveInfo">Save</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

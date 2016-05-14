@@ -1,6 +1,5 @@
 package com.rdc.create;
 
-import com.data.UserData;
 import com.data.api.createables.ChapterCreater;
 import com.data.api.createables.fillCommands.ChapterFillCommand;
 import com.data.api.exceptions.CreateException;
@@ -15,6 +14,7 @@ import com.data.api.queries.external.GetTeamMembersOfChapterCommand;
 import com.data.api.updatables.ChapterUpdater;
 import com.data.api.updatables.SeriesUpdater;
 import com.data.api.updatables.updateTasks.UpdateChapterAddTeamMemberTask;
+import com.data.api.updatables.updateTasks.UpdateChapterEditInfoTask;
 import com.data.api.updatables.updateTasks.UpdateChapterRemoveTeamMemberTask;
 import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
 import com.data.creation.Chapter;
@@ -22,13 +22,10 @@ import com.data.structure.TeamMember;
 import com.google.appengine.api.blobstore.*;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
-import com.google.appengine.repackaged.com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +42,7 @@ public class ChapterController {
     public static final String NEW_CHAPTER = "/create/chapter/new";
     public static final String LOAD_CHAPTER = "/create/chapter/load/{id}";
     public static final String LOAD_NEW_CHAPTER = "/create/chapter/new/load";
+    public static final String UPDATE_CHAPTER_INFO = "/create/chapter/updateChapterInfo";
 
 
     @RequestMapping(value = LOAD_NEW_CHAPTER, method = RequestMethod.GET)
@@ -54,7 +52,7 @@ public class ChapterController {
         return "newChapterModal";
     }
 
-    @RequestMapping(value = LOAD_CHAPTER, method = RequestMethod.GET)
+    @RequestMapping(value = LOAD_CHAPTER, method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView loadChapter(@PathVariable String id, @RequestHeader String referer, ModelMap map) {
 
         try {
@@ -67,6 +65,10 @@ public class ChapterController {
             map.put("chapter", chapter);
             map.put("chapterId", id);
             map.put("teamMembers",teamMembers);
+
+            BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+            map.put("uploadAction",blobstoreService.createUploadUrl(UPDATE_CHAPTER_INFO));
+
         } catch (FetchException e) {
             e.printStackTrace();
             return new ModelAndView(referer);
@@ -165,13 +167,33 @@ public class ChapterController {
         return new ModelAndView(redirect);
     }
 
-    @RequestMapping(value="/create/chapter/updateChapterImage", method=RequestMethod.POST)
+    @RequestMapping(value=UPDATE_CHAPTER_INFO, method=RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Boolean> updateSeriesImg(@RequestPart("imgSrc") MultipartFile imgSrc,
-                                                   HttpSession session){
-        System.out.println("New image: "+ imgSrc);
+    public ModelAndView updateChapterInfo(@RequestParam String chapterID,
+                                          @RequestParam String chapterString,
+                                          @RequestParam String chapterTitle,
+                                          @RequestParam String description,
+                                         HttpServletRequest req,
+                                        HttpSession session){
 
-        return new ResponseEntity(true, HttpStatus.OK);
+        BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+        Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
+        List<BlobKey> blobKeys = blobs.get("imgSrc");
+
+        System.out.printf("Updating Chapter with ID:%s { Title: %s, Chapter String: %s, Description: %s}\n", chapterID, chapterTitle, chapterString, description);
+
+        try {
+            new ChapterUpdater().updateEntity(new GetChapterByIDCommand(chapterID),
+                                            new UpdateChapterEditInfoTask(chapterTitle,
+                                                                            chapterString,
+                                                                            description,
+                                                                            (blobKeys != null && blobKeys.size() > 0)? blobKeys.get(0) : null));
+        } catch (FetchException | UpdateException | CreateException e) {
+            e.printStackTrace();
+        }
+
+
+        return new ModelAndView("forward:/create/chapter/load/" + chapterID);
 
     }
 
