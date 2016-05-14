@@ -8,8 +8,8 @@
 --%>
 <jsp:include page="header.jsp">
     <jsp:param name="title" value="Top 100"/>
-    <jsp:param name="subtitle" value="Top 100 "/>
-    <jsp:param name="css" value="/top100Comics.css"/>
+    <jsp:param name="css" value="/css/top100Comics.css"/>
+    <jsp:param name="js" value="/js/top100Comics.js"/>
 </jsp:include>
 
 
@@ -17,24 +17,26 @@
 
 <div class="top100Comics">
     <div class="topComic col-xs-4">
-        <div class="topComicsList col-xs-12" id="${topSeries.seriesID}">
+        <form action="/read/${topSeries.title}" method="get" class="topComic topComics  col-xs-12" id="${topSeries.seriesID}">
+            <input type="text" name="seriesID" style="display: none" value="${topSeries.seriesID}"/>
             <div class="content-border text-center">
                 <img class="chapterImg" src="${topSeries.seriesCover}"/>
             </div>
             <p class="text-center chapterTitle">${topSeries.title}</p>
-            <p class="text-center numberof Views">${topSeries.views}</p>
-        </div>
+            <p class="text-center views">${topSeries.views} views</p>
+        </form>
     </div>
 
-    <div class="col-xs-8">
+    <div class="comicsList col-xs-8">
         <c:forEach var="s" items="${series}">
-            <div class="topComicsList col-xs-4" id="${s.seriesID}">
+            <form action="/read/${s.title}" method="get" class="topComics col-xs-4">
+                <input type="text" name="seriesID" style="display: none" value="${s.seriesID}"/>
                 <div class="content-border text-center">
                     <img class="chapterImg" src="${s.seriesCover}"/>
                 </div>
                 <p class="text-center chapterTitle">${s.title}</p>
-                <p class="text-center numberof Views">${s.views}</p>
-            </div>
+                <p class="text-center views">${s.views} views</p>
+            </form>
         </c:forEach>
     </div>
 

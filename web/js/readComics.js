@@ -9,6 +9,7 @@ $(document).ready(function() {
             $.ajax({
                 url: "/read/" + $(this).text(),
                 data : {seriesID : $(this).attr("id")},
+                type : "GET",
                 async: false
 
             })

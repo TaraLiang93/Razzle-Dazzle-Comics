@@ -65,12 +65,12 @@
                             <img class="chapterImg" src="${chapter.chapterCover}">
                         </div>
                         <div class="col-xs-9">
-                            <div>
+                            <div class="col-xs-12">
                                 <h3 id="chapterTitle col-xs-4">${chapter.title}</h3>
                                 <p class="stringAndStatus col-xs-3">${chapter.chapterString}</p>
-                                <%--<p class="chapterDate pull-right">${chapter.createdDate}</p>--%>
+                                    <%--<p class="chapterDate pull-right">${chapter.createdDate}</p>--%>
                             </div>
-                            <div class="chapterDescription">
+                            <div class="chapterDescription col-xs-12">
                                 <p id="chapterDescr">${chapter.description}</p>
                             </div>
                         </div>

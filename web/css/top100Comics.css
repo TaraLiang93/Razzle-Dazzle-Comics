@@ -4,15 +4,26 @@
 
 }
 
-.latestChapter {
+.topComics {
     height: 30vh;
 }
 
-.latestChapter div {
-    height:80%;
-    padding: 0;
+form.topComic {
+    height: 60vh;
 }
 
-.topComicsList {
-    overflow-y: scroll;
+.topComics div {
+    height:80%;
+    padding: 0;
+
 }
+
+.filterBox {
+    margin-bottom: 3%;
+}
+
+.comicsList {
+    overflow-y: scroll;
+    height:65vh;
+}
+
