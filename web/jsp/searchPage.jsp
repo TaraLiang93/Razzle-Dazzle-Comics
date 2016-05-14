@@ -4,11 +4,22 @@
     <jsp:param name="css" value="/css/searchPage.css"/>
 </jsp:include>
 
+<script src="/js/projectAdminPage.js"></script>
 
 <div class="searchResultsList col-xs-9 content-border">
 
  <c:forEach var="s" items="${seriesResults}">
-    <div class="love"
+    <div id="${s.seriesID}" class="searchResult col-xs-12 content-border series">
+        <div class="col-xs-2 content-border seriesImg">
+            <img src="${s.seriesCover}" class="seriesIcon" />
+        </div>
+        <div class="col-xs-10">
+            <h3 class="seriesTitle">${s.title}</h3>
+            <div class="seriesDescription">
+                <textarea class="form-control searchDescrip" readonly>${s.description}</textarea>
+            </div>
+        </div>
+    </div>
  </c:forEach>
 
 </div>
