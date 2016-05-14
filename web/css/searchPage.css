@@ -1,0 +1,16 @@
+
+.filterBoxes {
+    margin-right: auto;
+    margin-left: auto;
+    overflow-x: scroll;
+    height: 40%;
+}
+
+.refineSerch {
+    height:70vh;
+}
+
+.searchResultsList {
+    overflow-x: scroll;
+    height: 70vh;
+}
