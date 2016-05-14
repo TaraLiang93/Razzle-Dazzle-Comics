@@ -2,6 +2,7 @@
 <jsp:include page="header.jsp">
     <jsp:param name="title" value="${searchTitle} Results"/>
     <jsp:param name="css" value="/css/searchPage.css"/>
+    <jsp:param name="js" value="/js/searchPage.js"/>
 </jsp:include>
 
 <script src="/js/projectAdminPage.js"></script>
