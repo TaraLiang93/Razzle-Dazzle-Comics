@@ -79,7 +79,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="#">Top 100</a></li>
                                 <li><a href="#">Genres</a></li>
-                                <li><a href="#">Latest Release</a></li>
+                                <li><a href="/read/newReleases">Latest Release</a></li>
                                <c:if test="${true}"><li><a href="#">Bookmarked</a></li></c:if>
                             </ul>
                         </li>
