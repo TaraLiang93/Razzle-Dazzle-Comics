@@ -23,8 +23,10 @@
                 </a>
                 <div class="memberList">
                     <c:forEach var="member" items="${teamMembers}" >
+                        <span>
                         <p title="Member">${member.userData.nickName}</p>
-                        <div id="${member.userData.nickName}ID" style="display: none">${member.userData.userName}</div>
+                        <div class="teamMember" style="display: none">${member.userData.userName}</div>
+                        </span>
                     </c:forEach>
                 </div>
             </div>

@@ -43,6 +43,7 @@ $(document).ready(function(){
                "</select>" +
                "<i class='fa fa-times btn deleteMember' id='"+index+"' aria-hidden='true'></i>" +
                "</div>" +
+               "<div class='userName' style='display: none;'>"+$(this).parent().find(".teamMember").text()+"</div>" +
                "</div>";
 
            $("#teamBody").append(code);
@@ -56,18 +57,20 @@ $(document).ready(function(){
         console.log("team modal open");
         $(".deleteMember").click(deleteMember = function(){
             var selector = "#" +$(".name").get(this.getAttribute("id")).innerHTML + "ID";
-            var userName = $(selector).text();
+            var parent = $(this).parent().parent();
+            var userName = parent.find(".userName").text();
             console.log("plz delete "+$(".name").get(this.getAttribute("id")).innerHTML);
             var jsonObj = {"chapterID": chapterId.text(), "removeMember": userName};
             $.post("/create/chapter/removeMember", jsonObj)
                 .done(function(){
                     //$(".name").get(this.getAttribute("id")).parentNode.removeChild($(".name").get(this.getAttribute("id")));
-                    var selector = "#"+userName.substring(0,userName.indexOf("@"));
-                    $(selector).remove();
+                    //var selector = "#"+userName.substring(0,userName.indexOf("@"));
+                    //$(selector).remove();
 
-                    $(".memberList p").each(function(){
-                        if($(this).text() == userName.substring(0,userName.indexOf("@")) ){
-                            $(this).remove();
+                    $(".memberList .teamMember").each(function(){
+                        if($(this).text() == userName ){
+                            parent.remove();
+                            $(this).parent().remove();
                             return;
                         }
                     });
@@ -108,11 +111,21 @@ $(document).ready(function(){
                         "</select>" +
                         "<i class='fa fa-times btn deleteMember' id='"+$('.indMemeber').length+"' aria-hidden='true'></i>" +
                         "</div>" +
+                        "<div class='userName' style='display: none;'>"+$("#newMember").val()+"</div>" +
                         "</div>";
 
 
                     $("#teamBody").append(code);
-                    $(".memberList").append("<p title='Member'>"+newMember+"</p>");
+                    $(".memberList").append(
+                        $("<span></span>").append(
+                            $("<p></p>").html(newMember).attr("title","Member"),
+                            $("<div></div>").html($("#newMember").val()).addClass("teamMember").css("display","none")
+                        )
+
+                    );
+                    //$(".memberList").append("<p title='Member'>"+newMember+"</p>");
+                    //$(".memberList").append("<div class='teamMember' style='display: none'>"+$("#newMember").val()+"</div>");
+                    $("#newMember").val("");
                     $(".deleteMember").bind("click",deleteMember);
                     console.log("Team member was added");
                 })
