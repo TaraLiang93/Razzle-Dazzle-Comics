@@ -8,7 +8,7 @@
 <div class="searchResultsList col-xs-9 content-border">
 
  <c:forEach var="s" items="${seriesResults}">
-
+    <div class="love"
  </c:forEach>
 
 </div>
