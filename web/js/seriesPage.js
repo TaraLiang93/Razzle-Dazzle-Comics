@@ -76,4 +76,21 @@ $("document").ready(function(){
         $("#uploadChapterModal").modal("show");
     });
 
+    $(".publishToggle").click(function(){
+
+        $.post("/create/publish",{seriesID : $("#seriesID").text()})
+            .done(function(){
+                var current = $(this);
+                console.log("the series has been publshed");
+                var swap1 = current.text();
+                var swap2 = current.attr("title");
+
+                current.text(swap2);
+                current.attr("title",swap1);
+            })
+            .fail(function(){
+                console.log("Failed to unpublish page");
+            });
+    })
+
 });

@@ -8,11 +8,14 @@ import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
+import com.data.api.interfaces.Readable;
+import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetSeriesByIDCommand;
 import com.data.api.updatables.ChapterUpdater;
 import com.data.api.updatables.SeriesUpdater;
 import com.data.api.updatables.updateTasks.UpdateChapterAddPublishedPageTask;
 import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
+import com.data.api.updatables.updateTasks.UpdateSeriesToggleVisibilityTask;
 import com.data.creation.Chapter;
 import com.data.creation.PublishedPage;
 import com.data.structure.Series;
@@ -21,12 +24,10 @@ import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -107,6 +108,23 @@ public class PublishController {
 
 
         return new ModelAndView("redirect:/create/series/load/" + seriesID);
+    }
+
+    @RequestMapping(value="/create/publish", method= RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public void publishChapter(@RequestParam String seriesID){
+
+        Readable<Series> seriesReadable = new GetSeriesByIDCommand(seriesID);
+        Updateable<Series> seriesUpdateable = new SeriesUpdater();
+        try {
+            seriesUpdateable.updateEntity(seriesReadable, new UpdateSeriesToggleVisibilityTask());
+        } catch (FetchException e) {
+            e.printStackTrace();
+        } catch (UpdateException e) {
+            e.printStackTrace();
+        } catch (CreateException e) {
+            e.printStackTrace();
+        }
     }
 
 

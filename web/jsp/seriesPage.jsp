@@ -36,7 +36,7 @@
 
                  <button id="addChapter" type="button" class="btn btn-default addUnpublish">Add Chapter</button>
                 <button id="uploadChapter" type="button" class="btn btn-default addUnpublish">Upload Chapter</button>
-                 <button type="button" class="btn btn-default addUnpublish">${series.published eq true ? "Unpublish Series" : "Publish Series"}</button>
+                 <button type="button" title="${series.published ne true ? "Unpublish" : "Publish"}" class="btn btn-default addUnpublish publishToggle">${series.published eq true ? "Unpublish" : "Publish"}</button>
             </div>
 
              <%--LEFT SIDE: SERIES CHAPTER   --%>
@@ -116,5 +116,7 @@
 <jsp:include page="uploadChapter.jsp">
     <jsp:param name="seriesID" value="${series.seriesID}"/>
 </jsp:include>
+
+<div id="seriesID" style="display: none">${series.seriesID}</div>
 
 <jsp:include page="footer.jsp"/>

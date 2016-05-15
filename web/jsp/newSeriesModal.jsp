@@ -65,8 +65,8 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <c:forEach var="genre" items="${genres}">
-                                        <div class="checkbox col-xs-2">
-                                            <label><input type="checkbox" name=${genre.name} value="${genre.name}">${genre.name}</label>
+                                        <div class="checkbox">
+                                            <label class="col-xs-2"><input type="checkbox" name=${genre.name} value="${genre.name}">${genre.name}</label>
                                         </div>
                                     </c:forEach>
                                 </div>
