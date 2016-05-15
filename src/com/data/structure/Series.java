@@ -47,6 +47,9 @@ public class Series {
         genreList = new ArrayList<>();
         createDate = new Date();
         published = false;
+        views = 0;
+        title = "";
+        description = "";
     }
 
     public Long getSeriesID() {
