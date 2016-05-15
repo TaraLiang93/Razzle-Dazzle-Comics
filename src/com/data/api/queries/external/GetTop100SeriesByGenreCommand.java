@@ -62,7 +62,7 @@ public class GetTop100SeriesByGenreCommand extends Readable{
         Collections.sort( seriesList , new SeriesViewsComparator() );
 
         Map<Key<Series>, Series> map = new HashMap<>();
-        for( int i = 0; i < numberOfSeries; i++){
+        for( int i = 0; i < numberOfSeries && i< seriesList.size(); i++){
             Series series = seriesList.get(i);
             map.put( series.getKey(), series );
         }
