@@ -17,7 +17,7 @@
     <div class="col-xs-8 col-xs-offset-2">
         <c:if test="${currentGenre.series ne null}">
         <c:forEach var="series" items="${currentGenre.series}">
-            <form action="/read/${series.title}" method="post" class="col-xs-3 genre" class="genreForm">
+            <form action="/read/${series.title}" method="post" class="col-xs-3 genre">
                 <div class="content-border text-center">
                     <img class="genreImg" src="${series.seriesCover}"/>
                 </div>

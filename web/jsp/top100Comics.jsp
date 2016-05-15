@@ -29,12 +29,12 @@
 
     <div class="comicsList col-xs-8">
         <c:forEach var="s" items="${series}">
-            <form action="/read/${s.title}" method="post" class="topComics col-xs-4">
+            <form action="/read/${s.title}" method="post" class="topComics col-xs-4" style="margin-bottom: 1%;">
                 <input type="text" name="seriesID" style="display: none" value="${s.seriesID}"/>
                 <div class="content-border text-center">
                     <img class="chapterImg" src="${s.seriesCover}"/>
                 </div>
-                <p class="text-center chapterTitle">${s.title}</p>
+                <p class="text-center chapterTitle" style="margin-bottom: 0;">${s.title}</p>
                 <p class="text-center views">${s.views} views</p>
             </form>
         </c:forEach>
