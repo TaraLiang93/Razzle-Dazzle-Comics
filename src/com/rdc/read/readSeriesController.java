@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class readSeriesController {
 
-    @RequestMapping(value ="/read/{series}", method = RequestMethod.GET)
+    @RequestMapping(value ="/read/{series}", method = RequestMethod.POST)
     public ModelAndView loadSeries(@RequestParam String seriesID, ModelMap map) {
 
         Readable<Series> seriesReadable = new GetSeriesByIDCommand(seriesID);

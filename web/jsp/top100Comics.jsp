@@ -17,7 +17,7 @@
 
 <div class="top100Comics">
     <div class="topComic col-xs-4">
-        <form action="/read/${topSeries.title}" method="get" class="topComic topComics  col-xs-12" id="${topSeries.seriesID}">
+        <form action="/read/${topSeries.title}" method="post" class="topComic topComics  col-xs-12" id="${topSeries.seriesID}">
             <input type="text" name="seriesID" style="display: none" value="${topSeries.seriesID}"/>
             <div class="content-border text-center">
                 <img class="chapterImg" src="${topSeries.seriesCover}"/>
@@ -29,7 +29,7 @@
 
     <div class="comicsList col-xs-8">
         <c:forEach var="s" items="${series}">
-            <form action="/read/${s.title}" method="get" class="topComics col-xs-4">
+            <form action="/read/${s.title}" method="post" class="topComics col-xs-4">
                 <input type="text" name="seriesID" style="display: none" value="${s.seriesID}"/>
                 <div class="content-border text-center">
                     <img class="chapterImg" src="${s.seriesCover}"/>
