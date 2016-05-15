@@ -17,12 +17,12 @@
 
 <div class="col-xs-8 col-xs-offset-2">
     <div class="latestChapters">
-        <c:forEach var="chapter" items="${chapters}">
-            <form  class="latestChapter col-xs-3" id="${chapter.chapterId}">
+        <c:forEach var="s" items="${series}">
+            <form  class="latestChapter col-xs-3" id="${s.seriesID}">
                 <div class="content-border text-center">
-                    <img class="chapterImg" src="${chapter.chapterCover}"/>
+                    <img class="chapterImg" src="${s.seriesCover}"/>
                 </div>
-                <p class="text-center chapterTitle">${chapter.title}</p>
+                <p class="text-center chapterTitle">${s.title}</p>
             </form>
         </c:forEach>
     </div>

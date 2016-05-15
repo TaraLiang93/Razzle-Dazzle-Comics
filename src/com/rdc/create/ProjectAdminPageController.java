@@ -2,7 +2,9 @@ package com.rdc.create;
 
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
+import com.data.api.queries.external.GetGenresCommand;
 import com.data.api.queries.external.GetSeriesOfUserDataCommand;
+import com.data.structure.Genre;
 import com.data.structure.Series;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
@@ -35,6 +37,14 @@ public class ProjectAdminPageController {
             List<Series> seriesList = getUserSeries.fetch().getList();
             map.put("series",seriesList);
 
+        } catch (FetchException e) {
+            e.printStackTrace();
+        }
+
+        Readable<Genre> genreReadable = new GetGenresCommand();
+        try {
+            List<Genre> genres = genreReadable.fetch().getList();
+            map.put("genres",genres);
         } catch (FetchException e) {
             e.printStackTrace();
         }

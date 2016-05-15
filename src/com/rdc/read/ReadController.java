@@ -51,15 +51,10 @@ public class ReadController {
 
 
         List<Chapter> chapters = new LinkedList<>();
-        Readable<Series> seriesReadable = new GetSeriesOfUserDataCommand(UserServiceFactory.getUserService().getCurrentUser());
+        Readable<Series> seriesReadable = new GetLatestReleasedSeriesCommand(GETMAXSERIES/10);
         try {
             List<Series> series = seriesReadable.fetch().getList();
-            for(Series s : series){
-                for(Chapter c : s.getChapters()){
-                    chapters.add(c);
-                }
-            }
-            map.put("chapters",chapters);
+            map.put("series",series);
         } catch (FetchException e) {
             e.printStackTrace();
         }
