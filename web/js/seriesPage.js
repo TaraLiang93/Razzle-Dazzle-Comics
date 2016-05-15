@@ -78,9 +78,9 @@ $("document").ready(function(){
 
     $(".publishToggle").click(function(){
 
+        var current = $(this);
         $.post("/create/publish",{seriesID : $("#seriesID").text()})
             .done(function(){
-                var current = $(this);
                 console.log("the series has been publshed");
                 var swap1 = current.text();
                 var swap2 = current.attr("title");
