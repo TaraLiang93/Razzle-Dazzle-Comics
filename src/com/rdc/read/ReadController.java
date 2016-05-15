@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -108,10 +109,19 @@ public class ReadController {
         return new ModelAndView("genres");
     }
 
-    @RequestMapping(value ="/read/genres/{genreName}", method = RequestMethod.GET)
-    public ModelAndView loadGenreList(@PathVariable String genreName, ModelMap map) {
+    @RequestMapping(value ="/read/genres/{genreName}", method = RequestMethod.POST)
+    public ModelAndView loadGenreList(HttpServletRequest req, ModelMap map) {
 
-//        Readable<Genre> genreReadable = new GetTop100SeriesByGenreCommand();
+        String genreID = req.getParameter("genreID");
+
+        Readable<Genre> genreReadable = new GetGenreByIDCommand(genreID);
+
+        try {
+            Genre genre = genreReadable.fetch().getResult();
+            map.put("currentGenre",genre);
+        } catch (FetchException e) {
+            e.printStackTrace();
+        }
 
         return new ModelAndView("genresList");
     }

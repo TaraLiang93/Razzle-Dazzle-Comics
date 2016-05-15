@@ -29,8 +29,10 @@
                     <c:choose>
                         <c:when test="${series.genres ne null}">
                             <c:forEach var="genre" items="${series.genres}">
-                                <span class="col-xs-2">${genre}</span>
-                                <span>,</span>
+                                <form action="/read/genres/${genre.name}" method="post">
+                                    <button type="submit">${genre.name}</button>
+                                    <input type="text" style="display: none;" name="genreID" value="${genre.id}"/>
+                                </form>
                             </c:forEach>
                         </c:when>
                         <c:otherwise>

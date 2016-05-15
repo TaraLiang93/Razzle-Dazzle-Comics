@@ -1,11 +1,17 @@
 package com.data.structure;
 
+import com.data.api.exceptions.FetchException;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.external.GetGenreByIDCommand;
+import com.data.api.queries.internal.GetEntityFromKeyCommand;
+import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -63,4 +69,19 @@ public class Genre {
     public String getImageSrc() { return imageSrc; }
 
     public void setImageSrc(String imageSrc) { this.imageSrc = imageSrc; }
+
+    public List<Series> getSeries(){
+        List<Series> seriesList;
+
+        Readable<Series> seriesReadable = new GetEntityListFromKeyListCommand<>(this.seriesList);
+
+        try {
+            seriesList = seriesReadable.fetch().getList();
+        } catch (FetchException e) {
+            seriesList = new ArrayList<>();
+        }
+
+
+        return seriesList;
+    }
 }
