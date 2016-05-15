@@ -1,15 +1,21 @@
 package com.data.api.queries.external;
 
+import com.data.api.containers.MapContainer;
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
+import com.data.api.queries.Comparators.SeriesViewsComparator;
+import com.data.api.queries.internal.GetEntityListFromKeyListCommand;
+import com.data.structure.Genre;
 import com.data.structure.Series;
 import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.googlecode.objectify.Key;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static com.googlecode.objectify.ObjectifyService.ofy;
 
 /**
  * Created by Zhenya on 5/1/16.
@@ -39,7 +45,30 @@ public class GetTop100SeriesByGenreCommand extends Readable{
             throw new FetchException("genreNameList invalid");
         }
 
+
+
+        List<Series> seriesList = new ArrayList<>();
+        for( String genreName: genreNameList){
+            //query for the genre
+            Filter filter = new FilterPredicate("name",
+                    FilterOperator.EQUAL,
+                    genreName);
+            Genre genre = ofy().load().type(Genre.class).filter( filter ).first().now();
+            Readable<Series> seriesReadable = new GetEntityListFromKeyListCommand<>( genre.getSeriesList() );
+            seriesList.addAll( seriesReadable.fetch().getList() );
+
+        }
+
+        Collections.sort( seriesList , new SeriesViewsComparator() );
+
         Map<Key<Series>, Series> map = new HashMap<>();
+        for( int i = 0; i < numberOfSeries; i++){
+            Series series = seriesList.get(i);
+            map.put( series.getKey(), series );
+        }
+
+        MapContainer<Series> seriesMapContainer = new MapContainer<>(map);
+        return seriesMapContainer;
 
     }
 }
