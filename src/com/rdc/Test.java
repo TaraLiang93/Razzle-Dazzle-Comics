@@ -995,6 +995,43 @@ public class Test {
 
 */
 
+    @RequestMapping(value="/testGenre", method= RequestMethod.GET)
+    public ModelAndView testGenre(HttpSession session, ModelMap map)  {
+        try {
+
+
+            ArrayList<String> genres = new ArrayList<>();
+            genres.add("Crime");
+            genres.add("Political");
+            genres.add("Design");
+            genres.add("Romance");
+            genres.add("SuperHero");
+            genres.add("Fantasy");
+            genres.add("War");
+            genres.add("Western");
+            genres.add("Science Fiction");
+            genres.add("Alternative");
+            genres.add("Teen Humor");
+
+
+
+
+            for( int i = 0; i < genres.size(); i++){
+                Createable<Genre> genreCreateable = new GenreCreater( genres.get(i) );
+                genreCreateable.createEntity(new GenreFillCommand());
+            }
+
+            for( Genre genre : ofy().load().type(Genre.class).list()){
+                System.out.println( genre.getName() );
+            }
+        }
+        catch (CreateException | FetchException e){
+            e.printStackTrace();
+        }
+
+        return new ModelAndView("test3");
+    }
+
 
 
 }
