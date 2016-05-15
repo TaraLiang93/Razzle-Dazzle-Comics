@@ -41,7 +41,7 @@ public class LoginController {
     public static final String LOGIN = "/login";
     public static final String HOME = "/";
     public static final String LOGOUT = "/logout";
-    public static final int GENRE_SIZE = 16;
+    public static final int GENRE_SIZE = 8;
 
     @RequestMapping(value=HOME, method= RequestMethod.GET)
     public ModelAndView homepage(HttpSession session, ModelMap map){
@@ -57,8 +57,6 @@ public class LoginController {
         }
         globals.setStatus("home");
 
-        List<Genre> globalsGenres  = ofy().load().type(Genre.class).list();
-
         if(ofy().load().type(Genre.class).list().size() != GENRE_SIZE) {
             try {
 
@@ -68,29 +66,28 @@ public class LoginController {
                 }
                 ArrayList<String> genres = new ArrayList<>();
                 genres.add("Action");
-                genres.add("Crime");
-                genres.add("Political");
                 genres.add("Drama");
                 genres.add("Romance");
-                genres.add("SuperHero");
                 genres.add("Fantasy");
-                genres.add("War");
-                genres.add("Western");
                 genres.add("Science Fiction");
-                genres.add("Alternative");
                 genres.add("Comedy");
-                genres.add("Tradegy");
                 genres.add("Slice of life");
-                genres.add("Horror");
-                genres.add("Documentary");
-
+                genres.add("Thriller");
+                ArrayList<String> genreImgs = new ArrayList<>();
+                genreImgs.add("/img/ActionGenre.jpg");
+                genreImgs.add("/img/Drama.png");
+                genreImgs.add("/img/Romance.jpg");
+                genreImgs.add("/img/Fantasy.jpg");
+                genreImgs.add("/img/scfi.jpg");
+                genreImgs.add("/img/Comedy.jpg");
+                genreImgs.add("/img/sliceoflife.jpg");
+                genreImgs.add("/img/thriller.jpg");
 
 
                 for (int i = 0; i < genres.size(); i++) {
-                    Createable<Genre> genreCreateable = new GenreCreater(genres.get(i));
+                    Createable<Genre> genreCreateable = new GenreCreater(genres.get(i),genreImgs.get(i));
                     genreCreateable.createEntity(new GenreFillCommand());
                 }
-                globalsGenres  = ofy().load().type(Genre.class).list();
 //            for( Genre genre : ofy().load().type(Genre.class).list()){
 //                System.out.println( genre.getName() );
 //            }

@@ -15,14 +15,16 @@
 <h2>Genre's</h2>
 <div class="genreList col-xs-12 content-border">
 
+    <div class="col-xs-8 col-xs-offset-2">
     <c:forEach var="genre" items="${genres}">
-        <div class="col-xs-2 genre" id="${genre.name}">
+        <div class="col-xs-3 genre" id="${genre.name}">
             <div class="content-border text-center">
-                <%--<img class="genreImg" src="${genre}"/>--%>
+                <img class="genreImg" src="${genre.imageSrc}"/>
             </div>
             <p class="text-center genreName">${genre.name}</p>
         </div>
     </c:forEach>
+    </div>
 
 </div>
 

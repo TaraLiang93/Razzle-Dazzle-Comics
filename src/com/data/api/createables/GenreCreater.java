@@ -11,9 +11,15 @@ import com.data.structure.Genre;
  */
 public class GenreCreater extends Createable<Genre> {
     String genreName;
+    String imageSrc;
 
     public GenreCreater( String genreName){
         this.genreName = genreName;
+    }
+
+    public GenreCreater( String genreName, String imageSrc){
+        this.genreName = genreName;
+        this.imageSrc = imageSrc;
     }
 
     @Override
@@ -21,6 +27,7 @@ public class GenreCreater extends Createable<Genre> {
         Genre genre = new Genre();
 
         genre.setName(this.genreName);
+        genre.setImageSrc(this.imageSrc);
 
         return genre;
     }

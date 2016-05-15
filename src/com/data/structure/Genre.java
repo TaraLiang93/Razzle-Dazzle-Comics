@@ -19,6 +19,8 @@ public class Genre {
     @Index
     String name;
 
+    String imageSrc;
+
     List<Key<Series>> seriesList;
 
 
@@ -58,4 +60,7 @@ public class Genre {
         this.name = name;
     }
 
+    public String getImageSrc() { return imageSrc; }
+
+    public void setImageSrc(String imageSrc) { this.imageSrc = imageSrc; }
 }
