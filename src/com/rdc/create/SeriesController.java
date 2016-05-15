@@ -7,18 +7,21 @@ import com.data.api.exceptions.FetchException;
 import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
-import com.data.api.queries.external.GetChaptersOfSeriesCommand;
-import com.data.api.queries.external.GetSeriesByIDCommand;
-import com.data.api.queries.external.GetUserDataByUserCommand;
+import com.data.api.queries.external.*;
+import com.data.api.updatables.GenreUpdater;
 import com.data.api.updatables.SeriesUpdater;
 import com.data.api.updatables.UserDataUpdater;
+import com.data.api.updatables.updateTasks.UpdateGenreAddSeriesTask;
+import com.data.api.updatables.updateTasks.UpdateSeriesAddGenreTask;
 import com.data.api.updatables.updateTasks.UpdateSeriesEditDescriptionTask;
 import com.data.api.updatables.updateTasks.UpdateUserDataAddSeriesTask;
 import com.data.creation.Chapter;
+import com.data.structure.Genre;
 import com.data.structure.Series;
 import com.google.appengine.api.blobstore.*;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.sun.tools.javac.jvm.Gen;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -29,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -117,6 +121,21 @@ public class SeriesController {
             System.out.println("Artist : " + artist);
             System.out.println("Description : " + description);
 
+            Readable<Genre> genreReadable = new GetGenresCommand();
+            List<Genre> newGenres = new ArrayList<>();
+
+            try {
+                List<Genre> genres = genreReadable.fetch().getList();
+
+                for(Genre genre : genres){
+                    if(req.getParameter(genre.getName()) != null)
+                        newGenres.add(genre);
+                }
+
+            } catch (FetchException e) {
+                e.printStackTrace();
+            }
+
 
             System.out.println("Referer: " + referer);
 
@@ -150,6 +169,26 @@ public class SeriesController {
                                         new GetUserDataByUserCommand(user),
                                         new UpdateUserDataAddSeriesTask(series));
                         redirect = "forward:/create/series/load/" + series.getSeriesID();
+
+                        Updateable<Genre> genreUpdateable;
+                        Readable<Series> seriesReadable = new GetSeriesByIDCommand(series.getSeriesID());
+                        Updateable<Series> seriesUpdateable = new SeriesUpdater();
+                        for(Genre genre : newGenres){
+                            genreReadable = new GetGenreByIDCommand(genre.getId());
+
+                            genreUpdateable =  new GenreUpdater();
+
+                            genreUpdateable
+                                    .updateEntity(genreReadable,
+                                            new UpdateGenreAddSeriesTask(series.getSeriesID().toString()));
+
+                            seriesUpdateable.updateEntity(seriesReadable,
+                                    new UpdateSeriesAddGenreTask(genre.getId().toString()));
+
+                        }
+
+
+
                     } catch (CreateException | FetchException | UpdateException e) {
                         redirect = referer;
                         e.printStackTrace();
