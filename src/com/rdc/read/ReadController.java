@@ -2,9 +2,9 @@ package com.rdc.read;
 
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
-import com.data.api.queries.external.GetChaptersOfSeriesCommand;
-import com.data.api.queries.external.GetSeriesOfUserDataCommand;
+import com.data.api.queries.external.*;
 import com.data.creation.Chapter;
+import com.data.structure.Genre;
 import com.data.structure.Series;
 import com.google.appengine.api.users.UserServiceFactory;
 import org.springframework.stereotype.Controller;
@@ -25,6 +25,7 @@ import java.util.List;
 public class ReadController {
 
     public static final String READCOMICS = "/read";
+    public static final Integer GETMAXSERIES = 100;
 
 
     @RequestMapping(value = READCOMICS, method = RequestMethod.GET)
@@ -39,13 +40,15 @@ public class ReadController {
     public ModelAndView loadLatestComicsPage(ModelMap map) {
 
 
-        List<String> genreList = new LinkedList<>();
-        genreList.add("Action");
-        genreList.add("Gays");
-        genreList.add("Fun");
-        genreList.add("School life");
-        genreList.add("Crime");
-        map.put("genres",genreList);
+        Readable<Genre> genreReadable = new GetGenresCommand();
+        List<Genre> genreList = null;
+        try {
+            genreList = genreReadable.fetch().getList();
+            map.put("genres",genreList);
+        } catch (FetchException e) {
+            e.printStackTrace();
+        }
+
 
         List<Chapter> chapters = new LinkedList<>();
         Readable<Series> seriesReadable = new GetSeriesOfUserDataCommand(UserServiceFactory.getUserService().getCurrentUser());
@@ -66,23 +69,25 @@ public class ReadController {
     @RequestMapping(value ="/read/topComics", method = RequestMethod.GET)
     public ModelAndView loadTopComicPage(ModelMap map) {
 
-        List<String> genreList = new LinkedList<>();
-        genreList.add("Action");
-        genreList.add("Gays");
-        genreList.add("Fun");
-        genreList.add("School life");
-        genreList.add("Crime");
+        Readable<Genre> genreReadable = new GetGenresCommand();
+        List<Genre> genreList = null;
+        try {
+            genreList = genreReadable.fetch().getList();
+        } catch (FetchException e) {
+            e.printStackTrace();
+        }
         map.put("genres",genreList);
 
-        List<Chapter> chapters = new LinkedList<>();
-        Readable<Series> seriesReadable = new GetSeriesOfUserDataCommand(UserServiceFactory.getUserService().getCurrentUser());
+        Readable<Series> seriesReadable = new GetTopSeriesCommand(GETMAXSERIES);
         try {
             List<Series> series = seriesReadable.fetch().getList();
 
-            Series topSeries = series.get(0);
-            series.remove(0);
+            if(series.size() > 0) {
+                Series topSeries = series.get(0);
+                series.remove(0);
 
-            map.put("topSeries",topSeries);
+                map.put("topSeries", topSeries);
+            }
             map.put("series",series);
         } catch (FetchException e) {
             e.printStackTrace();
@@ -95,11 +100,23 @@ public class ReadController {
     @RequestMapping(value ="/read/genres", method = RequestMethod.GET)
     public ModelAndView loadGenrePage(ModelMap map) {
 
+        Readable<Genre> genreReadable = new GetGenresCommand();
+
+        List<Genre> genres = null;
+        try {
+            genres = genreReadable.fetch().getList();
+        } catch (FetchException e) {
+            e.printStackTrace();
+        }
+        map.put("genres",genres);
+
         return new ModelAndView("genres");
     }
 
     @RequestMapping(value ="/read/genres/{genreName}", method = RequestMethod.GET)
     public ModelAndView loadGenreList(@PathVariable String genreName, ModelMap map) {
+
+//        Readable<Genre> genreReadable = new GetTop100SeriesByGenreCommand();
 
         return new ModelAndView("genresList");
     }

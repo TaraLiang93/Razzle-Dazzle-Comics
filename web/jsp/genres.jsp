@@ -18,7 +18,7 @@
     <c:forEach var="genre" items="${genres}">
         <div class="col-xs-2 genre" id="${genre.name}">
             <div class="content-border text-center">
-                <img class="genreImg" src="${genre.chapterCover}"/>
+                <%--<img class="genreImg" src="${genre}"/>--%>
             </div>
             <p class="text-center genreName">${genre.name}</p>
         </div>

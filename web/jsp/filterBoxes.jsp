@@ -6,7 +6,7 @@
         <c:forEach var="genre" items="${genres}">
             <div class="checkbox">
                 <label type="text" class="col-xs-3">
-                    <input type="checkbox" id="${genre}Genre" name="${genre}Genre"/>${genre}
+                    <input type="checkbox" id="${genre.name}Genre" name="${genre.name}Genre"/>${genre.name}
                 </label>
             </div>
         </c:forEach>
