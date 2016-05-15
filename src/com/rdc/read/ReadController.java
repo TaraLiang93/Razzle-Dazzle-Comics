@@ -9,6 +9,7 @@ import com.data.structure.Series;
 import com.google.appengine.api.users.UserServiceFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -88,6 +89,19 @@ public class ReadController {
         }
 
         return new ModelAndView("top100Comics");
+    }
+
+
+    @RequestMapping(value ="/read/genres", method = RequestMethod.GET)
+    public ModelAndView loadGenrePage(ModelMap map) {
+
+        return new ModelAndView("genres");
+    }
+
+    @RequestMapping(value ="/read/genres/{genreName}", method = RequestMethod.GET)
+    public ModelAndView loadGenreList(@PathVariable String genreName, ModelMap map) {
+
+        return new ModelAndView("genresList");
     }
 
 

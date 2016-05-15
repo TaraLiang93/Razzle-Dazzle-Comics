@@ -1,18 +1,19 @@
-.chapterImg {
+.genreImg {
     width:100%;
     height:100%;
 
 }
 
-.latestChapter {
+.genre {
     height: 30vh;
 }
 
-.latestChapter div {
+.genre div {
     height:80%;
     padding: 0;
 }
 
-.filterBox {
-    margin-bottom: 3%;
+.genreList {
+    height: 65vh;
+    overflow-y: scroll;
 }
