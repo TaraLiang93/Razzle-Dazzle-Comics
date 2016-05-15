@@ -1,4 +1,4 @@
-package com.data.api.queries.external;
+package com.data.api.updatables.updateTasks;
 
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
@@ -6,6 +6,7 @@ import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.UpdateTask;
+import com.data.api.queries.external.GetGenreByIDCommand;
 import com.data.structure.Genre;
 import com.data.structure.Series;
 
