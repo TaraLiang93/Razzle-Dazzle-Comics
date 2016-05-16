@@ -5,15 +5,14 @@
     <jsp:param name="js" value="/js/searchPage.js"/>
 </jsp:include>
 
-<script src="/js/projectAdminPage.js"></script>
-
 <div class="searchResultsList col-xs-9 content-border">
 
  <c:forEach var="s" items="${seriesResults}">
-    <div id="${s.seriesID}" class="searchResult col-xs-12 content-border series filter">
+    <form action="/read/${s.title}" method="post" id="${s.seriesID}" class="searchResult col-xs-12 content-border series filter">
         <c:forEach var="genre" items="${s.genres}">
             <div style="display: none" class="${genre.name}"></div>
         </c:forEach>
+        <input type="text" style="display: none;" name="seriesID" value="${s.seriesID}"/>
         <div class="col-xs-2 content-border seriesImg">
             <img src="${s.seriesCover}" class="seriesIcon" />
         </div>
@@ -23,7 +22,7 @@
                 <textarea class="form-control searchDescrip" readonly>${s.description}</textarea>
             </div>
         </div>
-    </div>
+    </form>
  </c:forEach>
 
 </div>

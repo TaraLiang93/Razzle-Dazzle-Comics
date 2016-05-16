@@ -5,4 +5,10 @@
 
 $(document).ready(function() {
 
+    $(".series").each(function(){
+        $(this).click(function(){
+            $(this).submit();
+        });
+    })
+
 });
