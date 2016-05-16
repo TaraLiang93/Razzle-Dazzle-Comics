@@ -2,12 +2,15 @@
  * Created by Jason on 4/5/16.
  */
 
+var placeDialog;
+
 $(document).ready(function() {
 
     //$("body").height($(window).height);
     $(".dialog").each(function(){
-        $(this).click(function() {
+        $(this).click(placeDialog=function() {
            console.log($(this).text());
+            addTextStr($(this).text());
         });
     });
 
@@ -29,6 +32,10 @@ $(document).ready(function() {
             canvas.renderAll();
             $("#SettingScene").text(setting);
             $(".diaglogs").html(diaglogs);
+
+            $(".dialog").each(function(){
+                $(this).on("click",placeDialog);
+            });
         }
 
     });

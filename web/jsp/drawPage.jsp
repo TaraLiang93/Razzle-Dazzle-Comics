@@ -9,13 +9,13 @@
 <jsp:include page="header.jsp">
     <jsp:param name="title" value="Draw Page"/>
     <jsp:param name="css" value="/css/drawPage.css" />
-    <jsp:param name="js" value="/js/drawpage.js"/>
+    <jsp:param name="js" value="/js/drawingtool.js"/>
 </jsp:include>
 
 <link rel="stylesheet" type="text/css" href="/css/drawing.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
-<script src="/js/drawingtool.js"></script>
+<script src="/js/drawpage.js"></script>
 <script src="/js/fabric.js"></script>
 <script src="/js/drawing.js"></script>
 <div style="width:100vw;">
@@ -59,29 +59,32 @@
             </div>
         </c:forEach>
 
-        <%--<div class="scene content-border selected">--%>
-            <%--<h4>Scene 1</h4>--%>
-            <%--<div class="canvasImage" >{"objects":[{"type":"circle","originX":"left","originY":"top","left":0,"top":0,"width":150,"height":150,"fill":"#000000","stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","globalCompositeOperation":"source-over","transformMatrix":null,"radius":75,"startAngle":0,"endAngle":6.283185307179586}],"background":""}</div>--%>
-            <%--<div class="SceneDialogs">--%>
-                <%--<p class="dialog content-border">James: I have a sandwich</p>--%>
-                <%--<p class="dialog content-border">Jason: what kind of sandwich</p>--%>
-                <%--<p class="dialog content-border">Terrell: nah i'm good</p>--%>
-                <%--<p class="dialog content-border">Shakeeb: I can't eat pork</p>--%>
-                <%--<p class="dialog content-border">Tara: Chinese food</p>--%>
-                <%--<p class="dialog content-border">Ben: off to moes</p>--%>
-                <%--<p class="dialog content-border">Danny: I'm ok</p>--%>
-                <%--<p class="dialog content-border">Miu Ki: Let's go get tacos</p>--%>
-            <%--</div>--%>
-            <%--<div class="sceneSetting">Designer Clothes</div>--%>
-        <%--</div>--%>
-        <%--<div class="scene content-border">--%>
-            <%--<h4>Scene 2</h4>--%>
-            <%--<div class="canvasImage" >{"objects":[{"type":"rect","left":50,"top":50,"width":20,"height":20,"fill":"green","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":false,"transparentCorners":true,"perPixelTargetFind":false,"rx":0,"ry":0},{"type":"circle","left":100,"top":100,"width":100,"height":100,"fill":"red","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":false,"transparentCorners":true,"perPixelTargetFind":false,"radius":50}],"background":"rgba(0, 0, 0, 0)"}</div>--%>
-            <%--<div class="SceneDialogs">--%>
-                <%--<p class="dialog content-border">What is love</p>--%>
-            <%--</div>--%>
-            <%--<div class="sceneSetting">I just want to love ohh</div>--%>
-        <%--</div>--%>
+        <div class="scene content-border selected">
+            <h4>Scene 1</h4>
+            <div class="canvasImage" >{"objects":[{"type":"circle","originX":"left","originY":"top","left":0,"top":0,"width":150,"height":150,"fill":"#000000","stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","globalCompositeOperation":"source-over","transformMatrix":null,"radius":75,"startAngle":0,"endAngle":6.283185307179586}],"background":""}</div>
+            <div class="SceneDialogs">
+                <p class="dialog content-border">James: I have a sandwich</p>
+                <p class="dialog content-border">Jason: what kind of sandwich</p>
+                <p class="dialog content-border">Terrell: nah i'm good</p>
+                <p class="dialog content-border">Shakeeb: I can't eat pork</p>
+                <p class="dialog content-border">Tara: Chinese food</p>
+                <p class="dialog content-border">Ben: off to moes</p>
+                <p class="dialog content-border">Danny: I'm ok</p>
+                <p class="dialog content-border">Miu Ki: Let's go get tacos</p>
+            </div>
+            <div class="sceneSetting">Designer Clothes</div>
+        </div>
+        <div class="scene content-border">
+            <h4>Scene 2</h4>
+            <div class="canvasImage" >{"objects":[{"type":"rect","left":50,"top":50,"width":20,"height":20,"fill":"green","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":false,"transparentCorners":true,"perPixelTargetFind":false,"rx":0,"ry":0},{"type":"circle","left":100,"top":100,"width":100,"height":100,"fill":"red","overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":false,"transparentCorners":true,"perPixelTargetFind":false,"radius":50}],"background":"rgba(0, 0, 0, 0)"}</div>
+            <div class="SceneDialogs">
+                <p class="dialog content-border">What is love</p>
+                <p class="dialog content-border">Jesus is My God</p>
+                <p class="dialog content-border">My Lord and My King</p>
+                <p class="dialog content-border">He is my World</p>
+            </div>
+            <div class="sceneSetting">I just want to love ohh</div>
+        </div>
 
 
     </div>
