@@ -9,6 +9,7 @@
                 $(".filter").hide();// hides all the checkboxes
                 $("[type='checkbox']:checked").each(function(){// shows only the checkboxes that are selected
                     var selectClass = "."+$(this).attr("id");
+                    $(".filter").hide();
                     $(selectClass).parent().show();
                 })
 

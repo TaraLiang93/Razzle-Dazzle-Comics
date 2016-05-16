@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,6 +33,33 @@ public class ReadController {
 
     @RequestMapping(value = READCOMICS, method = RequestMethod.GET)
     public ModelAndView loadChapter(@RequestHeader String referer, ModelMap map) {
+
+        Readable<Series> seriesReadable = new GetLatestReleasedSeriesCommand(4);
+        try {
+            List<Series> latestSeries = seriesReadable.fetch().getList();
+            map.put("latestSeries",latestSeries);
+
+            seriesReadable = new GetTopSeriesCommand(4);
+
+            List<Series> popularSeries = seriesReadable.fetch().getList();
+            map.put("popularSeries",popularSeries);
+
+            seriesReadable = new GetSeriesCommand();
+            List<Series> allSeries = seriesReadable.fetch().getList();
+            HashSet<Series> randomSeries = new HashSet<>();
+
+            while(randomSeries.size() < 5) {// grab series at random and then loop until there is 5 series in the map
+                int index = (int) Math.floor(Math.random() * allSeries.size());
+                randomSeries.add(allSeries.get(index));
+            }
+
+            map.put("randomSeries",randomSeries);
+
+
+
+        } catch (FetchException e) {
+            e.printStackTrace();
+        }
 
 
         return new ModelAndView("readComics");
