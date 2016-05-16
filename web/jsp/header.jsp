@@ -13,6 +13,7 @@
 <head>
     <title>${param.title}</title>
 
+    <link rel="icon" type="img/ico" href="/img/favicon.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
