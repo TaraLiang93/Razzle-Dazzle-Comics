@@ -18,7 +18,10 @@
 <div class="col-xs-8 col-xs-offset-2">
     <div class="latestChapters">
         <c:forEach var="s" items="${series}">
-            <form  class="latestChapter col-xs-3" id="${s.seriesID}">
+            <form  class="latestChapter col-xs-3 filter" id="${s.seriesID}">
+                <c:forEach var="genre" items="${s.genres}">
+                    <div style="display: none" class="${genre.name}"></div>
+                </c:forEach>
                 <div class="content-border text-center">
                     <img class="chapterImg" src="${s.seriesCover}"/>
                 </div>

@@ -16,8 +16,11 @@
 <jsp:include page="filterBoxes.jsp" />
 
 <div class="top100Comics">
-    <div class="topComic col-xs-4">
-        <form action="/read/${topSeries.title}" method="post" class="topComic topComics  col-xs-12" id="${topSeries.seriesID}">
+    <div class="topComic col-xs-4 filter">
+        <form action="/read/${topSeries.title}" method="post" class="topComic topComics col-xs-12 " id="${topSeries.seriesID}">
+            <c:forEach var="genre" items="${topSeries.genres}">
+                <div style="display: none" class="${genre.name}"></div>
+            </c:forEach>
             <input type="text" name="seriesID" style="display: none" value="${topSeries.seriesID}"/>
             <div class="content-border text-center">
                 <img class="chapterImg" src="${topSeries.seriesCover}"/>
@@ -29,7 +32,10 @@
 
     <div class="comicsList col-xs-8">
         <c:forEach var="s" items="${series}">
-            <form action="/read/${s.title}" method="post" class="topComics col-xs-4" style="margin-bottom: 1%;">
+            <form action="/read/${s.title}" method="post" class="topComics col-xs-4 filter" style="margin-bottom: 1%;">
+                <c:forEach var="genre" items="${s.genres}">
+                    <div style="display: none" class="${genre.name}"></div>
+                </c:forEach>
                 <input type="text" name="seriesID" style="display: none" value="${s.seriesID}"/>
                 <div class="content-border text-center">
                     <img class="chapterImg" src="${s.seriesCover}"/>
