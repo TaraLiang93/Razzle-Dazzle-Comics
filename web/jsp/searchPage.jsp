@@ -10,7 +10,10 @@
 <div class="searchResultsList col-xs-9 content-border">
 
  <c:forEach var="s" items="${seriesResults}">
-    <div id="${s.seriesID}" class="searchResult col-xs-12 content-border series">
+    <div id="${s.seriesID}" class="searchResult col-xs-12 content-border series filter">
+        <c:forEach var="genre" items="${s.genres}">
+            <div style="display: none" class="${genre.name}"></div>
+        </c:forEach>
         <div class="col-xs-2 content-border seriesImg">
             <img src="${s.seriesCover}" class="seriesIcon" />
         </div>
@@ -25,23 +28,11 @@
 
 </div>
 
-<div class="refineSerch col-xs-2 content-border">
-    <h3>Refine Search</h3>
-    <div class="input-group">
-        <p>Author Name</p>
-        <input type="text" name="filter" class="form-control"/>
-    </div>
-    <div class="form-group">
-        <p>Genre</p>
-        <div class=" filterBoxes content-border">
-            <c:forEach var="genre" items="${genres}">
-                <div class="checkbox">
-                    <label type="text"><input type="checkbox" id="${genre.name}" name="${genre.name}">${genre.name}</label>
-                </div>
-            </c:forEach>
-        </div>
-    </div>
-</div>
+
+
+<jsp:include page="filterBoxes.jsp">
+    <jsp:param name="search" value="search"/>
+</jsp:include>
 
 
 <jsp:include page="footer.jsp"/>
