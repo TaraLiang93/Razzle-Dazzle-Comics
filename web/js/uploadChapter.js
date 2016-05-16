@@ -64,7 +64,7 @@ $(document).ready(function(){
             var code =
                 "<div class='uploadEle col-sm-4'>" +
                     "<img id="+current+" name="+current +"src='/img/chapter_default.jpeg'  onclick='$('#'"+current+").click(newPage);'>"+
-                    "<input class='uploadPage hide' id='input"+current+"' class='hide' type='file' accept='image/*'>"+
+                    "<input class='uploadPage hide' id='input"+current+"' name='file"+current+"' class='hide' type='file' accept='image/*'>"+
                     "<p class='pageNum'>Page"+current+"</p>"+
                 "</div>";
 

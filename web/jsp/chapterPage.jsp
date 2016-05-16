@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: tara
+  User: tara && Jason && Danny
   Date: 4/13/16
   Time: 9:33 PM
   To change this template use File | Settings | File Templates.
@@ -16,6 +16,7 @@
     <div class="outer">
 
         <div class="top">
+            <div class="row">
             <div class="team">
                 <p>Team</p>
                 <a class="btn btn-link change" id="addTeam">
@@ -29,102 +30,80 @@
                         </span>
                     </c:forEach>
                 </div>
+                </div>
             </div>
 
-            <div class="chapterInfo pull-right">
-                <a class="btn btn-link change" id="editChapterInfo">
-                    <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
-                </a>
-                <img src="${chapter.chapterCover}" id="img" class="pull-left">
-                <div class="text pull-right">
-                    <div class="info">
-                        <p style="font-weight: bold">Title:</p>
-                        <p id="chapterTitle">${chapter.title}</p>
+
+                    <div class="chapterInfo pull-right">
+                        <a class="btn btn-link change" id="editChapterInfo">
+                            <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+                        </a>
+                        <img src="${chapter.chapterCover}" id="img" class="pull-left">
+                        <div class="text pull-right">
+                            <div class="info">
+                                <p style="font-weight: bold">Title:</p>
+                                <p id="chapterTitle">${chapter.title}</p>
+                            </div>
+
+                            <div class="info">
+                                <p style="font-weight: bold">#:</p>
+                                <p id="chapterString">${chapter.chapterString}</p>
+                            </div>
+
+                            <div class="btnInfo">
+                                <button type="button" class="btn btn-default pull-right">Deactive</button>
+                            </div>
+                        </div>
+                    </div><%-- End Chapter Info class--%>
+            </div>
+            <div class="row">
+                <div id="bottom" class="pull-right">
+                    <button type="button" class="btn btn-primary" id="addPage">Add Page</button>
+                    <button type="button" class="btn btn-default">Return to Series Page</button>
+                    <button type="button" class="btn btn-primary">Publish Page</button>
+                </div>
+            </div>
+        </div> <%-- End TOP class--%>
+
+
+
+        <div id="flowContainer" class="middle">
+
+            <c:forEach var="flowTask" items="${chapter.flow.flowTasks}">
+                <div class="flow">
+                    <div class="row-fluid">
+                        <p>${flowTask.flowTaskName}</p>
                     </div>
+                    <div class="flowBody">
+                        <ul class="list-group">
+                        <c:forEach var="page" items="${pages}">
+                            <c:if test="${flowTask.flowTaskName eq page.flowTaskEntity.flowTaskName}">
+                                <%--<div class="row">--%>
+                                    <li class="list-group-item mItem">
+                                        <div class="flowTask">
+                                            <div class="">
+                                                <h3>${page.title}</h3>
+                                                ${page.summary}
+                                            </div>
+                                        </div>
+                                    </li>
 
-                    <div class="info">
-                        <p style="font-weight: bold">#:</p>
-                        <p id="chapterString">${chapter.chapterString}</p>
+                                <%--</div>--%>
+                            </c:if>
+                        </c:forEach>
+                        </ul>
                     </div>
+                </div>
+            </c:forEach>
 
-                    <div class="btnInfo">
-                        <button type="button" class="btn btn-default pull-right">Deactive</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <%--<button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target='#writeTaskModal'>--%>
+                <%--${page.pageName}--%>
+            <%--</button>--%>
 
-        <div class="middle">
-            <div class="flow">
-                <p>Writer</p>
-                <div class="flow1" id="writer">
-                    <c:forEach var="page" items="${writerTask}">
-                        <div>
-                            <button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target='#writeTaskModal'>
-                                ${page.pageName}
-                            </button>
-                        </div>
-                    </c:forEach>
-                </div>
-            </div>
-            <div class="flow">
-                <p>Pre-Draw</p>
-                <div class="flow2" id="preDraw">
-                    <c:forEach var="page" items="${preDrawTask}">
-                        <div>
-                            <button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target="#preDrawTaskModal">
-                                    ${page.pageName}
-                            </button>
-                        </div>
-                    </c:forEach>
-                </div>
-            </div>
-            <div class="flow">
-                <p>Draw</p>
-                <div class="flow1" id="draw">
-                    <c:forEach var="page" items="${drawTask}">
-                        <div>
-                            <button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target="#drawTaskModal">
-                                    ${page.pageName}
-                            </button>
-                        </div>
-                    </c:forEach>
-                </div>
-            </div>
-            <div class="flow">
-                <p>Review</p>
-                <div class="flow2" id="review">
-                    <c:forEach var="page" items="${reviewTask}">
-                        <div>
-                            <button class="btn pageTask" id="${page.pageNumber}" data-toggle='modal' data-target="#reviewTaskModal">
-                                    ${page.pageName}
-                            </button>
-                        </div>
-                    </c:forEach>
-
-                </div>
-            </div>
-            <div class="flow">
-                <p>Complete</p>
-                <div class="flow1" id="complete">
-                    <c:forEach var="page" items="${completeTask}">
-                        <div>
-                            <button class="btn pageTask" id="${page.pageNumber}">
-                                    ${page.pageName}
-                            </button>
-                        </div>
-                    </c:forEach>
-
-                </div>
-            </div>
         </div>
 
 
-        <div id="bottom" class="pull-right">
-            <button type="button" class="btn btn-primary" id="addPage">Add Page</button>
-            <button type="button" class="btn btn-default">Return to Series Page</button>
-            <button type="button" class="btn btn-primary">Publish Page</button>
-        </div>
+
 
 
         <%--MODAL FOR TEAM--%>
@@ -160,45 +139,47 @@
         <%--Modal for Chapter info--%>
         <div class="modal fade" id="infoModal" role="dialog">
             <div class="modal-dialog">
-
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Edit Chapter Info</h4>
-                    </div>
-                    <div class="modal-body editInfo">
-
-                        <div class="einfo">
-                            <div id="changeTitle">
-                            <p style="font-weight: bold">Title: </p>
-                            <input type="text" id="Title">
-                            </div>
-
-                            <div id="changeChapterStr">
-                            <p style="font-weight: bold">#: </p>
-                            <input type="text" id="myNumber">
-                            </div>
-
-                            <div id="editDescr">
-                            <p style="font-weight: bold">Description: </p>
-                            <textarea id="textboxDescr">${chapter.description}</textarea>
-                            </div>
+                <form id="imgForm" method="post" action="${uploadAction}" enctype="multipart/form-data">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Edit Chapter Info</h4>
                         </div>
+                        <div class="modal-body editInfo">
 
-                        <div class="editImg">
-                            <p style="font-weight: bold">Chapter Icon: </p>
-                            <img id="imgPreview" src="">
-                            <form id="imgForm" method="post" action="/create/chapter/updateChapterImage" enctype="multipart/form-data">
-                                <input name="imgSrc"  id="browseImg" type="file" accept="image/*">
-                            </form>
+                            <div class="einfo">
+                                <div id="changeTitle">
+                                <p style="font-weight: bold">Title: </p>
+                                <input type="text" name="chapterTitle" value="${chapter.title}">
+                                </div>
+
+                                <div id="changeChapterStr">
+                                <p style="font-weight: bold">#: </p>
+                                <input type="text" name="chapterString" value="${chapter.chapterString}">
+                                </div>
+
+                                <div id="editDescr">
+                                <p style="font-weight: bold">Description: </p>
+                                <textarea id="textboxDescr" name="description">${chapter.description}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="editImg">
+                                <p style="font-weight: bold">Chapter Icon: </p>
+                                <img id="imgPreview" src="${chapter.chapterCover}">
+
+                                    <input type="hidden" name="chapterID" value="${chapterId}"/>
+                                    <input name="imgSrc"  id="browseImg" type="file" accept="image/*" class="hide">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"id="saveInfo">Save</button>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal"id="saveInfo">Save</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -232,5 +213,7 @@
     <c:if test="${userData ne null}">
         <div id="currentUserID" style="display: none">${userData.nickName}</div>
     </c:if>
-</body>
-</html>
+
+
+
+<jsp:include page="footer.jsp"/>

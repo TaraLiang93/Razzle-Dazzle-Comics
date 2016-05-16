@@ -48,7 +48,7 @@ public class PublishedPage {
             index = 0;
         }
         this.type = type;
-        this.canvas = canvas.getKey();
+        this.canvas = (canvas != null) ? canvas.getKey() : null;
         this.image = image;
         this.index = index;
     }

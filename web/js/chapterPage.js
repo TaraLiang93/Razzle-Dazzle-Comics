@@ -9,11 +9,15 @@ $(document).ready(function(){
     var chapterId = $("#chapterId");
     var deleteMember;
 
+    $("#flowContainer").height( $(window).height()-$("body").height() );
+
    $("#editChapterInfo").click(function(){
+       /*
         console.log("edit chapter info clicked");
         $("#Title").val($("#chapterTitle").text());
         $("#myNumber").val($("#chapterString").text());
         $("#imgPreview").attr('src',$("#img").attr('src'));
+ */
         $("#infoModal").modal("show");
    });
 
@@ -158,6 +162,7 @@ $(document).ready(function(){
 
         $("#saveInfo").click(function(){
            console.log("save chapter information");
+            $('#imgForm').submit();
         });
 
     });
@@ -185,6 +190,15 @@ $(document).ready(function(){
         $(".reviewComments").append("<p class='content-border commentBox'>"+userName+": "+comment+"</p>");
         $("#reviewTaskText").attr("value","");
 
+    });
+
+
+    $('#imgPreview').click(function(){
+        $('#browseImg').click();
+    });
+
+    $('#browseImg').on('change', function(){
+        readURL($(this), '#imgPreview');
     });
 
 });

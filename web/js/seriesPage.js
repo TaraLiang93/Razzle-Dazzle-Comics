@@ -8,32 +8,12 @@ $("document").ready(function(){
 
     $("#uploadButton").click(function(){
        console.log("click upload new image");
-        $("#imgPreview").attr("src",$("#img").attr("src"));
-        $("#imgModal").modal("show");
+        $('#browseImg').click();
     });
     $("#browseImg").change(function(event){
         console.log("new image: "+event.target.result);
-        var reader = new FileReader();
-        reader.onload = function (event) {
-            var img = new Image();
-            img.src = event.target.result;
-            img.onload = function () {
-                 console.log("image load");
-                $("#imgPreview").attr("src",img.src);
-            };
-
-        };
-        imgForm= new FormData();
-        imgForm.append("imgSrc", event.target.files[0]);
-
-        console.log("This is input "+imgForm);
-        reader.readAsDataURL(event.target.files[0]);
-    });
-    $("#saveImg").click(function(){
-        console.log("update series image");
-        $("#img").attr("src",$("#imgPreview").attr("src"));
-        $("#imgForm").submit();
-
+        readURL($(this), '#imgPreview');
+        $('#imgForm').submit();
     });
 
 
@@ -51,7 +31,7 @@ $("document").ready(function(){
         $("#descrText").text($("#textboxDescr").val());
         $.ajax({
             url:"/create/series/updateDescription",
-            data: {desc:$("#textboxDescr").val()},
+            data: {desc:$("#textboxDescr").val(), seriesID: $("#series").val()},
             type:"POST",
             error: function(){
                 alert("Fail to update description.");

@@ -17,7 +17,7 @@
             <ul class="nav navbar-nav sublinks">
                 <li><a href="/create/ideas">Idea Factory</a></li>
                 <li><a href="/create/projectAdminPage">Project Admin</a></li>
-                <li><a href="#">Upload</a></li>
+                <li><a href="/profile/load">Profile</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <form action="/read/search" method="post" class="navbar-form navbar-left" role="search">

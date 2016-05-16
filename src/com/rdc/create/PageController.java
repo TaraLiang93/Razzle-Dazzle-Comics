@@ -301,7 +301,7 @@ public class PageController {
 
 
 
-    public void createDefaultFlow() throws CreateException,FetchException,UpdateException{
+    public static void createDefaultFlow() throws CreateException,FetchException,UpdateException{
         /**
          * Test: Create Default Flow, add flowTasks and assign FlowTypes
          */
@@ -310,23 +310,23 @@ public class PageController {
         Flow defaultFlow = defaultFlowCreater.createEntity( new FlowFillCommand() );
 
         //Create the FlowTypes
-        Createable<FlowType> flowTypeCreateable = new FlowTypeCreater("Write Type");
+        Createable<FlowType> flowTypeCreateable = new FlowTypeCreater("Write");
         FlowType writeFlowType = flowTypeCreateable.createEntity( new FlowTypeFillCommand( ) );
 
         //Create the FlowTypes
-        Createable<FlowType> flowTypeCreateable2 = new FlowTypeCreater("PreDraw Type");
+        Createable<FlowType> flowTypeCreateable2 = new FlowTypeCreater("PreDraw");
         FlowType preDrawFlowType = flowTypeCreateable2.createEntity( new FlowTypeFillCommand( ) );
 
         //Create the FlowTypes
-        Createable<FlowType> flowTypeCreateable3 = new FlowTypeCreater("Draw Type");
+        Createable<FlowType> flowTypeCreateable3 = new FlowTypeCreater("Draw");
         FlowType drawFlowType = flowTypeCreateable3.createEntity( new FlowTypeFillCommand( ) );
 
         //Create the FlowTypes
-        Createable<FlowType> flowTypeCreateable4 = new FlowTypeCreater("Review Type");
+        Createable<FlowType> flowTypeCreateable4 = new FlowTypeCreater("Review");
         FlowType reviewFlowType = flowTypeCreateable4.createEntity( new FlowTypeFillCommand( ) );
 
         //Create the FlowTypes
-        Createable<FlowType> flowTypeCreateable5 = new FlowTypeCreater("Done Type");
+        Createable<FlowType> flowTypeCreateable5 = new FlowTypeCreater("Done");
         FlowType doneFlowType = flowTypeCreateable5.createEntity( new FlowTypeFillCommand( ) );
 
 
@@ -379,12 +379,11 @@ public class PageController {
 
         //Update Flow with FlowTasks
         Updateable<Flow> flowUpdateable = new FlowUpdater();
-        Readable<Flow> flowReadable = new GetFlowByIDCommand(defaultFlow.getFlowId());
-        flowUpdateable.updateEntity(flowReadable, new UpdateFlowAddFlowTask( flowTask0.getFlowTaskId() ));
-        flowUpdateable.updateEntity(flowReadable, new UpdateFlowAddFlowTask( flowTask1.getFlowTaskId() ));
-        flowUpdateable.updateEntity(flowReadable, new UpdateFlowAddFlowTask( flowTask2.getFlowTaskId() ));
-        flowUpdateable.updateEntity(flowReadable, new UpdateFlowAddFlowTask( flowTask3.getFlowTaskId() ));
-        flowUpdateable.updateEntity(flowReadable, new UpdateFlowAddFlowTask( flowTask4.getFlowTaskId() ));
+        flowUpdateable.updateEntity(defaultFlow, new UpdateFlowAddFlowTask( flowTask0.getFlowTaskId() ));
+        flowUpdateable.updateEntity(defaultFlow, new UpdateFlowAddFlowTask( flowTask1.getFlowTaskId() ));
+        flowUpdateable.updateEntity(defaultFlow, new UpdateFlowAddFlowTask( flowTask2.getFlowTaskId() ));
+        flowUpdateable.updateEntity(defaultFlow, new UpdateFlowAddFlowTask( flowTask3.getFlowTaskId() ));
+        flowUpdateable.updateEntity(defaultFlow, new UpdateFlowAddFlowTask( flowTask4.getFlowTaskId() ));
 
         //Set the next and previous flows
         // (Do this internally if one flow?)
