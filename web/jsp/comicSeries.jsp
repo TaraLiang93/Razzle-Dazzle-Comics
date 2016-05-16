@@ -54,7 +54,7 @@
             <div id="seriesTitle">
                     <%--<h1>${series.title}</h1>--%>
                 <h1>${series.title}</h1>  <%--TITLE GOES HERE --%>
-                <h3 style="padding:10px 0 0 10px;">Author, Artist</h3> <%--Author and Artist  GOES HERE but need some space --%>
+                <h5 style="padding:30px 0 0 10px;">Auth: ${series.author}, Art: ${series.artist}</h5> <%--Author and Artist  GOES HERE but need some space --%>
             </div>
 
             <br>

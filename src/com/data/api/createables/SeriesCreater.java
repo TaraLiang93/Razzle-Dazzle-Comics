@@ -16,6 +16,8 @@ public class SeriesCreater extends Createable<Series> {
     String title;
     String description;
     Boolean isPublished;
+    String author;
+    String artist;
 
     public SeriesCreater(SeriesModel seriesModel){
         this.seriesModel = seriesModel;
@@ -28,6 +30,15 @@ public class SeriesCreater extends Createable<Series> {
         this.isPublished = isPublished;
     }
 
+    public SeriesCreater(BlobKey seriesCover, String title, String description, Boolean isPublished, String author, String artist){
+        this.seriesCover = seriesCover;
+        this.title =title;
+        this.description = description;
+        this.isPublished = isPublished;
+        this.author = author;
+        this.artist = artist;
+    }
+
     @Override
     protected Series getEntity() throws CreateException, FetchException {
         Series series = new Series();
@@ -35,12 +46,20 @@ public class SeriesCreater extends Createable<Series> {
             series.setTitle(seriesModel.getTitle());
             series.setDescription(seriesModel.getDescription());
             series.setPublished(seriesModel.isPublished());
+            series.setAuthor(seriesModel.getAuthor());
+            series.setArtist(seriesModel.getArtist());
+
         }
         else{
             series.setSeriesCover(this.seriesCover);
             series.setTitle(this.title);
             series.setDescription(this.description);
             series.setPublished(this.isPublished);
+            if(this.author != null && this.artist != null)
+            {
+                series.setAuthor(this.author);
+                series.setArtist(this.artist);
+            }
         }
 
         return series;

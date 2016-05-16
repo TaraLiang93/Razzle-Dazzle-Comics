@@ -11,6 +11,8 @@ public class SeriesModel {
     String title;
     String description;
     boolean published;
+    String author;
+    String artist;
     List<ChapterModel> chapterModelList;
 //    List<GenreModel> genreModelList;
 
@@ -45,6 +47,14 @@ public class SeriesModel {
     public void setPublished(boolean published) {
         this.published = published;
     }
+
+    public String getArtist() { return artist; }
+
+    public void setArtist(String artist) { this.artist = artist; }
+
+    public String getAuthor() { return author; }
+
+    public void setAuthor(String author) { this.author = author; }
 
     public List<ChapterModel> getChapterModelList() {
         return chapterModelList;

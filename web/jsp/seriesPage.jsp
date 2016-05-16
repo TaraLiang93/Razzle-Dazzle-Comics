@@ -14,33 +14,8 @@
     <div class="container-fluid">
         <div class="container-fluid" id="outer">
 
-            <%--RIGHT SIDE: SERIES INFO--%>
-            <div class="pull-right container" id="seriesInfo">
-                <div id="seriesImg">
-                    <img src="${series.seriesCover}" id="img">
-                    <a class="btn btn-link" id="uploadButton">
-                        <i class="fa fa-upload fa-2x" aria-hidden="true"></i>
-                    </a>
-                </div>
-
-                <div id="title">
-                    <h1>${series.title}</h1>
-                </div>
-
-                <div id="description">
-                    <p id="descrText">${series.description}</p>
-                    <a class="btn btn-link updateDescr" id="updateDescr">
-                        <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
-                    </a>
-                </div>
-
-                 <button id="addChapter" type="button" class="btn btn-default addUnpublish">Add Chapter</button>
-                <button id="uploadChapter" type="button" class="btn btn-default addUnpublish">Upload Chapter</button>
-                 <button type="button" title="${series.published ne true ? "Unpublish" : "Publish"}" class="btn btn-default addUnpublish publishToggle">${series.published eq true ? "Unpublish" : "Publish"}</button>
-            </div>
-
-             <%--LEFT SIDE: SERIES CHAPTER   --%>
-            <div class="pull-left container" id="seriesChapter">
+            <%--LEFT SIDE: SERIES CHAPTER   --%>
+            <div class="col-xs-9 container" id="seriesChapter">
 
                 <c:forEach var="chapter" items="${chapters}">
                     <div class="chapter" id="${chapter.chapterId}">
@@ -61,6 +36,39 @@
 
 
             </div>
+
+            <%--RIGHT SIDE: SERIES INFO--%>
+            <div class="col-xs-3 container" id="seriesInfo">
+                <div id="seriesImg">
+                    <img src="${series.seriesCover}" id="img">
+                    <a class="btn btn-link" id="uploadButton">
+                        <i class="fa fa-upload fa-2x" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                <div id="title">
+                    <h1>${series.title}</h1>
+                </div>
+
+                <div id="Authors">
+                    <h5 class="text-center">Author: ${series.author ne null ? series.author : ""}</h5>
+                </div>
+                <div id="Artist">
+                    <h5 class="text-center">Artist: ${series.artist ne null ? series.artist : ""}</h5>
+                </div>
+                <div id="description">
+                    <p id="descrText">${series.description}</p>
+                    <a class="btn btn-link updateDescr" id="updateDescr">
+                        <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+                    </a>
+                </div>
+
+                 <button id="addChapter" type="button" class="btn btn-primary addUnpublish">Add Chapter</button>
+                <button id="uploadChapter" type="button" class="btn btn-default addUnpublish">Upload Chapter</button>
+                 <button type="button" title="${series.published ne true ? "Unpublish" : "Publish"}" class="btn btn-info addUnpublish publishToggle">${series.published eq true ? "Unpublish" : "Publish"}</button>
+            </div>
+
+
         </div>
     </div>
 

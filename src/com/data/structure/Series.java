@@ -42,6 +42,12 @@ public class Series {
     List<Key<Chapter>> chapterList;
     List<Key<Genre>> genreList;
 
+    @Index
+    String author;
+
+    @Index
+    String artist;
+
     public Series(){
         chapterList = new ArrayList<>();
         genreList = new ArrayList<>();
@@ -50,6 +56,8 @@ public class Series {
         views = 0;
         title = "";
         description = "";
+        author = "";
+        artist = "";
     }
 
     public Long getSeriesID() {
@@ -124,6 +132,14 @@ public class Series {
     public Key<Series> getKey(){
         return Key.create(Series.class, seriesID);
     }
+
+    public String getAuthor() { return author; }
+
+    public void setAuthor(String author) { this.author = author; }
+
+    public String getArtist() { return artist; }
+
+    public void setArtist(String artist) { this.artist = artist; }
 
     public List<Chapter> getChapters() {
         Readable<Chapter> getChapterFromChapterKeysAbstracted = new GetEntityListFromKeyListCommand<>(getChapterList());

@@ -163,7 +163,7 @@ public class SeriesController {
                     BlobKey key = info.getBlobKey();    //the actual blob key to the img for storage
 
                     try {
-                        Series series = new SeriesCreater(key, title, description, false).createEntity(new SeriesFillCommand(key));
+                        Series series = new SeriesCreater(key, title, description, false, author, artist).createEntity(new SeriesFillCommand(key));
                         new UserDataUpdater()
                                 .updateEntity(
                                         new GetUserDataByUserCommand(user),
