@@ -1,5 +1,9 @@
 package com.rdc;
 
+import com.data.api.exceptions.FetchException;
+import com.data.api.interfaces.Readable;
+import com.data.api.queries.external.GetGenresCommand;
+import com.data.api.queries.external.GetSeriesFromSearch;
 import com.data.api.queries.external.GetSeriesOfUserDataCommand;
 import com.data.structure.Genre;
 import com.data.structure.Series;
@@ -23,29 +27,30 @@ import java.util.List;
 public class SearchController {
 
     @RequestMapping(value="/read/search", method= RequestMethod.POST)
-    public ModelAndView loadIdeaFactory(HttpServletRequest req, ModelMap map){
+    public ModelAndView loadSearchResults(HttpServletRequest req, ModelMap map){
 
 
         String searchBar = req.getParameter("searchBar");
         Genre genre;
         map.put("searchTitle",searchBar);
 
-        try {
-            GetSeriesOfUserDataCommand seriesFromUser =
-                    new GetSeriesOfUserDataCommand(UserServiceFactory.getUserService().getCurrentUser());
-            List<Series> seriesList = seriesFromUser.fetch().getList();
-            map.put("seriesResults",seriesList);
 
-            List<String> genresList = new LinkedList<>();
-            genresList.add("Action");
-            genresList.add("Supernatural");
-            genresList.add("Kids");
-            genresList.add("School Life");
-            genresList.add("Yaoi");
+        Readable<Series> seriesReadable = new GetSeriesFromSearch(searchBar);
+        try {
+            List<Series> seriesList = seriesReadable.fetch().getList();
+            map.put("seriesResults", seriesList);
+        }catch (FetchException ex){
+            ex.printStackTrace();
+        }
+
+        Readable<Genre> genreReadable = new GetGenresCommand();
+        try {
+            List<Genre> genresList = genreReadable.fetch().getList();
             map.put("genres",genresList);
-        } catch (Exception e) {
+        } catch (FetchException e) {
             e.printStackTrace();
         }
+
 
 
 

@@ -36,7 +36,7 @@
         <div class=" filterBoxes content-border">
             <c:forEach var="genre" items="${genres}">
                 <div class="checkbox">
-                    <label type="text"><input type="checkbox" id="${genre}" name="${genre}">${genre}</label>
+                    <label type="text"><input type="checkbox" id="${genre.name}" name="${genre.name}">${genre.name}</label>
                 </div>
             </c:forEach>
         </div>
