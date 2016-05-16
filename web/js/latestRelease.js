@@ -6,7 +6,8 @@ $(document).ready(function() {
 
     $(".latestChapter").each(function(){
         $(this).click(function(){
-            $(location).attr("href", "/read/" +$(this).find(".chapterTitle").text());
+            //$(location).attr("href", "/read/" +$(this).find(".chapterTitle").text());
+            $(this).submit();
         });
     });
 

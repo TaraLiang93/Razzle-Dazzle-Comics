@@ -18,7 +18,7 @@
 <div class="col-xs-8 col-xs-offset-2">
     <div class="latestChapters">
         <c:forEach var="s" items="${series}">
-            <form  class="latestChapter col-xs-3 filter" id="${s.seriesID}">
+            <form action="/read/${s.title}" method="post" class="latestChapter col-xs-3 filter" id="${s.seriesID}">
                 <c:forEach var="genre" items="${s.genres}">
                     <div style="display: none" class="${genre.name}"></div>
                 </c:forEach>
@@ -26,6 +26,7 @@
                     <img class="chapterImg" src="${s.seriesCover}"/>
                 </div>
                 <p class="text-center chapterTitle">${s.title}</p>
+                <input type="text" style="display: none;" name="seriesID" value="${s.seriesID}"/>
             </form>
         </c:forEach>
     </div>
