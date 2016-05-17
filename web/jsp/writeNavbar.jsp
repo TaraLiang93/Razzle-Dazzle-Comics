@@ -22,7 +22,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <form action="/read/search" method="post" class="navbar-form navbar-left" role="search">
                     <div class="form-group">
-                        <input id="searchBar" type="text" class="form-control" placeholder="Search for Series">
+                        <input id="searchBar" name="searchBar" type="text" class="form-control" placeholder="Search for Series">
                     </div>
                     <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                 </form>

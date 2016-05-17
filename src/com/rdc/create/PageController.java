@@ -63,29 +63,23 @@ public class PageController {
 
     private final SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 
-    @RequestMapping(value=LOAD_DRAW_PAGE, method= RequestMethod.GET)
+    @RequestMapping(value=LOAD_DRAW_PAGE, method={RequestMethod.GET , RequestMethod.POST})
     public ModelAndView redirectDrawPage(HttpServletRequest req,ModelMap map){
 
         String chapterID = req.getParameter("chapterID");
         String pageID = req.getParameter("pageID");
 
         Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterID);
-        Chapter chapter = null;
-        try {
-            chapter = chapterReadable.fetch().getResult();
-            Createable<Page> pageCreateable = new PageCreater();
-            Page page = pageCreateable.createEntity( new PageFillCommand(chapter.getChapterId() ));
-            if(page.getScenes().size() > 0)
-                map.put("firstScene",page.getScenes().get(0));
-            map.put("page",page);
-            map.put("chapter",chapter);
+        Readable<Page> pageReadable = new GetPageByIDCommand(pageID);
 
+        try {
+            Page page = pageReadable.fetch().getResult();
+            map.put("page",page);
+            map.put("scenes",page.getScenes());
+            map.put("chapterID",chapterID);
         } catch (FetchException e) {
             e.printStackTrace();
-        } catch (CreateException e) {
-            e.printStackTrace();
         }
-
 
         return new ModelAndView("drawPage");
     }
