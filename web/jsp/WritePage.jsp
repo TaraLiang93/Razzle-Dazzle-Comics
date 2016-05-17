@@ -14,7 +14,7 @@
 
     <form:form method="post" action="/create/writePage/save" modelAttribute="writePageModel">
 
-        <input type="hidden" name="parentID" value="${chapterID}"/>
+        <input type="hidden" name="chapterID" value="${chapterID}"/>
 
         <jsp:include page="Writing.jsp"/>
 

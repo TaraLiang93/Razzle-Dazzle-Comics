@@ -34,6 +34,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -58,6 +60,8 @@ public class PageController {
 
     public static final String ADD_TASK="/create/page/add";
     public static final String LOAD_TASK="/create/page/loadTask";
+
+    private final SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 
     @RequestMapping(value=LOAD_DRAW_PAGE, method= RequestMethod.GET)
     public ModelAndView redirectDrawPage(HttpServletRequest req,ModelMap map){
@@ -87,7 +91,7 @@ public class PageController {
     }
 
 
-    @RequestMapping(value=LOAD_WRITE_PAGE, method= RequestMethod.GET)
+    @RequestMapping(value=LOAD_WRITE_PAGE, method= {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView redirectWritePage(@RequestParam String pageID,
                                           @RequestParam String chapterID,
                                           @RequestHeader String referer,
@@ -98,7 +102,11 @@ public class PageController {
         try {
             Container<Page> pageReadable = new GetPageByIDCommand(pageID).fetch();
             page = pageReadable.getResult();
-            map.put("page", page);
+
+            List<Page> pages = new ArrayList<>();   // Supports generic page loading multiple pages on writing
+            pages.add(page);                        //
+            map.put("pages", pages);
+            map.put("chapterID", chapterID);
         } catch (FetchException e) {
             e.printStackTrace();
             return new ModelAndView(referer);
@@ -110,11 +118,22 @@ public class PageController {
 
     @RequestMapping(value=SAVE_WRITE_PAGE, method= RequestMethod.POST)
     public ModelAndView saveWritePage(@ModelAttribute("writePageModel") WritePageModel model, ModelMap map){
+        System.out.println("WriteModel : " + model);
 
 
-        System.out.println(model);
+        try {
+            Container<Page> getPages = new GetPageByIDCommand(model.getPages().get(0).getId()).fetch();
+            Page page = getPages.getResult();
+            new PageUpdater().updateEntity(page, new UpdateWritePageTask(model));
+            map.put("id", model.getChapterID());
+        } catch (FetchException | UpdateException | CreateException e) {
+            e.printStackTrace();
+            return new ModelAndView("redirect:"+ProjectAdminPageController.LOAD_ADMIN_PAGE);
+        }
 
-        return new ModelAndView("chapterPage");
+
+
+        return new ModelAndView("redirect:/create/chapter/load/" + model.getChapterID());
     }
 
 
@@ -154,7 +173,12 @@ public class PageController {
         System.out.println("Found Summary : " + summary);
         System.out.println("Found PageID : " + pageID);
 
-
+        try {
+            new PageUpdater().updateEntity(new GetPageByIDCommand(pageID), new UpdatePageEditSummaryTask(summary));
+        } catch (FetchException | UpdateException | CreateException e) {
+            e.printStackTrace();
+            return new ResponseEntity(false, HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity(true, HttpStatus.OK);
 
@@ -211,9 +235,11 @@ public class PageController {
             Page page = pageContainer.getResult();
 
             root = new JsonObject();
+            root.addProperty("id", pageID);
             root.addProperty("title", page.getTitle());
             root.addProperty("summary", page.getSummary());
-            root.addProperty("createDate", page.getCreateDate().toString());
+            root.addProperty("createDate", formatter.format(page.getCreateDate()));
+            root.addProperty("author", user.getNickname());
 
             List<Comment> comments = page.getComments();
             JsonArray commentList = new JsonArray();
@@ -236,10 +262,11 @@ public class PageController {
             root.add("comments", commentList);
 
 
-            JsonArray dialogueList = new JsonArray();
+            JsonArray sceneList = new JsonArray();
             JsonArray canvasList = new JsonArray();
 
             for(Scene scene : page.getScenes()){
+                JsonArray dialogueList = new JsonArray();
                 for(Dialogue dialogue : scene.getDialogues()){
                     dialogueList.add(dialogue.getDialogue());
                 }
@@ -247,9 +274,13 @@ public class PageController {
                 if(canvas != null){
                     canvasList.add(canvas.getCanvasImage());
                 }
+
+                JsonObject obj = new JsonObject();
+                obj.add("dialogue", dialogueList);
+                sceneList.add(obj);
             }
 
-            root.add("dialogues", dialogueList);
+            root.add("scenes", sceneList);
             root.add("canvases", canvasList);
 
 
@@ -286,6 +317,7 @@ public class PageController {
 
             new ChapterUpdater().updateEntity(new GetChapterByIDCommand(chapterID), new UpdateChapterAddPageTask(page.getId()));
 
+            System.out.println("Successfully Added --> Page ID: " + page.getId());
             return new ResponseEntity<String>(""+ page.getId(), HttpStatus.OK);
         } catch (CreateException | FetchException | UpdateException e ) {
             e.printStackTrace();

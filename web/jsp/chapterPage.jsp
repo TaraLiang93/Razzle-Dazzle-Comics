@@ -17,19 +17,20 @@
 
         <div class="top">
             <div class="row">
-            <div class="team">
-                <p>Team</p>
-                <a class="btn btn-link change" id="addTeam">
-                    <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
-                </a>
-                <div class="memberList">
-                    <c:forEach var="member" items="${teamMembers}" >
-                        <span>
-                        <p title="Member">${member.userData.nickName}</p>
-                        <div class="teamMember" style="display: none">${member.userData.userName}</div>
-                        </span>
-                    </c:forEach>
-                </div>
+                <div class="team col-md-5">
+                    <p>Team</p>
+                    <a class="btn btn-link change" id="addTeam">
+                        <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+                    </a>
+                    <div class="memberList">
+                        <c:forEach var="member" items="${teamMembers}" >
+                            <span>
+                            <p title="Member">${member.userData.nickName}</p>
+                            <div class="teamMember" style="display: none">${member.userData.userName}</div>
+                            </span>
+                        </c:forEach>
+                    </div>
+                    <%--</div>--%>
                 </div>
             </div>
 
@@ -45,16 +46,16 @@
                                 <p id="chapterTitle">${chapter.title}</p>
                             </div>
 
-                            <div class="info">
-                                <p style="font-weight: bold">#:</p>
-                                <p id="chapterString">${chapter.chapterString}</p>
-                            </div>
-
-                            <div class="btnInfo">
-                                <button type="button" class="btn btn-default pull-right">Deactive</button>
-                            </div>
+                        <div class="info">
+                            <p style="font-weight: bold">#:</p>
+                            <p id="chapterString">${chapter.chapterString}</p>
                         </div>
-                    </div><%-- End Chapter Info class--%>
+
+                        <div class="btnInfo">
+                            <button type="button" class="btn btn-default pull-right">Deactive</button>
+                        </div>
+                    </div>
+                </div><%-- End Chapter Info class--%>
             </div>
             <div class="row">
                 <div id="bottom" class="pull-right">
@@ -69,17 +70,16 @@
 
         <div id="flowContainer" class="middle">
 
-            <c:forEach var="flowTask" items="${chapter.flow.flowTasks}">
-                <div class="flow">
-                    <div class="row-fluid">
+            <c:forEach var="flowTask" items="${chapter.flow.flowTasks}" varStatus="i">
+                <div class="flow" id="${flowTask.flowTaskId}">
+                    <div class="row-fluid flowTitle">
                         <p>${flowTask.flowTaskName}</p>
                     </div>
                     <div class="flowBody">
-                        <ul class="list-group">
-                        <c:forEach var="page" items="${pages}">
+                        <ul id="${i.index == 0 ? 'startTask': none}" class="list-group flowTable">
+                        <c:forEach var="page" items="${chapter.pages}">
                             <c:if test="${flowTask.flowTaskName eq page.flowTaskEntity.flowTaskName}">
-                                <%--<div class="row">--%>
-                                    <li class="list-group-item mItem">
+                                    <li id="${page.id}" class="list-group-item mItem">
                                         <div class="flowTask">
                                             <div class="">
                                                 <h3>${page.title}</h3>
@@ -87,8 +87,6 @@
                                             </div>
                                         </div>
                                     </li>
-
-                                <%--</div>--%>
                             </c:if>
                         </c:forEach>
                         </ul>
@@ -184,6 +182,10 @@
         </div>
     </div>
 
+<%-- #writeTaskModal --%>
+    <jsp:include page="writeTaskModal.jsp" >
+        <jsp:param name="chapterID" value="${chapterId}"/>
+    </jsp:include>
 <%-- #preDrawTaskModal --%>
     <jsp:include page="preDrawTaskModal.jsp" >
         <jsp:param name="chapterID" value="${chapterId}"/>
@@ -192,16 +194,12 @@
     <jsp:include page="DrawTaskModal.jsp" >
         <jsp:param name="chapterID" value="${chapterId}"/>
     </jsp:include>
-<%-- #writeTaskModal --%>
-    <jsp:include page="writeTaskModal.jsp" >
+<%-- #reviewTaskModal --%>
+    <jsp:include page="ReviewTaskModal.jsp" >
         <jsp:param name="chapterID" value="${chapterId}"/>
     </jsp:include>
 <%-- #newTaskModal --%>
     <jsp:include page="newTaskModal.jsp" >
-        <jsp:param name="chapterID" value="${chapterId}"/>
-    </jsp:include>
-<%-- #reviewTaskModal --%>
-    <jsp:include page="ReviewTaskModal.jsp" >
         <jsp:param name="chapterID" value="${chapterId}"/>
     </jsp:include>
 <%-- #DoneTaskModal --%>

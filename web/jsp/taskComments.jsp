@@ -7,7 +7,7 @@
 
             $.ajax({
                 url:"/create/page/comment/add",
-                data: {comment:text, pageID: $('#hiddenPageID').val()},
+                data: {comment:text, pageID: $('#${param.selector}HiddenPageID').val()},
                 type:"POST",
                 success: function(data){
                     if(data){

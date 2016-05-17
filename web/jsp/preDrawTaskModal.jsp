@@ -16,66 +16,21 @@
 
 --%>
 
-    <input id="hiddenChapterID" type="hidden" name="chapterID" value="${param.chapterID}"/>
-    <input id="hiddenPageID" type="hidden" name="pageID" value=""/>
+    <input id="preDrawTaskHiddenChapterID" type="hidden" name="chapterID" value="${param.chapterID}"/>
+    <input id="preDrawTaskHiddenPageID" type="hidden" name="pageID" value=""/>
     <div id="preDrawTaskModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 id="pageTitle" class="modal-title pull-left"></h4>
+                    <h4 id="preDrawTaskPageTitle" class="modal-title pull-left"></h4>
                 </div>
                 <div class="modal-body">
                     <div class="topPreDrawTask center-stage" style="width:95%; margin:auto; ">
                         <div class="row">
                             <div class="pull-left col-md-8">
 
-                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="headingOne">
-                                            <h4 class="panel-title">
-                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                    Scene #1
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                            <div class="panel-body">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="headingTwo">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                    Scene #2
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                            <div class="panel-body">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="headingThree">
-                                            <h4 class="panel-title">
-                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                    Scene #3
-                                                </a>
-                                            </h4>
-                                        </div>
-                                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                            <div class="panel-body">
-                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="panel-group" id="preDrawTaskAccordion" role="tablist" aria-multiselectable="true">
 
                                 </div> <!-- End Accordion -->
 
@@ -93,8 +48,8 @@
 
 
                         <div class="modal-footer">
-                            <button id="writingButton" type="button" class="btn btn-default" onclick="movePrev($('#hiddenPageID').val(), $('#preDrawTaskModal'))">Re-Write</button>
-                            <button id="drawButton" type="button" class="btn btn-primary" onclick="moveNext($('#hiddenPageID').val(), $('#preDrawTaskModal'))">Draw</button>
+                            <button id="writingButton" type="button" class="btn btn-default" onclick="movePrev($('#preDrawTaskHiddenPageID').val(), $('#preDrawTaskModal'))">Re-Write</button>
+                            <button id="drawButton" type="button" class="btn btn-primary" onclick="moveNext($('#preDrawTaskHiddenPageID').val(), $('#preDrawTaskModal'))">Draw</button>
                         </div>
                     </div> <!-- / End WriteTask -->
                 </div> <!-- Modal body -->

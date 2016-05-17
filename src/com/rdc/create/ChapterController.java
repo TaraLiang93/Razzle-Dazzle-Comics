@@ -18,7 +18,6 @@ import com.data.api.updatables.SeriesUpdater;
 import com.data.api.updatables.UserDataUpdater;
 import com.data.api.updatables.updateTasks.*;
 import com.data.creation.Chapter;
-import com.data.creation.Page;
 import com.data.creation.PublishedPage;
 import com.data.structure.FlowTask;
 import com.data.structure.Series;
@@ -71,29 +70,10 @@ public class ChapterController {
 
             List<FlowTask> tasks = chapter.getFlow().getFlowTasks();
 
-
-            Page page1 = new Page("Page 1", "Summary 1 Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1" +
-                    "Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1",
-
-                    new Date(), null, null, 0, tasks.get(0).getKey());
-            Page page2 = new Page("Page 2", "Summary 2", new Date(), null, null, 0, tasks.get(0).getKey());
-            Page page3 = new Page("Page 3", "Summary 3", new Date(), null, null, 0, tasks.get(2).getKey());
-            Page page4 = new Page("Page 4", "Summary 4", new Date(), null, null, 0, tasks.get(3).getKey());
-            Page page5 = new Page("Page 5", "Summary 5", new Date(), null, null, 0, tasks.get(4).getKey());
-
-            List<Page> pages = new ArrayList<>();
-            pages.add(page1);
-            pages.add(page2);
-            pages.add(page3);
-            pages.add(page4);
-            pages.add(page5);
-            //chapter.getPageList().add(page1.getKey());
-            //chapter.getPageList().add(page2.getKey());
-
             map.put("chapter", chapter);
             map.put("chapterId", id);
-            map.put("teamMembers", teamMembers);
-            map.put("pages", pages);
+            map.put("teamMembers",teamMembers);
+  //          map.put("pages", pages);
 
             BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
             map.put("uploadAction", blobstoreService.createUploadUrl(UPDATE_CHAPTER_INFO));
@@ -184,7 +164,6 @@ public class ChapterController {
     public ModelAndView addChapter(@RequestParam String chapterID,
                                    @RequestParam String title,
                                    @RequestParam String description,
-                                   @RequestParam String flow,
                                    @RequestParam String seriesID,
                                    @RequestHeader String referer,
                                    HttpServletRequest req,
@@ -194,7 +173,6 @@ public class ChapterController {
 
         System.out.println("Title : " + title);
         System.out.println("Description : " + description);
-        System.out.println("Flow : " + flow);
         System.out.println("Series ID : " + seriesID);
 
         BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();

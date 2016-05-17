@@ -24,7 +24,9 @@ import java.util.List;
 @Controller
 public class ProjectAdminPageController {
 
-    @RequestMapping(value="/create/projectAdminPage", method= RequestMethod.GET)
+    public static final String LOAD_ADMIN_PAGE = "/create/projectAdminPage";
+
+    @RequestMapping(value=LOAD_ADMIN_PAGE, method= {RequestMethod.GET,RequestMethod.POST})
     public ModelAndView loadProjectAdminPage(HttpSession session, ModelMap map){
 
 

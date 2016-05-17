@@ -169,13 +169,8 @@ $(document).ready(function(){
     });
 
     $("#addPage").click(function(){
-       console.log("add page clicked");
-        var code =
-            "<div><button class='btn pageTask' id="+numPage+" data-toggle='modal' data-target='#writeTaskModal'>Page" +numPage+
-            "</button></div>";
-
-        $("#writer").append(code);
-        numPage++;
+       console.log("Add Page Clicked");
+        $('#newTaskModal').modal('show');
     });
 
     $('.flow').each(function(){
@@ -202,7 +197,211 @@ $(document).ready(function(){
         readURL($(this), '#imgPreview');
     });
 
+    $('.flowTable .mItem').each(function(){
+        $(this).click(function(){
+            loadTask($(this));
+        });
+    });
+
 });
+
+function loadWriteTask(json){
+
+    $('#writeTaskHiddenPageID').val(json.id);
+    $('#writeTaskPageTitle').text(json.title);
+    $('#writeTaskAuthor').val(json.author);
+    $('#writeTaskSummary').val(json.summary);
+    $('#writeTaskCreateDate').val(json.createDate);
+
+    $('#writeTaskcommentsBox').empty();
+
+    for(i=0; i < json.comments.length ; i++){
+        comment = json.comments[i];
+        var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
+        $('#writeTaskcommentsBox').append(appendText);
+    }
+
+    $('#writeTaskCarouselContent').empty();
+
+    for(i=0; i < json.scenes.length; i++){
+        for(j=0; j < json.scenes[i].dialogue.length; j++) {
+            var appendText = "<div class=\"item";
+            if (i == 0 && j == 0) appendText += " active ";
+            appendText += "\" style=\"text-align:center;\"><p>" + json.scenes[i].dialogue[j] + "</p></div>";
+
+            $('#writeTaskCarouselContent').append(appendText);
+        }
+    }
+
+    $('#writeTaskModal').modal('show');
+
+}
+
+function loadPreDrawTask(json){
+
+    $('#preDrawTaskHiddenPageID').val(json.id);
+    $('#preDrawTaskPageTitle').text(json.title);
+
+    $('#preDrawTaskcommentsBox').empty();
+    for(i=0; i < json.comments.length ; i++){
+        comment = json.comments[i];
+        var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
+        $('#preDrawTaskcommentsBox').append(appendText);
+    }
+    k = 0;
+    var appendText ="";
+    for(i=0; i < json.scenes.length; i++){
+        appendText += "<div class=\"panel panel-default\">" +
+            "<div class=\"panel-heading\" role=\"tab\" id=\"heading"+k+"\">" +
+            "<h4 class=\"panel-title\">" +
+            "<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#preDrawTaskAccordion\" href=\"#collapse"+k+"\" aria-expanded=\"true\" aria-controls=\"collapse"+k+"\"> " +
+            "Scene# "+(k + 1)+ "</a></h4></div>" +
+            "<div id=\"collapse"+k+"\" class=\"panel-collapse collapse in\" role=\"tabpanel\" aria-labelledby=\"heading"+k+"\">" +
+            "<div class=\"panel-body\">";
+
+        for(j=0; j < json.scenes[i].dialogue.length; j++, k++) {
+            appendText += ("<p>"+json.scenes[i].dialogue[j] +"</p>");
+        }
+        appendText +="</div></div></div>";
+
+    }
+    $('#preDrawTaskAccordion').append(appendText);
+    $('#preDrawTaskModal').modal('show');
+}
+
+function loadDrawTask(json){
+
+    $('#drawTaskHiddenPageID').val(json.id);
+    $('#drawTaskCreatedBy').val(json.author);
+    $('#drawTaskSummary').val(json.summary);
+    $('#drawTaskCreateDate').val(json.createDate);
+
+    $('#drawTaskcommentsBox').empty();
+
+    for(i=0; i < json.comments.length ; i++){
+        comment = json.comments[i];
+        var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
+        $('#drawTaskcommentsBox').append(appendText);
+    }
+
+    $('#drawTaskDialogBox').empty();
+    for(i=0; i < json.dialogues; i++){
+        var appendText = "<p style=\"text-align:center; overflow:hidden;\">"+json.dialogues[i]+"</p>";
+
+        $('#drawTaskDialogBox').append(appendText);
+    }
+
+    $('#drawTaskModal').modal('show');
+}
+
+function loadReviewTask(json){
+
+    $('#reviewTaskHiddenPageID').val(json.id);
+    $('#reviewTaskPageTitle').text(json.title);
+    $('#reviewTaskSummary').val(json.summary);
+
+    $('#reviewTaskcommentsBox').empty();
+
+    for(i=0; i < json.comments.length ; i++){
+        comment = json.comments[i];
+        var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
+        $('#reviewTaskcommentsBox').append(appendText);
+    }
+
+    $('#reviewTaskModal').modal('show');
+}
+
+function loadDoneTask(json){
+
+    $('#writeTaskHiddenPageID').val(json.id);
+    $('#writeTaskPageTitle').text(json.title);
+    $('#writeTaskAuthor').val(json.author);
+    $('#writeTaskSummary').val(json.summary);
+
+    $('#writeTaskcommentsBox').empty();
+
+    for(i=0; i < json.comments.length ; i++){
+        comment = json.comments[i];
+        var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
+        $('#writeTaskcommentsBox').append(appendText);
+    }
+
+    $('#writeTaskCarouselContent').empty();
+    for(i=0; i < json.dialogues; i++){
+        var appendText = "<div class=\"item";
+        if(i == 0) appendText += " active ";
+        appendText += "\" style=\"text-align:center;\"><p>"+json.dialogues[i]+"</p></div>";
+
+        $('#writeTaskCarouselContent').append(appendText);
+    }
+
+    $('#writeTaskModal').modal('show');
+}
+
+function loadAsyncTask(selector){
+    $.ajax({
+        url:"/create/page/loadTask",
+        data: {pageID: $('#'+selector+'HiddenPageID').val()},
+        type:"POST",
+        success: function(object){
+            if(selector.toUpperCase().includes("WRITE")){
+                loadWriteTask(object);
+            }
+            else if(selector.toUpperCase().includes("PREDRAW")){
+                loadPreDrawTask(object);
+            }
+            else if(selector.toUpperCase().includes("DRAW")){
+                loadDrawTask(object);
+            }
+            else if(selector.toUpperCase().includes("REVIEW")){
+                loadReviewTask(object);
+            }
+            else if(selector.toUpperCase().includes("DONE")){
+                loadDoneTask(object);
+            }
+            else{
+                console.log("Selector :" + selector + "no task found");
+                alert("Failed to load Task!");
+            }
+        },
+        error: function(){
+            alert("Failed to load the page.");
+        }
+    });
+}
+
+function loadTask(item){
+    //  Find the parent enclosing div
+    //      Find the header for the flow div, and the text corresponding to it
+    var title = $(item).closest(".flow").find(".flowTitle:first p:first").text();
+    console.log("Flow : " + title);
+
+    var selector = "";
+
+    if(title.trim().toUpperCase().includes("WRITE")){
+        selector = "writeTask";
+    }
+    else  if(title.trim().toUpperCase().includes("PREDRAW")){
+        selector = "preDrawTask";
+    }
+    else  if(title.trim().toUpperCase().includes("DRAW")){
+        selector = "drawTask";
+    }
+    else  if(title.trim().toUpperCase().includes("REVIEW")){
+        selector = "reviewTask";
+    }
+    else  if(title.trim().toUpperCase().includes("DONE")){
+        selector = "doneTask";
+    }
+    else{
+        alert("Could not load task!");
+        console.log("Item : " + item);
+        return;
+    }
+
+    $('#'+selector+'HiddenPageID').val($(item).attr('id'));
+    loadAsyncTask(selector);
+}
 
 var flowArray = [];
 var flowMapNext = {};
@@ -219,7 +418,7 @@ function storeFlow(selector){
 
 }
 
-function doMovePage(pid, url){
+function doMovePage(map, pid, url){
     $.ajax({
         url:url,
         data: {pageID:pid},
@@ -227,6 +426,7 @@ function doMovePage(pid, url){
         success: function(data){
             if(data){
                 console.log("Move Successful");
+                swapTasks(map, pid);
             }
         },
         error: function(){
@@ -239,41 +439,46 @@ function movePage(pid, direction){
 
     if(direction > 0){ // Move forward
         console.log("Moving Page with ID : " + pid + "Forward ");
-        doMovePage(pid, "/create/page/moveNext")
+        doMovePage(flowMapNext, pid, "/create/page/moveNext")
     }
     else if (direction < 0){ // Move backwards
         console.log("Moving Page with ID : " + pid + "backwards ");
-        doMovePage(pid, "/create/page/movePrev")
+        doMovePage(flowMapPrev, pid, "/create/page/movePrev")
     }
     else{
         console.log("Direction == 0 means lets stay still");
     }
 }
 
-function swapTasks(map, task){
-    var id = $( ".flow:has(#"+task+")").attr("id");
-    var nextID = flowMapNext[id]; //Fetch the next one from the map
-    if(id === nextID){
+function swapTasks(map, pid){
+    var task = $('#' + pid);
+    var parentFlowId = $('#' + pid).closest(".flow").attr('id');
+    //var id = $( ".flowTable:has(#"+task+")").attr("id");
+    var nextID = map[parentFlowId]; //Fetch the next one from the map
+    if(parentFlowId === nextID){
         console.log("Nothing to do, ID's are the same, must be illegal move");
     }
     else{
-        $(nextID).append($(task)); //Append it to the new one
-        $(id).remove($(task));     //Remove it from the previous
+
+        var taskContainer = $(task).closest(".flow").find(".flowBody:first .flowTable:first");
+
+        //First we have to find the enclosing container, then append it
+        $('#'+ nextID).find(".flowBody:first .flowTable:first").append($(task));
+
+        $(taskContainer).remove($(task));     //Remove it from the previous
         console.log("Done Swapping");
     }
 
 }
 
-function moveNext(task, pid, modal){
+function moveNext(pid, modal){
     movePage(pid, 1);
     $(modal).modal('hide');
-    swapTasks(flowMapNext, task);
 }
 
-function movePrev(task, pid, modal){
+function movePrev(pid, modal){
     movePage(pid, -1);
     $(modal).modal('hide');
-    swapTasks(flowMapPrev, task);
 }
 
 
