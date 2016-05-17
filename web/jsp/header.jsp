@@ -78,6 +78,7 @@
                             <span class="sr-only">(current)</span>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Read Comics</a>
                             <ul class="dropdown-menu">
+                                <li><a href="/read">Read Homepage</a></li>
                                 <li><a href="/read/topComics">Top 100</a></li>
                                 <li><a href="/read/genres">Genres</a></li>
                                 <li><a href="/read/newReleases">Latest Release</a></li>
@@ -86,6 +87,7 @@
                         <li class="dropdown ${globals.status == 'create'? "active": none}">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create Comics</a>
                             <ul class="dropdown-menu">
+                                <li><a href="/create">Create Homepage</a></li>
                                 <li><a href="/create/ideas">Idea Factory</a></li>
                                 <li><a href="/create/projectAdminPage">Project Admin</a></li>
                                 <li><a href="/profile/load">Profile</a></li>

@@ -42,47 +42,50 @@ public class IdeaFactoryController {
     public static final String IDEA_HOME = "/create/ideas";
     public static final String LOAD_SCRIBBLE = "/create/scribble/load/{id}";
     public static final String LOAD_DOODLE = "/create/doodle/load/{id}";
-    public static final String SAVE_SCRIBBLE ="/create/scribble/save";
-    public static final String SAVE_DOODLE ="/create/doodle/save";
+    public static final String SAVE_SCRIBBLE = "/create/scribble/save";
+    public static final String SAVE_DOODLE = "/create/doodle/save";
 
-    @RequestMapping(value=IDEA_HOME, method= {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView loadIdeaFactory(HttpSession session, ModelMap map){
+    @RequestMapping(value = IDEA_HOME, method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView loadIdeaFactory(HttpServletRequest req, HttpSession session, ModelMap map) {
 
         User user = UserServiceFactory.getUserService().getCurrentUser();
+        String tab = new String();
+        tab = req.getParameter("idea");
 
-        if(user == null) return new ModelAndView("/logout");
+        if (user == null) return new ModelAndView("/logout");
 
-            List<Doodle> doodles = new LinkedList<>();
-            Readable<Doodle> getUserDoodles = new GetDoodlesOfUserDataCommand(user);
-            try {
-                List<Doodle> doodleList = getUserDoodles.fetch().getList();
-                map.put("doodles", doodleList);
-            } catch (FetchException e) {
-                e.printStackTrace();
-            }
+        List<Doodle> doodles = new LinkedList<>();
+        Readable<Doodle> getUserDoodles = new GetDoodlesOfUserDataCommand(user);
+        try {
+            List<Doodle> doodleList = getUserDoodles.fetch().getList();
+            map.put("doodles", doodleList);
+        } catch (FetchException e) {
+            e.printStackTrace();
+        }
 
-            List<Scribble> scribbles = new LinkedList<>();
-            Readable<Scribble> getUserScribbles = new GetScribblesOfUserDataCommand(user);
-            try {
-                List<Scribble> scribbleList = getUserScribbles.fetch().getList();
-                map.put("scribbles", scribbleList);
-            } catch (FetchException e) {
-                e.printStackTrace();
-            }
+        List<Scribble> scribbles = new LinkedList<>();
+        Readable<Scribble> getUserScribbles = new GetScribblesOfUserDataCommand(user);
+        try {
+            List<Scribble> scribbleList = getUserScribbles.fetch().getList();
+            map.put("scribbles", scribbleList);
+        } catch (FetchException e) {
+            e.printStackTrace();
+        }
+
+        map.put("tabActive",tab);
 
         return new ModelAndView("ideaFactory");
     }
 
 
-    @RequestMapping(value=LOAD_SCRIBBLE, method= RequestMethod.GET)
-    public ModelAndView loadScribble(@PathVariable String id, HttpSession session, ModelMap map){
+    @RequestMapping(value = LOAD_SCRIBBLE, method = RequestMethod.GET)
+    public ModelAndView loadScribble(@PathVariable String id, HttpSession session, ModelMap map) {
 
         System.out.println("ID : " + id);
-        if(id != null && id.equals("new")){
+        if (id != null && id.equals("new")) {
             System.out.println("New!");
             map.put("scribble", new Scribble());
-        }
-        else{
+        } else {
             User user = UserServiceFactory.getUserService().getCurrentUser();
             System.out.println("Old!");
             Readable<Scribble> q = new GetScribblesByIDCommand(id);
@@ -100,21 +103,20 @@ public class IdeaFactoryController {
         return new ModelAndView("scribbles", "scribbleModel", new ScribbleModel());
     }
 
-    @RequestMapping(value=SAVE_SCRIBBLE, method=RequestMethod.POST)
-    public ModelAndView saveScribble(@ModelAttribute("scribbleModel") ScribbleModel model, HttpServletRequest req){
+    @RequestMapping(value = SAVE_SCRIBBLE, method = RequestMethod.POST)
+    public ModelAndView saveScribble(@ModelAttribute("scribbleModel") ScribbleModel model, HttpServletRequest req) {
 
         System.out.println("Made It! -->" + model);
 
         User user = UserServiceFactory.getUserService().getCurrentUser();
 
-        if(model.getId() != null && !model.getId().equals("")){ //It Exists, update it
+        if (model.getId() != null && !model.getId().equals("")) { //It Exists, update it
             try {
                 new Updateable().updateEntity(new GetScribblesByIDCommand(model.getId()), new UpdateScribbleTask(model));
             } catch (FetchException | UpdateException | CreateException e) {
                 e.printStackTrace();
             }
-        }
-        else{ //It's brand new
+        } else { //It's brand new
 
             try {
                 Scribble newScribb = new ScribbleCreater(model.getTitle(), model.getDescription()).createEntity(new ScribbleFillCommand(model));
@@ -131,8 +133,8 @@ public class IdeaFactoryController {
         return new ModelAndView("redirect:" + IDEA_HOME);
     }
 
-    @RequestMapping(value=LOAD_DOODLE, method= RequestMethod.GET)
-    public ModelAndView loadDoodle(@PathVariable String id, HttpSession session, ModelMap map){
+    @RequestMapping(value = LOAD_DOODLE, method = RequestMethod.GET)
+    public ModelAndView loadDoodle(@PathVariable String id, HttpSession session, ModelMap map) {
 
         String canvasImage;
 
@@ -140,10 +142,10 @@ public class IdeaFactoryController {
             System.out.println(id);
             Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(id);
             Doodle doodle = getDoodle.fetch().getResult();
-            map.put("canvasImage",doodle.getCanvas().getCanvasImage());
-            map.put("doodleTitle",doodle.getTitle());
-            map.put("doodleDescription",doodle.getDescription());
-            map.put("doodleId",doodle.getDoodleId());
+            map.put("canvasImage", doodle.getCanvas().getCanvasImage());
+            map.put("doodleTitle", doodle.getTitle());
+            map.put("doodleDescription", doodle.getDescription());
+            map.put("doodleId", doodle.getDoodleId());
         } catch (FetchException e) {
             e.printStackTrace();
         }
@@ -151,14 +153,14 @@ public class IdeaFactoryController {
         return new ModelAndView("doodles");
     }
 
-    @RequestMapping(value="/create/doodle/new", method= RequestMethod.GET)
-    public ModelAndView newDoodle(HttpSession session,ModelMap map){
+    @RequestMapping(value = "/create/doodle/new", method = RequestMethod.GET)
+    public ModelAndView newDoodle(HttpSession session, ModelMap map) {
 
         return new ModelAndView("doodles");
     }
 
-        @RequestMapping(value=SAVE_DOODLE, method= RequestMethod.POST)
-    public ModelAndView saveDoodle(@RequestParam final String canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription, HttpServletRequest req, HttpSession session, ModelMap map){
+    @RequestMapping(value = SAVE_DOODLE, method = RequestMethod.POST)
+    public ModelAndView saveDoodle(@RequestParam final String canvasImage, @RequestParam String doodleTitle, @RequestParam String doodleDescription, HttpServletRequest req, HttpSession session, ModelMap map) {
 
         System.out.println("saving a doodle made easy");
         System.out.println(canvasImage);
@@ -168,26 +170,22 @@ public class IdeaFactoryController {
 
         String dId = req.getParameter("doodleId");
         System.out.println(dId);
-        if(dId != null)// updating the doodle
+        if (dId != null)// updating the doodle
         {
             Long doodleId = Long.parseLong(dId);
             Updateable<Doodle> updateDoodle = new DoodleUpdater();
             Readable<Doodle> getDoodle = new GetDoodlesByIDCommand(doodleId);
-            try
-            {
+            try {
                 Doodle theDoodle = getDoodle.fetch().getResult();
-                updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(doodleTitle, doodleDescription, canvasImage) );
+                updateDoodle.updateEntity(getDoodle, new UpdateDoodleTask(doodleTitle, doodleDescription, canvasImage));
 
-            }
-            catch (CreateException | FetchException | UpdateException  e) {
+            } catch (CreateException | FetchException | UpdateException e) {
                 e.printStackTrace();
             }
 
-        }
-        else// creating the doodle
+        } else// creating the doodle
         {
-            try
-            {
+            try {
                 Createable<Doodle> anotherDoodleCreater = new DoodleCreater(doodleTitle, doodleDescription);
                 Doodle anotherDoodle = anotherDoodleCreater.createEntity(new DoodleFillCommand(canvasImage));
 
@@ -195,8 +193,7 @@ public class IdeaFactoryController {
                 Updateable<UserData> userDataUpdateable = new UserDataUpdater();
                 userDataUpdateable.updateEntity(userDataReadable, new UpdateUserDataAddDoodlesTask(anotherDoodle.getDoodleId()));
                 System.out.println("created the doodles");
-            }
-            catch (UpdateException | FetchException | CreateException e) {
+            } catch (UpdateException | FetchException | CreateException e) {
                 e.printStackTrace();
             }
 
@@ -205,8 +202,8 @@ public class IdeaFactoryController {
         return new ModelAndView("forward:" + IDEA_HOME);
     }
 
-    @RequestMapping(value="/test/scribble", method= RequestMethod.GET)
-    public ModelAndView testScribble(HttpSession session, ModelMap map){
+    @RequestMapping(value = "/test/scribble", method = RequestMethod.GET)
+    public ModelAndView testScribble(HttpSession session, ModelMap map) {
 
         ScribbleModel model = new ScribbleModel();
         model.setTitle("Damnn Right!");
@@ -219,15 +216,14 @@ public class IdeaFactoryController {
         return new ModelAndView("testScribble", "scribbleModel", model);
     }
 
-    @RequestMapping(value="/test/scribble/save", method= RequestMethod.POST)
-    public ModelAndView saveTestScribble(@ModelAttribute("scribbleModel") ScribbleModel model, HttpSession session, ModelMap map){
+    @RequestMapping(value = "/test/scribble/save", method = RequestMethod.POST)
+    public ModelAndView saveTestScribble(@ModelAttribute("scribbleModel") ScribbleModel model, HttpSession session, ModelMap map) {
 
         System.out.println("After! -->" + model);
 
 
         return new ModelAndView("homepage");
     }
-
 
 
 }

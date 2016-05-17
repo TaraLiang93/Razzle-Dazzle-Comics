@@ -65,20 +65,20 @@ $(document).ready(function(){
                                 </div>
                         </div>
                     </div>
-                    <div class="bottomNewChapter row" style="width:inherit; overflow:visible;">
-                        <div class="pull-right" style="margin-right:30px;">
-                            <label style="font-weight: bold;">Flow :</label>
-                            <div class="flowButtons btn-group" data-toggle="buttons">
-                                <input type="hidden" id="flow" name="flow" value="stuff"/>
-                                <label class="btn btn-default active">
-                                    <input type="radio" name="option" autocomplete="off" checked value="1"> Plan
-                                </label>
-                                <label class="btn btn-default">
-                                    <input type="radio" name="option" autocomplete="off" value="5"> Free-Draw
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+                    <%--<div class="bottomNewChapter row" style="width:inherit; overflow:visible;">--%>
+                        <%--<div class="pull-right" style="margin-right:30px;">--%>
+                            <%--<label style="font-weight: bold;">Flow :</label>--%>
+                            <%--<div class="flowButtons btn-group" data-toggle="buttons">--%>
+                                <%--<input type="hidden" id="flow" name="flow" value="stuff"/>--%>
+                                <%--<label class="btn btn-default active">--%>
+                                    <%--<input type="radio" name="option" autocomplete="off" checked value="1"> Plan--%>
+                                <%--</label>--%>
+                                <%--<label class="btn btn-default">--%>
+                                    <%--<input type="radio" name="option" autocomplete="off" value="5"> Free-Draw--%>
+                                <%--</label>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
 
                 </div>
                 <div class="modal-footer">

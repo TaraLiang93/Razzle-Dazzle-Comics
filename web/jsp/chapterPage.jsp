@@ -204,6 +204,10 @@
     <jsp:include page="ReviewTaskModal.jsp" >
         <jsp:param name="chapterID" value="${chapterId}"/>
     </jsp:include>
+<%-- #DoneTaskModal --%>
+    <jsp:include page="doneTaskModal.jsp" >
+        <jsp:param name="chapterID" value="${chapterId}"/>
+    </jsp:include>
 
 
     <c:if test="${chapterId ne null}">
