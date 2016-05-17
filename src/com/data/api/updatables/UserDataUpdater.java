@@ -12,4 +12,5 @@ import com.data.api.interfaces.Updateable;
  * of the generic T
  */
 public class UserDataUpdater extends Updateable<UserData> {
+
 }
