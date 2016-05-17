@@ -68,7 +68,7 @@
         <div id="flowContainer" class="middle">
 
             <c:forEach var="flowTask" items="${chapter.flow.flowTasks}" varStatus="i">
-                <div class="flow">
+                <div class="flow" id="${flowTask.flowTaskId}">
                     <div class="row-fluid flowTitle">
                         <p>${flowTask.flowTaskName}</p>
                     </div>

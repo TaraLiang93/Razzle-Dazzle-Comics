@@ -210,6 +210,7 @@ function loadWriteTask(json){
     $('#writeTaskPageTitle').text(json.title);
     $('#writeTaskAuthor').val(json.author);
     $('#writeTaskSummary').val(json.summary);
+    $('#writeTaskCreateDate').val(json.createDate);
 
     $('#writeTaskcommentsBox').empty();
 
@@ -238,10 +239,9 @@ function loadWriteTask(json){
 function loadPreDrawTask(json){
 
     $('#preDrawTaskHiddenPageID').val(json.id);
-    $('#writeTaskPageTitle').text(json.title);
-    $('#writeTaskAuthor').val(json.author);
-    $('#writeTaskSummary').val(json.summary);
+    $('#preDrawTaskPageTitle').text(json.title);
 
+    $('#preDrawTaskcommentsBox').empty();
     for(i=0; i < json.comments.length ; i++){
         comment = json.comments[i];
         var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
@@ -253,9 +253,9 @@ function loadPreDrawTask(json){
         appendText += "<div class=\"panel panel-default\">" +
             "<div class=\"panel-heading\" role=\"tab\" id=\"heading"+k+"\">" +
             "<h4 class=\"panel-title\">" +
-            "<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#preDrawTaskAccordion\" href=\"#collapseOne\" aria-expanded=\"true\" aria-controls=\"collapse"+k+"\"> " +
-            "Scene"+(k + 1)+ "</a></h4></div>" +
-            "<div id=\"collapse"+k+"\" class=\"panel-collapse collapse in\" role=\"tabpanel\" aria-labelledby=\"headingOne\">" +
+            "<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#preDrawTaskAccordion\" href=\"#collapse"+k+"\" aria-expanded=\"true\" aria-controls=\"collapse"+k+"\"> " +
+            "Scene# "+(k + 1)+ "</a></h4></div>" +
+            "<div id=\"collapse"+k+"\" class=\"panel-collapse collapse in\" role=\"tabpanel\" aria-labelledby=\"heading"+k+"\">" +
             "<div class=\"panel-body\">";
 
         for(j=0; j < json.scenes[i].dialogue.length; j++, k++) {
@@ -270,29 +270,27 @@ function loadPreDrawTask(json){
 
 function loadDrawTask(json){
 
-    $('#writeTaskHiddenPageID').val(json.id);
-    $('#writeTaskPageTitle').text(json.title);
-    $('#writeTaskAuthor').val(json.author);
-    $('#writeTaskSummary').val(json.summary);
+    $('#drawTaskHiddenPageID').val(json.id);
+    $('#drawTaskCreatedBy').val(json.author);
+    $('#drawTaskSummary').val(json.summary);
+    $('#drawTaskCreateDate').val(json.createDate);
 
-    $('#writeTaskcommentsBox').empty();
+    $('#drawTaskcommentsBox').empty();
 
     for(i=0; i < json.comments.length ; i++){
         comment = json.comments[i];
         var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
-        $('#writeTaskcommentsBox').append(appendText);
+        $('#drawTaskcommentsBox').append(appendText);
     }
 
-    $('#writeTaskCarouselContent').empty();
+    $('#drawTaskDialogBox').empty();
     for(i=0; i < json.dialogues; i++){
-        var appendText = "<div class=\"item";
-        if(i == 0) appendText += " active ";
-        appendText += "\" style=\"text-align:center;\"><p>"+json.dialogues[i]+"</p></div>";
+        var appendText = "<p style=\"text-align:center; overflow:hidden;\">"+json.dialogues[i]+"</p>";
 
-        $('#writeTaskCarouselContent').append(appendText);
+        $('#drawTaskDialogBox').append(appendText);
     }
 
-    $('#writeTaskModal').modal('show');
+    $('#drawTaskModal').modal('show');
 }
 
 function loadReviewTask(json){
@@ -319,7 +317,7 @@ function loadReviewTask(json){
         $('#writeTaskCarouselContent').append(appendText);
     }
 
-    $('#writeTaskModal').modal('show');
+    $('#reviewTaskModal').modal('show');
 }
 
 function loadDoneTask(json){
@@ -376,7 +374,7 @@ function loadAsyncTask(selector){
             }
         },
         error: function(){
-            alert("Failed to edit the Summary.");
+            alert("Failed to load the page.");
         }
     });
 }
@@ -384,7 +382,7 @@ function loadAsyncTask(selector){
 function loadTask(item){
     //  Find the parent enclosing div
     //      Find the header for the flow div, and the text corresponding to it
-    var title = $(item).closest(".flow").find(".flowTitle:first-child").first().text();
+    var title = $(item).closest(".flow").find(".flowTitle:first p:first").text();
     console.log("Flow : " + title);
 
     var selector = "";
@@ -429,7 +427,7 @@ function storeFlow(selector){
 
 }
 
-function doMovePage(pid, url){
+function doMovePage(map, pid, url){
     $.ajax({
         url:url,
         data: {pageID:pid},
@@ -437,6 +435,7 @@ function doMovePage(pid, url){
         success: function(data){
             if(data){
                 console.log("Move Successful");
+                swapTasks(map, pid);
             }
         },
         error: function(){
@@ -449,41 +448,46 @@ function movePage(pid, direction){
 
     if(direction > 0){ // Move forward
         console.log("Moving Page with ID : " + pid + "Forward ");
-        doMovePage(pid, "/create/page/moveNext")
+        doMovePage(flowMapNext, pid, "/create/page/moveNext")
     }
     else if (direction < 0){ // Move backwards
         console.log("Moving Page with ID : " + pid + "backwards ");
-        doMovePage(pid, "/create/page/movePrev")
+        doMovePage(flowMapPrev, pid, "/create/page/movePrev")
     }
     else{
         console.log("Direction == 0 means lets stay still");
     }
 }
 
-function swapTasks(map, task){
-    var id = $( ".flowTable:has(#"+task+")").attr("id");
-    var nextID = map[id]; //Fetch the next one from the map
-    if(id === nextID){
+function swapTasks(map, pid){
+    var task = $('#' + pid);
+    var parentFlowId = $('#' + pid).closest(".flow").attr('id');
+    //var id = $( ".flowTable:has(#"+task+")").attr("id");
+    var nextID = map[parentFlowId]; //Fetch the next one from the map
+    if(parentFlowId === nextID){
         console.log("Nothing to do, ID's are the same, must be illegal move");
     }
     else{
-        $(nextID).append($(task)); //Append it to the new one
-        $(id).remove($(task));     //Remove it from the previous
+
+        var taskContainer = $(task).closest(".flow").find(".flowBody:first .flowTable:first");
+
+        //First we have to find the enclosing container, then append it
+        $('#'+ nextID).find(".flowBody:first .flowTable:first").append($(task));
+
+        $(taskContainer).remove($(task));     //Remove it from the previous
         console.log("Done Swapping");
     }
 
 }
 
-function moveNext(task, pid, modal){
+function moveNext(pid, modal){
     movePage(pid, 1);
     $(modal).modal('hide');
-    swapTasks(flowMapNext, task);
 }
 
-function movePrev(task, pid, modal){
+function movePrev(pid, modal){
     movePage(pid, -1);
     $(modal).modal('hide');
-    swapTasks(flowMapPrev, task);
 }
 
 

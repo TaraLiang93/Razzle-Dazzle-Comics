@@ -48,15 +48,15 @@
                         </jsp:include>
                     </div>
                     <div class="form-inline">
-                        <label for="createByLabel" >Created By:</label>
+                        <label for="drawTaskCreatedBy" >Created By:</label>
                         <div class="form-group">
-                        <input type="text" id="createByLabel" name="createByLabel" class="form-control" value="Jason" readonly/>
+                        <input type="text" id="drawTaskCreatedBy" class="form-control" value="" readonly/>
                         </div>
                     </div>
                     <div class="form-inline">
-                        <label for="createOnLabel" >Created On:</label>
+                        <label for="drawTaskCreateDate" >Created On:</label>
                         <div class="form-group">
-                        <input type="date" id="createOnLabel" name="createOnLabel" class="form-control" value="01/12/1990" readonly/>
+                        <input type="date" id="drawTaskCreateDate" class="form-control" value="" readonly/>
                         </div>
                     </div>
                     <br/>
@@ -74,17 +74,16 @@
                     </div>
                     <div class="col-sm-12 drawTaskDialog">
                     <label>Dialog</label>
-                        <div class="content-border col-sm-12" style="height: 125px; overflow-y:auto">
-                            <c:forEach var="i" items="">
-                                <p class="dialog content-border">${i}</p>
-                            </c:forEach>
+                        <div id="drawTaskDialogBox" class="content-border col-sm-12" style="height: 125px; overflow-y:auto">
+
                         </div>
                     </div>
-                        <div class="btn-inline btn-xs-12">
-                            <a class="btn btn-xs-4 btn-default round-button" type="button"  onclick="movePrev($('#hiddenPageID').val(), $('#drawTaskModal'));" >Pre-Draw</a>
-                            <input class="btn btn-xs-4 btn-info round-button" type="submit" value="Draw"/>
-                            <a class="btn btn-xs-4 btn-primary round-button" type="button"  onclick="moveNext($('#hiddenPageID').val(), $('#drawTaskModal'));" >Review</a>
-                        </div>
+                </div>
+
+                <div class="btn-inline btn-xs-12 modal-footer">
+                    <a class="btn btn-xs-4 btn-default round-button" type="button"  onclick="movePrev($('#drawTaskHiddenPageID').val(), $('#drawTaskModal'));" >Pre-Draw</a>
+                    <input class="btn btn-xs-4 btn-info round-button" type="submit" value="Draw"/>
+                    <a class="btn btn-xs-4 btn-primary round-button" type="button"  onclick="moveNext($('#drawTaskHiddenPageID').val(), $('#drawTaskModal'));" >Review</a>
                 </div>
             </div>
 
