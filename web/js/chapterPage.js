@@ -64,7 +64,7 @@ $(document).ready(function(){
             var parent = $(this).parent().parent();
             var userName = parent.find(".userName").text();
             console.log("plz delete "+$(".name").get(this.getAttribute("id")).innerHTML);
-            var jsonObj = {"chapterID": chapterId.text(), "removeMember": userName};
+            var jsonObj = {"chapterID": chapterId.text(), "removeMember": userName, seriesID : $("#seriesID").text()};
             $.post("/create/chapter/removeMember", jsonObj)
                 .done(function(){
                     //$(".name").get(this.getAttribute("id")).parentNode.removeChild($(".name").get(this.getAttribute("id")));
@@ -97,7 +97,8 @@ $(document).ready(function(){
                 return;
             }
 
-            $.post("/create/chapter/addMember", {"chapterID": chapterId.text(), "newMemeber": newMember})
+
+            $.post("/create/chapter/addMember", {"chapterID": chapterId.text(), "newMemeber": newMember, seriesID : $("#seriesID").text()})
                 .done(function(){
                     newMember = newMember.substring(0,newMember.indexOf("@"));
                     var code =

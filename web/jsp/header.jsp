@@ -81,7 +81,6 @@
                                 <li><a href="/read/topComics">Top 100</a></li>
                                 <li><a href="/read/genres">Genres</a></li>
                                 <li><a href="/read/newReleases">Latest Release</a></li>
-                               <c:if test="${true}"><li><a href="#">Bookmarked</a></li></c:if>
                             </ul>
                         </li>
                         <li class="dropdown ${globals.status == 'create'? "active": none}">

@@ -41,7 +41,8 @@ $("document").ready(function(){
 
     $(".chapter").each(function(){
         $(this).click(function(){
-            $(location).attr("href","/create/chapter/load/" + $(this).attr("id"));
+            //$(location).attr("href","/create/chapter/load/" + $(this).attr("id"));
+            $(this).submit();
 
         });
     });

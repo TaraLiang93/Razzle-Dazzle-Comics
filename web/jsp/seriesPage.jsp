@@ -18,7 +18,8 @@
             <div class="col-xs-9 container" id="seriesChapter">
 
                 <c:forEach var="chapter" items="${chapters}">
-                    <div class="chapter" id="${chapter.chapterId}">
+                    <form action="/create/chapter/load/${chapter.chapterId}" class="chapter" id="${chapter.chapterId}">
+                        <input type="text" style="display: none;" name="seriesID" value="${series.seriesID}" />
                         <img class="pull-left chapterImg" src="${chapter.chapterCover}">
                         <div>
                             <h2 id="chapterTitle">Chapter Title${chapter.title}</h2>
@@ -31,7 +32,7 @@
                         <a class="btn btn-link updateDescr">
                             <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
                         </a>
-                    </div>
+                    </form>
                 </c:forEach>
 
 

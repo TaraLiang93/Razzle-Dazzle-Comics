@@ -214,6 +214,9 @@
         <div id="currentUserID" style="display: none">${userData.nickName}</div>
     </c:if>
 
+    <c:if test="${seriesID ne null}">
+        <div id="seriesID" style="display: none;">${seriesID}</div>
+    </c:if>
 
 
 <jsp:include page="footer.jsp"/>
