@@ -53,7 +53,7 @@ public class ChapterController {
     @RequestMapping(value = LOAD_NEW_CHAPTER, method = RequestMethod.GET)
     public String getImageUploadUrl(ModelMap map) {
         BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-        map.put("uploadAction",blobstoreService.createUploadUrl(NEW_CHAPTER));
+        map.put("uploadAction", blobstoreService.createUploadUrl(NEW_CHAPTER));
         return "newChapterModal";
     }
 
@@ -90,11 +90,11 @@ public class ChapterController {
 
             map.put("chapter", chapter);
             map.put("chapterId", id);
-            map.put("teamMembers",teamMembers);
+            map.put("teamMembers", teamMembers);
             map.put("pages", pages);
 
             BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-            map.put("uploadAction",blobstoreService.createUploadUrl(UPDATE_CHAPTER_INFO));
+            map.put("uploadAction", blobstoreService.createUploadUrl(UPDATE_CHAPTER_INFO));
 
         } catch (FetchException e) {
             e.printStackTrace();
@@ -104,104 +104,102 @@ public class ChapterController {
         return new ModelAndView("chapterPage");
     }
 
-    @RequestMapping(value="/create/chapter/addMember", method = RequestMethod.POST)
+    @RequestMapping(value = "/create/chapter/addMember", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void addTeam(@RequestParam String chapterID, @RequestParam String newMemeber, HttpSession session){
-        try{
+    public void addTeam(@RequestParam String chapterID, @RequestParam String newMemeber, HttpSession session) {
+        try {
             System.out.println("newMemeber = " + newMemeber);
             Updateable<Chapter> chapterUpdater = new ChapterUpdater();
             Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterID);
             chapterUpdater.updateEntity(chapterReadable, new UpdateChapterAddTeamMemberTask(newMemeber));
-        } catch(UpdateException | FetchException | CreateException e){
+        } catch (UpdateException | FetchException | CreateException e) {
             e.printStackTrace();
         }
     }
 
 
-    @RequestMapping(value="/create/chapter/removeMember", method = RequestMethod.POST)
+    @RequestMapping(value = "/create/chapter/removeMember", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void removeTeamMember(@RequestParam String chapterID, @RequestParam String removeMember, HttpSession session){
-        try{
+    public void removeTeamMember(@RequestParam String chapterID, @RequestParam String removeMember, HttpSession session) {
+        try {
             Updateable<Chapter> chapterUpdater = new ChapterUpdater();
             Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterID);
             chapterUpdater.updateEntity(chapterReadable, new UpdateChapterRemoveTeamMemberTask(removeMember));
-        } catch(UpdateException | FetchException | CreateException e){
+        } catch (UpdateException | FetchException | CreateException e) {
             e.printStackTrace();
         }
     }
 
 
-    @RequestMapping(value=NEW_CHAPTER, method= RequestMethod.POST)
+    @RequestMapping(value = NEW_CHAPTER, method = RequestMethod.POST)
     public ModelAndView addChapter(@RequestParam String chapterID,
                                    @RequestParam String title,
                                    @RequestParam String description,
-                                   @RequestParam String flow,
                                    @RequestParam String seriesID,
                                    @RequestHeader String referer,
                                    HttpServletRequest req,
-                                   ModelMap map){
+                                   ModelMap map) {
 
         String redirect = "chapterPage";
 
         System.out.println("Title : " + title);
         System.out.println("Description : " + description);
-        System.out.println("Flow : " + flow);
         System.out.println("Series ID : " + seriesID);
 
         BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
         Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
         List<BlobKey> blobKeys = blobs.get("chapterImage");
 
+        BlobKey key = null;
+        Chapter chapter;
 
-        if (blobKeys == null) {
-            System.out.println("Why you null BlobKeys?");
-            redirect = referer; //Go back from whence thee came
+        if (blobKeys != null) {
+            BlobKey blobKey = blobKeys.get(0); // Get the first one
+            BlobInfoFactory blobInfoFactory = new BlobInfoFactory();
+            BlobInfo info = blobInfoFactory.loadBlobInfo(blobKey);
+            System.out.println("Content Type : " + info.getContentType());
+            System.out.println("Image FileName : " + info.getFilename());
+            key = info.getBlobKey();
         }
-        else {
-            if(blobKeys.size() == 0){
-                System.out.println("There should be a default Image here");
-                redirect = referer;
+
+        try {
+            if(key != null) {
+                chapter = new ChapterCreater(UserServiceFactory.getUserService().getCurrentUser(),
+                        title, chapterID, description).createEntity(new ChapterFillCommand(key));
+                new SeriesUpdater()
+                        .updateEntity(
+                                new GetSeriesByIDCommand(seriesID),
+                                new UpdateSeriesAddChapterTask(chapter));
             }
             else{
-
-                    BlobKey blobKey = blobKeys.get(0); // Get the first one
-                    BlobInfoFactory blobInfoFactory = new BlobInfoFactory();
-                    BlobInfo info = blobInfoFactory.loadBlobInfo(blobKey);
-                    System.out.println("Content Type : "+info.getContentType());
-                    System.out.println("Image FileName : "+info.getFilename());
-                    BlobKey key = info.getBlobKey();
-
-                try {
-                    Chapter chapter = new ChapterCreater(UserServiceFactory.getUserService().getCurrentUser(),
-                                                    title, chapterID, description).createEntity(new ChapterFillCommand(key));
-                    new SeriesUpdater()
-                            .updateEntity(
-                                          new GetSeriesByIDCommand(seriesID),
-                                          new UpdateSeriesAddChapterTask(chapter));
-                    map.put("chapter", chapter);
-                    redirect="redirect:/create/chapter/load/" + chapter.getChapterId();
-                } catch (CreateException | FetchException | UpdateException e) {
-                    redirect = referer;
-                    e.printStackTrace();
-                }
+                key = null;
+                chapter = new ChapterCreater(UserServiceFactory.getUserService().getCurrentUser(),
+                        title, chapterID, description).createEntity(new ChapterFillCommand(key));
+                new SeriesUpdater()
+                        .updateEntity(
+                                new GetSeriesByIDCommand(seriesID),
+                                new UpdateSeriesAddChapterTask(chapter));
             }
 
+            map.put("chapter", chapter);
+            redirect = "redirect:/create/chapter/load/" + chapter.getChapterId();
+        } catch (CreateException | FetchException | UpdateException e) {
+            redirect = referer;
+            e.printStackTrace();
         }
-
-
 
 
         return new ModelAndView(redirect);
     }
 
-    @RequestMapping(value=UPDATE_CHAPTER_INFO, method=RequestMethod.POST)
+    @RequestMapping(value = UPDATE_CHAPTER_INFO, method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView updateChapterInfo(@RequestParam String chapterID,
                                           @RequestParam String chapterString,
                                           @RequestParam String chapterTitle,
                                           @RequestParam String description,
-                                         HttpServletRequest req,
-                                        HttpSession session){
+                                          HttpServletRequest req,
+                                          HttpSession session) {
 
         BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
         Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(req);
@@ -211,10 +209,10 @@ public class ChapterController {
 
         try {
             new ChapterUpdater().updateEntity(new GetChapterByIDCommand(chapterID),
-                                            new UpdateChapterEditInfoTask(chapterTitle,
-                                                                            chapterString,
-                                                                            description,
-                                                                            (blobKeys != null && blobKeys.size() > 0)? blobKeys.get(0) : null));
+                    new UpdateChapterEditInfoTask(chapterTitle,
+                            chapterString,
+                            description,
+                            (blobKeys != null && blobKeys.size() > 0) ? blobKeys.get(0) : null));
         } catch (FetchException | UpdateException | CreateException e) {
             e.printStackTrace();
         }
@@ -224,21 +222,20 @@ public class ChapterController {
 
     }
 
-    @RequestMapping(value="/create/chapter/getTeam", method=RequestMethod.GET)
+    @RequestMapping(value = "/create/chapter/getTeam", method = RequestMethod.GET)
     @ResponseBody
-    public JSONObject getTeam(HttpServletRequest req, String chapter){
+    public JSONObject getTeam(HttpServletRequest req, String chapter) {
 
         return null;
     }
 
-    @RequestMapping(value="/read/{seriesName}/{id}", method = RequestMethod.GET)
-    public ModelAndView readChapter(@PathVariable String seriesName, @PathVariable String id,ModelMap map){
-
+    @RequestMapping(value = "/read/{seriesName}/{id}", method = RequestMethod.GET)
+    public ModelAndView readChapter(@PathVariable String seriesName, @PathVariable String id, ModelMap map) {
 
 
         Readable<PublishedPage> publishedPageReadable = null;
         try {
-            PublishedPage page  = publishedPageReadable.fetch().getResult();
+            PublishedPage page = publishedPageReadable.fetch().getResult();
 
         } catch (FetchException e) {
             e.printStackTrace();

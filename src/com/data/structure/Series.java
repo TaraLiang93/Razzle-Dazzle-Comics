@@ -23,7 +23,7 @@ import java.util.List;
 public class Series {
 
     @Ignore
-    private static final String DEFAULT_IMG = "/img/profile_default.png";
+    private static final String DEFAULT_IMG = "/img/chapter_default.jpeg";
 
     @Id
     Long seriesID;

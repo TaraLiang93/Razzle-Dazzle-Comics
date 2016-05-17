@@ -19,6 +19,10 @@
     function formSubmit(){
         $('#seriesModal').modal('hide');
         var selected = $('.flowButtons input:radio:checked').val();
+//        if($("#fileUpload").val()==""){
+//            $("#seriesImage").attr("src","/img/chapter_default.jpeg");
+//            $("#fileUpload").val("/img/chapter_default.jpeg");
+//        }
         $('#flow').val(selected);
         $('#seriesForm').submit();
     }
@@ -35,8 +39,8 @@
                 <div class="modal-body">
                     <div class="topNewChapter center-stage row" style="width:90%; margin:auto; margin-bottom: 5em; ">
                         <div class="seriesImage pull-left" style="width:40%;">
-                            <input id="fileUpload" type="file" name="seriesImage" accept="image/*" style="display:none;" onchange="readURL(this, '#seriesImage');">
-                            <img id="seriesImage" src="/img/profile_default.png" alt="Profile Image" style="width:80%; height: inherit; border:3px solid black;"
+                            <input id="fileUpload" type="file" name="seriesImage" accept="image/*" style="display:none;" onchange="readURL(this, '#seriesImage');" src="/img/chapter_default.jpeg">
+                            <img id="seriesImage" src="/img/chapter_default.jpeg" alt="Profile Image" style="width:80%; height: inherit; border:3px solid black;"
                                  onclick="$('#fileUpload').click();"/>
                         </div>
                         <div class="seriesText pull-right" style="width:60%;">

@@ -20,12 +20,12 @@
     <div id="wrapper" class="panel panel-default wrapper center-block">
 
         <ul id="ideaFactory" class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active tabHeader"><a href="#scribbles"  role="tab" data-toggle="tab">Scribbles</a></li>
-            <li role="presentation" class="tabHeader"><a href="#doodles" role="tab" data-toggle="tab">Doodles</a></li>
+            <li role="presentation" class="tabHeader ${tabActive == null? 'active':''}"><a href="#scribbles"  role="tab" data-toggle="tab">Scribbles</a></li>
+            <li role="presentation" class="tabHeader ${tabActive == null? '':'active'}"><a href="#doodles" role="tab" data-toggle="tab" >Doodles</a></li>
         </ul>
 
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade in active" id="scribbles" name="scribbles">
+            <div role="tabpanel" class="tab-pane fade ${tabActive == null? 'active in':''}" id="scribbles" name="scribbles">
                 <div class="row">
                     <div id="newScribble" class="span2">
                         <div class="col-sm-3 col-md-3">
@@ -53,7 +53,7 @@
                     </c:forEach>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane fade" id="doodles" name="doodles">
+            <div role="tabpanel" class="tab-pane fade  ${tabActive == null? '':'active in'}" id="doodles" name="doodles">
                 <div class="row">
                     <div id="newDoodle" class="span2">
                         <div class="col-sm-3 col-md-3">

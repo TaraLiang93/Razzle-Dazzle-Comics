@@ -49,7 +49,7 @@
 
     <div class="groupPreview">
         <label for="doodlesPreview" >Doodles</label>
-        <a href="/create/ideas#Doodles" class="viewMore pull-right">
+        <a href="/create/ideas?idea=Doodles" class="viewMore pull-right">
             <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i> View More
         </a>
         <div class="row preview"id="doodlesPreview">
@@ -72,7 +72,7 @@
 
 
     <div class="groupPreview">
-        <a href="/create/ideas#Scribbles" class="viewMore pull-right">
+        <a href="/create/ideas" class="viewMore pull-right">
             <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i> View More
         </a>
         <label for="scribblePreview">Scribbles</label>
