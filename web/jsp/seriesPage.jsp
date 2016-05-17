@@ -22,7 +22,7 @@
                         <input type="text" style="display: none;" name="seriesID" value="${series.seriesID}" />
                         <img class="pull-left chapterImg" src="${chapter.chapterCover}">
                         <div>
-                            <h2 id="chapterTitle">Chapter Title${chapter.title}</h2>
+                            <h2 id="chapterTitle">${chapter.title}</h2>
                         </div>
                         <div>
                             <p class="stringAndStatus">${chapter.chapterString}</p>

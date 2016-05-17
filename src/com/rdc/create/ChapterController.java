@@ -1,5 +1,6 @@
 package com.rdc.create;
 
+import com.data.UserData;
 import com.data.api.createables.ChapterCreater;
 import com.data.api.createables.fillCommands.ChapterFillCommand;
 import com.data.api.exceptions.CreateException;
@@ -11,16 +12,16 @@ import com.data.api.interfaces.Updateable;
 import com.data.api.queries.external.GetChapterByIDCommand;
 import com.data.api.queries.external.GetSeriesByIDCommand;
 import com.data.api.queries.external.GetTeamMembersOfChapterCommand;
+import com.data.api.queries.external.GetUserDataByUserNameCommand;
 import com.data.api.updatables.ChapterUpdater;
 import com.data.api.updatables.SeriesUpdater;
-import com.data.api.updatables.updateTasks.UpdateChapterAddTeamMemberTask;
-import com.data.api.updatables.updateTasks.UpdateChapterEditInfoTask;
-import com.data.api.updatables.updateTasks.UpdateChapterRemoveTeamMemberTask;
-import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
+import com.data.api.updatables.UserDataUpdater;
+import com.data.api.updatables.updateTasks.*;
 import com.data.creation.Chapter;
 import com.data.creation.Page;
 import com.data.creation.PublishedPage;
 import com.data.structure.FlowTask;
+import com.data.structure.Series;
 import com.data.structure.TeamMember;
 import com.google.appengine.api.blobstore.*;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -33,10 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by drodrigues on 3/29/16.
@@ -110,12 +108,30 @@ public class ChapterController {
 
     @RequestMapping(value="/create/chapter/addMember", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void addTeam(@RequestParam String chapterID, @RequestParam String newMemeber, HttpSession session){
+    public void addTeam(@RequestParam String chapterID, @RequestParam String newMemeber, @RequestParam String seriesID, HttpSession session){
         try{
             System.out.println("newMemeber = " + newMemeber);
             Updateable<Chapter> chapterUpdater = new ChapterUpdater();
             Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterID);
             chapterUpdater.updateEntity(chapterReadable, new UpdateChapterAddTeamMemberTask(newMemeber));
+
+            //should only add the series if the user doesn't have it
+            Readable<UserData> getUserData= new GetUserDataByUserNameCommand(newMemeber);
+
+            List<Series> series = getUserData.fetch().getResult().getSeries();
+
+            HashSet<Long> seriesIDs = new HashSet<>();
+
+            for(Series s :  series){
+                seriesIDs.add(s.getSeriesID());
+            }
+            if(!seriesIDs.contains(Long.parseLong(seriesID))) {// if the user doesn't contain this series add it
+                Updateable<UserData> userDataUpdateable = new UserDataUpdater();
+
+                userDataUpdateable.updateEntity(getUserData, new UpdateUserDataAddSeriesTask(seriesID));
+            }
+
+
         } catch(UpdateException | FetchException | CreateException e){
             e.printStackTrace();
         }
@@ -124,11 +140,40 @@ public class ChapterController {
 
     @RequestMapping(value="/create/chapter/removeMember", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public void removeTeamMember(@RequestParam String chapterID, @RequestParam String removeMember, HttpSession session){
+    public void removeTeamMember(@RequestParam String chapterID, @RequestParam String removeMember,  @RequestParam String seriesID, HttpSession session){
         try{
             Updateable<Chapter> chapterUpdater = new ChapterUpdater();
             Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterID);
             chapterUpdater.updateEntity(chapterReadable, new UpdateChapterRemoveTeamMemberTask(removeMember));
+
+
+            // if the user is in other chapters of this series a
+            Readable<Series> seriesReadable = new GetSeriesByIDCommand(seriesID);
+
+            Readable<UserData> getUserData= new GetUserDataByUserNameCommand(removeMember);
+
+            List<Chapter> chapters = seriesReadable.fetch().getResult().getChapters();
+
+            UserData userData = getUserData.fetch().getResult();
+
+            HashSet<String> userIDSs = new HashSet<>();
+
+
+            for(Chapter chapter : chapters)// checks to see if a user is in anymore chapters of that series
+            {
+                List<TeamMember> teamMembers = chapter.getTeamMembers();
+                for(TeamMember member : teamMembers)
+                {
+                    userIDSs.add(member.getUserStringId());
+                }
+
+            }
+
+            if(!userIDSs.contains(userData.getUserId())) {
+                Updateable<UserData> userDataUpdateable = new UserDataUpdater();
+                userDataUpdateable.updateEntity(getUserData, new UpdateUserDataRemoveSeriesTask(seriesID));
+            }
+
         } catch(UpdateException | FetchException | CreateException e){
             e.printStackTrace();
         }
