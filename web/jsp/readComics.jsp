@@ -46,7 +46,7 @@
 
         <%--Newest--%>
         <div class="groupPreview">
-            <a href="/create/projectAdminPage" class="viewMore pull-right">
+            <a href="/read/newReleases" class="viewMore pull-right">
                 <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i> View More
             </a>
             <label for="latestSeries">Newest</label>
@@ -72,7 +72,7 @@
         <%--Popular--%>
 
         <div class="groupPreview">
-            <a href="/create/projectAdminPage" class="viewMore pull-right">
+            <a href="/read/topComics" class="viewMore pull-right">
                 <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i> View More
             </a>
             <label for="popularSeries">Popular</label>
