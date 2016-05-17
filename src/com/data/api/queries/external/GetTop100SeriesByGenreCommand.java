@@ -53,7 +53,13 @@ public class GetTop100SeriesByGenreCommand extends Readable{
             Filter filter = new FilterPredicate("name",
                     FilterOperator.EQUAL,
                     genreName);
-            Genre genre = ofy().load().type(Genre.class).filter( filter ).first().now();
+
+            Filter publishedFilter = new FilterPredicate( "published",
+                    FilterOperator.EQUAL,
+                    true
+                    );
+
+            Genre genre = ofy().load().type(Genre.class).filter( filter ).filter(publishedFilter).first().now();
             Readable<Series> seriesReadable = new GetEntityListFromKeyListCommand<>( genre.getSeriesList() );
             seriesList.addAll( seriesReadable.fetch().getList() );
 

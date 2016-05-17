@@ -5,6 +5,7 @@ import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
 import com.data.structure.Series;
+import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.googlecode.objectify.Key;
 
@@ -38,8 +39,13 @@ public class GetTopSeriesCommand extends Readable {
     public Container fetch() throws FetchException{
         Map<Key<Series>, Series> map = new HashMap<>();
 
+        Filter publishedFilter = new Query.FilterPredicate( "published",
+                Query.FilterOperator.EQUAL,
+                true
+        );
+
         // order based on views field
-        List<Series> seriesList2 = ofy().load().type(getType()).order("-views").limit(this.numberOfSeries).list();
+        List<Series> seriesList2 = ofy().load().type(getType()).filter(publishedFilter).order("-views").limit(this.numberOfSeries).list();
 
         for( Series series: seriesList2 ){
             map.put(series.getKey(), series);
