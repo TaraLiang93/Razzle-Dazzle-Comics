@@ -13,6 +13,8 @@
         <jsp:param name="js" value="/js/chapterPage.js"/>
     </jsp:include>
 
+    <form action="/create/publish/canvas" >
+
     <div class="outer">
 
         <div class="top">
@@ -57,7 +59,7 @@
                 <div id="bottom" class="pull-right">
                     <button type="button" class="btn btn-primary" id="addPage">Add Page</button>
                     <button id="returnSeries" type="button" class="btn btn-default">Return to Series Page</button>
-                    <button type="button" class="btn btn-primary">Publish Page</button>
+                    <button type="submit" class="btn btn-primary">Publish Page</button>
                 </div>
             </div>
         </div> <%-- End TOP class--%>
@@ -177,6 +179,7 @@
             </div>
         </div>
     </div>
+    </form>
 
 <%-- #writeTaskModal --%>
     <jsp:include page="writeTaskModal.jsp" >

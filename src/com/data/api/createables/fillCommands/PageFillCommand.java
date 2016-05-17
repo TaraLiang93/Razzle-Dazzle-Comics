@@ -33,6 +33,8 @@ public class PageFillCommand implements FillDataCommand<Page> {
         Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterId);
         Chapter chapter = chapterReadable.fetch().getResult();
 
+        entity.setIndex(chapter.getPageList().size()); //The index is the size of the next one. 1 element = size 1, means we are adding a second one
+
         FlowTask firstFlowTask = null;
         for(FlowTask flowTask : chapter.getFlow().getFlowTasks() ){
             if (flowTask.getIndex() == 0){

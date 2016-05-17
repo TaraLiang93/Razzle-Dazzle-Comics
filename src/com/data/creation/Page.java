@@ -38,6 +38,8 @@ public class Page {
 
     private int numRevisions;
 
+    private int index;
+
     @Index
     private Key<FlowTask> flowTask;
 
@@ -137,6 +139,14 @@ public class Page {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getIndex(){
+        return this.index;
+    }
+
+    public void setIndex(int index){
+        this.index = index;
     }
 
     public String getSummary() {

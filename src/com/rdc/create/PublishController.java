@@ -3,6 +3,7 @@ package com.rdc.create;
 import com.data.api.createables.ChapterCreater;
 import com.data.api.createables.PublishedPageCreater;
 import com.data.api.createables.fillCommands.ChapterFillCommand;
+import com.data.api.createables.fillCommands.PublishedPageCanvasFillCommand;
 import com.data.api.createables.fillCommands.PublishedPageImageFillCommand;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
@@ -10,7 +11,9 @@ import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
+import com.data.api.queries.external.GetChapterByIDCommand;
 import com.data.api.queries.external.GetSeriesByIDCommand;
+import com.data.api.queries.external.GetSortedScenesFromChapterCommand;
 import com.data.api.updatables.ChapterUpdater;
 import com.data.api.updatables.SeriesUpdater;
 import com.data.api.updatables.updateTasks.UpdateChapterAddPublishedPageTask;
@@ -18,6 +21,7 @@ import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
 import com.data.api.updatables.updateTasks.UpdateSeriesToggleVisibilityTask;
 import com.data.creation.Chapter;
 import com.data.creation.PublishedPage;
+import com.data.creation.Scene;
 import com.data.structure.Series;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
@@ -52,12 +56,34 @@ public class PublishController {
                                        HttpServletRequest req,
                                        ModelMap map){
 
+        User user = UserServiceFactory.getUserService().getCurrentUser();
+
+        Chapter chapter = null;
+        try{
+
+            Container<List<Scene>> getScenes = new GetSortedScenesFromChapterCommand(chapterID).fetch();
+            List<Scene> sceneList = getScenes.getResult();
+
+            Container<Chapter> getChapter = new GetChapterByIDCommand(chapterID).fetch();
+            chapter = getChapter.getResult();
+
+            for(int i=0; i < sceneList.size();i++){
+
+                System.out.println("Publishing Scene with Setting : " + sceneList.get(i).getSetting());
+                PublishedPage newPage = new PublishedPageCreater().createEntity(new PublishedPageCanvasFillCommand(chapterID, sceneList.get(i).getCanvas(), i));
+                new ChapterUpdater().updateEntity(chapter, new UpdateChapterAddPublishedPageTask(newPage));
+            }
+
+            System.out.println("Chapter successfully created and Chapter Added");
+
+        } catch (CreateException | FetchException | UpdateException e) {
+            e.printStackTrace();
+            map.put("chapter", chapter);
+            return new ModelAndView("redirect:/create/chapter/load" + chapterID);
+        }
 
 
-
-
-
-        return new ModelAndView("homepage");
+        return new ModelAndView("redirect:" + ProjectAdminPageController.LOAD_ADMIN_PAGE);
     }
 
     @RequestMapping(value=PUBLISH_UPLOADS, method= {RequestMethod.GET, RequestMethod.POST})

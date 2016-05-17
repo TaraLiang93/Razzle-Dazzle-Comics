@@ -48,7 +48,7 @@ public class GetPagesInDoneFlowTaskCommand extends Readable{
     }
 
     @Override
-    public MapContainer<GetPagesInDoneFlowTaskCommand> fetch() throws FetchException{
+    public MapContainer fetch() throws FetchException{
         //Get the chapter Entity
         Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterId);
         Chapter chapter = chapterReadable.fetch().getResult();

@@ -16,6 +16,13 @@ public class PublishedPageCanvasFillCommand implements FillDataCommand<Published
 
     private String chapterID;
     private Canvas canvas;
+    private int index;
+
+    public PublishedPageCanvasFillCommand(String chapterID, Canvas canvas, int index){
+        this.chapterID = chapterID;
+        this.canvas = canvas;
+        this.index = index;
+    }
 
     @Override
     public void fillEntity(PublishedPage entity) throws CreateException {
@@ -26,7 +33,7 @@ public class PublishedPageCanvasFillCommand implements FillDataCommand<Published
         try {
             Container<Chapter> getChapter = new GetChapterByIDCommand(chapterID).fetch();
             entity.setCanvasKey(canvas);
-            entity.setIndex(0);
+            entity.setIndex(index);
         } catch (FetchException e) {
             e.printStackTrace();
         }

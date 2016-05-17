@@ -175,6 +175,8 @@ $(document).ready(function(){
 
     $("#addPage").click(function(){
        console.log("Add Page Clicked");
+        $('#newTasktitle').val("Page " + totalCount);
+        $('#newTaskdesc').val("");
         $('#newTaskModal').modal('show');
     });
 
@@ -255,6 +257,7 @@ function loadPreDrawTask(json){
     }
     k = 0;
     var appendText ="";
+    $('#preDrawTaskAccordion').empty();
     for(i=0; i < json.scenes.length; i++){
         appendText += "<div class=\"panel panel-default\">" +
             "<div class=\"panel-heading\" role=\"tab\" id=\"heading"+k+"\">" +
@@ -270,7 +273,9 @@ function loadPreDrawTask(json){
         appendText +="</div></div></div>";
 
     }
-    $('#preDrawTaskAccordion').append(appendText);
+    if(appendText != "")
+        $('#preDrawTaskAccordion').append(appendText);
+
     $('#preDrawTaskModal').modal('show');
 }
 
