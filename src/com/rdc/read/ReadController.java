@@ -6,17 +6,13 @@ import com.data.api.queries.external.*;
 import com.data.creation.Chapter;
 import com.data.structure.Genre;
 import com.data.structure.Series;
-import com.google.appengine.api.users.UserServiceFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +28,7 @@ public class ReadController {
 
 
     @RequestMapping(value = READCOMICS, method = RequestMethod.GET)
-    public ModelAndView loadChapter(@RequestHeader String referer, ModelMap map) {
+    public ModelAndView loadChapter(ModelMap map) {
 
         Readable<Series> seriesReadable = new GetLatestReleasedSeriesCommand(4);
         try {
@@ -48,7 +44,7 @@ public class ReadController {
             List<Series> allSeries = seriesReadable.fetch().getList();
             HashSet<Series> randomSeries = new HashSet<>();
 
-            while(randomSeries.size() < 5) {// grab series at random and then loop until there is 5 series in the map
+            while(!randomSeries.isEmpty() && randomSeries.size() < 5) {// grab series at random and then loop until there is 5 series in the map
                 int index = (int) Math.floor(Math.random() * allSeries.size());
                 randomSeries.add(allSeries.get(index));
             }
