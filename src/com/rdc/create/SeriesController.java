@@ -193,7 +193,8 @@ public class SeriesController {
             map.put("uploadChapterAction",blobstoreService.createUploadUrl(PublishController.PUBLISH_UPLOADS));
             map.put("uploadSeriesImageAction",blobstoreService.createUploadUrl(UDPATE_SERIESIMG));
 
-                Readable<Chapter> getChapters = new GetChaptersOfSeriesCommand(series.getSeriesID());
+
+                Readable<Chapter> getChapters = new GetChaptersOfTeamMember(series.getSeriesID(),UserServiceFactory.getUserService().getCurrentUser().getUserId());
                 List<Chapter> chapters = getChapters.fetch().getList();
 
                 map.put("series", series);
