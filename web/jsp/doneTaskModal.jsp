@@ -7,29 +7,30 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-</head>
-<body>
-    <!-- Modal -->
-    <div id="doneTask" class="modal fade" role="dialog">
-        <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Some text in the modal.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+<input id="doneTaskHiddenChapterID" type="hidden" name="chapterID" value="${param.chapterID}"/>
+<input id="doneTaskHiddenPageID" type="hidden" name="pageID" value=""/>
+<div id="doneTaskModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="doneTaskPageTitle" class="modal-title pull-left"></h4>
             </div>
+            <div class="modal-body">
+                <div class="topDoneTask center-stage" style="width:95%; margin:auto; ">
+                    <div class="row">
+                        <div class="pull-left col-md-8">
+                                <canvas></canvas>
+                        </div> <!-- Left Column-->
 
-        </div>
-    </div>
-</body>
-</html>
+                    </div> <!-- row -->
+
+                    <div class="modal-footer">
+                        <button id="redoBtn" type="button" class="btn btn-default" onclick="movePrev($('#doneTaskHiddenPageID').val(), $('#doneTaskModal'))">Review</button>
+                    </div>
+                </div> <!-- / End WriteTask -->
+            </div> <!-- Modal body -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

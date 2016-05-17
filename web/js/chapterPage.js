@@ -168,6 +168,11 @@ $(document).ready(function(){
 
     });
 
+    $('#returnSeries').click(function(){
+        var series = $('#seriesID').text();
+        window.location.href="/create/series/load/" + series;
+    });
+
     $("#addPage").click(function(){
        console.log("Add Page Clicked");
         $('#newTaskModal').modal('show');
@@ -313,29 +318,11 @@ function loadReviewTask(json){
 
 function loadDoneTask(json){
 
-    $('#writeTaskHiddenPageID').val(json.id);
-    $('#writeTaskPageTitle').text(json.title);
-    $('#writeTaskAuthor').val(json.author);
-    $('#writeTaskSummary').val(json.summary);
+    $('#doneTaskHiddenPageID').val(json.id);
+    $('#doneTaskPageTitle').text(json.title);
 
-    $('#writeTaskcommentsBox').empty();
 
-    for(i=0; i < json.comments.length ; i++){
-        comment = json.comments[i];
-        var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
-        $('#writeTaskcommentsBox').append(appendText);
-    }
-
-    $('#writeTaskCarouselContent').empty();
-    for(i=0; i < json.dialogues; i++){
-        var appendText = "<div class=\"item";
-        if(i == 0) appendText += " active ";
-        appendText += "\" style=\"text-align:center;\"><p>"+json.dialogues[i]+"</p></div>";
-
-        $('#writeTaskCarouselContent').append(appendText);
-    }
-
-    $('#writeTaskModal').modal('show');
+    $('#doneTaskModal').modal('show');
 }
 
 function loadAsyncTask(selector){

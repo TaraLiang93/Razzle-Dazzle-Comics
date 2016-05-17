@@ -30,11 +30,7 @@
                             </span>
                         </c:forEach>
                     </div>
-                    <%--</div>--%>
                 </div>
-            </div>
-
-
                     <div class="chapterInfo pull-right">
                         <a class="btn btn-link change" id="editChapterInfo">
                             <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
@@ -60,7 +56,7 @@
             <div class="row">
                 <div id="bottom" class="pull-right">
                     <button type="button" class="btn btn-primary" id="addPage">Add Page</button>
-                    <button type="button" class="btn btn-default">Return to Series Page</button>
+                    <button id="returnSeries" type="button" class="btn btn-default">Return to Series Page</button>
                     <button type="button" class="btn btn-primary">Publish Page</button>
                 </div>
             </div>
