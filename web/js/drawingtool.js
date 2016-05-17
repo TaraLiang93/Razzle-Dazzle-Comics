@@ -627,4 +627,9 @@ function addTextStr(str){
     Stack.push(canvas._objects[canvas._objects.length-1]);
 }
 
+function loadAndDisabled(canvas, str){
+    canvas.loadFromJSON(str);
+    canvas.deactivateAll();
+    canvas.selection = false;
+}
 
