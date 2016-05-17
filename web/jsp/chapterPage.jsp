@@ -179,6 +179,10 @@
         </div>
     </div>
 
+<%-- #writeTaskModal --%>
+    <jsp:include page="writeTaskModal.jsp" >
+        <jsp:param name="chapterID" value="${chapterId}"/>
+    </jsp:include>
 <%-- #preDrawTaskModal --%>
     <jsp:include page="preDrawTaskModal.jsp" >
         <jsp:param name="chapterID" value="${chapterId}"/>
@@ -187,16 +191,12 @@
     <jsp:include page="DrawTaskModal.jsp" >
         <jsp:param name="chapterID" value="${chapterId}"/>
     </jsp:include>
-<%-- #writeTaskModal --%>
-    <jsp:include page="writeTaskModal.jsp" >
+<%-- #reviewTaskModal --%>
+    <jsp:include page="ReviewTaskModal.jsp" >
         <jsp:param name="chapterID" value="${chapterId}"/>
     </jsp:include>
 <%-- #newTaskModal --%>
     <jsp:include page="newTaskModal.jsp" >
-        <jsp:param name="chapterID" value="${chapterId}"/>
-    </jsp:include>
-<%-- #reviewTaskModal --%>
-    <jsp:include page="ReviewTaskModal.jsp" >
         <jsp:param name="chapterID" value="${chapterId}"/>
     </jsp:include>
 

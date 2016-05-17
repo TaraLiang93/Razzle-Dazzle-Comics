@@ -295,26 +295,16 @@ function loadDrawTask(json){
 
 function loadReviewTask(json){
 
-    $('#writeTaskHiddenPageID').val(json.id);
-    $('#writeTaskPageTitle').text(json.title);
-    $('#writeTaskAuthor').val(json.author);
-    $('#writeTaskSummary').val(json.summary);
+    $('#reviewTaskHiddenPageID').val(json.id);
+    $('#reviewTaskPageTitle').text(json.title);
+    $('#reviewTaskSummary').val(json.summary);
 
-    $('#writeTaskcommentsBox').empty();
+    $('#reviewTaskcommentsBox').empty();
 
     for(i=0; i < json.comments.length ; i++){
         comment = json.comments[i];
         var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
-        $('#writeTaskcommentsBox').append(appendText);
-    }
-
-    $('#writeTaskCarouselContent').empty();
-    for(i=0; i < json.dialogues; i++){
-        var appendText = "<div class=\"item";
-        if(i == 0) appendText += " active ";
-        appendText += "\" style=\"text-align:center;\"><p>"+json.dialogues[i]+"</p></div>";
-
-        $('#writeTaskCarouselContent').append(appendText);
+        $('#reviewTaskcommentsBox').append(appendText);
     }
 
     $('#reviewTaskModal').modal('show');

@@ -47,49 +47,47 @@
 <%--</button>--%>
 
 <!-- Modal -->
-    <div class="modal fade" id="reviewTaskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <input id="reviewTaskHiddenChapterID" type="hidden" name="chapterID" value="${param.chapterID}"/>
-        <input id="reviewTaskHiddenPageID" type="hidden" name="pageID" value=""/>
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                </div>
-                <div class="modal-body" style="height: 85vh">
-                    <div class="col-sm-8" style="height: 100%">
-                        <div class="col-sm-12 reviewImage">
-                            <div class="col-md-12 content-border" style="height: 35vh;">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="reviewTaskDescription">Description</label>
-                            <textarea id="reviewTaskDescription" row="12" class="form-control" name="Description" placeholder="Description of Current Page"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="reviewTaskSetting">Add Comment</label>
-                            <textarea id="reviewTaskSetting" row="12" class="form-control" name="Setting" placeholder="Setting of Current Page"></textarea>
-                        </div>
-                        <div class="btn-inline">
-                            <a class="btn btn-warning pull-right round-button col-sm-3" type="button"  href="#" >Redraw</a>
-                            <a class="btn btn-primary pull-right round-button col-sm-3" type="button"  href="#" >Approve</a>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4" style="height: 100%">
-                        <div class="reviewTaskDialog">
-                            <label>Comments</label>
-                            <div class="content-border col-sm-12 reviewComments" style="height: 55vh; overflow-y:auto; padding: 0">
-                            </div>
-                        </div>
-                            <textarea id="reviewTaskText" row="12" class="form-control" name="Text" placeholder="Add a Comment" style="margin-top: 2%">${reviewTaskDescription}</textarea>
-                        <div class="btn-inline">
-                            <a class="btn btn-xs-4 btn-info pull-right round-button" id="submitComment" type="button"  href="#" >Submit</a>
-                        </div>
-                    </div>
-                </div>
-
-
+<input id="reviewTaskHiddenChapterID" type="hidden" name="chapterID" value="${param.chapterID}"/>
+<input id="reviewTaskHiddenPageID" type="hidden" name="pageID" value=""/>
+<div id="reviewTaskModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="reviewTaskPageTitle" class="modal-title pull-left"></h4>
             </div>
-        </div>
-    </div>
+            <div class="modal-body">
+                <div class="topPreDrawTask center-stage" style="width:95%; margin:auto; ">
+                    <div class="row">
+                        <div class="pull-left col-md-8">
 
+                            <div class="row">
+                                <canvas></canvas>
+                            </div>
+                            <div class="row">
+                                <jsp:include page="taskDescription.jsp">
+                                    <jsp:param name="selector" value="drawTask"/>
+                                </jsp:include>
+                            </div>
+
+                        </div> <!-- Left Column-->
+
+                        <div class="pull-right col-xs-4">
+                            <jsp:include page="taskComments.jsp">
+                                <jsp:param name="height" value="50%"/>
+                                <jsp:param name="selector" value="reviewTask"/>
+                            </jsp:include>
+                        </div> <!-- Right Column -->
+
+                    </div> <!-- row -->
+
+
+                    <div class="modal-footer">
+                        <button id="reDrawBtn" type="button" class="btn btn-default" onclick="movePrev($('#reviewTaskHiddenPageID').val(), $('#reviewTaskModal'))">Re-Draw</button>
+                        <button id="doneBtn" type="button" class="btn btn-primary" onclick="moveNext($('#reviewTaskHiddenPageID').val(), $('#reviewTaskModal'))">Done</button>
+                    </div>
+                </div> <!-- / End WriteTask -->
+            </div> <!-- Modal body -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
