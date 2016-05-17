@@ -18,7 +18,6 @@ import com.data.api.updatables.updateTasks.UpdateChapterEditInfoTask;
 import com.data.api.updatables.updateTasks.UpdateChapterRemoveTeamMemberTask;
 import com.data.api.updatables.updateTasks.UpdateSeriesAddChapterTask;
 import com.data.creation.Chapter;
-import com.data.creation.Page;
 import com.data.creation.PublishedPage;
 import com.data.structure.FlowTask;
 import com.data.structure.TeamMember;
@@ -33,8 +32,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -69,7 +66,7 @@ public class ChapterController {
 
             List<FlowTask> tasks = chapter.getFlow().getFlowTasks();
 
-
+/*
             Page page1 = new Page("Page 1", "Summary 1 Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1" +
                     "Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1Summary 1",
 
@@ -87,11 +84,11 @@ public class ChapterController {
             pages.add(page5);
             //chapter.getPageList().add(page1.getKey());
             //chapter.getPageList().add(page2.getKey());
-
+*/
             map.put("chapter", chapter);
             map.put("chapterId", id);
             map.put("teamMembers",teamMembers);
-            map.put("pages", pages);
+  //          map.put("pages", pages);
 
             BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
             map.put("uploadAction",blobstoreService.createUploadUrl(UPDATE_CHAPTER_INFO));

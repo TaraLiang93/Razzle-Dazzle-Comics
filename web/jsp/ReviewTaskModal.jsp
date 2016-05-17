@@ -47,8 +47,9 @@
 <%--</button>--%>
 
 <!-- Modal -->
-<form id="seriesForm" method="post" action="#" enctype="multipart/form-data">
     <div class="modal fade" id="reviewTaskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <input id="reviewTaskHiddenChapterID" type="hidden" name="chapterID" value="${param.chapterID}"/>
+        <input id="reviewTaskHiddenPageID" type="hidden" name="pageID" value=""/>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -91,4 +92,4 @@
             </div>
         </div>
     </div>
-</form>
+

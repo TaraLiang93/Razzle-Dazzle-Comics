@@ -13,7 +13,7 @@
 
             $.ajax({
                 url:"/create/page/editSummary",
-                data: {summary:summary, pageID: $('#hiddenPageID').val()},
+                data: {summary:summary, pageID: $('#${param.selector}HiddenPageID').val()},
                 type:"POST",
                 error: function(){
                     alert("Failed to edit the Summary.");

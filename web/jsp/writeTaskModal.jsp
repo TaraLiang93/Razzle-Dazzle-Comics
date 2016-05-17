@@ -19,14 +19,14 @@
 
 
 <form id="writeTaskForm" method="post" action="/create/writePage/load" >
-    <input id="hiddenChapterID" type="hidden" name="chapterID" value="${param.chapterID}"/>
-    <input id="hiddenPageID" type="hidden" name="pageID" value=""/>
+    <input id="writeTaskHiddenChapterID" type="hidden" name="chapterID" value="${param.chapterID}"/>
+    <input id="writeTaskHiddenPageID" type="hidden" name="pageID" value=""/>
     <div id="writeTaskModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 id="pageTitle" class="modal-title pull-left"></h4>
+                    <h4 id="writeTaskPageTitle" class="modal-title pull-left"></h4>
                 </div>
                 <div class="modal-body">
                     <div class="topWriteTask center-stage" style="width:95%; margin:auto; ">
@@ -34,15 +34,11 @@
                                 <div class="col-xs-4" style="">
                                     <div class="row" style="padding-bottom:1em;">
                                         <label for="writeTaskCreateDate" style="margin:0px;">Create Date :</label>
-                                        <input type="date" id="writeTaskCreateDate" class="pull-right" disabled value="01/14/1990"/>
+                                        <input type="date" id="writeTaskCreateDate" class="pull-right" disabled value=""/>
                                     </div>
                                     <div class="row" style="padding-bottom:1em;">
                                         <label for="writeTaskAuthor">Author :</label>
-                                        <input type="text" id="writeTaskAuthor" name="author" class="pull-right" value="Danny" disabled/>
-                                    </div>
-                                    <div class="row" style="padding-bottom:1em;">
-                                        <label for="writeTaskLastEdit">Last Edited :</label>
-                                        <input type="date" id="writeTaskLastEdit" name="lastEdit" class="pull-right" value="04/22/2016" disabled/>
+                                        <input type="text" id="writeTaskAuthor" name="author" class="pull-right" value="" disabled/>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -51,18 +47,10 @@
                                     <div id="dialogueCarousel" class="carousel slide" data-ride="carousel" style="background: #C8CFB4;" >
 
                                         <!-- Wrapper for slides -->
-                                        <div id="carouselContent" class="carousel-inner" role="listbox" onclick="$('#writeTaskForm').submit();">
+                                        <div id="writeTaskCarouselContent" class="carousel-inner" role="listbox" onclick="$('#writeTaskForm').submit();">
                                             <div class="item active" style="text-align:center;">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam cursus lorem nec turpis interdum,
-                                                    ac mattis ipsum ultrices. Phasellus non ex scelerisque, ultricies est in, eleifend mauris.
-                                                    Sed nec vulputate quam. Suspendisse nisl risus, sodales vel ante vel, pretium sodales nis</p>
+                                                <p></p>
                                             </div>
-                                            <div class="item">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam cursus lorem nec turpis interdum,
-                                                    ac mattis ipsum ultrices. Phasellus non ex scelerisque, ultricies est in, eleifend mauris.
-                                                    Sed nec vulputate quam. Suspendisse nisl risus, sodales vel ante vel, pretium sodales nis</p>
-                                            </div>
-
                                         </div>
 
                                         <!-- Controls -->

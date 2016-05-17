@@ -23,28 +23,35 @@
 --%>
 
 <script>
+    var totalCount;
     $(document).ready(function(){
-//        $('#newTaskModal').modal('show');
-
+       totalCount = $('.flowTask').length + 1;
+        $('#newTasktitle').val("Page " + totalCount);
     });
 
     function addTask(){
         $('#newTaskModal').modal('hide');
         $.ajax({
             url:"/create/page/add",
-            data: {chapterID: $('#newTaskchapterID'),
+            data: {chapterID: $('#newTaskchapterID').val(),
                     title : $('#newTasktitle').val(),
-                    summary : $('#newTaskdesc').val()
-            },
+                    summary : $('#newTaskdesc').val()},
             type:"POST",
             success: function(data){
                 if(data){
                     console.log("Move Successful");
+
+                    var appendText = "<li id=\""+data+"\" class=\"list-group-item mItem\">" +
+                            "<div class=\"flowTask\"><div class=\"\"><h3>"+$('#newTasktitle').val()+"</h3>"+
+                            $('#newTaskdesc').val() + "</div></div></li>";
+
+                    $("#startTask").append(appendText);
+                    totalCount++;
                     //TODO: Add logic to move to flow when flow complete
                 }
             },
             error: function(){
-                alert("Failed to Move Page");
+                alert("Failed to add Page");
             }
         });
     }
@@ -52,7 +59,7 @@
 </script>
 
     <input type="hidden" id="newTaskchapterID" value="${param.chapterID}"/>
-    <input type="hidden" id="newTaskTotalTasks" value="${param.tasks}"/>
+
 
     <div id="newTaskModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog">
@@ -65,7 +72,7 @@
                     <div class="center-stage row" style="width:90%; margin:auto; margin-bottom: 5em;">
                         <div class="row input-group" style="padding-bottom:2em;">
                             <span class="input-group-addon" id="title-addon">Title : </span>
-                            <input id="newTasktitle" type="text" class="form-control" placeholder="Title" aria-describedby="title-addon" value="Page ${param.tasks + 1}">
+                            <input id="newTasktitle" type="text" class="form-control" placeholder="Title" aria-describedby="title-addon" value="">
                         </div>
                         <div class="row input-group">
                             <span class="input-group-addon" id="desc-addon">Description : </span>

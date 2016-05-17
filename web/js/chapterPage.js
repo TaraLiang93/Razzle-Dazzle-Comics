@@ -168,13 +168,8 @@ $(document).ready(function(){
     });
 
     $("#addPage").click(function(){
-       console.log("add page clicked");
-        var code =
-            "<div><button class='btn pageTask' id="+numPage+" data-toggle='modal' data-target='#writeTaskModal'>Page" +numPage+
-            "</button></div>";
-
-        $("#writer").append(code);
-        numPage++;
+       console.log("Add Page Clicked");
+        $('#newTaskModal').modal('show');
     });
 
     $('.flow').each(function(){
@@ -201,7 +196,223 @@ $(document).ready(function(){
         readURL($(this), '#imgPreview');
     });
 
+    $('.flowTable .mItem').each(function(){
+        $(this).click(function(){
+            loadTask($(this));
+        });
+    });
+
 });
+
+function loadWriteTask(json){
+
+    $('#writeTaskHiddenPageID').val(json.id);
+    $('#writeTaskPageTitle').text(json.title);
+    $('#writeTaskAuthor').val(json.author);
+    $('#writeTaskSummary').val(json.summary);
+
+    $('#writeTaskcommentsBox').empty();
+
+    for(i=0; i < json.comments.length ; i++){
+        comment = json.comments[i];
+        var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
+        $('#writeTaskcommentsBox').append(appendText);
+    }
+
+    $('#writeTaskCarouselContent').empty();
+
+    for(i=0; i < json.scenes.length; i++){
+        for(j=0; j < json.scenes[i].dialogue.length; j++) {
+            var appendText = "<div class=\"item";
+            if (i == 0 && j == 0) appendText += " active ";
+            appendText += "\" style=\"text-align:center;\"><p>" + json.scenes[i].dialogue[j] + "</p></div>";
+
+            $('#writeTaskCarouselContent').append(appendText);
+        }
+    }
+
+    $('#writeTaskModal').modal('show');
+
+}
+
+function loadPreDrawTask(json){
+
+    $('#preDrawTaskHiddenPageID').val(json.id);
+    $('#writeTaskPageTitle').text(json.title);
+    $('#writeTaskAuthor').val(json.author);
+    $('#writeTaskSummary').val(json.summary);
+
+    for(i=0; i < json.comments.length ; i++){
+        comment = json.comments[i];
+        var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
+        $('#preDrawTaskcommentsBox').append(appendText);
+    }
+    k = 0;
+    var appendText ="";
+    for(i=0; i < json.scenes.length; i++){
+        appendText += "<div class=\"panel panel-default\">" +
+            "<div class=\"panel-heading\" role=\"tab\" id=\"heading"+k+"\">" +
+            "<h4 class=\"panel-title\">" +
+            "<a role=\"button\" data-toggle=\"collapse\" data-parent=\"#preDrawTaskAccordion\" href=\"#collapseOne\" aria-expanded=\"true\" aria-controls=\"collapse"+k+"\"> " +
+            "Scene"+(k + 1)+ "</a></h4></div>" +
+            "<div id=\"collapse"+k+"\" class=\"panel-collapse collapse in\" role=\"tabpanel\" aria-labelledby=\"headingOne\">" +
+            "<div class=\"panel-body\">";
+
+        for(j=0; j < json.scenes[i].dialogue.length; j++, k++) {
+            appendText += ("<p>"+json.scenes[i].dialogue[j] +"</p>");
+        }
+        appendText +="</div></div></div>";
+
+    }
+    $('#preDrawTaskAccordion').append(appendText);
+    $('#preDrawTaskModal').modal('show');
+}
+
+function loadDrawTask(json){
+
+    $('#writeTaskHiddenPageID').val(json.id);
+    $('#writeTaskPageTitle').text(json.title);
+    $('#writeTaskAuthor').val(json.author);
+    $('#writeTaskSummary').val(json.summary);
+
+    $('#writeTaskcommentsBox').empty();
+
+    for(i=0; i < json.comments.length ; i++){
+        comment = json.comments[i];
+        var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
+        $('#writeTaskcommentsBox').append(appendText);
+    }
+
+    $('#writeTaskCarouselContent').empty();
+    for(i=0; i < json.dialogues; i++){
+        var appendText = "<div class=\"item";
+        if(i == 0) appendText += " active ";
+        appendText += "\" style=\"text-align:center;\"><p>"+json.dialogues[i]+"</p></div>";
+
+        $('#writeTaskCarouselContent').append(appendText);
+    }
+
+    $('#writeTaskModal').modal('show');
+}
+
+function loadReviewTask(json){
+
+    $('#writeTaskHiddenPageID').val(json.id);
+    $('#writeTaskPageTitle').text(json.title);
+    $('#writeTaskAuthor').val(json.author);
+    $('#writeTaskSummary').val(json.summary);
+
+    $('#writeTaskcommentsBox').empty();
+
+    for(i=0; i < json.comments.length ; i++){
+        comment = json.comments[i];
+        var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
+        $('#writeTaskcommentsBox').append(appendText);
+    }
+
+    $('#writeTaskCarouselContent').empty();
+    for(i=0; i < json.dialogues; i++){
+        var appendText = "<div class=\"item";
+        if(i == 0) appendText += " active ";
+        appendText += "\" style=\"text-align:center;\"><p>"+json.dialogues[i]+"</p></div>";
+
+        $('#writeTaskCarouselContent').append(appendText);
+    }
+
+    $('#writeTaskModal').modal('show');
+}
+
+function loadDoneTask(json){
+
+    $('#writeTaskHiddenPageID').val(json.id);
+    $('#writeTaskPageTitle').text(json.title);
+    $('#writeTaskAuthor').val(json.author);
+    $('#writeTaskSummary').val(json.summary);
+
+    $('#writeTaskcommentsBox').empty();
+
+    for(i=0; i < json.comments.length ; i++){
+        comment = json.comments[i];
+        var appendText = "<div class=\"well\">"+ comment.user + ": " + comment.comment + "</div>";
+        $('#writeTaskcommentsBox').append(appendText);
+    }
+
+    $('#writeTaskCarouselContent').empty();
+    for(i=0; i < json.dialogues; i++){
+        var appendText = "<div class=\"item";
+        if(i == 0) appendText += " active ";
+        appendText += "\" style=\"text-align:center;\"><p>"+json.dialogues[i]+"</p></div>";
+
+        $('#writeTaskCarouselContent').append(appendText);
+    }
+
+    $('#writeTaskModal').modal('show');
+}
+
+function loadAsyncTask(selector){
+    $.ajax({
+        url:"/create/page/loadTask",
+        data: {pageID: $('#'+selector+'HiddenPageID').val()},
+        type:"POST",
+        success: function(object){
+            if(selector.toUpperCase().includes("WRITE")){
+                loadWriteTask(object);
+            }
+            else if(selector.toUpperCase().includes("PREDRAW")){
+                loadPreDrawTask(object);
+            }
+            else if(selector.toUpperCase().includes("DRAW")){
+                loadDrawTask(object);
+            }
+            else if(selector.toUpperCase().includes("REVIEW")){
+                loadReviewTask(object);
+            }
+            else if(selector.toUpperCase().includes("DONE")){
+                loadDoneTask(object);
+            }
+            else{
+                console.log("Selector :" + selector + "no task found");
+                alert("Failed to load Task!");
+            }
+        },
+        error: function(){
+            alert("Failed to edit the Summary.");
+        }
+    });
+}
+
+function loadTask(item){
+    //  Find the parent enclosing div
+    //      Find the header for the flow div, and the text corresponding to it
+    var title = $(item).closest(".flow").find(".flowTitle:first-child").first().text();
+    console.log("Flow : " + title);
+
+    var selector = "";
+
+    if(title.trim().toUpperCase().includes("WRITE")){
+        selector = "writeTask";
+    }
+    else  if(title.trim().toUpperCase().includes("PREDRAW")){
+        selector = "preDrawTask";
+    }
+    else  if(title.trim().toUpperCase().includes("DRAW")){
+        selector = "drawTask";
+    }
+    else  if(title.trim().toUpperCase().includes("REVIEW")){
+        selector = "reviewTask";
+    }
+    else  if(title.trim().toUpperCase().includes("DONE")){
+        selector = "doneTask";
+    }
+    else{
+        alert("Could not load task!");
+        console.log("Item : " + item);
+        return;
+    }
+
+    $('#'+selector+'HiddenPageID').val($(item).attr('id'));
+    loadAsyncTask(selector);
+}
 
 var flowArray = [];
 var flowMapNext = {};
@@ -250,8 +461,8 @@ function movePage(pid, direction){
 }
 
 function swapTasks(map, task){
-    var id = $( ".flow:has(#"+task+")").attr("id");
-    var nextID = flowMapNext[id]; //Fetch the next one from the map
+    var id = $( ".flowTable:has(#"+task+")").attr("id");
+    var nextID = map[id]; //Fetch the next one from the map
     if(id === nextID){
         console.log("Nothing to do, ID's are the same, must be illegal move");
     }

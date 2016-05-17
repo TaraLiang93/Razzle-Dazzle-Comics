@@ -34,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -56,6 +57,8 @@ public class PageController {
 
     public static final String ADD_TASK="/create/page/add";
     public static final String LOAD_TASK="/create/page/loadTask";
+
+    private final SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 
     @RequestMapping(value=LOAD_DRAW_PAGE, method= RequestMethod.GET)
     public ModelAndView redirectDrawPage(HttpServletRequest req,ModelMap map){
@@ -152,7 +155,12 @@ public class PageController {
         System.out.println("Found Summary : " + summary);
         System.out.println("Found PageID : " + pageID);
 
-
+        try {
+            new PageUpdater().updateEntity(new GetPageByIDCommand(pageID), new UpdatePageEditSummaryTask(summary));
+        } catch (FetchException | UpdateException | CreateException e) {
+            e.printStackTrace();
+            return new ResponseEntity(false, HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity(true, HttpStatus.OK);
 
@@ -209,9 +217,11 @@ public class PageController {
             Page page = pageContainer.getResult();
 
             root = new JsonObject();
+            root.addProperty("id", pageID);
             root.addProperty("title", page.getTitle());
             root.addProperty("summary", page.getSummary());
-            root.addProperty("createDate", page.getCreateDate().toString());
+            root.addProperty("createDate", formatter.format(page.getCreateDate()));
+            root.addProperty("author", user.getNickname());
 
             List<Comment> comments = page.getComments();
             JsonArray commentList = new JsonArray();
@@ -234,10 +244,11 @@ public class PageController {
             root.add("comments", commentList);
 
 
-            JsonArray dialogueList = new JsonArray();
+            JsonArray sceneList = new JsonArray();
             JsonArray canvasList = new JsonArray();
 
             for(Scene scene : page.getScenes()){
+                JsonArray dialogueList = new JsonArray();
                 for(Dialogue dialogue : scene.getDialogues()){
                     dialogueList.add(dialogue.getDialogue());
                 }
@@ -245,9 +256,13 @@ public class PageController {
                 if(canvas != null){
                     canvasList.add(canvas.getCanvasImage());
                 }
+
+                JsonObject obj = new JsonObject();
+                obj.add("dialogue", dialogueList);
+                sceneList.add(obj);
             }
 
-            root.add("dialogues", dialogueList);
+            root.add("scenes", sceneList);
             root.add("canvases", canvasList);
 
 
@@ -284,6 +299,7 @@ public class PageController {
 
             new ChapterUpdater().updateEntity(new GetChapterByIDCommand(chapterID), new UpdateChapterAddPageTask(page.getId()));
 
+            System.out.println("Successfully Added --> Page ID: " + page.getId());
             return new ResponseEntity<String>(""+ page.getId(), HttpStatus.OK);
         } catch (CreateException | FetchException | UpdateException e ) {
             e.printStackTrace();

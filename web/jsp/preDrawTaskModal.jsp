@@ -16,8 +16,8 @@
 
 --%>
 
-    <input id="hiddenChapterID" type="hidden" name="chapterID" value="${param.chapterID}"/>
-    <input id="hiddenPageID" type="hidden" name="pageID" value=""/>
+    <input id="preDrawHiddenChapterID" type="hidden" name="chapterID" value="${param.chapterID}"/>
+    <input id="preDrawHiddenPageID" type="hidden" name="pageID" value=""/>
     <div id="preDrawTaskModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="pull-left col-md-8">
 
-                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel-group" id="preDrawTaskAccordion" role="tablist" aria-multiselectable="true">
 
                                     <div class="panel panel-default">
                                         <div class="panel-heading" role="tab" id="headingOne">

@@ -69,17 +69,16 @@
 
         <div id="flowContainer" class="middle">
 
-            <c:forEach var="flowTask" items="${chapter.flow.flowTasks}">
+            <c:forEach var="flowTask" items="${chapter.flow.flowTasks}" varStatus="i">
                 <div class="flow">
-                    <div class="row-fluid">
+                    <div class="row-fluid flowTitle">
                         <p>${flowTask.flowTaskName}</p>
                     </div>
                     <div class="flowBody">
-                        <ul class="list-group">
-                        <c:forEach var="page" items="${pages}">
+                        <ul id="${i.index == 0 ? 'startTask': none}" class="list-group flowTable">
+                        <c:forEach var="page" items="${chapter.pages}">
                             <c:if test="${flowTask.flowTaskName eq page.flowTaskEntity.flowTaskName}">
-                                <%--<div class="row">--%>
-                                    <li class="list-group-item mItem">
+                                    <li id="${page.id}" class="list-group-item mItem">
                                         <div class="flowTask">
                                             <div class="">
                                                 <h3>${page.title}</h3>
@@ -87,8 +86,6 @@
                                             </div>
                                         </div>
                                     </li>
-
-                                <%--</div>--%>
                             </c:if>
                         </c:forEach>
                         </ul>
