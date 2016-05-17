@@ -98,7 +98,7 @@
                         <li class="dropdown">
                             <a href="${loginURL ne null ? loginURL : "#"}" class="dropdown-toggle" data-toggle="${loginURL eq null ? "dropdown" : "" }" role="button" aria-haspopup="true" aria-expanded="false">${loginURL eq null ? userData.nickName : "Sign In" }<span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Profile</a></li>
+                                <li><a href="/profile/load">Profile</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="${logoutURL ne null ? logoutURL : "#"}">Logout</a></li>
                             </ul>
