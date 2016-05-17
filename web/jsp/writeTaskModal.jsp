@@ -78,7 +78,7 @@
 
                     <div class="modal-footer">
                         <button id="redirectWriting" type="submit" class="btn btn-default" onclick="">Start Writing</button>
-                        <button id="createButton" type="button" class="btn btn-primary" onclick="moveNext($('#hiddenPageID').val(), $('#writeTaskModal'));">Pre-Draw</button>
+                        <button id="createButton" type="button" class="btn btn-primary" onclick="moveNext($('#writeTaskHiddenPageID').val(), $('#writeTaskModal'));">Pre-Draw</button>
                     </div>
                 </div> <!-- / End WriteTask -->
             </div> <!-- Modal body -->

@@ -46,6 +46,9 @@
                             $('#newTaskdesc').val() + "</div></div></li>";
 
                     $("#startTask").append(appendText);
+                    $('#'+data).click(function(){
+                        loadTask($(this));
+                    });
                     totalCount++;
                     //TODO: Add logic to move to flow when flow complete
                 }
@@ -83,7 +86,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button id="createButton" type="submit" class="btn btn-primary" onclick="addTask();">Create Chapter</button>
+                    <button id="createButton" type="submit" class="btn btn-primary" onclick="addTask();">Create Page</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

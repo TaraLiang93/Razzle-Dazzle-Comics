@@ -17,44 +17,42 @@
 
         <div class="top">
             <div class="row">
-            <div class="team">
-                <p>Team</p>
-                <a class="btn btn-link change" id="addTeam">
-                    <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
-                </a>
-                <div class="memberList">
-                    <c:forEach var="member" items="${teamMembers}" >
-                        <span>
-                        <p title="Member">${member.userData.nickName}</p>
-                        <div class="teamMember" style="display: none">${member.userData.userName}</div>
-                        </span>
-                    </c:forEach>
+                <div class="team col-md-5">
+                    <p>Team</p>
+                    <a class="btn btn-link change" id="addTeam">
+                        <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+                    </a>
+                    <div class="memberList">
+                        <c:forEach var="member" items="${teamMembers}" >
+                            <span>
+                            <p title="Member">${member.userData.nickName}</p>
+                            <div class="teamMember" style="display: none">${member.userData.userName}</div>
+                            </span>
+                        </c:forEach>
+                    </div>
+                    <%--</div>--%>
                 </div>
-                </div>
-            </div>
-
-
-                    <div class="chapterInfo pull-right">
-                        <a class="btn btn-link change" id="editChapterInfo">
-                            <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
-                        </a>
-                        <img src="${chapter.chapterCover}" id="img" class="pull-left">
-                        <div class="text pull-right">
-                            <div class="info">
-                                <p style="font-weight: bold">Title:</p>
-                                <p id="chapterTitle">${chapter.title}</p>
-                            </div>
-
-                            <div class="info">
-                                <p style="font-weight: bold">#:</p>
-                                <p id="chapterString">${chapter.chapterString}</p>
-                            </div>
-
-                            <div class="btnInfo">
-                                <button type="button" class="btn btn-default pull-right">Deactive</button>
-                            </div>
+                <div class="chapterInfo pull-right">
+                    <a class="btn btn-link change" id="editChapterInfo">
+                        <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
+                    </a>
+                    <img src="${chapter.chapterCover}" id="img" class="pull-left">
+                    <div class="text pull-right">
+                        <div class="info">
+                            <p style="font-weight: bold">Title:</p>
+                            <p id="chapterTitle">${chapter.title}</p>
                         </div>
-                    </div><%-- End Chapter Info class--%>
+
+                        <div class="info">
+                            <p style="font-weight: bold">#:</p>
+                            <p id="chapterString">${chapter.chapterString}</p>
+                        </div>
+
+                        <div class="btnInfo">
+                            <button type="button" class="btn btn-default pull-right">Deactive</button>
+                        </div>
+                    </div>
+                </div><%-- End Chapter Info class--%>
             </div>
             <div class="row">
                 <div id="bottom" class="pull-right">

@@ -54,7 +54,8 @@ function addNewScene(){
 
 
     //Insert the new scene after the last one
-    $('#Page'+page+' .scene-tabs:last').after(scenePanelText);
+    var nextBody = $('#Page'+page+' .tab-content:first');
+    $(nextBody).append(scenePanelText);
 
     initTinyMCE("#Page"+page+"writingArea"+nextScene);
 
@@ -63,16 +64,16 @@ function addNewScene(){
                          <a id=\"tabPage"+page+"Scene"+nextScene+"\" href=\"#"+nextID+"\"                   \
                          aria-controls=\""+nextID+"\" role=\"tab\" data-toggle=\"tab\">Scene "+ (nextScene + 1) +"</a></li>";
 
-    var nextTab = $('#Page'+page+' .sceneTabHeader .sceneTab:last');
+    var nextTab = $('#Page'+page+' .sceneTabHeader li:last');
 
     //Put the new Tab after the last one but before the add scene button
-    $(nextTab).after(headerText);
+    $(nextTab).before(headerText);
 
     var nextSetting = $('#Setting'+nextID);
     settingsEvent(nextSetting);
 
 
-    $('#Page'+page+' .sceneTabHeader .sceneTab:last').tab('show');
+    $('#Page'+page+' .sceneTabHeader li:nth-last-child(2)').tab('show');
 
 }
 
