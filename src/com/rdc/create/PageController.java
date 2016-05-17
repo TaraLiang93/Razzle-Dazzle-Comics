@@ -38,6 +38,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 /**
  * Created by drodrigues on 3/29/16.
  */
@@ -390,17 +392,22 @@ public class PageController {
         //Set the next and previous flows
         // (Do this internally if one flow?)
         flowTask0.setNextTask(flowTask1.getKey());
+        ofy().save().entity(flowTask0).now();
 
         flowTask1.setPrevTask(flowTask0.getKey());
         flowTask1.setNextTask(flowTask2.getKey());
+        ofy().save().entity(flowTask1).now();
 
         flowTask2.setPrevTask(flowTask1.getKey());
         flowTask2.setNextTask(flowTask3.getKey());
+        ofy().save().entity(flowTask2).now();
 
         flowTask3.setPrevTask(flowTask2.getKey());
         flowTask3.setNextTask(flowTask4.getKey());
+        ofy().save().entity(flowTask3).now();
 
         flowTask4.setPrevTask(flowTask3.getKey());
+        ofy().save().entity(flowTask4).now();
 
     }
 
