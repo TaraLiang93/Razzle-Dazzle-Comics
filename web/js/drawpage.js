@@ -25,6 +25,7 @@ $(document).ready(function() {
 
             // save the data into the new one
             saveSelectedPage();
+            canvas.clear();
             $(".scene.selected").removeClass("selected");
             $(this).addClass("selected");
 
@@ -57,6 +58,7 @@ $(document).ready(function() {
         $.post("/create/drawPage/save", jsonObj )
             .done(function() {
             console.log("Yes");
+                $(location).attr("href","/create/chapter/load/" + $("#chapterID").text());
         })
             .fail(function() {
                console.log("No");

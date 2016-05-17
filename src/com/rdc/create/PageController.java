@@ -75,6 +75,8 @@ public class PageController {
         try {
             Page page = pageReadable.fetch().getResult();
             map.put("page",page);
+            map.put("scenes",page.getScenes());
+            map.put("chapterID",chapterID);
         } catch (FetchException e) {
             e.printStackTrace();
         }
