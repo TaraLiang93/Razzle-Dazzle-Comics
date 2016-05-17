@@ -58,9 +58,13 @@ public class ChapterController {
     }
 
     @RequestMapping(value = LOAD_CHAPTER, method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView loadChapter(@PathVariable String id, @RequestHeader String referer, ModelMap map) {
+    public ModelAndView loadChapter(@PathVariable String id, @RequestHeader String referer, HttpServletRequest req, ModelMap map) {
 
         try {
+            String seriesID;
+            if((seriesID=req.getParameter("seriesID")) != null){
+                map.put("seriesID",seriesID);
+            }
             Container<Chapter> chapterContainer = new GetChapterByIDCommand(id).fetch();
             Chapter chapter = chapterContainer.getResult();
 
