@@ -50,10 +50,6 @@
                             <p style="font-weight: bold">#:</p>
                             <p id="chapterString">${chapter.chapterString}</p>
                         </div>
-
-                        <div class="btnInfo">
-                            <button type="button" class="btn btn-default pull-right">Deactive</button>
-                        </div>
                     </div>
                 </div><%-- End Chapter Info class--%>
             </div>
@@ -121,7 +117,7 @@
                         <div id="addMember">
                             <p>New Member: </p>
                             <div>
-                                <input type="text" id="newMember" value="Member Id">
+                                <input type="text" id="newMember" value="Member Id@gmail.com">
                                 <button type="button" class="btn" id="addButton">Add</button>
                             </div>
                         </div>
