@@ -327,7 +327,8 @@ function loadReviewTask(json){
         $('#reviewTaskcommentsBox').append(appendText);
     }
 
-    //loadAndDisabled($("#reviewCanvas"),json.canvases[0]);
+    loadAndDisabled($("#reviewCanvas"),json.canvases[0]);
+        //json.canvases[0]);
 
     $('#reviewTaskModal').modal('show');
 }
@@ -336,6 +337,16 @@ function loadDoneTask(json){
 
     $('#doneTaskHiddenPageID').val(json.id);
     $('#doneTaskPageTitle').text(json.title);
+    if((json.canvases != null) && (json.canvases.length>0)){
+        var i;
+        for(i=0; i<json.canvases.length; i++){
+            var code = "<canvas id="+i+"></canvas>";
+            $(".preview").append(code);
+            loadAndDisabled($("#"+i),json.canvases[i]);
+            //json.canvases[0]);
+
+        }
+    }
 
 
     $('#doneTaskModal').modal('show');
