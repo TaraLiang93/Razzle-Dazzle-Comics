@@ -5,7 +5,8 @@ $(document).ready(function(){
     $(".chapter").each(function(){
         $(this).click(function(){// this should redirect to 1st page of that chapter
             //alert("Clicker");
-            $(location).attr("href","/read/"+$("#seriesTit").text()+"/"+ $(this).attr("id"));
+            $(this).submit();
+            //$(location).attr("href","/read/"+$("#seriesTit").text()+"/"+ $(this).attr("id"));
 
         });
     });

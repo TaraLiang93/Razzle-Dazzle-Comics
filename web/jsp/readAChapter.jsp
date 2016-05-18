@@ -8,23 +8,23 @@
     <h2 class="col-md-8">
         <ul class="breadcrumb">
             <li><a href="/read"><u>All Comics</u></a></li>
-            <li><a href="/create/series/load/${seriesID}"><u>${seriesName}</u></a></li>
-            <li class="active"><u>${chapterStringName}</u></li>
+            <li><a href="/create/series/load/${series.seriesID}"><u>${series.title}</u></a></li>
+            <li class="active"><u>${chapter.chapterString}</u></li>
         </ul>
     </h2>
 
     <div class="form-group col-md-4 pull-right">
         <select class="chapterString form-control">
             <option>Choose A Chapter</option>
-            <c:forEach var="c" items="${chapters}">
+            <c:forEach var="c" items="${series.chapters}">
                 <option value="${c.chapterString}">${c.chapterString}</option>
             </c:forEach>
         </select>
 
         <select class="pageNumber form-control">
             <option>select page</option>
-        <c:forEach var="p" items="${pages}">
-            <option value="${p.id}">${p.id}</option>
+        <c:forEach var="p" items="${chapter.publishPages}">
+            <option value="${p.index}">${p.index}</option>
         </c:forEach>
         </select>
     </div>
