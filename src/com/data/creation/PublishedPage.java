@@ -3,6 +3,7 @@ package com.data.creation;
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Readable;
 import com.data.api.queries.internal.GetEntityFromKeyCommand;
+import com.data.api.queries.internal.GetImgUrlFromBlobKey;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
@@ -53,11 +54,15 @@ public class PublishedPage {
         this.index = index;
     }
 
-
+    public String getImage() {
+        String url = GetImgUrlFromBlobKey.getURL(image);
+        return url;
+    }
 
     public enum PAGE_TYPE{
         CANVAS_TYPE, IMAGE_TYPE
     }
+
 
 
     public BlobKey getImageBlob() {

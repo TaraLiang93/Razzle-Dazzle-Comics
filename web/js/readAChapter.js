@@ -11,6 +11,7 @@ $(document).ready(function() {
 
     $(".pageNumber").change(function() {
        console.log($(this).val());
+        $(location).attr("href","/read/"+$(".breadcrumb").find(".active").text()+"/"+$("#chapterID").text()+"?pageNum="+$(this).val()+"&seriesID=" + $("#seriesID").text());
     });
 
 });
