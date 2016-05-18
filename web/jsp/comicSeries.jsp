@@ -62,7 +62,8 @@
 
             <div class="pull-left container" id="seriesChapter">
                 <c:forEach var="chapter" items="${chapters}">
-                    <div class="chapter" id="${chapter.chapterId}" >
+                    <form action="/read/${series.title}/${chapter.chapterId}" method="post" class="chapter" id="${chapter.chapterId}" >
+                        <input type="hidden" name="seriesID" value="${series.seriesID}" />
                         <div class="pull-left col-xs-3">
                             <img class="chapterImg" src="${chapter.chapterCover}">
                         </div>
@@ -77,7 +78,7 @@
                             </div>
                         </div>
 
-                    </div>
+                    </form>
                 </c:forEach>
             </div>
 

@@ -192,6 +192,19 @@ public class Chapter {
     return pageList;
     }
 
+    public List<PublishedPage> getPublishPages(){
+        Readable<PublishedPage> publishedPageReadable = new GetEntityListFromKeyListCommand<>(getPublishedPageList());
+        List<PublishedPage> pageList;
+
+        try {
+            pageList = publishedPageReadable.fetch().getList();
+        } catch (FetchException e) {
+            pageList = new ArrayList<>();
+        }
+
+        return pageList;
+    }
+
     public Key<Chapter> getKey(){
         return Key.create(Chapter.class, chapterId);
     }

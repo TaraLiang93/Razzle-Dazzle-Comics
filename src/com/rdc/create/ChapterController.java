@@ -9,10 +9,7 @@ import com.data.api.exceptions.UpdateException;
 import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
-import com.data.api.queries.external.GetChapterByIDCommand;
-import com.data.api.queries.external.GetSeriesByIDCommand;
-import com.data.api.queries.external.GetTeamMembersOfChapterCommand;
-import com.data.api.queries.external.GetUserDataByUserNameCommand;
+import com.data.api.queries.external.*;
 import com.data.api.updatables.ChapterUpdater;
 import com.data.api.updatables.SeriesUpdater;
 import com.data.api.updatables.UserDataUpdater;
@@ -260,14 +257,38 @@ public class ChapterController {
         return null;
     }
 
-    @RequestMapping(value="/read/{seriesName}/{id}", method = RequestMethod.GET)
-    public ModelAndView readChapter(@PathVariable String seriesName, @PathVariable String id,ModelMap map){
+    @RequestMapping(value="/read/{seriesName}/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView readChapter(HttpServletRequest req,@PathVariable String seriesName, @PathVariable String id,@RequestParam String seriesID, ModelMap map){
+
+
+        String currentPage;
 
 
 
-        Readable<PublishedPage> publishedPageReadable = null;
+        Readable<Chapter> chapterReadable = new GetChapterByIDCommand(id);
+        Readable<Series> seriesReadable = new GetSeriesByIDCommand(seriesID);
         try {
-            PublishedPage page  = publishedPageReadable.fetch().getResult();
+
+            Chapter chapter = chapterReadable.fetch().getResult();
+            Series series = seriesReadable.fetch().getResult();
+
+            if( ( currentPage=req.getParameter("pageNum") ) == null ){
+                currentPage = "0";
+            }
+
+            PublishedPage publishedPage = null;
+
+            for(PublishedPage page : chapter.getPublishedPages()){
+                if(page.getIndex() == Integer.parseInt(currentPage) )
+                {
+                   publishedPage = page;
+                    break;
+                }
+            }
+
+            map.put("chapter",chapter);
+            map.put("series",series);
+            map.put("publishPage",publishedPage);
 
         } catch (FetchException e) {
             e.printStackTrace();
