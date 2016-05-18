@@ -57,8 +57,8 @@ $(document).ready(function() {
     //var newHeight = $(window).height()-$("body").height();
     //var newWidth = $(window).width();
         //-$(".toolbar").width();
-    canvas.setWidth(600);
-    canvas.setHeight(900);
+    canvas.setWidth(900);
+    canvas.setHeight(600);
     //canvas.resizeCanvas(600,600);
 
     origHeight = canvas.getHeight();
@@ -627,10 +627,16 @@ function addTextStr(str){
     Stack.push(canvas._objects[canvas._objects.length-1]);
 }
 
-function loadAndDisabled(can, str){
-    //canvas = new fabric.Canvas(can); //link the canvas with a fabric canvas'
-    can.loadFromJSON(str, canvas.renderAll.bind(can));
-    can.deactivateAll();
+function loadAndDisabled(canv, str){
+    var can = new fabric.Canvas($(canv).attr("id"));
+    can.setWidth(900);
+    can.setHeight(600);
+    can.loadFromJSON(str, can.renderAll.bind(can), function(o, object){
+        fabric.log(o,object);
+    });
     can.selection = false;
+    can.forEachObject(function(o) {
+        o.selectable = false;
+    });
 }
 
