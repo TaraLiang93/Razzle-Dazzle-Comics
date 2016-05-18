@@ -266,7 +266,7 @@ function loadPreDrawTask(json){
     k = 0;
     var appendText ="";
     $('#preDrawTaskAccordion').empty();
-    for(i=0; i < json.scenes.length; i++){
+    for(i=0; i < json.scenes.length; i++, k++){
         appendText += "<div class=\"panel panel-default\">" +
             "<div class=\"panel-heading\" role=\"tab\" id=\"heading"+k+"\">" +
             "<h4 class=\"panel-title\">" +
@@ -275,11 +275,10 @@ function loadPreDrawTask(json){
             "<div id=\"collapse"+k+"\" class=\"panel-collapse collapse in\" role=\"tabpanel\" aria-labelledby=\"heading"+k+"\">" +
             "<div class=\"panel-body\">";
 
-        for(j=0; j < json.scenes[i].dialogue.length; j++, k++) {
+        for(j=0; j < json.scenes[i].dialogue.length; j++) {
             appendText += ("<p>"+json.scenes[i].dialogue[j] +"</p>");
         }
         appendText +="</div></div></div>";
-        k++;
     }
     if(appendText != "")
         $('#preDrawTaskAccordion').append(appendText);
