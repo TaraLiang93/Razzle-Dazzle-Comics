@@ -185,7 +185,7 @@ $(document).ready(function(){
     $("#addPage").click(function(){
        console.log("Add Page Clicked");
         $('#newTaskdesc').val("");
-        $('#newTaskModal').modal('show');
+        $('#newTaskModal').modal({show:true});
     });
 
     $('.flow').each(function(){

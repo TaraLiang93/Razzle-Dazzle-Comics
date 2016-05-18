@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <datastore-indexes autoGenerate="true">
-    <datastore-index kind="Series" ancestor="false" source="manual">
-        <property name="published" direction="asc"/>
-        <property name="createDate" direction="desc"/>
-    </datastore-index>
-    <datastore-index kind="Series" ancestor="false" source="manual">
-        <property name="published" direction="asc"/>
-        <property name="views" direction="desc"/>
-    </datastore-index>
+
 </datastore-indexes>

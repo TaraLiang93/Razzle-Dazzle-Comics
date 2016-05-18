@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="header.jsp">
     <jsp:param name="title" value="Latest Releases"/>
-    <jsp:param name="subtitle" value="Latest Realease"/>
+    <jsp:param name="subtitle" value="Latest Release"/>
     <jsp:param name="css" value="/css/latestRelease.css"/>
     <jsp:param name="js" value="/js/latestRelease.js"/>
 </jsp:include>
