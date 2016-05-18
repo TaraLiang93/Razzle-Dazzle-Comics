@@ -7,7 +7,7 @@ $(document).ready(function() {
 
     $(".chapterString").change(function() {
         console.log($(this).val());
-        $(".chapterForm").attr("action","/read/"+$(".goToSeries").val()+"/"+$("#chapterID").text());
+        //$(".chapterForm").attr("action","/read/"+$(".goToSeries").val()+"/"+$("#chapterID").text());
         $(".chapterForm").submit();
     });
 
