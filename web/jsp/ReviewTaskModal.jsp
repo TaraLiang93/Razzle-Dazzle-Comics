@@ -63,7 +63,7 @@
                         <div class="pull-left col-md-7">
 
                             <div class="row">
-                                <canvas id="reviewCanvas"></canvas>
+                                    <canvas id="reviewCanvas" style="width:100vw; height:100vh;"></canvas>
                             </div>
                             <div class="row">
                                 <jsp:include page="taskDescription.jsp">

@@ -17,11 +17,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 id="doneTaskPageTitle" class="modal-title pull-left"></h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="overflow-y:scroll">
                 <div class="topDoneTask center-stage" style="width:95%; margin:auto; ">
                     <div class="row">
-                        <div class="pull-left col-md-8">
-                                <canvas></canvas>
+                        <div class="pull-left col-md-8 preview">
+                                <%--<canvas></canvas>--%>
                         </div> <!-- Left Column-->
 
                     </div> <!-- row -->
