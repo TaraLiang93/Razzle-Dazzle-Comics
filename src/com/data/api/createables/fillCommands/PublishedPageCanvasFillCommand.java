@@ -34,6 +34,7 @@ public class PublishedPageCanvasFillCommand implements FillDataCommand<Published
             Container<Chapter> getChapter = new GetChapterByIDCommand(chapterID).fetch();
             entity.setCanvasKey(canvas);
             entity.setIndex(index);
+            entity.setType(PublishedPage.PAGE_TYPE.CANVAS_TYPE);
         } catch (FetchException e) {
             e.printStackTrace();
         }

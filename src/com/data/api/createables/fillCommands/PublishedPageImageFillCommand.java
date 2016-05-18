@@ -26,6 +26,7 @@ public class PublishedPageImageFillCommand implements FillDataCommand<PublishedP
 
         entity.setIndex(index);
         entity.setImageBlob(key);
+        entity.setType(PublishedPage.PAGE_TYPE.IMAGE_TYPE);
     }
 
 }

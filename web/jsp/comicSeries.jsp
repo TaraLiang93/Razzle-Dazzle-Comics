@@ -64,7 +64,7 @@
                 <c:forEach var="chapter" items="${chapters}">
                     <div class="chapter" id="${chapter.chapterId}" >
                         <div class="pull-left col-xs-3">
-                            <img class="chapterImg" src="${chapter.chapterCover}">
+                            <img class="chapterImg" src="${chapter.chapterCoverString}">
                         </div>
                         <div class="col-xs-9">
                             <div class="col-xs-12">

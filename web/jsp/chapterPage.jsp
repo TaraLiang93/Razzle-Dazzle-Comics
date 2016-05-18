@@ -38,7 +38,7 @@
                         <a class="btn btn-link change" id="editChapterInfo">
                             <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
                         </a>
-                        <img src="${chapter.chapterCover}" id="img" class="pull-left">
+                        <img src="${chapter.chapterCoverString}" id="img" class="pull-left">
                         <div class="text pull-right">
                             <div class="info">
                                 <p style="font-weight: bold">Title:</p>
@@ -160,7 +160,7 @@
 
                             <div class="editImg">
                                 <p style="font-weight: bold">Chapter Icon: </p>
-                                <img id="imgPreview" src="${chapter.chapterCover}">
+                                <img id="imgPreview" src="${chapter.chapterCoverString}">
 
                                     <input type="hidden" name="chapterID" value="${chapterId}"/>
                                     <input name="imgSrc"  id="browseImg" type="file" accept="image/*" class="hide">

@@ -71,12 +71,12 @@ public class Chapter {
         this.title = title;
     }
 
-    public String getChapterCover() {
+    public String getChapterCoverString() {
         String url = (chapterCover == null)? DEFAULT_IMG : GetImgUrlFromBlobKey.getURL(chapterCover);
         return url;
     }
 
-    public BlobKey getChapterCoverBlob(){
+    public BlobKey getChapterCover(){
         return chapterCover;
     }
 

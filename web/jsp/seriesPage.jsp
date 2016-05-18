@@ -20,7 +20,7 @@
                 <c:forEach var="chapter" items="${chapters}">
                     <form action="/create/chapter/load/${chapter.chapterId}" class="chapter" id="${chapter.chapterId}">
                         <input type="text" style="display: none;" name="seriesID" value="${series.seriesID}" />
-                        <img class="pull-left chapterImg" src="${chapter.chapterCover}">
+                        <img class="pull-left chapterImg" src="${chapter.chapterCoverString}">
                         <div>
                             <h2 id="chapterTitle">${chapter.title}</h2>
                         </div>

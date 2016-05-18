@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-    <img src="${chapterCover}"/>
+    <img src="${chapterCoverString}"/>
 </body>
 </html>
