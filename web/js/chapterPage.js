@@ -318,6 +318,8 @@ function loadReviewTask(json){
         $('#reviewTaskcommentsBox').append(appendText);
     }
 
+    loadAndDisabled($("#reviewCanvas"),json.canvases[0]);
+
     $('#reviewTaskModal').modal('show');
 }
 

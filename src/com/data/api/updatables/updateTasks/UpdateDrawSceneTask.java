@@ -31,8 +31,8 @@ public class UpdateDrawSceneTask implements UpdateTask<Scene> {
         Scene scene = entity.getResult();
 
         Updateable<Canvas> canvasUpdateable = new CanvasUpdater();
-        Readable<Canvas> canvasReadable = new GetEntityFromKeyCommand<>(scene.getCanvasElement());
-        canvasUpdateable.updateEntity( canvasReadable, new UpdateCanvasTask(JSONString) );
+        Readable<Canvas> canvasReadable = new GetEntityFromKeyCommand<>( scene.getCanvasElement() );
+        canvasUpdateable.updateEntity( canvasReadable, new UpdateCanvasTask( JSONString) );
 
         //updateSceneTask calls update CanvasTask
         List<Scene> sceneList = new ArrayList<>();
