@@ -24,10 +24,10 @@
             <jsp:include page="Drawing.jsp"/>
             <div class="drawingSetting">
                 <textarea id="SettingScene" name="setting" placeholder="Setting:" readonly="readonly"
-                          class="setting form-control content-border">${scenes[0].setting}</textarea>
+                          class="setting form-control content-border">${firstScene.setting}</textarea>
             </div>
-            <c:if test="${scenes[0]}">
-                <div id="loadIntoCanvas" style="display: none">${scenes[0].canvas.canvasImage}</div>
+            <c:if test="${firstScene.canvas ne null}">
+                <div id="loadIntoCanvas" style="display: none">${firstScene.canvas.canvasImage}</div>
             </c:if>
 
         </div>
