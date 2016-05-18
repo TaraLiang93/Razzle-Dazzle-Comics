@@ -271,7 +271,7 @@ function loadPreDrawTask(json){
             appendText += ("<p>"+json.scenes[i].dialogue[j] +"</p>");
         }
         appendText +="</div></div></div>";
-
+        k++;
     }
     if(appendText != "")
         $('#preDrawTaskAccordion').append(appendText);

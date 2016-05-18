@@ -59,14 +59,14 @@
             <div class="modal-body">
                 <div class="topPreDrawTask center-stage" style="width:95%; margin:auto; ">
                     <div class="row">
-                        <div class="pull-left col-md-8">
+                        <div class="pull-left col-md-7">
 
                             <div class="row">
                                 <canvas></canvas>
                             </div>
                             <div class="row">
                                 <jsp:include page="taskDescription.jsp">
-                                    <jsp:param name="selector" value="drawTask"/>
+                                    <jsp:param name="selector" value="reviewTask"/>
                                 </jsp:include>
                             </div>
 
