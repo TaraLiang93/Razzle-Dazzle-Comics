@@ -26,7 +26,10 @@
     var totalCount;
     $(document).ready(function(){
        totalCount = $('.flowTask').length + 1;
-        $('#newTasktitle').val("Page " + totalCount);
+        $('#newTaskModal').on('shown.bs.modal', function() {
+            $('#newTasktitle').val("Page " + totalCount);
+            $("#newTasktitle").focus();
+        })
     });
 
     function addTask(){
