@@ -461,8 +461,23 @@ public class PageController {
                 if(scene.getIndex() == i)
                 {
                     Readable<Scene> sceneReadable = new GetSceneByIDCommand(scene.getId());
-                    Updateable<Scene> sceneUpdateable = new SceneUpdater();
-                    sceneUpdateable.updateEntity(sceneReadable, new UpdateDrawSceneTask(canvasJson));
+
+                    if(scene.getCanvasElement() != null) { // then it should be updated
+                        Updateable<Scene> sceneUpdateable = new SceneUpdater();
+                        sceneUpdateable.updateEntity(sceneReadable, new UpdateDrawSceneTask(canvasJson));
+                    }
+                    else // a new canvas should be created
+                    {
+                        Createable<Canvas> canvasCreateable = new CanvasCreater(canvasJson);
+
+                       Canvas canvas = canvasCreateable.createEntity(new CanvasFillCommand(canvasJson));
+
+                        Updateable<Scene> sceneUpdateable = new SceneUpdater();
+
+//                        sceneUpdateable.updateEntity(canvas,new UpdateDrawSceneTask());
+                    }
+
+
                     break;
                 }
             }
