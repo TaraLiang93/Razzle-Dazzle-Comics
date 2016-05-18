@@ -28,7 +28,7 @@
 
 
 <!-- Modal -->
-<form id="seriesForm" method="post" action="/create/drawPage/load" enctype="multipart/form-data">
+<form id="seriesForm" method="post" action="/create/drawPage/load">
     <input id="drawTaskHiddenChapterID" type="hidden" name="chapterID" value="${param.chapterID}"/>
     <input id="drawTaskHiddenPageID" type="hidden" name="pageID" value=""/>
 <div class="modal fade" id="drawTaskModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

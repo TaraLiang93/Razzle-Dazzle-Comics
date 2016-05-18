@@ -10,7 +10,10 @@ import com.data.api.interfaces.Container;
 import com.data.api.interfaces.Createable;
 import com.data.api.interfaces.Readable;
 import com.data.api.interfaces.Updateable;
-import com.data.api.queries.external.*;
+import com.data.api.queries.external.GetChapterByIDCommand;
+import com.data.api.queries.external.GetFlowTaskByIDCommand;
+import com.data.api.queries.external.GetPageByIDCommand;
+import com.data.api.queries.external.GetSceneByIDCommand;
 import com.data.api.updatables.*;
 import com.data.api.updatables.updateTasks.*;
 import com.data.creation.*;
@@ -19,9 +22,7 @@ import com.data.structure.FlowTask;
 import com.data.structure.FlowType;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
-import com.google.appengine.labs.repackaged.org.json.JSONObject;
 import com.google.appengine.repackaged.com.google.gson.JsonArray;
-import com.google.appengine.repackaged.com.google.gson.JsonElement;
 import com.google.appengine.repackaged.com.google.gson.JsonObject;
 import com.model.WritePageModel;
 import org.springframework.http.HttpStatus;
@@ -63,10 +64,8 @@ public class PageController {
     private final SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
 
     @RequestMapping(value=LOAD_DRAW_PAGE, method={RequestMethod.GET , RequestMethod.POST})
-    public ModelAndView redirectDrawPage(HttpServletRequest req,ModelMap map){
+    public ModelAndView redirectDrawPage(@RequestParam String pageID, @RequestParam String chapterID, HttpServletRequest req,ModelMap map){
 
-        String chapterID = req.getParameter("chapterID");
-        String pageID = req.getParameter("pageID");
 
         Readable<Chapter> chapterReadable = new GetChapterByIDCommand(chapterID);
         Readable<Page> pageReadable = new GetPageByIDCommand(pageID);
