@@ -19,7 +19,7 @@
 <script src="/js/fabric.js"></script>
 <script src="/js/drawing.js"></script>
 <div style="width:100vw;">
-    <div style="width:950px; margin:0 auto;">
+    <div style="width:1250px; margin:0 auto;">
         <div class="drawingContainer">
             <jsp:include page="Drawing.jsp"/>
             <div class="drawingSetting">

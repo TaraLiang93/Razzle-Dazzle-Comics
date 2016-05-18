@@ -180,7 +180,7 @@
 
 </div>
 
-<div id="canvasContainer" style ="height:600px; width:600px;    overflow: scroll;">
+<div id="canvasContainer" style ="height:600px; width:900px;    overflow: scroll;">
     <canvas id="canvas" style="border-style: solid" height="900px" width=" 600px"></canvas>
 </div>
 </div>

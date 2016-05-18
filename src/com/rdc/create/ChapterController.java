@@ -29,7 +29,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -258,7 +260,7 @@ public class ChapterController {
     }
 
     @RequestMapping(value="/read/{seriesName}/{id}", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView readChapter(HttpServletRequest req,@PathVariable String seriesName, @PathVariable String id,@RequestParam String seriesID, ModelMap map){
+    public ModelAndView readChapter(HttpServletResponse response, HttpServletRequest req, @PathVariable String seriesName, @PathVariable String id, @RequestParam String seriesID, ModelMap map){
 
 
         String currentPage;
@@ -292,11 +294,15 @@ public class ChapterController {
             map.put("series",series);
             map.put("publishPage",publishedPage);
 
+
         } catch (FetchException e) {
             e.printStackTrace();
         }
-
-
+    try {
+        response.getWriter().print("<script language='JavaScript'>loadAndDisabled($('#canvasID'), $('#loadCanvasJSON').val());</script>");
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
         return new ModelAndView("readAChapter");
     }
 

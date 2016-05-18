@@ -26,20 +26,20 @@
 
 .drawingContainer {
     float: left;
-    width: 750px;
+    width: 1050px;
 }
 .drawingScenes {
     clear: both;
-    width: 950px;
+    width: 1050px;
     height: 15vh;
     overflow-x: scroll;
     overflow-y: hidden;
 }
 
 .drawingSetting {
-    left: 20%;
+    left: 150px;
     position: relative;
-    width: 600px;
+    width: 900px;
 }
 
 #sceneCarousel {
