@@ -1,5 +1,6 @@
 package com.data.api.createables;
 
+import com.data.api.createables.fillCommands.NoWork;
 import com.data.api.exceptions.CreateException;
 import com.data.api.exceptions.FetchException;
 import com.data.api.interfaces.Createable;
@@ -7,6 +8,7 @@ import com.data.creation.Dialogue;
 import com.data.creation.Scene;
 import com.model.SceneModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +31,10 @@ public class SceneCreater extends Createable<Scene> {
                                 sceneModel.getSetting(),
                                 sceneModel.getTinyMCEText());
 
-
+        List<Dialogue> getDialogs = parseDialogue(sceneModel.getTinyMCEText());
+        for(Dialogue d : getDialogs){
+            scene.getDialogueList().add(d.getKey());
+        }
 
         return scene;
     }
@@ -38,10 +43,28 @@ public class SceneCreater extends Createable<Scene> {
 
         String[] dialogue = tinyMCEText.split("\\s*<p>\\s*|\\s*</p>\\s*");
 
-        for(int i=0; i < dialogue.length; i++){
-
+        List<String> dialogueStrings = new ArrayList<>();
+        for(int i = 0; i < dialogue.length; i++){
+            if(dialogue[i].trim().startsWith("&") || dialogue[i].trim().equals("")){
+                System.out.println("nahh");
+            }
+            else{
+                dialogueStrings.add(dialogue[i]);
+            }
         }
-        return null;
+
+        List<Dialogue> dialogs = new ArrayList<>();
+
+        for(int i = 0;i < dialogueStrings.size();i++){
+            try {
+                Dialogue dialog = new DialogueCreater(dialogueStrings.get(i)).createEntity(new NoWork<Dialogue>());
+                dialogs.add(dialog);
+            } catch (CreateException | FetchException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return dialogs;
     }
 
 }

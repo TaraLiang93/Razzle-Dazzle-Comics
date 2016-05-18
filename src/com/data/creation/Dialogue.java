@@ -1,5 +1,6 @@
 package com.data.creation;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
@@ -52,6 +53,10 @@ public class Dialogue {
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+   public Key<Dialogue> getKey(){
+        return Key.create(Dialogue.class, id);
     }
 
     @Override

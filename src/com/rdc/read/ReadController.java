@@ -44,7 +44,7 @@ public class ReadController {
             List<Series> allSeries = seriesReadable.fetch().getList();
             HashSet<Series> randomSeries = new HashSet<>();
 
-            while(!randomSeries.isEmpty() && randomSeries.size() < 5) {// grab series at random and then loop until there is 5 series in the map
+            while(!allSeries.isEmpty() && randomSeries.size() < 5) {// grab series at random and then loop until there is 5 series in the map
                 int index = (int) Math.floor(Math.random() * allSeries.size());
                 randomSeries.add(allSeries.get(index));
             }

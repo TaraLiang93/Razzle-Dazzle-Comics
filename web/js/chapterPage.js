@@ -302,11 +302,15 @@ function loadDrawTask(json){
         $('#drawTaskcommentsBox').append(appendText);
     }
 
-    $('#drawTaskDialogBox').empty();
-    for(i=0; i < json.dialogues; i++){
-        var appendText = "<p style=\"text-align:center; overflow:hidden;\">"+json.dialogues[i]+"</p>";
 
-        $('#drawTaskDialogBox').append(appendText);
+    $('#drawTaskDialogBox').empty();
+
+    for(i=0; i < json.scenes.length; i++){
+        for(j=0; j < json.scenes[i].dialogue.length; j++) {
+            var appendText = "<p style=\"text-align:center; overflow:hidden;\">"+json.scenes[i].dialogue[j]+"</p>";
+
+            $('#drawTaskDialogBox').append(appendText);
+        }
     }
 
     $('#drawTaskModal').modal('show');
