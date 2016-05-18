@@ -8,7 +8,7 @@
 <script src="/js/drawingtool.js"></script>
 
 
-<div class="readChapterContainer col-xs-10 col-xs-offset-1">
+<div class="readChapterContainer col-xs-12">
     <h2 class="col-md-8">
         <ul class="breadcrumb">
             <li><a href="/read"><u>All Comics</u></a></li>
@@ -39,7 +39,7 @@
     <div class="currentPage">
         <c:choose>
             <c:when test="${publishPage.type eq 'CANVAS_TYPE'}">
-                <div class="canvasScreen content-border">
+                <div class="canvasScreen content-border col-md-8 col-md-offset-2" style="position: absolute; top: 100px;">
                         <canvas id="canvasID"></canvas>
                         <div style="display: none" id="loadCanvasJSON">${publishPage.canvas.canvasImage}</div>
                 </div>

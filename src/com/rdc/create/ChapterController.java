@@ -294,11 +294,19 @@ public class ChapterController {
             map.put("series",series);
             map.put("publishPage",publishedPage);
 
+            Updateable<Series> seriesUpdatable = new SeriesUpdater();
+
+            seriesUpdatable.updateEntity(seriesReadable, new UpdateSeriesIncrementViews(series.getSeriesID().toString()));
+
 
         } catch (FetchException e) {
             e.printStackTrace();
+        } catch (CreateException e) {
+            e.printStackTrace();
+        } catch (UpdateException e) {
+            e.printStackTrace();
         }
-    try {
+        try {
         response.getWriter().print("<script language='JavaScript'>loadAndDisabled($('#canvasID'), $('#loadCanvasJSON').val());</script>");
     } catch (IOException e) {
         e.printStackTrace();
