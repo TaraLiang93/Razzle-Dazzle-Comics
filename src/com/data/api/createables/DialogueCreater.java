@@ -18,7 +18,6 @@ public class DialogueCreater extends Createable<Dialogue> {
 
     @Override
     protected Dialogue getEntity() throws CreateException, FetchException {
-
-        return null;
+        return new Dialogue(dialogue);
     }
 }
