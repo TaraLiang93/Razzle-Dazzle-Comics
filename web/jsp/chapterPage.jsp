@@ -12,6 +12,7 @@
         <jsp:param name="css" value="/css/chapterPage.css"/>
         <jsp:param name="js" value="/js/chapterPage.js"/>
     </jsp:include>
+    <script src="/js/drawingtool.js"></script>
 
     <form action="/create/publish/canvas" >
 

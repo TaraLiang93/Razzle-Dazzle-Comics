@@ -627,9 +627,10 @@ function addTextStr(str){
     Stack.push(canvas._objects[canvas._objects.length-1]);
 }
 
-function loadAndDisabled(canvas, str){
-    canvas.loadFromJSON(str);
-    canvas.deactivateAll();
-    canvas.selection = false;
+function loadAndDisabled(can, str){
+    //canvas = new fabric.Canvas(can); //link the canvas with a fabric canvas'
+    can.loadFromJSON(str, canvas.renderAll.bind(can));
+    can.deactivateAll();
+    can.selection = false;
 }
 

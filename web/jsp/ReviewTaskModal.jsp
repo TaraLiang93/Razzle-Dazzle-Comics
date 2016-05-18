@@ -48,6 +48,7 @@
 
 <!-- Modal -->
 <input id="reviewTaskHiddenChapterID" type="hidden" name="chapterID" value="${param.chapterID}"/>
+<input id="reviewTaskCanvasJsonString" type="hidden" name="canvasJson" value=""/>
 <input id="reviewTaskHiddenPageID" type="hidden" name="pageID" value=""/>
 <div id="reviewTaskModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -62,7 +63,7 @@
                         <div class="pull-left col-md-8">
 
                             <div class="row">
-                                <canvas></canvas>
+                                <canvas id="reviewCanvas"></canvas>
                             </div>
                             <div class="row">
                                 <jsp:include page="taskDescription.jsp">
