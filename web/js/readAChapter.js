@@ -21,7 +21,6 @@ $(document).ready(function() {
         $(".gotoSeriesForm").submit();
     });
 
-    $.keypress(function(e){
-        console.log(e.keyCode);
-    })
+    //if($("#canvasID").length > 0)
+        loadAndDisabled($("#canvasID"), $("#loadCanvasJSON").text());
 });

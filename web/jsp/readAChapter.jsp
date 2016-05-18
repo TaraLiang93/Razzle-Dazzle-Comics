@@ -4,6 +4,9 @@
     <jsp:param name="js" value="/js/readAChapter.js" />
 </jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="/js/fabric.js"></script>
+<script src="/js/drawingtool.js"></script>
+
 
 <div class="readChapterContainer col-xs-10 col-xs-offset-1">
     <h2 class="col-md-8">
@@ -37,9 +40,8 @@
         <c:choose>
             <c:when test="${publishPage.type eq 'CANVAS_TYPE'}">
                 <div class="canvasScreen content-border">
-                    <c:forEach var="c" items="${publishPage.canvas}">
-                        <canvas class="$">${c.canvasJSON}</canvas>
-                    </c:forEach>
+                        <canvas id="canvasID"></canvas>
+                        <div style="display: none" id="loadCanvasJSON">${publishPage.canvas.canvasImage}</div>
                 </div>
             </c:when>
             <c:when test="${publishPage.type eq 'IMAGE_TYPE'}">
