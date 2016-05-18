@@ -9,7 +9,10 @@
     <h2 class="col-md-8">
         <ul class="breadcrumb">
             <li><a href="/read"><u>All Comics</u></a></li>
-            <li><a href="/create/series/load/${series.seriesID}"><u>${series.title}</u></a></li>
+            <li><form class="gotoSeriesForm" style="display: inline" action="/read/${series.title}" method="post">
+                <input type="hidden" name="seriesID" value="${series.seriesID}"/>
+                <a class="goToSeries"><u>${series.title}</u></a>
+            </form></li>
             <li class="active"><u>${chapter.title}</u></li>
         </ul>
     </h2>
@@ -25,7 +28,7 @@
         <select class="pageNumber form-control">
             <option>select page</option>
         <c:forEach var="p" items="${chapter.publishPages}">
-            <option value="${p.index}">${p.index+1}</option>
+            <option value="${p.index}" ${publishPage.index eq p.index ? 'selected' : ''}>${p.index+1}</option>
         </c:forEach>
         </select>
     </div>
@@ -40,15 +43,18 @@
                 </div>
             </c:when>
             <c:when test="${publishPage.type eq 'IMAGE_TYPE'}">
-                <img class="readPageImg" src="${publishPage.image}"/>
+                <img  class="readPageImg col-md-8 col-md-offset-2" src="${publishPage.image}"/>
             </c:when>
 
         </c:choose>
     </div>
 </div>
 
-<div style="display: none" id="chapterID">${chapter.chapterId}</div>
-<div style="display: none" id="seriesID">${series.seriesID}</div>
+<form class="pageForm" style="display: none" action="/read/${series.title}/${chapter.chapterId}" method="post">
+<input type="hidden" name="chapterID" id="chapterID" value="${chapter.chapterId}" />
+<input type="hidden" id="pageNum" name="pageNum" />
+<input type="hidden" name="seriesID" value="${series.seriesID}" />
+</form>
 
 
 <jsp:include page="footer.jsp"/>

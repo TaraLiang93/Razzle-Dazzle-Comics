@@ -278,7 +278,9 @@ public class ChapterController {
 
             PublishedPage publishedPage = null;
 
-            for(PublishedPage page : chapter.getPublishedPages()){
+            List<PublishedPage> publishedPages = chapter.getPublishedPages();
+
+            for(PublishedPage page : publishedPages ){
                 if(page.getIndex() == Integer.parseInt(currentPage) )
                 {
                    publishedPage = page;
