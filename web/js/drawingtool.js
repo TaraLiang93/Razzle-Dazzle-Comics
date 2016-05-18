@@ -239,8 +239,8 @@ $(document).ready(function() {
         eraserOn = false;
         canvas.isDrawingMode = false;
         var Rect = new fabric.Rect({
-            width: (canvas.getWidth() /4),
-            height: (canvas.getHeight()/6),
+            width: (canvas.getWidth() /6),
+            height: (canvas.getHeight()/4),
             left: 25,
             top: 25,
             stroke: lineColor,

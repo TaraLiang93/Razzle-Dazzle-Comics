@@ -179,7 +179,7 @@ $(document).ready(function(){
 
     $('#returnSeries').click(function(){
         var series = $('#seriesID').text();
-        window.location.href="/create/series/load/" + series;
+        window.location.href="/create/projectAdminPage";
     });
 
     $("#addPage").click(function(){
