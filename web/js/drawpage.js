@@ -42,7 +42,7 @@ $(document).ready(function() {
     });
 
     $("#saveDrawing").click(function() {
-        var jsonObj = {"size" : 0, "pageID": "11234523"};
+        var jsonObj = {"size" : 0, "pageID": $("#pageID").text()};
         var i = 0;
         saveSelectedPage();
         $(".scene").each(function() {
@@ -57,11 +57,11 @@ $(document).ready(function() {
 
         $.post("/create/drawPage/save", jsonObj )
             .done(function() {
-            console.log("Yes");
+            console.log("it saved successfully");
                 $(location).attr("href","/create/chapter/load/" + $("#chapterID").text());
         })
             .fail(function() {
-               console.log("No");
+               console.log("it failed");
             });
     })
 

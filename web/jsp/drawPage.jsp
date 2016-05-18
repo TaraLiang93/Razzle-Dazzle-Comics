@@ -26,7 +26,7 @@
                 <textarea id="SettingScene" name="setting" placeholder="Setting:" readonly="readonly"
                           class="setting form-control content-border">${firstScene.setting}</textarea>
             </div>
-            <c:if test="${firstScene}">
+            <c:if test="${firstScene.canvas ne null}">
                 <div id="loadIntoCanvas" style="display: none">${firstScene.canvas.canvasImage}</div>
             </c:if>
 
@@ -99,6 +99,10 @@
 </div>
 
     <c:if test="${chapterID ne null}">
-        <div id="chapterID">${chapterID}</div>
+        <div id="chapterID" style="display: none">${chapterID}</div>
+    </c:if>
+
+    <c:if test="${page ne null}">
+        <div id="pageID" style="display: none">${page.id}</div>
     </c:if>
 <jsp:include page="footer.jsp"/>
