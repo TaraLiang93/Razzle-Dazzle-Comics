@@ -61,14 +61,13 @@ $(document).ready(function(){
         console.log("team modal open");
         $(".deleteMember").click(deleteMember = function(){
 
-            if(newMember == $("#currentUserName").text()){
-                $("#newMember").val("");
-                return;
-            }
-
             var selector = "#" +$(".name").get(this.getAttribute("id")).innerHTML + "ID";
             var parent = $(this).parent().parent();
             var userName = parent.find(".userName").text();
+            if(userName == $("#currentUserName").text()){
+                $("#newMember").val("");
+                return;
+            }
             console.log("plz delete "+$(".name").get(this.getAttribute("id")).innerHTML);
             var jsonObj = {"chapterID": chapterId.text(), "removeMember": userName, seriesID : $("#seriesID").text()};
             $.post("/create/chapter/removeMember", jsonObj)
@@ -103,7 +102,7 @@ $(document).ready(function(){
                 return;
             }
 
-            if(newMember == $("#currentUserName").text()){
+            if(newMember.toLowerCase() == $("#currentUserName").text().toLowerCase()){
                 $("#newMember").val("");
                 return;
             }
