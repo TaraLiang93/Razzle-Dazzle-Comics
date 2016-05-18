@@ -184,7 +184,6 @@ $(document).ready(function(){
 
     $("#addPage").click(function(){
        console.log("Add Page Clicked");
-        $('#newTasktitle').val("Page " + totalCount);
         $('#newTaskdesc').val("");
         $('#newTaskModal').modal('show');
     });
