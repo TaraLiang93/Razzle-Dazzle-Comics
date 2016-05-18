@@ -210,6 +210,7 @@
 
     <c:if test="${userData ne null}">
         <div id="currentUserID" style="display: none">${userData.nickName}</div>
+        <div id="currentUserName" style="display: none">${userData.userName}</div>
     </c:if>
 
     <c:if test="${seriesID ne null}">

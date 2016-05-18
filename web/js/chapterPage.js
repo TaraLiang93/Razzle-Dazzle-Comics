@@ -60,6 +60,12 @@ $(document).ready(function(){
     $("#teamModal").on("shown.bs.modal",function(){
         console.log("team modal open");
         $(".deleteMember").click(deleteMember = function(){
+
+            if(newMember == $("#currentUserName").text()){
+                $("#newMember").val("");
+                return;
+            }
+
             var selector = "#" +$(".name").get(this.getAttribute("id")).innerHTML + "ID";
             var parent = $(this).parent().parent();
             var userName = parent.find(".userName").text();
@@ -97,6 +103,10 @@ $(document).ready(function(){
                 return;
             }
 
+            if(newMember == $("#currentUserName").text()){
+                $("#newMember").val("");
+                return;
+            }
 
             $.post("/create/chapter/addMember", {"chapterID": chapterId.text(), "newMemeber": newMember, seriesID : $("#seriesID").text()})
                 .done(function(){
