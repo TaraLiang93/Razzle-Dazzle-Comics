@@ -56,5 +56,9 @@
 <input type="hidden" name="seriesID" value="${series.seriesID}" />
 </form>
 
+<form class="chapterForm" style="display: none" method="post">
+    <input type="hidden" name="seriesID" value="${series.seriesID}"/>
+</form>
+
 
 <jsp:include page="footer.jsp"/>
