@@ -10,4 +10,4 @@ Razzle Dazzle Comics
   * James Huang
   
   
-  Check us out [here](http://razzledazzlecomics.appspot.com/) to start your collaborative experience today
+  Check us out [here](http://final-dot-razzledazzlecomics.appspot.com/) to start your collaborative experience today
